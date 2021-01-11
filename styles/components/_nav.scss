@@ -1,0 +1,121 @@
+//Navigation Section
+@mixin Navbar($container-width: 100%) {
+  @include font($font-md, $font-sans);
+  z-index: $z-2;
+  position: sticky;
+  top: 0;
+  //TO DO: Make padding smaller for smaller devices and make logo smaller for smaller devices
+  padding: 1rem 0;
+  width: 100%;
+
+  .nav-container {
+    @include alignContainer(#{$container-width});
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .nav-ul {
+    display: flex;
+    list-style-type: none;
+    font-size: $font-sm;
+    align-items: center;
+
+    //Responsiveness
+    @include media("<=lg") {
+      visibility: hidden;
+      display: none;
+    }
+  }
+
+  .nav-links {
+    margin-right: 2.5rem;
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      @include navAnimations($primary, 0);
+      transition: all 0.5s ease;
+    }
+    &:hover::after {
+      width: 100%;
+    }
+  }
+
+  a {
+    color: $white;
+  }
+  .nav-burger-icon {
+    @include burger-icon;
+  }
+
+  //Mobile navbar and Burger Icon
+
+  .mobile-menu {
+    z-index: $z-2;
+    width: 90vw;
+    height: 80vh;
+    position: absolute;
+    top: 7.5em;
+    left: 5em;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: rgba($secondary, 0.98);
+    list-style-type: none;
+    & li:first-child {
+    }
+
+    .nav__links {
+      @include font($font-md, $font-sans);
+      width: min-content;
+      position: relative;
+      text-align: center;
+      color: $white;
+      font-size: $font-md;
+
+      &::before {
+        content: "";
+        @include navAnimations($white, 0, inherit);
+        transition: all 0.5s ease;
+      }
+      &:hover::before {
+        width: 100%;
+      }
+    }
+  }
+
+  //Navigation active Class
+
+  .nav-active {
+    a {
+      position: relative;
+      color: $primary;
+    }
+    span {
+      @include navAnimations();
+    }
+  }
+  .nav-active-mobile {
+    a {
+      color: $accent;
+    }
+    &::after {
+      content: "";
+      @include navAnimations($accent);
+    }
+  }
+}
+
+@mixin navAnimations($border-color: $primary, $width: 100%, $left: 0) {
+  position: absolute;
+  width: $width;
+  top: 1.5em;
+  right: 0;
+  bottom: 0;
+  left: $left;
+  border-radius: 2px;
+  border-bottom: 3px solid $border-color;
+}

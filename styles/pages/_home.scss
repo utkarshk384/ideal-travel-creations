@@ -1,0 +1,66 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+
+.home {
+  @include media(">2xl") {
+    width: 70%;
+  }
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  &-nav {
+    @include Navbar(80%);
+  }
+}
+
+//Hero Container
+.hero {
+  @include font($font-normal, $font-sans);
+  width: 100%;
+
+  &-bg {
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(40%); //Darken Background Image used in the Hero Seciton
+  }
+
+  &-container {
+    @include alignContainer(80%);
+    z-index: $z-1; //Used to bring content above the background
+    position: relative;
+    margin-top: 1rem;
+    color: $white;
+  }
+
+  &-center-text {
+    @include alignContainer(95%);
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include media(">sm") {
+      @include alignContainer(70%);
+    }
+
+    & span {
+      font-weight: $font-bold;
+      width: 100%;
+      font-size: $font-lg;
+      text-transform: uppercase;
+      line-height: 1.5;
+      margin-bottom: 1em;
+
+      @include media(">xs") {
+        width: 80%;
+      }
+    }
+
+    & small {
+      font-size: $font-md;
+      color: $grey;
+    }
+  }
+}

@@ -1,0 +1,66 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Colors
+$black: #1f1e25 !default;
+$white: #ffffff !default;
+$grey: #c1c1c1 !default;
+
+$colors: (
+  primary: #d5f1a4,
+  secondary: #547a13,
+  accent: #c39462,
+  alert: #e98b8b,
+  bg: #{$white},
+  bg-light: #f1f1f1,
+);
+
+$colors-dark: (
+  primary: #547a13,
+  secondary: #d5f1a4,
+  accent: #c39462,
+  alert: #e98b8b,
+  bg: #{$black},
+);
+
+$primary: map-get($colors, primary);
+$secondary: map-get($colors, secondary);
+$accent: map-get($colors, accent);
+$alert: map-get($colors, alert);
+$bg: map-get($colors, bg);
+$bg-light: map-get($colors, bg-light);
+
+///Fonts
+$font-sans: "Roboto", sans-serif !default;
+$font-serif: "Merriweather", serif !default;
+
+///Font Weights
+$font-light: 300;
+$font-normal: 400;
+$font-bold: 700;
+$font-black: 900;
+
+//Font Sizes
+$font-xl: clamp(2.25rem, 5vw, 5rem);
+$font-lg: clamp(2rem, 4.5vw, 4rem);
+$font-md: clamp(1.25rem, 2.75vw, 2.5rem);
+$font-sm: clamp(12px, 1.5vw, 20px);
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  "xs": 450px,
+  "sm": 640px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1280px,
+  "2xl": 1536px,
+) !default;
+
+///Z- Indexs
+$z-1: 1;
+$z-2: 2;
+$z-3: 3;
+$z-4: 4;

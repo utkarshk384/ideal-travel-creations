@@ -1,0 +1,20 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+
+//Font Mixins
+/// @access public
+/// @param {Number} $weight - Font weight variables
+@mixin font($weight, $style) {
+  font-family: $style;
+  font-weight: $weight;
+}
+
+//Center the container in the viewport
+/// @access public
+/// @param {Number} $width - Any css unit
+@mixin alignContainer($width) {
+  width: $width;
+  margin-left: auto;
+  margin-right: auto;
+}
