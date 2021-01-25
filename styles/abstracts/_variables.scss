@@ -9,19 +9,11 @@ $grey: #c1c1c1 !default;
 
 $colors: (
   primary: #d5f1a4,
-  secondary: #547a13,
+  secondary: #506629,
   accent: #c39462,
   alert: #e98b8b,
   bg: #{$white},
   bg-light: #f1f1f1,
-);
-
-$colors-dark: (
-  primary: #547a13,
-  secondary: #d5f1a4,
-  accent: #c39462,
-  alert: #e98b8b,
-  bg: #{$black},
 );
 
 $primary: map-get($colors, primary);
@@ -42,10 +34,12 @@ $font-bold: 700;
 $font-black: 900;
 
 //Font Sizes
-$font-xl: clamp(2.25rem, 5vw, 5rem);
-$font-lg: clamp(2rem, 4.5vw, 4rem);
-$font-md: clamp(1.25rem, 2.75vw, 2.5rem);
-$font-sm: clamp(12px, 1.5vw, 20px);
+$font-2xl: clamp(5em, 7.5vw, 8em);
+$font-xl: clamp(2.1em, 4em, 4.5em);
+$font-lg: clamp(1.9em, 1.75em, 2.5em);
+$font-md: clamp(1.25em, 1.65em, 2em);
+$font-sm: clamp(1em, 1.1em, 1.3em);
+$font-xs: clamp(0.95em, 1em, 1.1em);
 
 /// Breakpoints map
 /// @prop {String} keys - Keys are identifiers mapped to a given length
@@ -64,3 +58,4 @@ $z-1: 1;
 $z-2: 2;
 $z-3: 3;
 $z-4: 4;
+$z-5: 5;

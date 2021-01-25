@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { Transition } from "react-transition-group";
 import Link from "next/link";
 
-import { NavigationContext } from "../../Context/NavigationContext";
+import { NavigationContext } from "../../src/Context/NavigationContext";
 import navLinks from "./NavData";
 
 interface Istates {

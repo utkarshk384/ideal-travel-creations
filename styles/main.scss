@@ -4,7 +4,7 @@
 @import "abstracts/variables", "abstracts/functions", "abstracts/mixins";
 
 // 2. Vendors
-@import "vendors/normalize", "vendors/include-media";
+@import "vendors/normalize", "vendors/include-media", "vendors/angled-edges";
 
 // 3. Base stuff
 @import "base/base", "base/fonts", "base/helpers";
@@ -13,7 +13,8 @@
 @import "layout/footer";
 
 // 5. Components
-@import "components/burger", "components/nav";
+@import "components/burger", "components/nav", "components/button",
+  "components/homeSlider.scss", "components/footer";
 
 // 6. Page-specific styles
 @import "pages/home";

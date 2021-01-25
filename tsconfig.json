@@ -17,14 +17,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "strictPropertyInitialization": false
     
   },
   "include": [
     "next-env.d.ts",
     "html.d.ts",
+    "graphql.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/pages/home/index.jtsx"  ],
+    "**/*.tsx", 
+    ],
   "exclude": [
     "node_modules"
   ]

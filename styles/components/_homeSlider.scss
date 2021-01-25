@@ -1,0 +1,191 @@
+@mixin homeSlider() {
+  @include alignContainer(90%, false, true);
+  background: $white;
+  position: relative;
+
+  &-h-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-heading {
+    font-weight: $font-bold;
+    color: $secondary;
+  }
+
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+
+  &-l-arrow {
+    margin-right: 1rem;
+  }
+  &-r-arrow {
+    margin-left: 1rem;
+  }
+
+  &-l-arrow::before,
+  &-r-arrow::before {
+    font-family: "Ionicons";
+    color: $accent;
+    font-size: $font-2xl;
+  }
+
+  &-l-arrow::before {
+    content: "\f3cf";
+  }
+
+  &-r-arrow::before {
+    content: "\f3d1";
+  }
+
+  &-cta {
+    margin-bottom: 3em;
+    @include alignContainer(100%);
+    @include Button-anim-icon(
+      20rem,
+      $accent,
+      10px,
+      "\f3d1",
+      "Ionicons",
+      $primary
+    );
+    @include font($font-bold, $font-sans);
+    font-size: $font-sm;
+    color: $white;
+  }
+
+  /*Card Section*/
+
+  .sc-container {
+    width: 30rem;
+    height: 30rem;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+
+    @include media(">xl") {
+      width: 70rem;
+    }
+  }
+
+  .sc {
+    @include setPosition(auto, auto, auto, auto, absolute);
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $secondary;
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.25);
+
+    //Responsiveness
+    @include media(">=xs") {
+      width: 80%;
+    }
+
+    @include media(">=md") {
+      width: 60%;
+      height: 25rem;
+    }
+
+    @include media(">=lg") {
+      width: 20rem;
+    }
+
+    &-wrapper {
+      display: flex;
+      justify-content: center;
+      position: relative;
+
+      @include media(">xl") {
+        justify-content: flex-start;
+      }
+    }
+
+    &-img-wrapper {
+      height: 10rem;
+      width: 100%;
+      position: relative;
+    }
+
+    /*Card Content*/
+    &-content {
+      height: 65%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding: 1rem 1.5rem;
+    }
+
+    &-heading {
+      color: $primary;
+      margin-bottom: 15%;
+    }
+    &-body {
+      text-align: left;
+      color: $white;
+      margin-bottom: 2rem;
+    }
+  }
+
+  /*Class to be applied to the active card*/
+  .sc-active {
+    @include sc-active-hover();
+    position: relative;
+  }
+
+  /*Class to be applied to the card left from the active card*/
+  .sc-active-left {
+    @include sc-active-l-r();
+    @include sc-active-hover();
+  }
+  /*Class to be applied to the card right from the active card*/
+  .sc-active-right {
+    @include sc-active-l-r();
+    @include sc-active-hover();
+  }
+
+  .sc-active,
+  .sc-active-left,
+  .sc-active-right {
+    transition: top 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  }
+
+  .sc-inactive.sc-inactive-left.sc-inactive-right {
+    @include media("<xl") {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  .sc:first-child {
+    left: -125%;
+  }
+
+  @for $i from 2 to 7 {
+    .sc:nth-child(#{$i}) {
+      left: calc(#{$i - 2} * 125%);
+    }
+  }
+}
+
+@mixin sc-active-l-r() {
+  visibility: hidden;
+  opacity: 0;
+
+  @include media(">xl") {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+@mixin sc-active-hover() {
+  top: 0rem;
+  &:hover {
+    top: -0.5rem;
+  }
+}

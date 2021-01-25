@@ -1,0 +1,123 @@
+@mixin footerWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  @include flex-Margin(1.5rem, vertical);
+  h3 {
+    color: $primary;
+    padding-left: 3rem;
+    margin-bottom: 1rem;
+
+    &::before {
+      font-family: "Ionicons";
+      color: $primary;
+      font-size: $font-md;
+      @include setPosition(-0.5rem, auto, auto, 0);
+    }
+  }
+  a,
+  p {
+    color: $white;
+    font-family: $font-sans;
+  }
+
+  a {
+    position: relative;
+    z-index: $z-2;
+    margin-bottom: 1rem;
+    text-decoration: underline;
+  }
+}
+
+.footer {
+  @include alignContainer(100%);
+  padding: 1rem 1.5rem;
+  background-color: $secondary;
+
+  &-container {
+    @include media(">=lg") {
+      @include alignContainer(80%, false, false, true);
+    }
+  }
+
+  &-contacts {
+    display: flex;
+    flex-direction: column;
+    @include alignContainer(70%);
+
+    //Responsiveness
+    @include media(">=lg") {
+      width: 100%;
+      justify-content: space-between;
+      align-items: stretch;
+      flex-direction: row;
+    }
+  }
+
+  &-wrapper {
+    @include footerWrapper();
+  }
+
+  &-hr {
+    background-color: $primary;
+    border-radius: 5px;
+    height: 5px;
+    border: none;
+  }
+
+  &-end {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-socials {
+    a::before {
+      @include flex-Margin(1rem);
+      font-family: "Font Awesome 5 Free";
+      color: $accent;
+      font-size: $font-lg;
+    }
+    a:first-child::before {
+      content: "\f082";
+    }
+    a:nth-child(2)::before {
+      content: "\f081";
+    }
+  }
+  &-copyright {
+    @include flex-Margin(1rem);
+    color: $white;
+
+    i::before {
+      content: "\f1f9 \ ";
+      padding-right: 0.15rem;
+      font-family: "Font Awesome 5 Free";
+      font-size: $font-xs;
+      color: $white;
+    }
+  }
+}
+
+.footer-wrapper.call-us {
+  h3 {
+    &::before {
+      content: "\f2d2";
+    }
+  }
+}
+
+.footer-wrapper.email-us {
+  h3 {
+    &::before {
+      content: "\f2eb";
+    }
+  }
+}
+
+.footer-wrapper.address {
+  h3::before {
+    content: "\f3c5";
+    font-family: "Font Awesome 5 Free";
+  }
+}

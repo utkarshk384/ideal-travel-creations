@@ -5,16 +5,95 @@
 //Font Mixins
 /// @access public
 /// @param {Number} $weight - Font weight variables
+/// @param {String} $style - Font styles that are defined in the _font.scss
 @mixin font($weight, $style) {
   font-family: $style;
   font-weight: $weight;
+
+  line-height: 1.5;
 }
 
 //Center the container in the viewport
 /// @access public
-/// @param {Number} $width - Any css unit
-@mixin alignContainer($width) {
+/// @param {Number} $width - Any css unit for width property
+/// @param {Boolean} $responsive - if true, the container would be slightly bigger for extra-small screen devices than the stipulated width
+@mixin alignContainer(
+  $width,
+  $padding: false,
+  $marginBottom: false,
+  $responsive: false
+) {
   width: $width;
   margin-left: auto;
   margin-right: auto;
+
+  @if $responsive {
+    @include media("<325px") {
+      @if (#{$width} == "100%") {
+        width: $width;
+      } @else {
+        width: calc(#{$width} * 1.05);
+      }
+    }
+  }
+  @if $padding {
+    @include media(">=lg") {
+      width: calc(#{$width} * 1.01);
+      padding-left: calc(#{$width} * 0.01);
+      padding-right: calc(#{$width} * 0.01);
+    }
+  }
+  @if $marginBottom {
+    margin-bottom: 5em;
+  }
+}
+
+//Responsive margins for flex items
+/// @access public
+/// @param {Number} $margin - Any css unit for margin
+/// @param {String} $axis - the orientation for the margin to be applied, values: horizontal, vertical
+@mixin flex-Margin($margin: 1rem, $axis: horizontal) {
+  @if ($axis == horizontal) {
+    margin-top: $margin;
+    margin-bottom: $margin;
+    margin-right: calc(#{$margin} * 0.1);
+
+    @include media(">=lg") {
+      margin-left: $margin;
+      margin-right: $margin;
+    }
+  } @else if($axis == vertical) {
+    margin-bottom: $margin;
+    margin-top: $margin;
+  }
+}
+
+//Responsive widths for flex items
+/// @access public
+/// @param {Number} $noItems - The number of flex items
+@mixin flex-Width($noItems: 2) {
+  width: 100%;
+  @include media(">=lg") {
+    width: calc(100% / #{$noItems});
+  }
+}
+//Position Absolute
+/// @access public
+/// @param {Number, String} $top - top value for element with position
+/// @param {Number, String} $right - right value for element with position
+/// @param {Number, String} $bottom - bottom value for element with position
+/// @param {Number, String} $left - left value for element with position
+/// @param {String} $position - Set position if it's other than absolute
+@mixin setPosition(
+  $top: auto,
+  $right: auto,
+  $bottom: auto,
+  $left: auto,
+  $position: absolute
+) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
 }

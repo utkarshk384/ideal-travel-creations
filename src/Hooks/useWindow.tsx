@@ -1,7 +1,12 @@
 import react, { useEffect, useState } from "react";
 
+interface Iconfig {
+  width: number | undefined;
+  height: number | undefined;
+}
+
 export default function useWindowSize() {
-  const [windowSize, setWindowSize] = useState({
+  const [windowSize, setWindowSize] = useState<Iconfig>({
     width: undefined,
 
     height: undefined,
@@ -35,3 +40,13 @@ export default function useWindowSize() {
 
   return windowSize;
 }
+
+const breakpoints = {
+  xs: 450,
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  "2xl": 1536,
+};
+export { breakpoints };

@@ -1,15 +1,17 @@
 //Navigation Section
 @mixin Navbar($container-width: 100%) {
-  @include font($font-md, $font-sans);
-  z-index: $z-2;
+  nav {
+    @include alignContainer(80%);
+  }
+  @include font($font-sm, $font-sans);
+
+  z-index: $z-5;
   position: sticky;
   top: 0;
-  //TO DO: Make padding smaller for smaller devices and make logo smaller for smaller devices
-  padding: 1rem 0;
   width: 100%;
 
   .nav-container {
-    @include alignContainer(#{$container-width});
+    @include alignContainer(#{$container-width}, true);
     display: flex;
     justify-content: space-between;
   }
@@ -17,19 +19,24 @@
   .nav-ul {
     display: flex;
     list-style-type: none;
-    font-size: $font-sm;
+    font-size: $font-xs;
     align-items: center;
 
     //Responsiveness
-    @include media("<=lg") {
+    @include media("<lg") {
       visibility: hidden;
-      display: none;
+      opacity: 0;
+      position: absolute;
     }
   }
 
   .nav-links {
     margin-right: 2.5rem;
     position: relative;
+
+    &:last-child {
+      margin-right: 0rem;
+    }
 
     &::after {
       content: "";
@@ -54,7 +61,7 @@
   .mobile-menu {
     z-index: $z-2;
     width: 90vw;
-    height: 80vh;
+    height: 73vh;
     position: absolute;
     top: 7.5em;
     left: 5em;
@@ -63,18 +70,18 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background: rgba($secondary, 0.98);
+    background: rgba($accent, 0.98);
     list-style-type: none;
     & li:first-child {
     }
 
     .nav__links {
-      @include font($font-md, $font-sans);
+      @include font($font-sm, $font-sans);
       width: min-content;
       position: relative;
       text-align: center;
       color: $white;
-      font-size: $font-md;
+      font-size: $font-sm;
 
       &::before {
         content: "";
@@ -100,11 +107,11 @@
   }
   .nav-active-mobile {
     a {
-      color: $accent;
+      color: $primary;
     }
     &::after {
       content: "";
-      @include navAnimations($accent);
+      @include navAnimations($primary);
     }
   }
 }

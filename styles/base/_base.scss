@@ -50,26 +50,56 @@ input[type="reset"] {
   outline: inherit;
 }
 
-button {
-  background: transparent;
-  box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-sans;
+}
+h1 {
+  font-size: min(max(1.9em, 3.75vw), 3.5eem);
+  @supports (font-size: #{$font-lg}) {
+    font-size: $font-lg;
+  }
+}
+h2 {
+  font-size: min(max(1.25em, 3.25vw), 2em);
+  @supports (font-size: #{$font-md}) {
+    font-size: $font-md;
+  }
+}
+h3 {
+  font-size: min(max(1em, 2.5vw), 1.5em);
+  @supports (font-size: #{$font-sm}) {
+    font-size: $font-sm;
+  }
+}
+h4 {
+  font-size: min(max(2.1em, 4.45vw), 4.5em);
+  @supports (font-size: #{$font-xl}) {
+    font-size: $font-xl;
+  }
+}
+h5 {
+  font-size: min(max(5em, 7.5vw), 8em);
+  @supports (font-size: #{$font-2xl}) {
+    font-size: $font-2xl;
+  }
 }
 
-button:hover {
-  background: transparent;
-  box-shadow: 0px 0px 0px transparent;
-  border: 0px solid transparent;
-  text-shadow: 0px 0px 0px transparent;
+p,
+span {
+  font-size: min(max(12px, 1.5vw), 1.1em);
+  @supports (font-size: #{$font-xs}) {
+    font-size: $font-xs;
+  }
 }
-
-button:active {
-  background: transparent;
-  outline: none;
-  border: none;
+p,
+small {
+  font-family: $font-serif;
 }
-
-button:focus {
-  outline: 0;
+small {
+  color: $grey;
 }

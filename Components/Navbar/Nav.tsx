@@ -2,13 +2,13 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Menu from "./MobileMenu";
-import { NavigationContext } from "../../Context/NavigationContext";
+import { NavigationContext } from "../../src/Context/NavigationContext";
 import navLinks from "./NavData";
-import useWindowSize from "../../Components/Hooks/useWindow";
+import useWindowSize from "../../src/Hooks/useWindow";
 
 import gsapAnimation, { InavRef } from "./_animation";
 
-const Nav = React.forwardRef<HTMLDivElement, { className: string }>(
+const Nav = React.forwardRef<HTMLDivElement, { className?: string }>(
   (props, ref) => {
     //Navigation Context
     const { selectedIndex, setIndex } = useContext(NavigationContext);
@@ -51,7 +51,7 @@ const Nav = React.forwardRef<HTMLDivElement, { className: string }>(
     }, [menu]);
 
     return (
-      <nav className={props.className} ref={navWrapperRef}>
+      <nav className={props.className || "nav"} ref={navWrapperRef}>
         <div className="nav-container">
           <div>
             <Image
@@ -73,7 +73,7 @@ const Nav = React.forwardRef<HTMLDivElement, { className: string }>(
             <div className="nav-burger__btn" ref={burgerIconRef} />
           </button>
 
-          {size.width! < 1023 && (
+          {size.width! <= 1024 && (
             <Menu
               states={{ menu, setAnimation, setMenu }}
               handleRef={handleNavRef}

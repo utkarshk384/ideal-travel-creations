@@ -1,0 +1,9 @@
+query getBasicPackages($limit: Int = 0) {
+  packages(limit: $limit) {
+    title
+    images {
+      url
+    }
+    description
+  }
+}
