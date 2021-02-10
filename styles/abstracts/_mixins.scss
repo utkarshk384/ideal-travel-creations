@@ -1,6 +1,13 @@
+@use "../vendors/include-media";
+@use "variables";
+
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
 // -----------------------------------------------------------------------------
+
+//-------------------------------
+//     General mixins
+//-------------------------------
 
 //Font Mixins
 /// @access public
@@ -13,22 +20,24 @@
   line-height: 1.5;
 }
 
-//Center the container in the viewport
+//Centers the container in the viewport
 /// @access public
 /// @param {Number} $width - Any css unit for width property
-/// @param {Boolean} $responsive - if true, the container would be slightly bigger for extra-small screen devices than the stipulated width
+/// @param {Boolean} $padding - if true, it adds padding to the left and right side of the container in screens bigger than the lg breakpoint
+/// @param {Boolean} $marginBottom - if true, it adds 5em of margin bottom to the container
+/// @param {Boolean} $responsiveness-xxs - if true, the container would be slightly bigger for extra-small screen devices than the stipulated width
 @mixin alignContainer(
   $width,
   $padding: false,
   $marginBottom: false,
-  $responsive: false
+  $responsiveness-xxs: false
 ) {
   width: $width;
   margin-left: auto;
   margin-right: auto;
 
-  @if $responsive {
-    @include media("<325px") {
+  @if $responsiveness-xxs {
+    @include include-media.media("<325px") {
       @if (#{$width} == "100%") {
         width: $width;
       } @else {
@@ -37,7 +46,7 @@
     }
   }
   @if $padding {
-    @include media(">=lg") {
+    @include include-media.media(">=lg") {
       width: calc(#{$width} * 1.01);
       padding-left: calc(#{$width} * 0.01);
       padding-right: calc(#{$width} * 0.01);
@@ -45,6 +54,50 @@
   }
   @if $marginBottom {
     margin-bottom: 5em;
+  }
+}
+
+//-------------------------------
+//     Flex related mixins
+//-------------------------------
+
+//Mobile first Flex design
+///@access public
+///@param {String, Number} $breakpoint - specify the string or Number value of the breakpoint.
+///@param {Map} $config - Optional config given directly to the class without the breakpoint.
+///@param {Map} $config-breakpoint - Optional config given to the css under the breakpoint.
+///@param {Boolean} $isEqual - If true the breakpoint will be ">=" else ">".
+
+$flex-config: (
+  align-items: stretch,
+  justify-content: flex-start,
+  flex-wrap: nowrap,
+  flex-direction: column,
+);
+@mixin flex(
+  $breakpoint: "lg",
+  $config: $flex-config,
+  $config-breakpoint: $flex-config,
+  $isEqual: true
+) {
+  $sign: ">=";
+  @if not $isEqual {
+    $sign: ">";
+  }
+
+  display: flex;
+  @each $property, $value in $config {
+    #{$property}: $value;
+  }
+
+  @include include-media.media("#{$sign}#{$breakpoint}") {
+    @each $property, $value in $config-breakpoint {
+      @if ($property == flex-direction) {
+        flex-direction: row;
+      } @else {
+        #{$property}: $value;
+      }
+    }
   }
 }
 
@@ -58,7 +111,7 @@
     margin-bottom: $margin;
     margin-right: calc(#{$margin} * 0.1);
 
-    @include media(">=lg") {
+    @include include-media.media(">=lg") {
       margin-left: $margin;
       margin-right: $margin;
     }
@@ -73,10 +126,15 @@
 /// @param {Number} $noItems - The number of flex items
 @mixin flex-Width($noItems: 2) {
   width: 100%;
-  @include media(">=lg") {
+  @include include-media.media(">=lg") {
     width: calc(100% / #{$noItems});
   }
 }
+
+//-------------------------------
+//     Position related mixins
+//-------------------------------
+
 //Position Absolute
 /// @access public
 /// @param {Number, String} $top - top value for element with position
@@ -96,4 +154,29 @@
   right: $right;
   bottom: $bottom;
   left: $left;
+}
+
+//Darken Image Backgrounds
+/// @param {Number} $amount - The amount of shade to be applied
+/// @param {Boolean} $hovEffect - Adds hover effect to the background
+/// @param {String} $seconds - The duration of the whole transiiton
+/// @param {Number} $hovAmount - The amount of shade to be applied on hover
+
+@mixin darkenBg(
+  $amount: 0.2,
+  $hovEffect: false,
+  $seconds: 0.5s,
+  $hovAmount: 0.5
+) {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: rgba((variables.$black), $amount);
+  z-index: variables.$z-1;
+
+  @if (#{$hovEffect}) {
+    .darken-img:hover {
+      background-color: rgba((variables.$black), $hovAmount);
+    }
+  }
 }

@@ -1,0 +1,70 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+.dync-name {
+  @include alignContainer(80%);
+  background-color: $white;
+}
+
+.items {
+  @include alignContainer(90%);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  &-hr {
+    border: none;
+    border-radius: 5em;
+    background-color: $primary;
+    height: 5px;
+  }
+}
+
+.item {
+  @include flex();
+  &-img-container {
+    max-height: 50rem;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+
+    @include breakpoint.media(">=lg") {
+      width: 30%;
+    }
+  }
+
+  &-text-container {
+    width: 100%;
+    @include breakpoint.media(">lg") {
+      width: 60%;
+    }
+  }
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.flex-item {
+  @include flex-Margin();
+  color: $secondary;
+}
+
+.text {
+  &-heading-wrapper {
+    margin-bottom: 1em;
+  }
+  &-body-wrapper {
+    margin-bottom: 1em;
+  }
+}
+
+.cta-wrapper button {
+  @include comp-Button-anim-icon(
+    10em,
+    $accent,
+    0.5em,
+    "\f3d1",
+    "Ionicons",
+    $white
+  );
+  @include font($font-bold, $font-sans);
+  color: $white;
+}

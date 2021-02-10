@@ -1,52 +1,56 @@
+@use "../abstracts/mixins";
+@use "../abstracts/variables";
+@use "../vendors/include-media";
+
 @mixin footerWrapper {
   position: relative;
   display: flex;
   flex-direction: column;
-  @include flex-Margin(1.5rem, vertical);
+  @include mixins.flex-Margin(1.5rem, vertical);
   h3 {
-    color: $primary;
+    color: variables.$primary;
     padding-left: 3rem;
     margin-bottom: 1rem;
 
     &::before {
       font-family: "Ionicons";
-      color: $primary;
-      font-size: $font-md;
-      @include setPosition(-0.5rem, auto, auto, 0);
+      color: variables.$primary;
+      font-size: variables.$font-md;
+      @include mixins.setPosition(-0.5rem, auto, auto, 0);
     }
   }
   a,
   p {
-    color: $white;
-    font-family: $font-sans;
+    color: variables.$white;
+    font-family: variables.$font-sans;
   }
 
   a {
     position: relative;
-    z-index: $z-2;
+    z-index: variables.$z-2;
     margin-bottom: 1rem;
     text-decoration: underline;
   }
 }
 
 .footer {
-  @include alignContainer(100%);
+  @include mixins.alignContainer(100%);
   padding: 1rem 1.5rem;
-  background-color: $secondary;
+  background-color: variables.$secondary;
 
   &-container {
-    @include media(">=lg") {
-      @include alignContainer(80%, false, false, true);
+    @include include-media.media(">=lg") {
+      @include mixins.alignContainer(80%, false, false, true);
     }
   }
 
   &-contacts {
     display: flex;
     flex-direction: column;
-    @include alignContainer(70%);
+    @include mixins.alignContainer(70%);
 
     //Responsiveness
-    @include media(">=lg") {
+    @include include-media.media(">=lg") {
       width: 100%;
       justify-content: space-between;
       align-items: stretch;
@@ -59,7 +63,7 @@
   }
 
   &-hr {
-    background-color: $primary;
+    background-color: variables.$primary;
     border-radius: 5px;
     height: 5px;
     border: none;
@@ -73,10 +77,10 @@
   }
   &-socials {
     a::before {
-      @include flex-Margin(1rem);
+      @include mixins.flex-Margin(1rem);
       font-family: "Font Awesome 5 Free";
-      color: $accent;
-      font-size: $font-lg;
+      color: variables.$accent;
+      font-size: variables.$font-lg;
     }
     a:first-child::before {
       content: "\f082";
@@ -86,15 +90,15 @@
     }
   }
   &-copyright {
-    @include flex-Margin(1rem);
-    color: $white;
+    @include mixins.flex-Margin(1rem);
+    color: variables.$white;
 
     i::before {
       content: "\f1f9 \ ";
       padding-right: 0.15rem;
       font-family: "Font Awesome 5 Free";
-      font-size: $font-xs;
-      color: $white;
+      font-size: variables.$font-xs;
+      color: variables.$white;
     }
   }
 }

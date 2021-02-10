@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
 //-------------------------------------------------------------------------------------
 // Angled Edges v2.0.0 (https://github.com/josephfusco/angled-edges)
 // Copyright 2017 Joseph Fusco
@@ -15,12 +19,12 @@
 /// @return {String}  Updated string
 ///
 @function ae-str-replace($string, $search, $replace: "") {
-  $index: str-index($string, $search);
+  $index: string.index($string, $search);
 
   @if $index {
-    @return str-slice($string, 1, $index - 1) + $replace +
+    @return string.slice($string, 1, $index - 1) + $replace +
       ae-str-replace(
-        str-slice($string, $index + str-length($search)),
+        string.slice($string, $index + string.length($search)),
         $search,
         $replace
       );
@@ -107,17 +111,17 @@
   }
 
   // ensure $fill color is using rgb()
-  $fill-rgb: "rgb(" + round(red($fill)) + "," + round(green($fill)) + "," +
-    round(blue($fill)) + ")";
+  $fill-rgb: "rgb(" + math.round(color.red($fill)) + "," + math.round(color.green($fill)) + "," +
+    math.round(color.blue($fill)) + ")";
 
   // capture alpha component of $fill to use with fill-opacity
-  $fill-alpha: alpha($fill);
+  $fill-alpha: color.alpha($fill);
 
-  $wedge: '<svg width="#{$width}" height="#{$height}" fill="#{$fill-rgb}" fill-opacity="#{$fill-alpha}"><polygon points="#{map-get($points, $hypotenuse)}"></polygon></svg>';
+  $wedge: '<svg width="#{$width}" height="#{$height}" fill="#{$fill-rgb}" fill-opacity="#{$fill-alpha}"><polygon points="#{map.get($points, $hypotenuse)}"></polygon></svg>';
 
   // full width wedge
   @if ($width == null) {
-    $wedge: '<svg preserveAspectRatio="none" viewBox="0 0 100 #{$height}" fill="#{$fill-rgb}" fill-opacity="#{$fill-alpha}"><polygon points="#{map-get($points, $hypotenuse)}"></polygon></svg>';
+    $wedge: '<svg preserveAspectRatio="none" viewBox="0 0 100 #{$height}" fill="#{$fill-rgb}" fill-opacity="#{$fill-alpha}"><polygon points="#{map.get($points, $hypotenuse)}"></polygon></svg>';
   }
 
   $encoded-wedge: ae-svg-encode($wedge);
@@ -146,7 +150,7 @@
     @error 'Invalid argument for $location - must use: `inside top`, `outside top`, `inside bottom`, `outside bottom`';
   }
 
-  @if (map-has-key($points, $hypotenuse) == false) {
+  @if (map.has-key($points, $hypotenuse) == false) {
     @error 'Invalid argument for $hypotenuse - must use: `upper left`, `upper right`, `lower left`, `lower right`';
   }
 }

@@ -17,8 +17,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "strictPropertyInitialization": false
-    
+    "strictPropertyInitialization": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/graphql/*": ["./src/lib/graphql/*"],
+      "@/animations/*": ["./src/Animations/*"],
+      "@/components/*": ["./Components/*"],
+      "@/apolloClient": ["./src/lib/apolloClient.ts"],
+      "@/styles/*": ["./styles/pages/*"],
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -30,4 +37,5 @@
   "exclude": [
     "node_modules"
   ]
+  
 }

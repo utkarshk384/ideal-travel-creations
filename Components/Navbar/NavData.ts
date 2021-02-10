@@ -5,8 +5,8 @@ const navLinks = [
     index: 0,
   },
   {
-    name: "Public",
-    href: "/",
+    name: "Packages",
+    href: "/packages",
     index: 1,
   },
   {
@@ -15,7 +15,7 @@ const navLinks = [
     index: 2,
   },
   {
-    name: "Home",
+    name: "test",
     href: "/",
     index: 3,
   },

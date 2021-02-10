@@ -1,13 +1,18 @@
+@use "../main" as *;
+@use "../layout/nav";
+@use "../layout/homeSlider.scss" as slider;
+
+@use "../vendors/include-media" as breakpoint;
+
 // -----------------------------------------------------------------------------
 // This file contains styles that are specific to the home page.
 // -----------------------------------------------------------------------------
 
 .home {
   @include alignContainer(100%);
-  background-color: $bg-light;
 
   &-nav {
-    @include Navbar(80%);
+    @include nav.Navbar(80%);
   }
 }
 
@@ -20,7 +25,6 @@
     object-position: center;
     filter: brightness(40%); //Darken Background Image used in the Hero Seciton
   }
-
   &-container {
     @include alignContainer(80%);
     height: 100%;
@@ -38,7 +42,7 @@
 
     @include font($font-bold, $font-sans);
 
-    @include media(">=sm") {
+    @include breakpoint.media(">=sm") {
       @include alignContainer(70%);
     }
 
@@ -48,7 +52,7 @@
       text-transform: uppercase;
       margin-bottom: 1em;
 
-      @include media(">=xs") {
+      @include breakpoint.media(">=xs") {
         width: 80%;
         font-size: $font-xl;
       }
@@ -61,7 +65,6 @@
   }
   margin-bottom: 10%;
 }
-
 //Card Section
 .card {
   @include alignContainer(90%, false, true, true);
@@ -80,14 +83,13 @@
   }
 
   &-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex(
+      "lg",
+      (
+        align-items: center,
+      )
+    );
     margin-bottom: 2em;
-    @include media(">=lg") {
-      flex-direction: row;
-      align-items: stretch;
-    }
   }
 
   &-cards {
@@ -111,7 +113,7 @@
   &-cta {
     margin-bottom: 3em;
     @include alignContainer(100%);
-    @include Button-anim-icon(
+    @include comp-Button-anim-icon(
       20rem,
       $accent,
       10px,
@@ -158,7 +160,7 @@
 //Slider Section
 .slider {
   overflow-x: hidden;
-  @include homeSlider();
+  @include slider.homeSlider();
   padding-bottom: 2rem;
 }
 
@@ -174,14 +176,9 @@
     color: $secondary;
   }
   &-logo-container {
-    display: flex;
+    @include flex();
     width: 90%;
     margin-bottom: 2rem;
-    flex-direction: column;
-
-    @include media(">=lg") {
-      flex-direction: row;
-    }
   }
 
   &-logo-wrapper {

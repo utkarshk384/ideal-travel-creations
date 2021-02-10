@@ -1,0 +1,9 @@
+query getPackages($packageType: String) {
+  packages(where: { packageType: $packageType }, limit: 1) {
+    images(limit: 1) {
+      url
+      width
+      height
+    }
+  }
+}

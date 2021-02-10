@@ -1,4 +1,4 @@
-import { MutableRefObject, RefObject } from "react";
+import { MutableRefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
@@ -10,9 +10,8 @@ type SpanHeading_ArrayType = React.MutableRefObject<
 
 type refType = MutableRefObject<(HTMLDivElement | HTMLButtonElement | null)[]>;
 type targetRefType = MutableRefObject<HTMLDivElement | null>;
-type buttonRefType = MutableRefObject<HTMLButtonElement | null>;
 
-abstract class _gsapAnimation {
+export default abstract class _gsapAnimation {
   public slideIn(ref: SpanHeading_ArrayType, delay: number = 1) {
     const tl = gsap.timeline();
 
@@ -78,26 +77,3 @@ abstract class _gsapAnimation {
     return scrollTrigger;
   }
 }
-
-class _homeAnimation extends _gsapAnimation {
-  constructor() {
-    super();
-  }
-
-  public sliderSection(
-    activeRefs: React.MutableRefObject<(HTMLButtonElement | null)[]>,
-    event: string
-  ) {
-    const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1 } });
-    if (event === "left")
-      tl.to(activeRefs.current, { css: { left: "-=125%" } });
-    else if (event === "right")
-      tl.to(activeRefs.current, { css: { left: "+=125%" } });
-
-    return tl;
-  }
-}
-
-const homeAnimation = new _homeAnimation();
-
-export { homeAnimation as default };

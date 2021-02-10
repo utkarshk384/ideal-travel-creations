@@ -1,0 +1,22 @@
+///This is the file that contains all the basic layouts that will be imported to the files that are located under the @source {pages/*.scss} folder.s
+
+@charset "UTF-8";
+
+// 1. Configuration and helpers
+@forward "abstracts";
+
+// 2. Vendors
+@use "vendors/normalize";
+
+// 3. Base stuff
+@forward "base";
+
+// 4. Layout-related sections
+@use "./components/footer";
+@use "./layout/nav";
+
+// 5. Components
+@forward "components/button" as comp-*;
+
+// 7. Themes
+@forward "themes";

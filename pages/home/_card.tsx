@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { types } from "util";
 
 import * as cardData from "../api/home.json";
-import homeAnimation from "../../src/Animations/_animation";
+import homeAnimation from "../../src/Animations/homeAnimation";
 
 const Card: React.FC = () => {
   //Refs

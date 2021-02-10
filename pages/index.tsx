@@ -3,27 +3,24 @@ import React, { useRef } from "react";
 import { GetStaticProps } from "next";
 
 //Components
-import Nav from "../Components/Navbar/Nav";
+import Nav from "@/components/Navbar";
 import Affiliations from "./home/_affiliations";
 import Card from "./home/_card";
-import Footer from "./home/_footer";
 import Hero from "./home/_hero";
 import Parallex from "./home/_parallex";
 import Slider from "./home/_slider";
 
 //Graphql
-import { initializeApollo } from "../src/lib/apolloClient";
+import { initializeApollo } from "@/apolloClient";
 import {
   GetBasicPackagesQuery,
   GetBasicPackagesQueryVariables,
-} from "../src/lib/graphql/generated/graphql-frontend";
-import basicPackageQuery from "../src/lib/graphql/basicPackageQuery.graphql";
-import { IsliderData } from "../src/lib/graphql/types";
+} from "@/graphql/generated/graphql-frontend";
+import basicPackageQuery from "@/graphql/packageQuery.graphql";
+import { IsliderData } from "@/graphql/types";
 
 const Home: React.FC<{ sliderData: IsliderData[] }> = (props) => {
   //Refs
-
-  console.log(props.sliderData);
 
   const homeRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +32,6 @@ const Home: React.FC<{ sliderData: IsliderData[] }> = (props) => {
       <Parallex />
       <Slider data={props.sliderData} />
       <Affiliations />
-      <Footer />
     </div>
   );
 };

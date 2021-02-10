@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import homeAnimation from "../../src/Animations/_animation";
+import homeAnimation from "../../src/Animations/homeAnimation";
 import useWindowSize from "../../src/Hooks/useWindow";
 const breakpoints = {
   xs: 450,

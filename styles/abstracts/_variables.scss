@@ -1,3 +1,4 @@
+@use "sass:map";
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
@@ -12,16 +13,14 @@ $colors: (
   secondary: #506629,
   accent: #c39462,
   alert: #e98b8b,
-  bg: #{$white},
-  bg-light: #f1f1f1,
+  bg: #f1f1f1,
 );
 
-$primary: map-get($colors, primary);
-$secondary: map-get($colors, secondary);
-$accent: map-get($colors, accent);
-$alert: map-get($colors, alert);
-$bg: map-get($colors, bg);
-$bg-light: map-get($colors, bg-light);
+$primary: map.get($colors, primary);
+$secondary: map.get($colors, secondary);
+$accent: map.get($colors, accent);
+$alert: map.get($colors, alert);
+$bg: map.get($colors, bg);
 
 ///Fonts
 $font-sans: "Roboto", sans-serif !default;
@@ -40,18 +39,6 @@ $font-lg: clamp(1.9em, 1.75em, 2.5em);
 $font-md: clamp(1.25em, 1.65em, 2em);
 $font-sm: clamp(1em, 1.1em, 1.3em);
 $font-xs: clamp(0.95em, 1em, 1.1em);
-
-/// Breakpoints map
-/// @prop {String} keys - Keys are identifiers mapped to a given length
-/// @prop {Map} values - Values are actual breakpoints expressed in pixels
-$breakpoints: (
-  "xs": 450px,
-  "sm": 640px,
-  "md": 768px,
-  "lg": 1024px,
-  "xl": 1280px,
-  "2xl": 1536px,
-) !default;
 
 ///Z- Indexs
 $z-1: 1;

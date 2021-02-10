@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 
-import homeAnimation from "../../src/Animations/_animation";
+import homeAnimation from "../../src/Animations/homeAnimation";
 
 const Affiliations = () => {
   const logos = [

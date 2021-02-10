@@ -4,9 +4,9 @@ import $clamp from "clamp-js";
 import _ from "lodash";
 
 import useWindowSize from "../../src/Hooks/useWindow";
-import homeAnimation from "../../src/Animations/_animation";
+import homeAnimation from "../../src/Animations/homeAnimation";
 
-import { IsliderData } from "../../src/lib/graphql/types";
+import { IsliderData } from "@/graphql/types";
 
 const Slider: React.FC<{ data: IsliderData[] }> = ({ data }) => {
   //States

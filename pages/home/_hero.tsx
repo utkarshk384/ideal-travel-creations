@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-import homeAnimation from "../../src/Animations/_animation";
+import homeAnimation from "../../src/Animations/homeAnimation";
 
 const Hero: React.FC = () => {
   //Refs

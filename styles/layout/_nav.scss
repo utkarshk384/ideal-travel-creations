@@ -1,17 +1,22 @@
+@use "../abstracts/mixins";
+@use "../abstracts/variables";
+@use "../vendors/include-media";
+@use "../layout/burger";
+
 //Navigation Section
 @mixin Navbar($container-width: 100%) {
   nav {
-    @include alignContainer(80%);
+    @include mixins.alignContainer(80%);
   }
-  @include font($font-sm, $font-sans);
+  @include mixins.font(variables.$font-sm, variables.$font-sans);
 
-  z-index: $z-5;
+  z-index: variables.$z-5;
   position: sticky;
   top: 0;
   width: 100%;
 
   .nav-container {
-    @include alignContainer(#{$container-width}, true);
+    @include mixins.alignContainer(#{$container-width}, true);
     display: flex;
     justify-content: space-between;
   }
@@ -19,14 +24,15 @@
   .nav-ul {
     display: flex;
     list-style-type: none;
-    font-size: $font-xs;
+    font-size: variables.$font-xs;
     align-items: center;
 
     //Responsiveness
-    @include media("<lg") {
+    @include include-media.media("<lg") {
       visibility: hidden;
       opacity: 0;
       position: absolute;
+      font-size: 0.001rem; //Used to prevent horizontal overflow on smaller screen devices. Needs other elegant ways to fix the issue
     }
   }
 
@@ -41,7 +47,7 @@
     &::after {
       content: "";
       display: block;
-      @include navAnimations($primary, 0);
+      @include navAnimations(variables.$primary, 0);
       transition: all 0.5s ease;
     }
     &:hover::after {
@@ -50,16 +56,16 @@
   }
 
   a {
-    color: $white;
+    color: variables.$white;
   }
   .nav-burger-icon {
-    @include burger-icon;
+    @include burger.burger-icon;
   }
 
   //Mobile navbar and Burger Icon
 
   .mobile-menu {
-    z-index: $z-2;
+    z-index: variables.$z-2;
     width: 90vw;
     height: 73vh;
     position: absolute;
@@ -70,22 +76,22 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    background: rgba($accent, 0.98);
+    background: rgba(variables.$accent, 0.98);
     list-style-type: none;
     & li:first-child {
     }
 
     .nav__links {
-      @include font($font-sm, $font-sans);
+      @include mixins.font(variables.$font-sm, variables.$font-sans);
       width: min-content;
       position: relative;
       text-align: center;
-      color: $white;
-      font-size: $font-sm;
+      color: variables.$white;
+      font-size: variables.$font-sm;
 
       &::before {
         content: "";
-        @include navAnimations($white, 0, inherit);
+        @include navAnimations(variables.$white, 0, inherit);
         transition: all 0.5s ease;
       }
       &:hover::before {
@@ -99,7 +105,7 @@
   .nav-active {
     a {
       position: relative;
-      color: $primary;
+      color: variables.$primary;
     }
     span {
       @include navAnimations();
@@ -107,16 +113,20 @@
   }
   .nav-active-mobile {
     a {
-      color: $primary;
+      color: variables.$primary;
     }
     &::after {
       content: "";
-      @include navAnimations($primary);
+      @include navAnimations(variables.$primary);
     }
   }
 }
 
-@mixin navAnimations($border-color: $primary, $width: 100%, $left: 0) {
+@mixin navAnimations(
+  $border-color: variables.$primary,
+  $width: 100%,
+  $left: 0
+) {
   position: absolute;
   width: $width;
   top: 1.5em;
@@ -125,4 +135,14 @@
   left: $left;
   border-radius: 2px;
   border-bottom: 3px solid $border-color;
+}
+
+nav {
+  @include Navbar(80%);
+
+  margin-bottom: 5em;
+}
+
+.nav-bg {
+  background-color: variables.$secondary;
 }

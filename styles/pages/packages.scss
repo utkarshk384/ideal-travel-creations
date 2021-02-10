@@ -1,0 +1,95 @@
+@use "../main" as *;
+@use "../vendors/include-media" as breakpoint;
+
+.packages {
+  &-cards {
+    @include flex(
+      "xl",
+      (
+        align-items: center,
+        justify-content: center,
+        flex-wrap: wrap,
+      ),
+      (
+        align-items: center,
+        justify-content: space-between,
+      ),
+      false
+    );
+    @include alignContainer(70%);
+    background-color: $white;
+    margin-bottom: 5rem;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  &-card {
+    @include flex-Margin(0.5em);
+    position: relative;
+    width: 30rem;
+    height: 17rem;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px -2px $black;
+
+    @include breakpoint.media("<sm") {
+      width: 20rem;
+      height: 11rem;
+    }
+
+    .card {
+      &-text-wrapper {
+        @include setPosition(0, 0, 0, 0);
+        z-index: $z-1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+      &-image {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        transform: scaleY(1);
+        transform-origin: bottom center;
+        filter: brightness(60%);
+        @media (hover: hover) {
+          filter: brightness(90%);
+          transition: transform ease-in-out 0.5s, filter ease-in-out 0.5s;
+        }
+      }
+      &-text,
+      &-heading {
+        @include font($font-normal, $font-sans);
+        color: $primary;
+        text-transform: uppercase;
+        font-weight: $font-bold;
+
+        @media (hover: hover) {
+          opacity: 0.05;
+          transform: translateY(140%);
+          transition: transform ease-in-out 0.35s, opacity ease-in-out 0.45s;
+        }
+      }
+    }
+
+    &:hover {
+      .card {
+        &-heading {
+          transform: translateY(0%);
+          opacity: 1;
+        }
+
+        &-image {
+          transform: scaleY(1.03);
+          filter: brightness(60%);
+        }
+      }
+    }
+  }
+}
+
+//Hover Effect for Darken Image is not working
+.darken-img {
+  @include darkenBg(0.2, false, 0.5s, 0.5);
+}

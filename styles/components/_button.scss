@@ -1,3 +1,6 @@
+@use "../abstracts/mixins";
+@use "../vendors/include-media";
+
 //Styles for a button component
 /// @access public
 /// @param {Number} $width - Any css unit that is used on width proeprty
@@ -13,7 +16,7 @@
   padding: calc(#{$width} * 0.075) calc(#{$width} * 0.025);
 
   //Responsiveness
-  @include media(">=md") {
+  @include include-media.media(">=md") {
     width: $width;
   }
 }
@@ -40,7 +43,7 @@
 
   &::before {
     content: "";
-    @include setPosition(0, 0, auto, 0);
+    @include mixins.setPosition(0, 0, auto, 0);
     transition: all 0.2s linear 0s;
     display: block;
     width: 100%;
@@ -64,33 +67,34 @@
     justify-content: center;
 
     //Responsiveness
-    @include media(">=md") {
+    @include include-media.media(">=md") {
       right: 0rem;
     }
   }
-
-  &:hover {
-    padding-left: calc(#{$width} * -0.05);
-    padding-right: calc(#{$width} * 0.05);
-
-    //Responsiveness
-    @include media(">=md") {
-      padding-left: calc(#{$width} * -0.1);
-      padding-right: calc(#{$width} * 0.1);
-    }
-
-    &::before {
-      transform: scale(1, 1);
-      transform-origin: right center;
-    }
-
-    &::after {
-      right: calc(#{$width} * 0.05);
-      opacity: 1;
+  @media (hover: hover) {
+    &:hover {
+      padding-left: calc(#{$width} * -0.05);
+      padding-right: calc(#{$width} * 0.05);
 
       //Responsiveness
-      @include media(">=md") {
-        right: calc(#{$width} * 0.15);
+      @include include-media.media(">=md") {
+        padding-left: calc(#{$width} * -0.1);
+        padding-right: calc(#{$width} * 0.1);
+      }
+
+      &::before {
+        transform: scale(1, 1);
+        transform-origin: right center;
+      }
+
+      &::after {
+        right: calc(#{$width} * 0.05);
+        opacity: 1;
+
+        //Responsiveness
+        @include include-media.media(">=md") {
+          right: calc(#{$width} * 0.15);
+        }
       }
     }
   }

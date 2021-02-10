@@ -1,8 +1,10 @@
-query getBasicPackages($limit: Int = 0) {
+query packages($limit: Int = 0) {
   packages(limit: $limit) {
     title
     images {
       url
+      height
+      width
     }
     description
   }
