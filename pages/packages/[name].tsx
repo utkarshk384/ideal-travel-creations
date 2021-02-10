@@ -20,7 +20,6 @@ interface Ipaths {
   };
 }
 const PackagePage: React.FC<{ data?: IQuery }> = (props) => {
-  console.log(props.data?.packages);
   //Refs
   const paragraphRef = useRef<null | HTMLParagraphElement[]>([]);
 
@@ -87,7 +86,7 @@ const PackagePage: React.FC<{ data?: IQuery }> = (props) => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const client = initializeApollo();
-  const url = ctx.params?.name;
+  const url = ctx.params?.name as string;
   const startCaseUrl: string = _.startCase(url);
   const formattedUrl = startCaseUrl.split(" ").join("");
 

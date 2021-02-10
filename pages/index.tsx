@@ -8,15 +8,15 @@ import Affiliations from "./home/_affiliations";
 import Card from "./home/_card";
 import Hero from "./home/_hero";
 import Parallex from "./home/_parallex";
-import Slider from "./home/_slider";
+import Slider from "../Components/homeSlider";
 
 //Graphql
 import { initializeApollo } from "@/apolloClient";
 import {
-  GetBasicPackagesQuery,
-  GetBasicPackagesQueryVariables,
+  PackagesQuery as IQuery,
+  PackagesQueryVariables as Ivar,
 } from "@/graphql/generated/graphql-frontend";
-import basicPackageQuery from "@/graphql/packageQuery.graphql";
+import packageQuery from "@/graphql/packageQuery.graphql";
 import { IsliderData } from "@/graphql/types";
 
 const Home: React.FC<{ sliderData: IsliderData[] }> = (props) => {
@@ -39,11 +39,8 @@ const Home: React.FC<{ sliderData: IsliderData[] }> = (props) => {
 export const getStaticProps: GetStaticProps = async () => {
   const client = initializeApollo();
 
-  const slider = await client.query<
-    GetBasicPackagesQuery,
-    GetBasicPackagesQueryVariables
-  >({
-    query: basicPackageQuery,
+  const slider = await client.query<IQuery, Ivar>({
+    query: packageQuery,
     variables: { limit: 5 },
   });
 
