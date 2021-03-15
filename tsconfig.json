@@ -33,7 +33,7 @@
     "html.d.ts",
     "graphql.d.ts",
     "**/*.ts",
-    "**/*.tsx", "node_modules/[name].tsx", 
+    "**/*.tsx", "node_modules/[name].tsx", ".next/[name].tsx", 
     ],
   "exclude": [
     "node_modules"

@@ -46,11 +46,8 @@ const PackagePage: React.FC<{
     e.preventDefault();
 
     const PAGE = parseInt(router.query.page as string);
-    const asPath = router.asPath;
-
-    const regexPath = asPath.match(/(?<=\/)(.*?)(?=\?)/g);
-
-    const path = regexPath![0].replace("packages/", "");
+    const asPath = router.asPath.split("/")[2];
+    const path = asPath.split("?")[0];
 
     if (PAGE !== props.pages?.length && type === "next") {
       router.push(
