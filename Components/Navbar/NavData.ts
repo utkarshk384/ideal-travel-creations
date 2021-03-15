@@ -3,22 +3,24 @@ import _ from "lodash";
 
 const bhtPaths: any[] = [];
 
-getAboutBhtPaths().then((paths) => {
-  paths.data.aboutBhutanSections.map((path) =>
+getAboutBhtPaths()
+  .then((paths) => {
+    paths.data.aboutBhutanSections.map((path) =>
+      bhtPaths.push({
+        name: `${_.startCase(path.url)
+          .replace("And", "and")
+          .replace("In", "in")}`,
+        href: "/bhutan/[bhutan]",
+        as: `/bhutan/${path.url}`,
+      })
+    );
     bhtPaths.push({
-      name: `${_.startCase(path.url)
-        .replace("And", "and")
-        .replace("In", "in")}`,
-      href: "/bhutan/[bhutan]",
-      as: `/bhutan/${path.url}`,
-    })
-  );
-  bhtPaths.push({
-    name: "Sectors of Bhutan",
-    href: "/bhutan/parts-of-bhutan",
-    as: "/bhutan/parts-of-bhutan",
-  });
-});
+      name: "Sectors of Bhutan",
+      href: "/bhutan/parts-of-bhutan",
+      as: "/bhutan/parts-of-bhutan",
+    });
+  })
+  .catch((err) => console.log(err));
 
 const navLinks = [
   {

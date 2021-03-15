@@ -31,19 +31,23 @@ export const getallPaths = async () => {
 export const getAboutBhtPaths = async () => {
   return new Promise<ApolloQueryResult<IstaticPathQuery>>(
     async (resolve, reject) => {
-      const client = initializeApollo();
+      try {
+        const client = initializeApollo();
 
-      const query = gql`
-        query titlesOfBhutan {
-          aboutBhutanSections {
-            url
+        const query = gql`
+          query titlesOfBhutan {
+            aboutBhutanSections {
+              url
+            }
           }
-        }
-      `;
+        `;
 
-      const paths = await client.query<IstaticPathQuery>({ query });
+        const paths = await client.query<IstaticPathQuery>({ query });
 
-      resolve(paths);
+        resolve(paths);
+      } catch (err) {
+        reject(err);
+      }
     }
   );
 };
