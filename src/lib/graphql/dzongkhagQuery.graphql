@@ -1,0 +1,14 @@
+query dzongkhag($uniqueID: ID!) {
+  dataForDzongkhag(id: $uniqueID) {
+    title
+    description
+    sectors
+    InterestedPlaces
+    coverImage {
+      width
+      height
+      url
+      caption
+    }
+  }
+}

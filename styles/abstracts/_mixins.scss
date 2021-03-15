@@ -1,5 +1,6 @@
 @use "../vendors/include-media";
 @use "variables";
+@use "sass:map";
 
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
@@ -24,19 +25,21 @@
 /// @access public
 /// @param {Number} $width - Any css unit for width property
 /// @param {Boolean} $padding - if true, it adds padding to the left and right side of the container in screens bigger than the lg breakpoint
-/// @param {Boolean} $marginBottom - if true, it adds 5em of margin bottom to the container
-/// @param {Boolean} $responsiveness-xxs - if true, the container would be slightly bigger for extra-small screen devices than the stipulated width
-@mixin alignContainer(
+/// @param {CSS Unit} $cust-padding - The value of padding to be applied
+/// @param {Boolean} $responsive-xxs - if true, the container would be slightly bigger for extra-small screen devices than the stipulated width
+@mixin Container(
   $width,
   $padding: false,
-  $marginBottom: false,
-  $responsiveness-xxs: false
+  $cust-padding: 0em calc(#{$width} * 0.01),
+  $responsive-xxs: false
 ) {
   width: $width;
   margin-left: auto;
   margin-right: auto;
 
-  @if $responsiveness-xxs {
+  @content;
+
+  @if $responsive-xxs {
     @include include-media.media("<325px") {
       @if (#{$width} == "100%") {
         width: $width;
@@ -48,12 +51,8 @@
   @if $padding {
     @include include-media.media(">=lg") {
       width: calc(#{$width} * 1.01);
-      padding-left: calc(#{$width} * 0.01);
-      padding-right: calc(#{$width} * 0.01);
+      padding: $cust-padding;
     }
-  }
-  @if $marginBottom {
-    margin-bottom: 5em;
   }
 }
 
@@ -64,21 +63,20 @@
 //Mobile first Flex design
 ///@access public
 ///@param {String, Number} $breakpoint - specify the string or Number value of the breakpoint.
-///@param {Map} $config - Optional config given directly to the class without the breakpoint.
-///@param {Map} $config-breakpoint - Optional config given to the css under the breakpoint.
+///@param {Map} $breakpoint-css - Optional css given to the css for the breakpoint.
 ///@param {Boolean} $isEqual - If true the breakpoint will be ">=" else ">".
+///@param {Boolean} $center - Aligns and justify the content in the center in all screen sizes.
 
 $flex-config: (
   align-items: stretch,
   justify-content: flex-start,
   flex-wrap: nowrap,
-  flex-direction: column,
 );
 @mixin flex(
   $breakpoint: "lg",
-  $config: $flex-config,
-  $config-breakpoint: $flex-config,
-  $isEqual: true
+  $breakpoint-css: $flex-config,
+  $isEqual: true,
+  $center: false
 ) {
   $sign: ">=";
   @if not $isEqual {
@@ -86,17 +84,27 @@ $flex-config: (
   }
 
   display: flex;
-  @each $property, $value in $config {
-    #{$property}: $value;
+  flex-direction: column;
+
+  @if $center {
+    justify-content: center;
+    align-items: center;
   }
 
+  @content;
+
   @include include-media.media("#{$sign}#{$breakpoint}") {
-    @each $property, $value in $config-breakpoint {
-      @if ($property == flex-direction) {
-        flex-direction: row;
-      } @else {
-        #{$property}: $value;
-      }
+    @if not map.has-key($breakpoint-css, flex-direction) {
+      flex-direction: row;
+    }
+
+    @each $property, $value in $breakpoint-css {
+      #{$property}: $value;
+    }
+
+    @if $center {
+      justify-content: center;
+      align-items: center;
     }
   }
 }
@@ -105,15 +113,15 @@ $flex-config: (
 /// @access public
 /// @param {Number} $margin - Any css unit for margin
 /// @param {String} $axis - the orientation for the margin to be applied, values: horizontal, vertical
-@mixin flex-Margin($margin: 1rem, $axis: horizontal) {
+@mixin flex-Margin($margin: 1rem, $axis: horizontal, $breakpoint: "lg") {
   @if ($axis == horizontal) {
     margin-top: $margin;
     margin-bottom: $margin;
     margin-right: calc(#{$margin} * 0.1);
 
-    @include include-media.media(">=lg") {
-      margin-left: $margin;
-      margin-right: $margin;
+    @content;
+    @include include-media.media(">=#{$breakpoint}") {
+      margin: calc(#{$margin} * 0.2) $margin;
     }
   } @else if($axis == vertical) {
     margin-bottom: $margin;
@@ -154,6 +162,8 @@ $flex-config: (
   right: $right;
   bottom: $bottom;
   left: $left;
+
+  @content;
 }
 
 //Darken Image Backgrounds

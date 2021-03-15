@@ -1,0 +1,3 @@
+query filteredPkgCount($packageType: String) {
+  packagesCount(where: { packageType: $packageType })
+}

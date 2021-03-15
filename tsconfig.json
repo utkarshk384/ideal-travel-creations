@@ -25,6 +25,7 @@
       "@/components/*": ["./Components/*"],
       "@/apolloClient": ["./src/lib/apolloClient.ts"],
       "@/styles/*": ["./styles/pages/*"],
+      "@/src/*": ["./src/*"],
     }
   },
   "include": [
@@ -32,7 +33,7 @@
     "html.d.ts",
     "graphql.d.ts",
     "**/*.ts",
-    "**/*.tsx", 
+    "**/*.tsx", "node_modules/[name].tsx", 
     ],
   "exclude": [
     "node_modules"

@@ -5,7 +5,7 @@ query packagesFilter(
 ) {
   packages(limit: $limit, start: $start, where: { packageType: $packageType }) {
     title
-
+    packageId
     images {
       url
       height

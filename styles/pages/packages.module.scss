@@ -2,38 +2,47 @@
 @use "../vendors/include-media" as breakpoint;
 
 .packages {
+  @include Container(80%) {
+    box-shadow: $shadow-1;
+  }
+  background-color: $white;
+  margin-bottom: 5rem;
+  padding: 2rem 0rem;
+
+  & > h1 {
+    color: $secondary;
+    text-transform: uppercase;
+    padding-left: 1rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
   &-cards {
     @include flex(
       "xl",
       (
         align-items: center,
+        flex-direction: row,
         justify-content: center,
-        flex-wrap: wrap,
-      ),
-      (
-        align-items: center,
-        justify-content: space-between,
       ),
       false
-    );
-    @include alignContainer(70%);
-    background-color: $white;
-    margin-bottom: 5rem;
-    padding-left: 1em;
-    padding-right: 1em;
+    ) {
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   &-card {
-    @include flex-Margin(0.5em);
+    @include flex-Margin(0.75em);
     position: relative;
-    width: 30rem;
-    height: 17rem;
+    width: 20rem;
+    height: 11rem;
     overflow: hidden;
     box-shadow: 0px 0px 10px -2px $black;
 
     @include breakpoint.media("<sm") {
-      width: 20rem;
-      height: 11rem;
+      width: 14rem;
+      height: 8rem;
     }
 
     .card {
@@ -50,7 +59,7 @@
         height: 100%;
         width: 100%;
         position: relative;
-        transform: scaleY(1);
+        transform: scale(1);
         transform-origin: bottom center;
         filter: brightness(60%);
         @media (hover: hover) {
@@ -58,12 +67,12 @@
           transition: transform ease-in-out 0.5s, filter ease-in-out 0.5s;
         }
       }
-      &-text,
       &-heading {
         @include font($font-normal, $font-sans);
+        padding: 0px 1rem;
         color: $primary;
         text-transform: uppercase;
-        font-weight: $font-bold;
+        text-align: center;
 
         @media (hover: hover) {
           opacity: 0.05;
@@ -81,15 +90,10 @@
         }
 
         &-image {
-          transform: scaleY(1.03);
+          transform: scale(1.05);
           filter: brightness(60%);
         }
       }
     }
   }
-}
-
-//Hover Effect for Darken Image is not working
-.darken-img {
-  @include darkenBg(0.2, false, 0.5s, 0.5);
 }

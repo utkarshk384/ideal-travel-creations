@@ -1,0 +1,9 @@
+///This is the file that contains all the basic layouts that will be imported to the files that are located under the @source {pages/*.scss} folder.s
+
+@charset "UTF-8";
+
+//Base stuff
+@use "base";
+
+//Normalize CSS
+@use "vendors/normalize";

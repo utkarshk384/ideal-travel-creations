@@ -11,6 +11,8 @@ import type {
   GetPackagesQueryVariables as Ivars,
 } from "../../src/lib/graphql/generated/graphql-frontend";
 
+import styles from "styles/pages/packages.module.scss";
+
 interface IpackageTypes {
   packageTypes: string[];
 }
@@ -33,34 +35,39 @@ interface Iimages {
 
 const Packages: React.FC<{ data?: Idata }> = ({ data }) => {
   return (
-    <>
-      <div className="packages-cards">
+    <div className={styles.packages}>
+      <h1>Travel Packages</h1>
+      <div className={styles["packages-cards"]}>
         {data?.images.map(
           (card, index) =>
             card && (
               <Link
-                as={`/packages/${data.headings[index].kebab}`}
+                as={`/packages/${data.headings[index].kebab}?page=1`}
                 href="/packages/[name]"
               >
-                <div className="packages-card" key={`packages-card-${index}`}>
-                  <div className="card-image">
-                    <div className="darken-img " />
+                <div
+                  className={styles["packages-card"]}
+                  key={`packages-card-${index}`}
+                >
+                  <div className={styles["card-image"]}>
+                    <div className={styles["darken-img"]} />
                     <Image
                       src="/images/travel-packages/Happiness-Travel.jpg"
                       layout="fill"
                     />
+                    {/* <Image src={`${card.url}`} layout="fill" /> */}
                   </div>
-                  <div className="card-text-wrapper">
-                    <h2 className="card-heading">
+                  <div className={styles["card-text-wrapper"]}>
+                    <h3 className={styles["card-heading"]}>
                       {data.headings[index].title}
-                    </h2>
+                    </h3>
                   </div>
                 </div>
               </Link>
             )
         )}
       </div>
-    </>
+    </div>
   );
 };
 

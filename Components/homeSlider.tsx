@@ -1,12 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import $clamp from "clamp-js";
 import _ from "lodash";
 
-import useWindowSize from "../../src/Hooks/useWindow";
-import homeAnimation from "../../src/Animations/homeAnimation";
+import useWindowSize from "../src/Hooks/useWindow";
+import homeAnimation from "../src/Animations/homeAnimation";
 
 import { IsliderData } from "@/graphql/types";
+
+import styles from "styles/pages/home.module.scss";
 
 const Slider: React.FC<{ data: IsliderData[] }> = ({ data }) => {
   //States
@@ -15,16 +16,9 @@ const Slider: React.FC<{ data: IsliderData[] }> = ({ data }) => {
   const { width } = useWindowSize();
 
   //Refs
-  const cardBodyRef = useRef<(HTMLParagraphElement | null)[]>([]);
   const activeCardRef = useRef<(HTMLButtonElement | null)[]>([]);
 
   //UseEffects
-
-  useEffect(() => {
-    cardBodyRef.current.forEach((bodyText) => {
-      $clamp(bodyText as HTMLParagraphElement, { clamp: 4 });
-    });
-  }, []);
 
   useEffect(() => {
     setAnimation(false);
@@ -71,45 +65,45 @@ const Slider: React.FC<{ data: IsliderData[] }> = ({ data }) => {
   };
 
   return (
-    <div className="slider">
-      <div className="slider-h-wrapper">
-        <h1 className="slider-heading">Travel Packages</h1>
+    <div className={styles.slider}>
+      <div className={styles["slider-h-wrapper"]}>
+        <h1 className={styles["slider-heading"]}>Travel Packages</h1>
       </div>
-      <div className="slider-wrapper">
+      <div className={styles["slider-wrapper"]}>
         <button
-          className="slider-l-arrow"
+          className={styles["slider-l-arrow"]}
           onClick={(e) => handleClick(e)}
           disabled={activeCard === 0 ? true : checkLeftButton()}
         />
-        <div className="sc-container">
-          <div className="sc-wrapper">
+        <div className={styles["sc-container"]}>
+          <div className={styles["sc-wrapper"]}>
             {data.map((card, index) => (
               <button
                 ref={(el) => activeCardRef.current.push(el)}
                 key={`sc-${index}`}
-                className={`sc ${
-                  card.index === activeCard ? "sc-active" : "sc-inactive"
+                className={`${styles["sc"]} ${
+                  card.index === activeCard
+                    ? styles["sc-active"]
+                    : styles["sc-inactive"]
                 } ${
                   card.index === activeCard - 1
-                    ? "sc-active-left"
-                    : "sc-inactive-left"
+                    ? styles["sc-active-left"]
+                    : styles["sc-inactive-left"]
                 } ${
                   card.index === activeCard + 1
-                    ? "sc-active-right"
-                    : "sc-inactive-right"
+                    ? styles["sc-active-right"]
+                    : styles["sc-inactive-right"]
                 }`}
               >
-                <div className="sc-img-wrapper">
+                <div className={styles["sc-img-wrapper"]}>
                   <Image layout="fill" src={`${card.images![0]?.url}`} />
                 </div>
-                <div className="sc-content">
-                  <div className="sc-heading">
+                <div className={styles["sc-content"]}>
+                  <div className={styles["sc-heading"]}>
                     <h2>{_.startCase(card.title)}</h2>
                   </div>
-                  <div className="sc-body">
-                    <p ref={(el) => cardBodyRef.current.push(el)}>
-                      {card.description}
-                    </p>
+                  <div className={styles["sc-body"]}>
+                    <p>{card.description?.substring(0, 100)}...</p>
                   </div>
                 </div>
               </button>
@@ -117,12 +111,12 @@ const Slider: React.FC<{ data: IsliderData[] }> = ({ data }) => {
           </div>
         </div>
         <button
-          className="slider-r-arrow"
+          className={styles["slider-r-arrow"]}
           onClick={(e) => handleClick(e)}
           disabled={data.length - 1 === activeCard ? true : checkRightButton()}
         />
       </div>
-      <button className="slider-cta">Contact Us</button>
+      <button className={styles["slider-cta"]}>Contact Us</button>
     </div>
   );
 };

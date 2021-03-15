@@ -1,0 +1,122 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+@use "../components/quickLinks.scss";
+
+.ssg-bht {
+  @include Container(80%);
+  @include breakpoint.media("<=xs") {
+    width: 95%;
+  }
+}
+
+.container {
+  @include flex();
+
+  &-item {
+    background-color: $white;
+    box-shadow: $shadow-1;
+    @include flex-Margin(2rem);
+  }
+}
+
+.img-heading {
+  height: 100%;
+  @include Container(80%);
+  @include flex($center: true) {
+    flex-direction: row;
+  }
+  h1 {
+    position: relative;
+    z-index: $z-2;
+    color: $primary;
+  }
+}
+
+.l {
+  &-container {
+    height: min-content;
+    h2 {
+      color: $secondary;
+      margin-bottom: 2rem;
+    }
+
+    p {
+      text-align: justify;
+      color: $secondary;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &-img-container {
+    width: 100%;
+    height: 40vh;
+    position: relative;
+    img {
+      object-fit: cover;
+      filter: brightness(70%);
+    }
+  }
+
+  &-content {
+    @include Container(95%, true, 2rem) {
+      padding: 2rem 1rem;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+
+    h2,
+    h3 {
+      margin-bottom: 1rem;
+      margin-top: 2em;
+      color: $secondary;
+    }
+
+    hr {
+      border: 2.5px solid $primary;
+      border-radius: 50px;
+      margin-bottom: 2rem;
+    }
+
+    strong {
+      color: $secondary;
+      @include font($font-bold, $font-sans);
+    }
+
+    ///Styles related to the table
+    table {
+      width: 100%;
+      margin: 2rem 0rem;
+    }
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    td,
+    th {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    thead > tr:first-child,
+    tr:nth-of-type(2n) {
+      background-color: rgba($accent, 0.15);
+    }
+  }
+}
+
+@include breakpoint.media(">=lg") {
+  .l-container {
+    width: 70%;
+  }
+}
+
+///Map
+
+.map {
+  width: 100%;
+  height: 20rem;
+}

@@ -34,20 +34,20 @@
 }
 
 .footer {
-  @include mixins.alignContainer(100%);
+  @include mixins.Container(100%);
   padding: 1rem 1.5rem;
   background-color: variables.$secondary;
 
   &-container {
     @include include-media.media(">=lg") {
-      @include mixins.alignContainer(80%, false, false, true);
+      @include mixins.Container($width: 80%, $responsive-xxs: true);
     }
   }
 
   &-contacts {
     display: flex;
     flex-direction: column;
-    @include mixins.alignContainer(70%);
+    @include mixins.Container(70%);
 
     //Responsiveness
     @include include-media.media(">=lg") {
@@ -70,17 +70,21 @@
   }
 
   &-end {
+    @include mixins.flex();
     margin-top: 1rem;
-    display: flex;
     justify-content: space-between;
     align-items: center;
   }
   &-socials {
+    @include mixins.flex() {
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+    width: 70%;
     a::before {
-      @include mixins.flex-Margin(1rem);
       font-family: "Font Awesome 5 Free";
       color: variables.$accent;
-      font-size: variables.$font-lg;
+      font-size: 45px;
     }
     a:first-child::before {
       content: "\f082";
@@ -123,5 +127,40 @@
   h3::before {
     content: "\f3c5";
     font-family: "Font Awesome 5 Free";
+  }
+}
+
+.license {
+  @include mixins.flex(
+    $breakpoint-css: (
+      flex-direction: row,
+      justify-content: center,
+    )
+  ) {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  a {
+    margin-right: 0.5rem;
+    color: variables.$white;
+    text-decoration: underline;
+    @include mixins.font(variables.$font-normal, variables.$font-sans);
+
+    &:active {
+      color: variables.$primary;
+    }
+  }
+  p {
+    color: variables.$white;
+  }
+}
+
+@include include-media.media(">=lg") {
+  .footer-socials {
+    a::before {
+      @include mixins.flex-Margin(1.25rem);
+      font-size: variables.$font-lg;
+    }
   }
 }

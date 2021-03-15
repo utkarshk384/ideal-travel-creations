@@ -3,6 +3,9 @@ import Image from "next/image";
 
 import homeAnimation from "../../src/Animations/homeAnimation";
 import useWindowSize from "../../src/Hooks/useWindow";
+
+import styles from "styles/pages/home.module.scss";
+
 const breakpoints = {
   xs: 450,
   sm: 640,
@@ -35,20 +38,20 @@ const Parallex: React.FC = () => {
       try {
         timeline!.enable();
       } catch (err) {
-        console.error("Error: Parallex couldn't be enabled");
+        console.warn("Error: Parallex couldn't be enabled");
       }
     }
-  }, [width]);
+  }, [width, timeline]);
 
   return (
-    <div className="parallex" ref={ContainerRef}>
-      <div className="parallex-image-container">
+    <div className={styles.parallex} ref={ContainerRef}>
+      <div className={styles["parallex-image-container"]}>
         <Image
           src="/images/home/Mask Dance.jpg"
           layout="fill"
-          className="parallex-image"
+          className={styles["parallex-image"]}
         />
-        <div className="parallex-text">
+        <div className={styles["parallex-text"]}>
           <span>
             “Travel Bhutan with Ideal Travel Creations and enjoy a life time’s
             experience. Feel the tranquility, freedom and pamper yourself

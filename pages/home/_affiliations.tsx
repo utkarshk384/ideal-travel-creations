@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import styles from "styles/pages/home.module.scss";
 
 import homeAnimation from "../../src/Animations/homeAnimation";
+
+//To-DO: Change Image location of logos.
 
 const Affiliations = () => {
   const logos = [
@@ -18,30 +21,31 @@ const Affiliations = () => {
   useEffect(() => {
     homeAnimation.slideIn_ScrollTrigger(logoRefs, containerRef, {
       delay: 0.25,
+      stagger: { amount: 0 },
     });
   }, []);
 
   return (
-    <div className="aff" ref={containerRef}>
-      <div className="aff-h-wrapper">
+    <div className={styles.aff} ref={containerRef}>
+      <div className={styles["aff-h-wrapper"]}>
         <h1>Affiliations</h1>
       </div>
-      <div className="aff-logo-container">
+      <div className={styles["aff-logo-container"]}>
         {logos.map((logo, index) => (
           <button
             key={`affiliations-${index}`}
-            className="aff-logo-wrapper"
+            className={styles["aff-logo-wrapper"]}
             ref={(el) => logoRefs.current.push(el)}
           >
             <Image
               layout="fill"
               src={`/images/logo/partners/${logo}`}
-              className="aff-logo"
+              className={styles["aff-logo"]}
             />
           </button>
         ))}
       </div>
-      <div className="aff-body-wrapper">
+      <div className={styles["aff-body-wrapper"]}>
         <p>
           Ideal Travel Creations unveils a whole new spectacular world to the
           travelers visiting Bhutan. We provide varied selection of tours and

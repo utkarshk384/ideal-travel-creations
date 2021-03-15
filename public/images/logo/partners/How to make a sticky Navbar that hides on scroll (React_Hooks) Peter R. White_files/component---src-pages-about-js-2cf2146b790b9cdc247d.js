@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{"3XHS":function(e,t,n){"use strict";n.r(t),n.d(t,"default",(function(){return c}));var r=n("q1tI"),o=n.n(r),a=n("izhR"),i=n("wtQ5");function c(){return o.a.createElement(a.c,null,o.a.createElement(i.a,{title:"About | Peter R. White"}),o.a.createElement(a.a,{sx:{textAlign:"center",fontFamily:"roboto",pt:"60px"}},"I'm Peter White, a developer who likes to write."))}}}]);
+//# sourceMappingURL=component---src-pages-about-js-2cf2146b790b9cdc247d.js.map

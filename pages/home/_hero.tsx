@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import homeAnimation from "../../src/Animations/homeAnimation";
 
+import styles from "styles/pages/home.module.scss";
+
 const Hero: React.FC = () => {
   //Refs
   const heroTextRef = useRef<(HTMLSpanElement | HTMLHeadingElement | null)[]>(
@@ -15,10 +17,14 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <div className="hero">
-      <Image src="/images/home/hero.jpg" layout="fill" className="hero-bg" />
-      <div className="hero-container">
-        <div className="hero-center-text">
+    <div className={styles.hero}>
+      <Image
+        src="/images/home/hero.jpg"
+        layout="fill"
+        className={styles["hero-bg"]}
+      />
+      <div className={styles["hero-container"]}>
+        <div className={styles["hero-center-text"]}>
           <span ref={(el) => heroTextRef.current.push(el)}>
             Explore <b>Bhutan</b> with us
           </span>

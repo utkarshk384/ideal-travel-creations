@@ -1,0 +1,21 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+@use "./dync-bhutan.module.scss";
+
+.ssg-dzongkhags {
+  @include Container(80%);
+  @include breakpoint.media("<=xs") {
+    width: 95%;
+  }
+}
+
+.l-content {
+  .description {
+  }
+  h1 {
+    color: $secondary;
+    padding-top: 2rem;
+    margin: 0.5rem 0rem;
+  }
+}

@@ -1,10 +1,13 @@
 @use "../abstracts/mixins";
 @use "../abstracts/variables";
 @use "../vendors/include-media";
-@use "../components/button";
+@use "../layout/button";
 
 @mixin homeSlider() {
-  @include mixins.alignContainer(90%, false, true);
+  @include mixins.Container(90%) {
+    margin-bottom: 5rem;
+    box-shadow: variables.$shadow-1;
+  }
   background: variables.$white;
   position: relative;
 
@@ -49,11 +52,13 @@
 
   &-cta {
     margin-bottom: 3em;
-    @include mixins.alignContainer(100%);
+    @include mixins.Container(100%);
     @include button.Button-anim-icon(
       20rem,
-      variables.$accent,
-      10px,
+      (
+        background-color: variables.$accent,
+        border-radius: 10px,
+      ),
       "\f3d1",
       "Ionicons",
       variables.$primary
@@ -78,9 +83,9 @@
   }
 
   .sc {
-    @include mixins.setPosition(auto, auto, auto, auto, absolute);
+    @include mixins.setPosition();
     width: 100%;
-    height: 30rem;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,7 +99,7 @@
 
     @include include-media.media(">=md") {
       width: 60%;
-      height: 25rem;
+      height: fit-content;
     }
 
     @include include-media.media(">=lg") {
@@ -123,7 +128,7 @@
       display: flex;
       align-items: center;
       flex-direction: column;
-      padding: 1rem 1.5rem;
+      padding: 1rem 1.5rem 15rem 1.5rem;
     }
 
     &-heading {

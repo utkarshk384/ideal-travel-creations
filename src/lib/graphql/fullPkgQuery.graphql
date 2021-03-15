@@ -1,0 +1,26 @@
+query fullPkg($title: String) {
+  packages(where: { title: $title }) {
+    title
+    description
+    itineraries {
+      name
+      time
+      distance
+      content
+      altitude
+    }
+    packageHighlight
+    packageInsight
+    arrival
+    departure
+    duration
+    bestTravelTime
+    destinations
+    images {
+      url
+      height
+      width
+    }
+    description
+  }
+}

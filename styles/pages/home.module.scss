@@ -1,6 +1,6 @@
 @use "../main" as *;
-@use "../layout/nav";
-@use "../layout/homeSlider.scss" as slider;
+@use "../components/nav.module.scss" as nav;
+@use "../layout/_homeSlider.scss" as slider;
 
 @use "../vendors/include-media" as breakpoint;
 
@@ -9,7 +9,7 @@
 // -----------------------------------------------------------------------------
 
 .home {
-  @include alignContainer(100%);
+  @include Container(100%);
 
   &-nav {
     @include nav.Navbar(80%);
@@ -26,7 +26,7 @@
     filter: brightness(40%); //Darken Background Image used in the Hero Seciton
   }
   &-container {
-    @include alignContainer(80%);
+    @include Container(80%);
     height: 100%;
     z-index: $z-1; //Used to bring content above the background
     position: relative;
@@ -34,7 +34,7 @@
   }
 
   &-center-text {
-    @include alignContainer(95%);
+    @include Container(95%);
     height: 75%;
     display: flex;
     flex-direction: column;
@@ -43,17 +43,16 @@
     @include font($font-bold, $font-sans);
 
     @include breakpoint.media(">=sm") {
-      @include alignContainer(70%);
+      @include Container(85%);
     }
 
     & span {
-      width: 100%;
-      font-size: $font-lg;
+      width: 15ch;
+      font-size: $font-xl;
       text-transform: uppercase;
       margin-bottom: 1em;
 
-      @include breakpoint.media(">=xs") {
-        width: 80%;
+      @include breakpoint.media(">=sm") {
         font-size: $font-xl;
       }
     }
@@ -67,7 +66,10 @@
 }
 //Card Section
 .card {
-  @include alignContainer(90%, false, true, true);
+  @include Container($width: 90%, $padding: false, $responsive-xxs: true) {
+    margin-bottom: 5rem;
+    box-shadow: $shadow-1;
+  }
   display: flex;
   flex-direction: column;
   background-color: $white;
@@ -86,9 +88,12 @@
     @include flex(
       "lg",
       (
-        align-items: center,
+        flex-direction: row,
+        align-items: stretch,
       )
-    );
+    ) {
+      align-items: center;
+    }
     margin-bottom: 2em;
   }
 
@@ -112,11 +117,13 @@
 
   &-cta {
     margin-bottom: 3em;
-    @include alignContainer(100%);
-    @include comp-Button-anim-icon(
+    @include Container(100%);
+    @include Button-anim-icon(
       20rem,
-      $accent,
-      10px,
+      (
+        background-color: $accent,
+        border-radius: 10px,
+      ),
       "\f3d1",
       "Ionicons",
       $primary
@@ -128,7 +135,7 @@
 }
 
 .parallex {
-  @include alignContainer(100%, false, true);
+  @include Container(100%, false, true);
 
   &-image-container {
     width: 100%;
@@ -143,7 +150,7 @@
   }
 
   &-text {
-    @include alignContainer(80%);
+    @include Container(80%);
     height: 100%;
     display: flex;
     align-items: center;
@@ -166,7 +173,10 @@
 
 //Affiliation Section
 .aff {
-  @include alignContainer(90%, false, true);
+  @include Container(90%, false) {
+    margin-bottom: 5rem;
+    box-shadow: $shadow-1;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -176,7 +186,9 @@
     color: $secondary;
   }
   &-logo-container {
-    @include flex();
+    @include flex() {
+      align-items: center;
+    }
     width: 90%;
     margin-bottom: 2rem;
   }
@@ -187,6 +199,10 @@
     height: 10rem;
     width: 100%;
     background-color: rgba($color: $primary, $alpha: 0.2);
+
+    @include breakpoint.media("<lg", ">=sm") {
+      width: 50%;
+    }
   }
 
   &-logo {

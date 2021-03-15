@@ -6,17 +6,17 @@
 //Navigation Section
 @mixin Navbar($container-width: 100%) {
   nav {
-    @include mixins.alignContainer(80%);
+    @include mixins.Container(80%);
   }
   @include mixins.font(variables.$font-sm, variables.$font-sans);
 
-  z-index: variables.$z-5;
+  z-index: variables.$z-7;
   position: sticky;
   top: 0;
   width: 100%;
 
   .nav-container {
-    @include mixins.alignContainer(#{$container-width}, true);
+    @include mixins.Container(#{$container-width}, true);
     display: flex;
     justify-content: space-between;
   }
@@ -37,25 +37,33 @@
   }
 
   .nav-links {
+    height: 6rem;
     margin-right: 2.5rem;
     position: relative;
+    display: flex;
+    align-items: center;
 
     &:last-child {
       margin-right: 0rem;
     }
 
-    &::after {
-      content: "";
-      display: block;
-      @include navAnimations(variables.$primary, 0);
-      transition: all 0.5s ease;
-    }
-    &:hover::after {
-      width: 100%;
+    &:hover {
+      .nav-span::after {
+        width: 100%;
+      }
     }
   }
 
-  a {
+  .nav-span {
+    &::after {
+      content: "";
+      display: inline;
+      @include navAnimations(variables.$primary, 0);
+      transition: all 0.5s ease;
+    }
+  }
+
+  button {
     color: variables.$white;
   }
   .nav-burger-icon {
@@ -66,51 +74,43 @@
 
   .mobile-menu {
     z-index: variables.$z-2;
-    width: 90vw;
-    height: 73vh;
+    width: 100%;
+    height: 100vh;
     position: absolute;
-    top: 7.5em;
-    left: 5em;
     right: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
+    justify-content: flex-start;
     background: rgba(variables.$accent, 0.98);
     list-style-type: none;
-    & li:first-child {
-    }
 
     .nav__links {
+      @include mixins.flex-Margin(1.5rem, vertical);
       @include mixins.font(variables.$font-sm, variables.$font-sans);
-      width: min-content;
-      position: relative;
+      margin-top: 1rem;
+      width: 50%;
       text-align: center;
+      position: relative;
       color: variables.$white;
       font-size: variables.$font-sm;
+    }
 
-      &::before {
-        content: "";
-        @include navAnimations(variables.$white, 0, inherit);
-        transition: all 0.5s ease;
-      }
-      &:hover::before {
-        width: 100%;
-      }
+    .nav__links:first-child {
+      margin-top: 7rem;
     }
   }
 
   //Navigation active Class
-
   .nav-active {
-    a {
-      position: relative;
-      color: variables.$primary;
-    }
-    span {
+    &::before {
+      content: "";
       @include navAnimations();
     }
+
+    color: variables.$primary;
   }
+
   .nav-active-mobile {
     a {
       color: variables.$primary;
@@ -118,31 +118,71 @@
     &::after {
       content: "";
       @include navAnimations(variables.$primary);
+      top: 1.75rem;
+      width: 50%;
+      left: 25%;
     }
   }
 }
 
-@mixin navAnimations(
-  $border-color: variables.$primary,
-  $width: 100%,
-  $left: 0
-) {
-  position: absolute;
+@mixin navAnimations($border-color: variables.$primary, $width: 100%) {
+  @include mixins.setPosition(3.75rem, auto, auto, 0);
   width: $width;
-  top: 1.5em;
-  right: 0;
-  bottom: 0;
-  left: $left;
+
   border-radius: 2px;
   border-bottom: 3px solid $border-color;
 }
 
-nav {
+.nav {
   @include Navbar(80%);
-
-  margin-bottom: 5em;
+  transition: top 400ms ease-out;
 }
 
 .nav-bg {
   background-color: variables.$secondary;
+}
+
+@include include-media.media(">=lg") {
+  .nav__Links {
+    &::before {
+      content: "";
+      @include navAnimations(variables.$white, 0);
+      transition: all 0.5s ease;
+    }
+    &:hover::before {
+      width: 100%;
+    }
+  }
+}
+
+//Hover Menu
+.nav-hover-menu {
+  @include mixins.setPosition(0rem);
+
+  .push-content {
+    height: 5rem;
+    width: 1rem;
+  }
+
+  &.hov-packages {
+    right: 25%; //magic number that fits the screen
+  }
+
+  &.hov-about-bhutan {
+    right: 17.5%; //magic number that fits the screen
+  }
+
+  .content {
+    background-color: variables.$secondary;
+    padding: 0.1rem 1rem;
+    width: 15rem;
+  }
+
+  a {
+    @include mixins.flex-Margin(1.25rem, vertical);
+    @include mixins.font(variables.$font-sm, variables.$font-sans);
+    display: flex;
+    cursor: pointer;
+    color: variables.$white;
+  }
 }

@@ -1,4 +1,6 @@
+@use "../abstracts/functions"  as *;
 @use "../abstracts/variables";
+@use "sass:map";
 
 // -----------------------------------------------------------------------------
 // This file contains very basic styles.
@@ -9,6 +11,12 @@
  */
 html {
   box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  height: 100%;
 }
 
 /**
@@ -34,13 +42,15 @@ body {
  */
 a {
   text-decoration: none;
+  color: inherit;
   &:focus {
     outline: none;
     border: none;
   }
 }
 
-b {
+b,
+strong {
   color: variables.$primary;
 }
 
@@ -53,7 +63,15 @@ input[type="reset"] {
   padding: 0;
   font: inherit;
   cursor: pointer;
-  outline: inherit;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+button::-moz-focus-inner {
+  border: 0;
+  background: none;
 }
 
 h1,
@@ -65,31 +83,31 @@ h6 {
   font-family: variables.$font-sans;
 }
 h1 {
-  font-size: min(max(1.9em, 3.75vw), 3.5eem);
+  font-size: font-clamp(map.get(variables.$font-sizes, lg), true);
   @supports (font-size: #{variables.$font-lg}) {
     font-size: variables.$font-lg;
   }
 }
 h2 {
-  font-size: min(max(1.25em, 3.25vw), 2em);
+  font-size: font-clamp(map.get(variables.$font-sizes, md), true);
   @supports (font-size: #{variables.$font-md}) {
     font-size: variables.$font-md;
   }
 }
 h3 {
-  font-size: min(max(1em, 2.5vw), 1.5em);
+  font-size: font-clamp(map.get(variables.$font-sizes, sm), true);
   @supports (font-size: #{variables.$font-sm}) {
     font-size: variables.$font-sm;
   }
 }
 h4 {
-  font-size: min(max(2.1em, 4.45vw), 4.5em);
+  font-size: font-clamp(map.get(variables.$font-sizes, xl), true);
   @supports (font-size: #{variables.$font-xl}) {
     font-size: variables.$font-xl;
   }
 }
 h5 {
-  font-size: min(max(5em, 7.5vw), 8em);
+  font-size: font-clamp(map.get(variables.$font-sizes, 2xl), true);
   @supports (font-size: #{variables.$font-2xl}) {
     font-size: variables.$font-2xl;
   }
@@ -97,7 +115,8 @@ h5 {
 
 p,
 span {
-  font-size: min(max(12px, 1.5vw), 1.1em);
+  line-height: 1.5;
+  font-size: font-clamp(map.get(variables.$font-sizes, xs), true);
   @supports (font-size: #{variables.$font-xs}) {
     font-size: variables.$font-xs;
   }

@@ -1,0 +1,75 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+.pob {
+  @include Container(80%, true, 1rem 2rem) {
+    padding: 1rem 2rem;
+    background-color: $white;
+  }
+}
+
+.main-heading {
+  color: $secondary;
+  margin-bottom: 3rem;
+}
+
+.cards {
+  @include flex(
+    $breakpoint-css: (
+      flex-wrap: wrap,
+    )
+  ) {
+    align-items: center;
+  }
+}
+
+.card {
+  @include flex-Margin(1rem);
+  overflow: hidden;
+  width: 100%;
+  height: 25rem;
+  background: rgba($accent, 0.5);
+  box-shadow: $shadow-2;
+
+  &-cover {
+    position: relative;
+    height: 50%;
+    width: 100%;
+
+    &-heading {
+      @include flex($center: true);
+      height: 100%;
+      h2 {
+        color: $primary;
+        position: relative;
+        z-index: $z-1;
+      }
+    }
+
+    img {
+      filter: brightness(70%);
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &-description {
+    @include flex($center: true);
+    padding: 1rem 2rem;
+    width: 100%;
+    height: 50%;
+    p {
+      color: $secondary;
+      text-align: left;
+    }
+  }
+}
+
+@include breakpoint.media(">=lg") {
+  .card {
+    width: 16rem;
+    height: 22rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}

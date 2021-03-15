@@ -1,20 +1,30 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
+import NextNprogress from "nextjs-progressbar";
 import { ApolloProvider } from "@apollo/client";
-import { NextRouter, useRouter } from "next/router";
 
-import { NavigationProvider } from "../src/Context/NavigationContext";
-import { useApollo } from "@/apolloClient";
 import Nav from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BreadCrumbs from "@/components/breadcrumbs";
+
+import "styles/global.scss";
+import { useApollo } from "@/apolloClient";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
   const client = useApollo(pageProps.initialApolloState);
 
+  const [history, setHistory] = useState<string[]>([]);
+
   const router = useRouter();
 
-  loadStyles(router);
+  useEffect(() => {
+    const asPath = router.asPath;
+
+    if (history[history.length - 1] !== asPath)
+      setHistory((prev) => [...prev, asPath]);
+  }, [router, history]);
 
   return (
     <>
@@ -25,29 +35,28 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
           name="viewport"
           content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; target-densityDpi=device-dpi"
         />
+
+        {/* <link
+          href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
+          rel="stylesheet"
+        /> */}
       </Head>
       <ApolloProvider client={client}>
-        <NavigationProvider>
-          {router.pathname !== "/" && <Nav disableAnimation />}
-          <Component {...pageProps} />
-          <Footer />
-        </NavigationProvider>
+        <NextNprogress
+          color="#c39462"
+          startPosition={0.3}
+          stopDelayMs={200}
+          height={3}
+        />
+        {router.pathname !== "/" && (
+          <Nav routerHistory={history} disableAnimation />
+        )}
+        {router.pathname !== "/" && <BreadCrumbs />}
+        <Component {...pageProps} />
+        <Footer />
       </ApolloProvider>
     </>
   );
-};
-
-const loadStyles = (router: NextRouter) => {
-  switch (router.pathname) {
-    case "/":
-      return require("../styles/pages/home.scss");
-    case "/packages":
-      return require("../styles/pages/packages.scss");
-    case "/packages/[name]":
-      return require("../styles/pages/[Name].scss");
-    default:
-      return require("../styles/_main.scss");
-  }
 };
 
 export default App;

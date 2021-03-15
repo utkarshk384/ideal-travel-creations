@@ -3,19 +3,12 @@
 // -----------------------------------------------------------------------------
 
 /**
- * Clear inner floats
- */
-.clearfix::after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-/**
  * Hide text while making it readable for screen readers
  * 1. Needed in WebKit-based browsers because of an implementation bug;
  *    See: https://code.google.com/p/chromium/issues/detail?id=457146
  */
+@use "../abstracts/variables";
+
 .hide-text {
   overflow: hidden;
   padding: 0; /* 1 */
@@ -23,18 +16,25 @@
   white-space: nowrap;
 }
 
-/**
- * Hide element while making it readable for screen readers
- * Shamelessly borrowed from HTML5Boilerplate:
- * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
- */
-.visually-hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
+.z-5 {
+  z-index: variables.$z-5;
+}
+.z-6 {
+  z-index: variables.$z-7;
+}
+
+.overlay.tint-bg {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.overlay {
+  z-index: variables.$z-6;
+  height: 0%;
+  width: 100%;
+  position: fixed;
+}
+
+.ico {
+  font-style: normal;
 }

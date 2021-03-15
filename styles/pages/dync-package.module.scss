@@ -1,0 +1,314 @@
+@use "../main" as *;
+@use "../vendors/include-media" as breakpoint;
+
+.pkg {
+  @include Container($width: 80%) {
+    @include breakpoint.media("<=xs") {
+      width: 95%;
+    }
+  }
+
+  &-container {
+    @include flex(
+      $breakpoint-css: (
+        justify-content: space-between,
+        flex-wrap: wrap,
+      )
+    );
+  }
+
+  &-item {
+    overflow: hidden;
+    @include flex-Margin(1rem, vertical);
+    padding: 1em;
+    background-color: $white;
+    box-shadow: $shadow-1;
+  }
+
+  &-left {
+    width: 100%;
+    margin-bottom: 0rem;
+  }
+
+  &-right {
+    width: 100%;
+    height: fit-content;
+  }
+
+  &-bot {
+    width: 100%;
+    margin-top: 0rem;
+    background-color: $white;
+  }
+}
+
+///Left Content
+
+.l {
+  &-title-wrapper {
+    h1 {
+      color: $secondary;
+      letter-spacing: 2px;
+    }
+  }
+
+  &-img-container {
+    @include Container(85%, true, 2em);
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  &-desc {
+    p {
+      @include font($font-normal, $font-serif);
+      color: $secondary;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+  }
+}
+
+///Right Content
+.r-item {
+  @include flex(
+    $breakpoint-css: (
+      align-items: center,
+      flex-direction: column,
+    )
+  ) {
+    align-items: center;
+  }
+
+  h3 {
+    color: $secondary;
+    margin-bottom: 0.25rem;
+  }
+
+  hr {
+    @include Container(20%);
+    height: 3px;
+    border-radius: 50px;
+    background-color: $primary;
+    border: none;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: $secondary;
+  }
+  margin-bottom: 1.5rem;
+}
+
+.r-item.package-insight {
+  h2 {
+    color: $secondary;
+    padding-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  hr {
+    @include Container(40%);
+  }
+}
+
+///Bottom Content
+
+.b-itineraries {
+  margin-bottom: 3rem;
+  & > h1 {
+    color: $secondary;
+  }
+}
+
+.itinerary {
+  overflow: hidden;
+  margin: 1rem 0rem;
+  background-color: $accent;
+  border-radius: 5px;
+}
+
+.iti {
+  &-btn {
+    padding: 0.5rem 1rem;
+    &::before {
+      content: "\f123";
+      font-family: "Ionicons";
+      font-size: $font-md;
+      color: $primary;
+    }
+  }
+
+  &-heading {
+    overflow: hidden;
+    h3 {
+      color: $primary;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+///t --> title
+
+.iti-t-container {
+  @include flex(
+    $breakpoint-css: (
+      justify-content: space-between,
+      align-items: center,
+    )
+  ) {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+  padding: 0rem 0.5rem 0rem 1rem;
+}
+
+///d --> details. This section consists the styles for the icons.
+.iti-d {
+  &-container {
+    @include flex(
+      "sm",
+      (
+        flex-direction: column,
+      )
+    ) {
+      align-items: center;
+    }
+    padding-bottom: 2rem;
+  }
+
+  &-item {
+    @include flex(
+      $breakpoint-css: (
+        align-items: center,
+      )
+    ) {
+      flex-direction: row;
+      align-items: center;
+    }
+    @include flex-Margin(1.5rem, "vertical");
+
+    width: 100%;
+    position: relative;
+
+    &::after {
+      @include setPosition(2.5rem, auto, auto, 8%) {
+        @include breakpoint.media(">=lg") {
+          left: 3%;
+        }
+      }
+      @include font($font-normal, $font-sans);
+      font-size: $font-xs;
+      color: $white;
+    }
+
+    p {
+      @include font($font-bold, $font-sans);
+      font-size: $font-sm;
+      color: $primary;
+      padding-left: 1.5rem;
+    }
+  }
+
+  &-icon {
+    &::before {
+      display: flex;
+      justify-content: center;
+      margin-left: 1.5rem;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      color: $white;
+      font-size: 30px;
+      min-width: 50px;
+    }
+
+    &.svg {
+      margin-left: 2rem;
+    }
+  }
+
+  &-altitude::after {
+    content: "Elevation";
+  }
+
+  &-time::after {
+    content: "Travel Time";
+  }
+
+  &-distance::after {
+    content: "Distance";
+  }
+}
+
+.altitude-icon::before {
+  content: "\f6fc";
+}
+
+.time-icon::before {
+  content: "\f252";
+}
+
+///c ---> Content
+.iti-c-container {
+  padding: 1.5rem 1rem;
+  p {
+    color: $white;
+    margin-bottom: 1.5rem;
+
+    strong {
+      @include font($font-bold, $font-serif);
+    }
+  }
+}
+
+.b-highlight {
+  h2 {
+    color: $secondary;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    @include font($font-normal, $font-serif);
+    margin-left: 1rem;
+    font-size: $font-xs;
+    color: $secondary;
+  }
+}
+
+//Styles for screens bigger than the large breakpoint.
+
+@include breakpoint.media(">=lg") {
+  .pkg {
+    &-item {
+      padding: 1em 2em;
+    }
+
+    &-left,
+    &-bot {
+      width: 65%;
+    }
+
+    &-left {
+      box-shadow: 0 -5px 20px -14px #333, -5px 0 20px -14px #333,
+        5px 0 20px -14px #333;
+    }
+
+    &-bot {
+      box-shadow: 0 10px 20px -10px $black;
+    }
+
+    &-right {
+      width: 30%;
+      position: sticky;
+      top: -12rem;
+    }
+  }
+
+  .iti {
+    &-t-container {
+      height: auto;
+      padding: 0rem 2rem 0rem 1rem;
+    }
+  }
+}

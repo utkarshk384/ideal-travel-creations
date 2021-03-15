@@ -1,0 +1,30 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+.r {
+  &-container {
+    padding: 2rem 1rem;
+  }
+
+  &-heading {
+    color: $secondary;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.links a {
+  @include font($font-normal, $font-sans);
+  display: block;
+  color: $accent;
+  margin-bottom: 1rem;
+}
+
+@include breakpoint.media(">=lg") {
+  .r-container {
+    position: sticky;
+    top: 90px;
+    width: 30%;
+    padding: 1.5rem 2rem;
+    height: min-content;
+  }
+}

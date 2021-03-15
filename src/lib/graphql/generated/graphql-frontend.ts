@@ -70,128 +70,336 @@ export type UserPermissionsPasswordPayload = {
   ok: Scalars['Boolean'];
 };
 
-export type Itinerary = {
-  __typename?: 'Itinerary';
+export type AboutBhutanSection = {
+  __typename?: 'AboutBhutanSection';
   id: Scalars['ID'];
   _id: Scalars['ID'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  itinerary?: Maybe<Array<Maybe<ComponentItineraryItinerary>>>;
-  title?: Maybe<Scalars['String']>;
-  package?: Maybe<Package>;
+  title: Scalars['String'];
+  content: Scalars['String'];
+  coverImage?: Maybe<UploadFile>;
+  url?: Maybe<Scalars['String']>;
   published_at?: Maybe<Scalars['DateTime']>;
 };
 
-export type ItineraryConnection = {
-  __typename?: 'ItineraryConnection';
-  values?: Maybe<Array<Maybe<Itinerary>>>;
-  groupBy?: Maybe<ItineraryGroupBy>;
-  aggregate?: Maybe<ItineraryAggregator>;
+export type AboutBhutanSectionConnection = {
+  __typename?: 'AboutBhutanSectionConnection';
+  values?: Maybe<Array<Maybe<AboutBhutanSection>>>;
+  groupBy?: Maybe<AboutBhutanSectionGroupBy>;
+  aggregate?: Maybe<AboutBhutanSectionAggregator>;
 };
 
-export type ItineraryAggregator = {
-  __typename?: 'ItineraryAggregator';
+export type AboutBhutanSectionAggregator = {
+  __typename?: 'AboutBhutanSectionAggregator';
   count?: Maybe<Scalars['Int']>;
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-export type ItineraryGroupBy = {
-  __typename?: 'ItineraryGroupBy';
-  id?: Maybe<Array<Maybe<ItineraryConnectionId>>>;
-  _id?: Maybe<Array<Maybe<ItineraryConnection_Id>>>;
-  createdAt?: Maybe<Array<Maybe<ItineraryConnectionCreatedAt>>>;
-  updatedAt?: Maybe<Array<Maybe<ItineraryConnectionUpdatedAt>>>;
-  title?: Maybe<Array<Maybe<ItineraryConnectionTitle>>>;
-  package?: Maybe<Array<Maybe<ItineraryConnectionPackage>>>;
-  published_at?: Maybe<Array<Maybe<ItineraryConnectionPublished_At>>>;
+export type AboutBhutanSectionGroupBy = {
+  __typename?: 'AboutBhutanSectionGroupBy';
+  id?: Maybe<Array<Maybe<AboutBhutanSectionConnectionId>>>;
+  _id?: Maybe<Array<Maybe<AboutBhutanSectionConnection_Id>>>;
+  createdAt?: Maybe<Array<Maybe<AboutBhutanSectionConnectionCreatedAt>>>;
+  updatedAt?: Maybe<Array<Maybe<AboutBhutanSectionConnectionUpdatedAt>>>;
+  title?: Maybe<Array<Maybe<AboutBhutanSectionConnectionTitle>>>;
+  content?: Maybe<Array<Maybe<AboutBhutanSectionConnectionContent>>>;
+  coverImage?: Maybe<Array<Maybe<AboutBhutanSectionConnectionCoverImage>>>;
+  url?: Maybe<Array<Maybe<AboutBhutanSectionConnectionUrl>>>;
+  published_at?: Maybe<Array<Maybe<AboutBhutanSectionConnectionPublished_At>>>;
 };
 
-export type ItineraryConnectionId = {
-  __typename?: 'ItineraryConnectionId';
+export type AboutBhutanSectionConnectionId = {
+  __typename?: 'AboutBhutanSectionConnectionId';
   key?: Maybe<Scalars['ID']>;
-  connection?: Maybe<ItineraryConnection>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
 };
 
-export type ItineraryConnection_Id = {
-  __typename?: 'ItineraryConnection_id';
+export type AboutBhutanSectionConnection_Id = {
+  __typename?: 'AboutBhutanSectionConnection_id';
   key?: Maybe<Scalars['ID']>;
-  connection?: Maybe<ItineraryConnection>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
 };
 
-export type ItineraryConnectionCreatedAt = {
-  __typename?: 'ItineraryConnectionCreatedAt';
+export type AboutBhutanSectionConnectionCreatedAt = {
+  __typename?: 'AboutBhutanSectionConnectionCreatedAt';
   key?: Maybe<Scalars['DateTime']>;
-  connection?: Maybe<ItineraryConnection>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
 };
 
-export type ItineraryConnectionUpdatedAt = {
-  __typename?: 'ItineraryConnectionUpdatedAt';
+export type AboutBhutanSectionConnectionUpdatedAt = {
+  __typename?: 'AboutBhutanSectionConnectionUpdatedAt';
   key?: Maybe<Scalars['DateTime']>;
-  connection?: Maybe<ItineraryConnection>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
 };
 
-export type ItineraryConnectionTitle = {
-  __typename?: 'ItineraryConnectionTitle';
+export type AboutBhutanSectionConnectionTitle = {
+  __typename?: 'AboutBhutanSectionConnectionTitle';
   key?: Maybe<Scalars['String']>;
-  connection?: Maybe<ItineraryConnection>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
 };
 
-export type ItineraryConnectionPackage = {
-  __typename?: 'ItineraryConnectionPackage';
+export type AboutBhutanSectionConnectionContent = {
+  __typename?: 'AboutBhutanSectionConnectionContent';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
+};
+
+export type AboutBhutanSectionConnectionCoverImage = {
+  __typename?: 'AboutBhutanSectionConnectionCoverImage';
   key?: Maybe<Scalars['ID']>;
-  connection?: Maybe<ItineraryConnection>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
 };
 
-export type ItineraryConnectionPublished_At = {
-  __typename?: 'ItineraryConnectionPublished_at';
+export type AboutBhutanSectionConnectionUrl = {
+  __typename?: 'AboutBhutanSectionConnectionUrl';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
+};
+
+export type AboutBhutanSectionConnectionPublished_At = {
+  __typename?: 'AboutBhutanSectionConnectionPublished_at';
   key?: Maybe<Scalars['DateTime']>;
-  connection?: Maybe<ItineraryConnection>;
+  connection?: Maybe<AboutBhutanSectionConnection>;
 };
 
-export type ItineraryInput = {
-  itinerary?: Maybe<Array<Maybe<ComponentItineraryItineraryInput>>>;
-  title?: Maybe<Scalars['String']>;
-  package?: Maybe<Scalars['ID']>;
+export type AboutBhutanSectionInput = {
+  title: Scalars['String'];
+  content: Scalars['String'];
+  coverImage?: Maybe<Scalars['ID']>;
+  url?: Maybe<Scalars['String']>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
 
-export type EditItineraryInput = {
-  itinerary?: Maybe<Array<Maybe<EditComponentItineraryItineraryInput>>>;
+export type EditAboutBhutanSectionInput = {
   title?: Maybe<Scalars['String']>;
-  package?: Maybe<Scalars['ID']>;
+  content?: Maybe<Scalars['String']>;
+  coverImage?: Maybe<Scalars['ID']>;
+  url?: Maybe<Scalars['String']>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
 };
 
-export type CreateItineraryInput = {
-  data?: Maybe<ItineraryInput>;
+export type CreateAboutBhutanSectionInput = {
+  data?: Maybe<AboutBhutanSectionInput>;
 };
 
-export type CreateItineraryPayload = {
-  __typename?: 'createItineraryPayload';
-  itinerary?: Maybe<Itinerary>;
+export type CreateAboutBhutanSectionPayload = {
+  __typename?: 'createAboutBhutanSectionPayload';
+  aboutBhutanSection?: Maybe<AboutBhutanSection>;
 };
 
-export type UpdateItineraryInput = {
+export type UpdateAboutBhutanSectionInput = {
   where?: Maybe<InputId>;
-  data?: Maybe<EditItineraryInput>;
+  data?: Maybe<EditAboutBhutanSectionInput>;
 };
 
-export type UpdateItineraryPayload = {
-  __typename?: 'updateItineraryPayload';
-  itinerary?: Maybe<Itinerary>;
+export type UpdateAboutBhutanSectionPayload = {
+  __typename?: 'updateAboutBhutanSectionPayload';
+  aboutBhutanSection?: Maybe<AboutBhutanSection>;
 };
 
-export type DeleteItineraryInput = {
+export type DeleteAboutBhutanSectionInput = {
   where?: Maybe<InputId>;
 };
 
-export type DeleteItineraryPayload = {
-  __typename?: 'deleteItineraryPayload';
-  itinerary?: Maybe<Itinerary>;
+export type DeleteAboutBhutanSectionPayload = {
+  __typename?: 'deleteAboutBhutanSectionPayload';
+  aboutBhutanSection?: Maybe<AboutBhutanSection>;
+};
+
+export enum Enum_Datafordzongkhag_Sectors {
+  WesternBhutan = 'WesternBhutan',
+  CentralBhutan = 'CentralBhutan',
+  EasternBhutan = 'EasternBhutan'
+}
+
+export type DataForDzongkhag = {
+  __typename?: 'DataForDzongkhag';
+  id: Scalars['ID'];
+  _id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  InterestedPlaces: Scalars['String'];
+  coverImage?: Maybe<UploadFile>;
+  sectors: Enum_Datafordzongkhag_Sectors;
+  uniqueID: Scalars['Int'];
+  published_at?: Maybe<Scalars['DateTime']>;
+};
+
+export type DataForDzongkhagConnection = {
+  __typename?: 'DataForDzongkhagConnection';
+  values?: Maybe<Array<Maybe<DataForDzongkhag>>>;
+  groupBy?: Maybe<DataForDzongkhagGroupBy>;
+  aggregate?: Maybe<DataForDzongkhagAggregator>;
+};
+
+export type DataForDzongkhagAggregator = {
+  __typename?: 'DataForDzongkhagAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+  sum?: Maybe<DataForDzongkhagAggregatorSum>;
+  avg?: Maybe<DataForDzongkhagAggregatorAvg>;
+  min?: Maybe<DataForDzongkhagAggregatorMin>;
+  max?: Maybe<DataForDzongkhagAggregatorMax>;
+};
+
+export type DataForDzongkhagAggregatorSum = {
+  __typename?: 'DataForDzongkhagAggregatorSum';
+  uniqueID?: Maybe<Scalars['Float']>;
+};
+
+export type DataForDzongkhagAggregatorAvg = {
+  __typename?: 'DataForDzongkhagAggregatorAvg';
+  uniqueID?: Maybe<Scalars['Float']>;
+};
+
+export type DataForDzongkhagAggregatorMin = {
+  __typename?: 'DataForDzongkhagAggregatorMin';
+  uniqueID?: Maybe<Scalars['Float']>;
+};
+
+export type DataForDzongkhagAggregatorMax = {
+  __typename?: 'DataForDzongkhagAggregatorMax';
+  uniqueID?: Maybe<Scalars['Float']>;
+};
+
+export type DataForDzongkhagGroupBy = {
+  __typename?: 'DataForDzongkhagGroupBy';
+  id?: Maybe<Array<Maybe<DataForDzongkhagConnectionId>>>;
+  _id?: Maybe<Array<Maybe<DataForDzongkhagConnection_Id>>>;
+  createdAt?: Maybe<Array<Maybe<DataForDzongkhagConnectionCreatedAt>>>;
+  updatedAt?: Maybe<Array<Maybe<DataForDzongkhagConnectionUpdatedAt>>>;
+  title?: Maybe<Array<Maybe<DataForDzongkhagConnectionTitle>>>;
+  description?: Maybe<Array<Maybe<DataForDzongkhagConnectionDescription>>>;
+  InterestedPlaces?: Maybe<Array<Maybe<DataForDzongkhagConnectionInterestedPlaces>>>;
+  coverImage?: Maybe<Array<Maybe<DataForDzongkhagConnectionCoverImage>>>;
+  sectors?: Maybe<Array<Maybe<DataForDzongkhagConnectionSectors>>>;
+  uniqueID?: Maybe<Array<Maybe<DataForDzongkhagConnectionUniqueId>>>;
+  published_at?: Maybe<Array<Maybe<DataForDzongkhagConnectionPublished_At>>>;
+};
+
+export type DataForDzongkhagConnectionId = {
+  __typename?: 'DataForDzongkhagConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnection_Id = {
+  __typename?: 'DataForDzongkhagConnection_id';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionCreatedAt = {
+  __typename?: 'DataForDzongkhagConnectionCreatedAt';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionUpdatedAt = {
+  __typename?: 'DataForDzongkhagConnectionUpdatedAt';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionTitle = {
+  __typename?: 'DataForDzongkhagConnectionTitle';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionDescription = {
+  __typename?: 'DataForDzongkhagConnectionDescription';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionInterestedPlaces = {
+  __typename?: 'DataForDzongkhagConnectionInterestedPlaces';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionCoverImage = {
+  __typename?: 'DataForDzongkhagConnectionCoverImage';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionSectors = {
+  __typename?: 'DataForDzongkhagConnectionSectors';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionUniqueId = {
+  __typename?: 'DataForDzongkhagConnectionUniqueID';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagConnectionPublished_At = {
+  __typename?: 'DataForDzongkhagConnectionPublished_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<DataForDzongkhagConnection>;
+};
+
+export type DataForDzongkhagInput = {
+  title: Scalars['String'];
+  description: Scalars['String'];
+  InterestedPlaces: Scalars['String'];
+  coverImage?: Maybe<Scalars['ID']>;
+  sectors?: Maybe<Enum_Datafordzongkhag_Sectors>;
+  uniqueID: Scalars['Int'];
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type EditDataForDzongkhagInput = {
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  InterestedPlaces?: Maybe<Scalars['String']>;
+  coverImage?: Maybe<Scalars['ID']>;
+  sectors?: Maybe<Enum_Datafordzongkhag_Sectors>;
+  uniqueID?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type CreateDataForDzongkhagInput = {
+  data?: Maybe<DataForDzongkhagInput>;
+};
+
+export type CreateDataForDzongkhagPayload = {
+  __typename?: 'createDataForDzongkhagPayload';
+  dataForDzongkhag?: Maybe<DataForDzongkhag>;
+};
+
+export type UpdateDataForDzongkhagInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditDataForDzongkhagInput>;
+};
+
+export type UpdateDataForDzongkhagPayload = {
+  __typename?: 'updateDataForDzongkhagPayload';
+  dataForDzongkhag?: Maybe<DataForDzongkhag>;
+};
+
+export type DeleteDataForDzongkhagInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeleteDataForDzongkhagPayload = {
+  __typename?: 'deleteDataForDzongkhagPayload';
+  dataForDzongkhag?: Maybe<DataForDzongkhag>;
 };
 
 export enum Enum_Package_Packagetype {
@@ -216,9 +424,14 @@ export type Package = {
   duration: Scalars['String'];
   description: Scalars['String'];
   title: Scalars['String'];
-  itinerary?: Maybe<Itinerary>;
   packageInsight: Scalars['String'];
   packageType: Enum_Package_Packagetype;
+  packageHighlight: Scalars['String'];
+  bestTravelTime?: Maybe<Scalars['String']>;
+  arrival?: Maybe<Scalars['String']>;
+  departure?: Maybe<Scalars['String']>;
+  destinations: Scalars['String'];
+  itineraries?: Maybe<Array<Maybe<ComponentItineraryItinerary>>>;
   published_at?: Maybe<Scalars['DateTime']>;
   images?: Maybe<Array<Maybe<UploadFile>>>;
 };
@@ -278,9 +491,13 @@ export type PackageGroupBy = {
   duration?: Maybe<Array<Maybe<PackageConnectionDuration>>>;
   description?: Maybe<Array<Maybe<PackageConnectionDescription>>>;
   title?: Maybe<Array<Maybe<PackageConnectionTitle>>>;
-  itinerary?: Maybe<Array<Maybe<PackageConnectionItinerary>>>;
   packageInsight?: Maybe<Array<Maybe<PackageConnectionPackageInsight>>>;
   packageType?: Maybe<Array<Maybe<PackageConnectionPackageType>>>;
+  packageHighlight?: Maybe<Array<Maybe<PackageConnectionPackageHighlight>>>;
+  bestTravelTime?: Maybe<Array<Maybe<PackageConnectionBestTravelTime>>>;
+  arrival?: Maybe<Array<Maybe<PackageConnectionArrival>>>;
+  departure?: Maybe<Array<Maybe<PackageConnectionDeparture>>>;
+  destinations?: Maybe<Array<Maybe<PackageConnectionDestinations>>>;
   published_at?: Maybe<Array<Maybe<PackageConnectionPublished_At>>>;
 };
 
@@ -332,12 +549,6 @@ export type PackageConnectionTitle = {
   connection?: Maybe<PackageConnection>;
 };
 
-export type PackageConnectionItinerary = {
-  __typename?: 'PackageConnectionItinerary';
-  key?: Maybe<Scalars['ID']>;
-  connection?: Maybe<PackageConnection>;
-};
-
 export type PackageConnectionPackageInsight = {
   __typename?: 'PackageConnectionPackageInsight';
   key?: Maybe<Scalars['String']>;
@@ -346,6 +557,36 @@ export type PackageConnectionPackageInsight = {
 
 export type PackageConnectionPackageType = {
   __typename?: 'PackageConnectionPackageType';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PackageConnection>;
+};
+
+export type PackageConnectionPackageHighlight = {
+  __typename?: 'PackageConnectionPackageHighlight';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PackageConnection>;
+};
+
+export type PackageConnectionBestTravelTime = {
+  __typename?: 'PackageConnectionBestTravelTime';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PackageConnection>;
+};
+
+export type PackageConnectionArrival = {
+  __typename?: 'PackageConnectionArrival';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PackageConnection>;
+};
+
+export type PackageConnectionDeparture = {
+  __typename?: 'PackageConnectionDeparture';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<PackageConnection>;
+};
+
+export type PackageConnectionDestinations = {
+  __typename?: 'PackageConnectionDestinations';
   key?: Maybe<Scalars['String']>;
   connection?: Maybe<PackageConnection>;
 };
@@ -362,9 +603,14 @@ export type PackageInput = {
   images?: Maybe<Array<Maybe<Scalars['ID']>>>;
   description: Scalars['String'];
   title: Scalars['String'];
-  itinerary?: Maybe<Scalars['ID']>;
   packageInsight: Scalars['String'];
   packageType: Enum_Package_Packagetype;
+  packageHighlight: Scalars['String'];
+  bestTravelTime?: Maybe<Scalars['String']>;
+  arrival?: Maybe<Scalars['String']>;
+  departure?: Maybe<Scalars['String']>;
+  destinations: Scalars['String'];
+  itineraries?: Maybe<Array<Maybe<ComponentItineraryItineraryInput>>>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -376,9 +622,14 @@ export type EditPackageInput = {
   images?: Maybe<Array<Maybe<Scalars['ID']>>>;
   description?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
-  itinerary?: Maybe<Scalars['ID']>;
   packageInsight?: Maybe<Scalars['String']>;
   packageType?: Maybe<Enum_Package_Packagetype>;
+  packageHighlight?: Maybe<Scalars['String']>;
+  bestTravelTime?: Maybe<Scalars['String']>;
+  arrival?: Maybe<Scalars['String']>;
+  departure?: Maybe<Scalars['String']>;
+  destinations?: Maybe<Scalars['String']>;
+  itineraries?: Maybe<Array<Maybe<EditComponentItineraryItineraryInput>>>;
   published_at?: Maybe<Scalars['DateTime']>;
   created_by?: Maybe<Scalars['ID']>;
   updated_by?: Maybe<Scalars['ID']>;
@@ -410,6 +661,171 @@ export type DeletePackageInput = {
 export type DeletePackagePayload = {
   __typename?: 'deletePackagePayload';
   package?: Maybe<Package>;
+};
+
+export type Testimonial = {
+  __typename?: 'Testimonial';
+  id: Scalars['ID'];
+  _id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  guestName: Scalars['String'];
+  image?: Maybe<UploadFile>;
+  comments: Scalars['String'];
+  uniqueId?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+};
+
+export type TestimonialConnection = {
+  __typename?: 'TestimonialConnection';
+  values?: Maybe<Array<Maybe<Testimonial>>>;
+  groupBy?: Maybe<TestimonialGroupBy>;
+  aggregate?: Maybe<TestimonialAggregator>;
+};
+
+export type TestimonialAggregator = {
+  __typename?: 'TestimonialAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+  sum?: Maybe<TestimonialAggregatorSum>;
+  avg?: Maybe<TestimonialAggregatorAvg>;
+  min?: Maybe<TestimonialAggregatorMin>;
+  max?: Maybe<TestimonialAggregatorMax>;
+};
+
+export type TestimonialAggregatorSum = {
+  __typename?: 'TestimonialAggregatorSum';
+  uniqueId?: Maybe<Scalars['Float']>;
+};
+
+export type TestimonialAggregatorAvg = {
+  __typename?: 'TestimonialAggregatorAvg';
+  uniqueId?: Maybe<Scalars['Float']>;
+};
+
+export type TestimonialAggregatorMin = {
+  __typename?: 'TestimonialAggregatorMin';
+  uniqueId?: Maybe<Scalars['Float']>;
+};
+
+export type TestimonialAggregatorMax = {
+  __typename?: 'TestimonialAggregatorMax';
+  uniqueId?: Maybe<Scalars['Float']>;
+};
+
+export type TestimonialGroupBy = {
+  __typename?: 'TestimonialGroupBy';
+  id?: Maybe<Array<Maybe<TestimonialConnectionId>>>;
+  _id?: Maybe<Array<Maybe<TestimonialConnection_Id>>>;
+  createdAt?: Maybe<Array<Maybe<TestimonialConnectionCreatedAt>>>;
+  updatedAt?: Maybe<Array<Maybe<TestimonialConnectionUpdatedAt>>>;
+  guestName?: Maybe<Array<Maybe<TestimonialConnectionGuestName>>>;
+  image?: Maybe<Array<Maybe<TestimonialConnectionImage>>>;
+  comments?: Maybe<Array<Maybe<TestimonialConnectionComments>>>;
+  uniqueId?: Maybe<Array<Maybe<TestimonialConnectionUniqueId>>>;
+  published_at?: Maybe<Array<Maybe<TestimonialConnectionPublished_At>>>;
+};
+
+export type TestimonialConnectionId = {
+  __typename?: 'TestimonialConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialConnection_Id = {
+  __typename?: 'TestimonialConnection_id';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialConnectionCreatedAt = {
+  __typename?: 'TestimonialConnectionCreatedAt';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialConnectionUpdatedAt = {
+  __typename?: 'TestimonialConnectionUpdatedAt';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialConnectionGuestName = {
+  __typename?: 'TestimonialConnectionGuestName';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialConnectionImage = {
+  __typename?: 'TestimonialConnectionImage';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialConnectionComments = {
+  __typename?: 'TestimonialConnectionComments';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialConnectionUniqueId = {
+  __typename?: 'TestimonialConnectionUniqueId';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialConnectionPublished_At = {
+  __typename?: 'TestimonialConnectionPublished_at';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<TestimonialConnection>;
+};
+
+export type TestimonialInput = {
+  guestName: Scalars['String'];
+  image?: Maybe<Scalars['ID']>;
+  comments: Scalars['String'];
+  uniqueId?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type EditTestimonialInput = {
+  guestName?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['ID']>;
+  comments?: Maybe<Scalars['String']>;
+  uniqueId?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['DateTime']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type CreateTestimonialInput = {
+  data?: Maybe<TestimonialInput>;
+};
+
+export type CreateTestimonialPayload = {
+  __typename?: 'createTestimonialPayload';
+  testimonial?: Maybe<Testimonial>;
+};
+
+export type UpdateTestimonialInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditTestimonialInput>;
+};
+
+export type UpdateTestimonialPayload = {
+  __typename?: 'updateTestimonialPayload';
+  testimonial?: Maybe<Testimonial>;
+};
+
+export type DeleteTestimonialInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeleteTestimonialPayload = {
+  __typename?: 'deleteTestimonialPayload';
+  testimonial?: Maybe<Testimonial>;
 };
 
 export type UploadFile = {
@@ -963,25 +1379,6 @@ export type DeleteUserPayload = {
   user?: Maybe<UsersPermissionsUser>;
 };
 
-export type ComponentAltitudeAltitude = {
-  __typename?: 'ComponentAltitudeAltitude';
-  id: Scalars['ID'];
-  _id: Scalars['ID'];
-  initial?: Maybe<Scalars['String']>;
-  final?: Maybe<Scalars['String']>;
-};
-
-export type ComponentAltitudeAltitudeInput = {
-  initial?: Maybe<Scalars['String']>;
-  final?: Maybe<Scalars['String']>;
-};
-
-export type EditComponentAltitudeAltitudeInput = {
-  id?: Maybe<Scalars['ID']>;
-  initial?: Maybe<Scalars['String']>;
-  final?: Maybe<Scalars['String']>;
-};
-
 export type ComponentItineraryItinerary = {
   __typename?: 'ComponentItineraryItinerary';
   id: Scalars['ID'];
@@ -990,7 +1387,7 @@ export type ComponentItineraryItinerary = {
   time?: Maybe<Scalars['String']>;
   distance?: Maybe<Scalars['Int']>;
   content?: Maybe<Scalars['String']>;
-  altitude?: Maybe<ComponentAltitudeAltitude>;
+  altitude?: Maybe<Scalars['String']>;
 };
 
 export type ComponentItineraryItineraryInput = {
@@ -998,7 +1395,7 @@ export type ComponentItineraryItineraryInput = {
   time?: Maybe<Scalars['String']>;
   distance?: Maybe<Scalars['Int']>;
   content?: Maybe<Scalars['String']>;
-  altitude?: Maybe<ComponentAltitudeAltitudeInput>;
+  altitude?: Maybe<Scalars['String']>;
 };
 
 export type EditComponentItineraryItineraryInput = {
@@ -1007,10 +1404,10 @@ export type EditComponentItineraryItineraryInput = {
   time?: Maybe<Scalars['String']>;
   distance?: Maybe<Scalars['Int']>;
   content?: Maybe<Scalars['String']>;
-  altitude?: Maybe<EditComponentAltitudeAltitudeInput>;
+  altitude?: Maybe<Scalars['String']>;
 };
 
-export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Itinerary | ItineraryConnection | ItineraryAggregator | ItineraryGroupBy | ItineraryConnectionId | ItineraryConnection_Id | ItineraryConnectionCreatedAt | ItineraryConnectionUpdatedAt | ItineraryConnectionTitle | ItineraryConnectionPackage | ItineraryConnectionPublished_At | CreateItineraryPayload | UpdateItineraryPayload | DeleteItineraryPayload | Package | PackageConnection | PackageAggregator | PackageAggregatorSum | PackageAggregatorAvg | PackageAggregatorMin | PackageAggregatorMax | PackageGroupBy | PackageConnectionId | PackageConnection_Id | PackageConnectionCreatedAt | PackageConnectionUpdatedAt | PackageConnectionPackageId | PackageConnectionDuration | PackageConnectionDescription | PackageConnectionTitle | PackageConnectionItinerary | PackageConnectionPackageInsight | PackageConnectionPackageType | PackageConnectionPublished_At | CreatePackagePayload | UpdatePackagePayload | DeletePackagePayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_Id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_Id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_Id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentAltitudeAltitude | ComponentItineraryItinerary;
+export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | AboutBhutanSection | AboutBhutanSectionConnection | AboutBhutanSectionAggregator | AboutBhutanSectionGroupBy | AboutBhutanSectionConnectionId | AboutBhutanSectionConnection_Id | AboutBhutanSectionConnectionCreatedAt | AboutBhutanSectionConnectionUpdatedAt | AboutBhutanSectionConnectionTitle | AboutBhutanSectionConnectionContent | AboutBhutanSectionConnectionCoverImage | AboutBhutanSectionConnectionUrl | AboutBhutanSectionConnectionPublished_At | CreateAboutBhutanSectionPayload | UpdateAboutBhutanSectionPayload | DeleteAboutBhutanSectionPayload | DataForDzongkhag | DataForDzongkhagConnection | DataForDzongkhagAggregator | DataForDzongkhagAggregatorSum | DataForDzongkhagAggregatorAvg | DataForDzongkhagAggregatorMin | DataForDzongkhagAggregatorMax | DataForDzongkhagGroupBy | DataForDzongkhagConnectionId | DataForDzongkhagConnection_Id | DataForDzongkhagConnectionCreatedAt | DataForDzongkhagConnectionUpdatedAt | DataForDzongkhagConnectionTitle | DataForDzongkhagConnectionDescription | DataForDzongkhagConnectionInterestedPlaces | DataForDzongkhagConnectionCoverImage | DataForDzongkhagConnectionSectors | DataForDzongkhagConnectionUniqueId | DataForDzongkhagConnectionPublished_At | CreateDataForDzongkhagPayload | UpdateDataForDzongkhagPayload | DeleteDataForDzongkhagPayload | Package | PackageConnection | PackageAggregator | PackageAggregatorSum | PackageAggregatorAvg | PackageAggregatorMin | PackageAggregatorMax | PackageGroupBy | PackageConnectionId | PackageConnection_Id | PackageConnectionCreatedAt | PackageConnectionUpdatedAt | PackageConnectionPackageId | PackageConnectionDuration | PackageConnectionDescription | PackageConnectionTitle | PackageConnectionPackageInsight | PackageConnectionPackageType | PackageConnectionPackageHighlight | PackageConnectionBestTravelTime | PackageConnectionArrival | PackageConnectionDeparture | PackageConnectionDestinations | PackageConnectionPublished_At | CreatePackagePayload | UpdatePackagePayload | DeletePackagePayload | Testimonial | TestimonialConnection | TestimonialAggregator | TestimonialAggregatorSum | TestimonialAggregatorAvg | TestimonialAggregatorMin | TestimonialAggregatorMax | TestimonialGroupBy | TestimonialConnectionId | TestimonialConnection_Id | TestimonialConnectionCreatedAt | TestimonialConnectionUpdatedAt | TestimonialConnectionGuestName | TestimonialConnectionImage | TestimonialConnectionComments | TestimonialConnectionUniqueId | TestimonialConnectionPublished_At | CreateTestimonialPayload | UpdateTestimonialPayload | DeleteTestimonialPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_Id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_Id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_Id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentItineraryItinerary;
 
 export type InputId = {
   id: Scalars['ID'];
@@ -1031,12 +1428,18 @@ export type AdminUser = {
 
 export type Query = {
   __typename?: 'Query';
-  itinerary?: Maybe<Itinerary>;
-  itineraries?: Maybe<Array<Maybe<Itinerary>>>;
-  itinerariesConnection?: Maybe<ItineraryConnection>;
+  aboutBhutanSection?: Maybe<AboutBhutanSection>;
+  aboutBhutanSections?: Maybe<Array<Maybe<AboutBhutanSection>>>;
+  aboutBhutanSectionsConnection?: Maybe<AboutBhutanSectionConnection>;
+  dataForDzongkhag?: Maybe<DataForDzongkhag>;
+  dataForDzongkhags?: Maybe<Array<Maybe<DataForDzongkhag>>>;
+  dataForDzongkhagsConnection?: Maybe<DataForDzongkhagConnection>;
   package?: Maybe<Package>;
   packages?: Maybe<Array<Maybe<Package>>>;
   packagesConnection?: Maybe<PackageConnection>;
+  testimonial?: Maybe<Testimonial>;
+  testimonials?: Maybe<Array<Maybe<Testimonial>>>;
+  testimonialsConnection?: Maybe<TestimonialConnection>;
   files?: Maybe<Array<Maybe<UploadFile>>>;
   filesConnection?: Maybe<UploadFileConnection>;
   role?: Maybe<UsersPermissionsRole>;
@@ -1046,19 +1449,21 @@ export type Query = {
   user?: Maybe<UsersPermissionsUser>;
   users?: Maybe<Array<Maybe<UsersPermissionsUser>>>;
   usersConnection?: Maybe<UsersPermissionsUserConnection>;
+  dzongkhagsCount: Scalars['Int'];
   packagesCount: Scalars['Int'];
   packageTypes: Array<Scalars['String']>;
+  testimonialsCount: Scalars['Int'];
   me?: Maybe<UsersPermissionsMe>;
 };
 
 
-export type QueryItineraryArgs = {
+export type QueryAboutBhutanSectionArgs = {
   id: Scalars['ID'];
   publicationState?: Maybe<PublicationState>;
 };
 
 
-export type QueryItinerariesArgs = {
+export type QueryAboutBhutanSectionsArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -1067,7 +1472,30 @@ export type QueryItinerariesArgs = {
 };
 
 
-export type QueryItinerariesConnectionArgs = {
+export type QueryAboutBhutanSectionsConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QueryDataForDzongkhagArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryDataForDzongkhagsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryDataForDzongkhagsConnectionArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -1091,6 +1519,29 @@ export type QueryPackagesArgs = {
 
 
 export type QueryPackagesConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QueryTestimonialArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryTestimonialsArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryTestimonialsConnectionArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -1161,18 +1612,34 @@ export type QueryUsersConnectionArgs = {
 };
 
 
+export type QueryDzongkhagsCountArgs = {
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
 export type QueryPackagesCountArgs = {
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QueryTestimonialsCountArgs = {
   where?: Maybe<Scalars['JSON']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createItinerary?: Maybe<CreateItineraryPayload>;
-  updateItinerary?: Maybe<UpdateItineraryPayload>;
-  deleteItinerary?: Maybe<DeleteItineraryPayload>;
+  createAboutBhutanSection?: Maybe<CreateAboutBhutanSectionPayload>;
+  updateAboutBhutanSection?: Maybe<UpdateAboutBhutanSectionPayload>;
+  deleteAboutBhutanSection?: Maybe<DeleteAboutBhutanSectionPayload>;
+  createDataForDzongkhag?: Maybe<CreateDataForDzongkhagPayload>;
+  updateDataForDzongkhag?: Maybe<UpdateDataForDzongkhagPayload>;
+  deleteDataForDzongkhag?: Maybe<DeleteDataForDzongkhagPayload>;
   createPackage?: Maybe<CreatePackagePayload>;
   updatePackage?: Maybe<UpdatePackagePayload>;
   deletePackage?: Maybe<DeletePackagePayload>;
+  createTestimonial?: Maybe<CreateTestimonialPayload>;
+  updateTestimonial?: Maybe<UpdateTestimonialPayload>;
+  deleteTestimonial?: Maybe<DeleteTestimonialPayload>;
   /** Delete one file */
   deleteFile?: Maybe<DeleteFilePayload>;
   /** Create a new role */
@@ -1198,18 +1665,33 @@ export type Mutation = {
 };
 
 
-export type MutationCreateItineraryArgs = {
-  input?: Maybe<CreateItineraryInput>;
+export type MutationCreateAboutBhutanSectionArgs = {
+  input?: Maybe<CreateAboutBhutanSectionInput>;
 };
 
 
-export type MutationUpdateItineraryArgs = {
-  input?: Maybe<UpdateItineraryInput>;
+export type MutationUpdateAboutBhutanSectionArgs = {
+  input?: Maybe<UpdateAboutBhutanSectionInput>;
 };
 
 
-export type MutationDeleteItineraryArgs = {
-  input?: Maybe<DeleteItineraryInput>;
+export type MutationDeleteAboutBhutanSectionArgs = {
+  input?: Maybe<DeleteAboutBhutanSectionInput>;
+};
+
+
+export type MutationCreateDataForDzongkhagArgs = {
+  input?: Maybe<CreateDataForDzongkhagInput>;
+};
+
+
+export type MutationUpdateDataForDzongkhagArgs = {
+  input?: Maybe<UpdateDataForDzongkhagInput>;
+};
+
+
+export type MutationDeleteDataForDzongkhagArgs = {
+  input?: Maybe<DeleteDataForDzongkhagInput>;
 };
 
 
@@ -1225,6 +1707,21 @@ export type MutationUpdatePackageArgs = {
 
 export type MutationDeletePackageArgs = {
   input?: Maybe<DeletePackageInput>;
+};
+
+
+export type MutationCreateTestimonialArgs = {
+  input?: Maybe<CreateTestimonialInput>;
+};
+
+
+export type MutationUpdateTestimonialArgs = {
+  input?: Maybe<UpdateTestimonialInput>;
+};
+
+
+export type MutationDeleteTestimonialArgs = {
+  input?: Maybe<DeleteTestimonialInput>;
 };
 
 
@@ -1324,6 +1821,53 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+export type DzongkhagQueryVariables = Exact<{
+  uniqueID: Scalars['ID'];
+}>;
+
+
+export type DzongkhagQuery = (
+  { __typename?: 'Query' }
+  & { dataForDzongkhag?: Maybe<(
+    { __typename?: 'DataForDzongkhag' }
+    & Pick<DataForDzongkhag, 'title' | 'description' | 'sectors' | 'InterestedPlaces'>
+    & { coverImage?: Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'width' | 'height' | 'url' | 'caption'>
+    )> }
+  )> }
+);
+
+export type FilteredPkgCountQueryVariables = Exact<{
+  packageType?: Maybe<Scalars['String']>;
+}>;
+
+
+export type FilteredPkgCountQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'packagesCount'>
+);
+
+export type FullPkgQueryVariables = Exact<{
+  title?: Maybe<Scalars['String']>;
+}>;
+
+
+export type FullPkgQuery = (
+  { __typename?: 'Query' }
+  & { packages?: Maybe<Array<Maybe<(
+    { __typename?: 'Package' }
+    & Pick<Package, 'title' | 'description' | 'packageHighlight' | 'packageInsight' | 'arrival' | 'departure' | 'duration' | 'bestTravelTime' | 'destinations'>
+    & { itineraries?: Maybe<Array<Maybe<(
+      { __typename?: 'ComponentItineraryItinerary' }
+      & Pick<ComponentItineraryItinerary, 'name' | 'time' | 'distance' | 'content' | 'altitude'>
+    )>>>, images?: Maybe<Array<Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'url' | 'height' | 'width'>
+    )>>> }
+  )>>> }
+);
+
 export type GetPackagesQueryVariables = Exact<{
   packageType?: Maybe<Scalars['String']>;
 }>;
@@ -1368,10 +1912,45 @@ export type PackagesFilterQuery = (
   { __typename?: 'Query' }
   & { packages?: Maybe<Array<Maybe<(
     { __typename?: 'Package' }
-    & Pick<Package, 'title' | 'description'>
+    & Pick<Package, 'title' | 'packageId' | 'description'>
     & { images?: Maybe<Array<Maybe<(
       { __typename?: 'UploadFile' }
       & Pick<UploadFile, 'url' | 'height' | 'width'>
     )>>> }
+  )>>> }
+);
+
+export type DataAboutBhutanQueryVariables = Exact<{
+  url?: Maybe<Scalars['String']>;
+}>;
+
+
+export type DataAboutBhutanQuery = (
+  { __typename?: 'Query' }
+  & { aboutBhutanSections?: Maybe<Array<Maybe<(
+    { __typename?: 'AboutBhutanSection' }
+    & Pick<AboutBhutanSection, 'title' | 'content'>
+    & { coverImage?: Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'width' | 'height' | 'caption'>
+    )> }
+  )>>> }
+);
+
+export type GetTestimonialsQueryVariables = Exact<{
+  offset?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type GetTestimonialsQuery = (
+  { __typename?: 'Query' }
+  & { testimonials?: Maybe<Array<Maybe<(
+    { __typename?: 'Testimonial' }
+    & Pick<Testimonial, 'guestName' | 'comments'>
+    & { image?: Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'url' | 'caption'>
+    )> }
   )>>> }
 );

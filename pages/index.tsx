@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from "react";
 import { GetStaticProps } from "next";
-
+import "../styles/pages/home.module.scss";
 //Components
 import Nav from "@/components/Navbar";
 import Affiliations from "./home/_affiliations";

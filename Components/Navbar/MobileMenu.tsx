@@ -4,8 +4,11 @@ import gsap from "gsap";
 import { Transition } from "react-transition-group";
 import Link from "next/link";
 
-import { NavigationContext } from "../../src/Context/NavigationContext";
+import { routerIndex } from "../../src/helperFuncs";
 import navLinks from "./NavData";
+import { useRouter } from "next/router";
+
+import styles from "styles/components/nav.module.scss";
 
 interface Istates {
   menu: boolean;
@@ -15,9 +18,9 @@ interface Istates {
 
 const Menu: React.FC<{
   states: Istates;
-  handleRef: (el: HTMLLIElement) => void;
 }> = (props) => {
-  const { selectedIndex, setIndex } = useContext(NavigationContext);
+  //router
+  const router = useRouter();
 
   const { menu, setAnimation, setMenu } = props.states;
 
@@ -44,19 +47,19 @@ const Menu: React.FC<{
       onEntered={() => setAnimation(false)}
       onExited={() => setAnimation(false)}
     >
-      <ul className="mobile-menu">
+      <ul className={styles["mobile-menu"]}>
         {navLinks.map((link, index: number) => (
           <li
             key={`navMobile-${index}`}
-            className={`nav__links ${
-              selectedIndex === link.index ? "nav-active-mobile" : ""
+            className={`${styles["nav__links"]} ${
+              routerIndex(router.asPath) === link.index
+                ? styles["nav-active-mobile"]
+                : ""
             }`}
-            ref={props.handleRef}
           >
             {/* To DO: Make the menu disappear when a option is clicked */}
             <button
               onClick={() => {
-                setIndex(link.index);
                 setMenu(false);
               }}
             >

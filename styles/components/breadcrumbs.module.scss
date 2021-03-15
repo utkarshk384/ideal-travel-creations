@@ -1,0 +1,67 @@
+@use "../abstracts/mixins";
+@use "../abstracts/variables";
+@use "../vendors/include-media";
+
+.breadcrumbs {
+  @include mixins.Container(80%) {
+    @include include-media.media("<=xs") {
+      width: 95%;
+    }
+    background-color: variables.$white;
+  }
+  @include mixins.flex();
+  padding: 1rem 2rem;
+  margin: 3rem auto;
+
+  li {
+    @include mixins.font(variables.$font-bold, variables.$font-sans);
+    @include mixins.flex-Margin(1rem) {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    @include mixins.flex(
+      $breakpoint-css: (
+        align-items: center,
+      )
+    );
+    color: variables.$accent;
+    list-style-type: none;
+    align-items: center;
+    cursor: pointer;
+
+    @media (hover: hover) {
+      &:hover {
+        color: variables.$secondary;
+      }
+    }
+
+    &::after {
+      content: "\f078";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: variables.$font-sm;
+    }
+    @media (hover: hover) {
+      &:hover::after {
+        color: variables.$accent;
+      }
+    }
+  }
+
+  .bc-li:last-child {
+    color: variables.$secondary;
+    &::after {
+      content: "";
+    }
+  }
+}
+
+@include include-media.media(">=lg") {
+  .breadcrumbs li::after {
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: variables.$font-sm;
+    margin-left: 1rem;
+  }
+}

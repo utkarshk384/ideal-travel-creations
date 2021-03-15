@@ -1,3 +1,18 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass functions.
 // -----------------------------------------------------------------------------
+@use "sass:map";
+
+@function font-clamp($values, $supports: false) {
+  @if $supports {
+    @return min(
+      #{map.get($values, min)},
+      max(#{map.get($values, avg)}, #{map.get($values, max)})
+    );
+  }
+  @return clamp(
+    #{map.get($values, min)},
+    #{map.get($values, avg)},
+    #{map.get($values, max)}
+  );
+}

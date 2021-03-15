@@ -8,7 +8,7 @@ import {
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
-const createApolloClient = () => {
+export const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
@@ -37,10 +37,12 @@ export function initializeApollo(initialState: object | null = null) {
 
   // Create the Apollo Client once in the client
   if (!apolloClient) apolloClient = _apolloClient;
+
   return _apolloClient;
 }
 
 export function useApollo(initialState: object) {
   const store = useMemo(() => initializeApollo(initialState), [initialState]);
+
   return store;
 }

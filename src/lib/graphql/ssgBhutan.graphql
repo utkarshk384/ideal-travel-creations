@@ -1,0 +1,11 @@
+query dataAboutBhutan($url: String) {
+  aboutBhutanSections(where: { url: $url }) {
+    title
+    content
+    coverImage {
+      width
+      height
+      caption
+    }
+  }
+}

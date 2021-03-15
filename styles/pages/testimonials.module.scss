@@ -1,0 +1,204 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+//Local Variables
+$card-height: 30rem;
+$page-nav-border: 2px solid $accent;
+
+.testimonials {
+  @include Container(80%) {
+    @include breakpoint.media("<=xs") {
+      width: 95%;
+    }
+  }
+}
+
+.tst {
+  @include flex(
+    $center: true,
+    $breakpoint-css: (
+      flex-direction: column,
+    )
+  );
+}
+
+.card {
+  @include flex(
+    $breakpoint-css: (
+      align-items: center,
+    )
+  ) {
+    align-items: center;
+  }
+  min-height: $card-height;
+  margin: 2rem 0;
+  background-color: $white;
+
+  &-img-container {
+    height: 15rem;
+    width: 15rem;
+    position: relative;
+    overflow: hidden;
+    margin-top: 3rem;
+    border-radius: 100%;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &-content {
+    @include flex(
+      $breakpoint-css: (
+        flex-direction: column,
+        justify-content: center,
+      )
+    );
+    position: relative;
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+
+    &::before,
+    &::after {
+      font-family: "Font Awesome 5 Free";
+      font-style: normal;
+      font-weight: 900;
+      font-size: 100px;
+      color: $accent;
+      filter: opacity(30%);
+    }
+
+    &::before {
+      @include setPosition(50%, auto, auto, 50%);
+      content: "\f10d";
+      transform: translate(-50%, -20%);
+      filter: opacity(30%);
+    }
+  }
+
+  &-title {
+    @include flex() {
+      align-items: center;
+      justify-content: center;
+    }
+
+    margin-top: 2rem;
+
+    h3 {
+      color: $secondary;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+
+.tst-nav {
+  @include flex(
+    $breakpoint-css: (
+      justify-content: center,
+    )
+  ) {
+    flex-direction: row;
+    justify-content: center;
+  }
+  margin-bottom: 5rem;
+}
+
+
+.page-btn {
+  @include btn-anim-fill-center(5rem, 1px solid $accent, [$accent, $white], $accent);
+  @include font($font-bold, $font-sans);
+  border: none;
+  border-top: $page-nav-border;
+  border-bottom: $page-nav-border;
+  border-right: $page-nav-border;
+  position: relative;
+  font-size: $font-sm;
+  color: $accent;
+}
+.page-btn.num-btn{
+  @include breakpoint.media("<=lg"){
+    opacity: 0;
+    position: absolute;
+    visibility: hidden;
+  }
+}
+
+
+.back-btn{
+  border-left: $page-nav-border;
+  &:after{content: "\f060";}
+}
+.nav-btn::after{
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-style: normal;
+  font-size: $font-sm;
+}
+.forward-btn::after{content: "\f061";}
+
+
+@include breakpoint.media(">=lg") {
+  .card {
+    &-img-container {
+      height: $card-height;
+      width: $card-height;
+      overflow: hidden;
+      margin: 0;
+      border-radius: 0;
+    }
+
+    &-content {
+      width: 60%;
+      height: $card-height;
+      overflow-y: visible;
+      margin: 0;
+
+      &::before {
+        @include setPosition(3%, auto, auto, 10%);
+        content: "\f10d";
+      }
+
+      &::after {
+        @include setPosition(auto, 3%, 0, auto);
+        content: "\f10e";
+      }
+    }
+    &-title {
+      margin-top: 0;
+    }
+  }
+
+  //Flip Content
+  .card.card-flip {
+    position: relative;
+    width: 100%;
+  }
+
+  .flip {
+    @include setPosition();
+    background-color: $white;
+
+    &-img {
+      right: 0;
+      top: 0;
+      z-index: $z-1;
+    }
+  }
+}
+
+@include breakpoint.media("<=87.375rem", ">=lg") {
+  .flip {
+    &.flip-img {
+      width: 40%;
+
+      .card-img-container {
+        width: 100%;
+      }
+    }
+
+    &.flip-content {
+      width: 100%;
+    }
+  }
+}

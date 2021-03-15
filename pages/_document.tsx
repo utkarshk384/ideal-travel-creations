@@ -20,6 +20,7 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body>
+          <div className="overlay" />
           <Main />
           <NextScript />
         </body>

@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "./functions" as *;
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
@@ -12,7 +13,7 @@ $colors: (
   primary: #d5f1a4,
   secondary: #506629,
   accent: #c39462,
-  alert: #e98b8b,
+  alert: #e76f6f,
   bg: #f1f1f1,
 );
 
@@ -33,12 +34,45 @@ $font-bold: 700;
 $font-black: 900;
 
 //Font Sizes
-$font-2xl: clamp(5em, 7.5vw, 8em);
-$font-xl: clamp(2.1em, 4em, 4.5em);
-$font-lg: clamp(1.9em, 1.75em, 2.5em);
-$font-md: clamp(1.25em, 1.65em, 2em);
-$font-sm: clamp(1em, 1.1em, 1.3em);
-$font-xs: clamp(0.95em, 1em, 1.1em);
+$font-sizes: (
+  2xl: (
+    min: 5rem,
+    avg: 7.5vw,
+    max: 8rem,
+  ),
+  xl: (
+    min: 2rem,
+    avg: 3.5vw,
+    max: 4rem,
+  ),
+  lg: (
+    min: 1.4rem,
+    avg: 2.2vw,
+    max: 2.5rem,
+  ),
+  md: (
+    min: 1.25rem,
+    avg: 2vw,
+    max: 1.7rem,
+  ),
+  sm: (
+    min: 1.1rem,
+    avg: 1.42vw,
+    max: 1.3rem,
+  ),
+  xs: (
+    min: 0.85rem,
+    avg: 1vw,
+    max: 1.1rem,
+  ),
+);
+
+$font-2xl: font-clamp(map.get($font-sizes, 2xl));
+$font-xl: font-clamp(map.get($font-sizes, xl));
+$font-lg: font-clamp(map.get($font-sizes, lg));
+$font-md: font-clamp(map.get($font-sizes, md));
+$font-sm: font-clamp(map.get($font-sizes, sm));
+$font-xs: font-clamp(map.get($font-sizes, xs));
 
 ///Z- Indexs
 $z-1: 1;
@@ -46,3 +80,10 @@ $z-2: 2;
 $z-3: 3;
 $z-4: 4;
 $z-5: 5;
+$z-6: 5;
+$z-7: 5;
+
+///Box Shadows
+
+$shadow-1: 0px 0px 20px -14px #000000;
+$shadow-2: 0px 0px 15px -14px #000000;
