@@ -1,27 +1,35 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React, { useContext } from "react";
+///<----Global Imports--->
+import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import gsap from "gsap";
 import { Transition } from "react-transition-group";
-import Link from "next/link";
 
-import { routerIndex } from "../../src/helperFuncs";
+///<----Local Imports--->
+import { routerIndex } from "./helperFuncs";
+
+//Types
+import type { setBooleanState } from "@/src/helperTypes";
+
+//Data
 import navLinks from "./NavData";
-import { useRouter } from "next/router";
 
+//Styles
 import styles from "styles/components/nav.module.scss";
 
 interface Istates {
   menu: boolean;
-  setAnimation: React.Dispatch<React.SetStateAction<boolean>>;
-  setMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  setAnimation: setBooleanState;
+  setMenu: setBooleanState;
 }
 
 const Menu: React.FC<{
   states: Istates;
 }> = (props) => {
-  //router
+  //Router
   const router = useRouter();
 
+  //States passed down from navbar.tsx
   const { menu, setAnimation, setMenu } = props.states;
 
   const endListener = (node: HTMLElement, done: () => void): void => {
@@ -50,7 +58,7 @@ const Menu: React.FC<{
       <ul className={styles["mobile-menu"]}>
         {navLinks.map((link, index: number) => (
           <li
-            key={`navMobile-${index}`}
+            key={`navMobile-${index * 436}`}
             className={`${styles["nav__links"]} ${
               routerIndex(router.asPath) === link.index
                 ? styles["nav-active-mobile"]

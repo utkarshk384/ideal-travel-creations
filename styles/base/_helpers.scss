@@ -8,6 +8,14 @@
  *    See: https://code.google.com/p/chromium/issues/detail?id=457146
  */
 @use "../abstracts/variables";
+@use "../vendors/include-media" as breakpoint;
+
+.hidden-nav {
+  top: 0px;
+}
+.visible-nav {
+  top: 90px;
+}
 
 .hide-text {
   overflow: hidden;
@@ -29,12 +37,28 @@
 }
 
 .overlay {
+  transition: all ease-in-out 250ms;
   z-index: variables.$z-6;
-  height: 0%;
   width: 100%;
   position: fixed;
 }
 
 .ico {
   font-style: normal;
+}
+
+.btn-disabled {
+  background: variables.$grey !important;
+  color: variables.$accent !important;
+
+  &:hover::before {
+    top: 100% !important;
+  }
+}
+
+@include breakpoint.media("<=sm") {
+  .table-container {
+    width: 100%;
+    overflow-x: scroll;
+  }
 }

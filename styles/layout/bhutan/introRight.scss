@@ -25,11 +25,7 @@
 
 .r-content {
   margin-bottom: 0.5rem;
-  @include flex(
-    $breakpoint-css: (
-      align-items: center,
-    )
-  ) {
+  @include flex {
     align-items: center;
     flex-direction: row;
   }

@@ -1,8 +1,11 @@
+///<----Global Imports--->
 import React from "react";
 import _ from "lodash";
 import { NextRouter, useRouter } from "next/router";
 import Link from "next/link";
 
+///<----Local Imports--->
+//Styles
 import styles from "styles/components/breadcrumbs.module.scss";
 
 interface IPathnames {
@@ -22,7 +25,11 @@ const BreadCrumbs = () => {
         <li>Home</li>
       </Link>
       {pathName.map((path, index) => (
-        <Link key={`Link-Breadcrumb-${index}`} href={path.href} as={path.as}>
+        <Link
+          key={`Link-Breadcrumb-${index * 98}`}
+          href={path.href}
+          as={path.as}
+        >
           <li className={styles["bc-li"]}>{path.name}</li>
         </Link>
       ))}
@@ -30,7 +37,8 @@ const BreadCrumbs = () => {
   );
 };
 
-const getPathNames = (router: NextRouter) => {
+//Function to get the current routes
+const getPathNames = (router: NextRouter): IPathnames[] => {
   const pathNames: IPathnames[] = [];
   const pathName = router.asPath;
   const hrefs = router.route;

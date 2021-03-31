@@ -1,23 +1,40 @@
+///<----Global Imports--->
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import NextNprogress from "nextjs-progressbar";
 import { ApolloProvider } from "@apollo/client";
 
+///<----Local Imports--->
+import { LoaderOverlay } from "@/components/Spinners-and-Loaders/NextNProgress";
 import Nav from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadCrumbs from "@/components/breadcrumbs";
 
+//contexts
+import OverlayProvider from "@/src/Contexts/overlayContext";
+
+//Styles
 import "styles/global.scss";
+
+//Graphql
 import { useApollo } from "@/apolloClient";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
+  //Router
+  const router = useRouter();
+
+  ///<----States--->
+  const [history, setHistory] = useState<string[]>([]); //State for Router history
+  const [routerState, setRouter] = useState({
+    isRouteChanging: false,
+    loadingKey: 0,
+  }); //State that is used by NProgress to render itself
+
+  //Initiate Graphql in the app
   const client = useApollo(pageProps.initialApolloState);
 
-  const [history, setHistory] = useState<string[]>([]);
-
-  const router = useRouter();
+  ///<----Use Effects--->
 
   useEffect(() => {
     const asPath = router.asPath;
@@ -25,6 +42,33 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
     if (history[history.length - 1] !== asPath)
       setHistory((prev) => [...prev, asPath]);
   }, [router, history]);
+
+  useEffect(() => {
+    const handleRouteChangeStart = () => {
+      setRouter((prevState) => ({
+        ...prevState,
+        isRouteChanging: true,
+        loadingKey: prevState.loadingKey ^ 1,
+      }));
+    };
+
+    const handleRouteChangeEnd = () => {
+      setRouter((prevState) => ({
+        ...prevState,
+        isRouteChanging: false,
+      }));
+    };
+
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+    router.events.on("routeChangeComplete", handleRouteChangeEnd);
+    router.events.on("routeChangeError", handleRouteChangeEnd);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+      router.events.off("routeChangeComplete", handleRouteChangeEnd);
+      router.events.off("routeChangeError", handleRouteChangeEnd);
+    };
+  }, [router.events]); //useEffect straight from the next js example of @tanem/react-nprogress
 
   return (
     <>
@@ -35,26 +79,22 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
           name="viewport"
           content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; target-densityDpi=device-dpi"
         />
-
-        {/* <link
-          href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
-          rel="stylesheet"
-        /> */}
       </Head>
-      <ApolloProvider client={client}>
-        <NextNprogress
-          color="#c39462"
-          startPosition={0.3}
-          stopDelayMs={200}
-          height={3}
-        />
-        {router.pathname !== "/" && (
-          <Nav routerHistory={history} disableAnimation />
-        )}
-        {router.pathname !== "/" && <BreadCrumbs />}
-        <Component {...pageProps} />
-        <Footer />
-      </ApolloProvider>
+      <OverlayProvider>
+        <div className="overlay" />
+        <ApolloProvider client={client}>
+          <LoaderOverlay
+            key={routerState.loadingKey}
+            isRouteChanging={routerState.isRouteChanging}
+          />
+          {router.pathname !== "/" && (
+            <Nav routerHistory={history} disableAnimation />
+          )}
+          {router.pathname !== "/" && <BreadCrumbs />}
+          <Component {...pageProps} />
+          <Footer />
+        </ApolloProvider>
+      </OverlayProvider>
     </>
   );
 };

@@ -1,3 +1,4 @@
+///<----Global Imports--->
 import React, { useRef } from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
@@ -5,6 +6,14 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import _ from "lodash";
 
+///<----Local Imports--->
+
+import { getallPaths } from "@/graphql/../graphql_helperFunc";
+
+//Styles
+import styles from "styles/pages/dync-Name.module.scss";
+
+//Graphql
 import { initializeApollo } from "@/apolloClient";
 import filteredPackageQuery from "@/graphql/packageQuery_WithFilter.graphql";
 import PkgCountQuery from "@/graphql/filterPkgCont.graphql";
@@ -15,30 +24,20 @@ import {
   FilteredPkgCountQueryVariables as ICountVars,
 } from "@/graphql/generated/graphql-frontend";
 
-import { getallPaths } from "@/graphql/../graphql_helperFunc";
-
-import styles from "styles/pages/dync-Name.module.scss";
-
-interface IgetPkgCount {
-  href: string;
-  page: number;
-}
+type PkgCountType = { href: string; page: number };
 
 const PackagePage: React.FC<{
   data?: IFilteredQuery;
-  pages?: IgetPkgCount[];
+  pages?: PkgCountType[];
   url?: string;
 }> = (props) => {
   ///Router
   const router = useRouter();
 
-  //Refs
+  ///<----Refs--->
   const paragraphRef = useRef<(HTMLParagraphElement | null)[]>([]);
 
-  //useEffects
-
-  //handle Clicks
-
+  ///<----Handle Mouse Events--->
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     type: string
@@ -61,16 +60,16 @@ const PackagePage: React.FC<{
       );
     }
   };
+  console.log(props.pages);
   return (
     <div className={styles["dync-name"]}>
       <div className={styles.items}>
         {props.data?.packages?.map((item, index) => (
-          <React.Fragment key={`${item?.title}-${index}`}>
+          <React.Fragment key={`name-1-${index * 573}`}>
             <div className={styles.item}>
               <div
                 className={`${styles["item-img-container"]} ${styles["flex-item"]}`}
               >
-                {/* <Link> */}
                 <Image
                   src="/images/travel-packages/Happiness-Travel.jpg"
                   layout="intrinsic"
@@ -85,7 +84,6 @@ const PackagePage: React.FC<{
                   height={item?.images![0]?.height as number}
                   objectFit="fill"
                 /> */}
-                {/* </Link> */}
               </div>
               <div
                 className={`${styles["item-text-container"]} ${styles["flex-item"]}`}
@@ -112,19 +110,17 @@ const PackagePage: React.FC<{
           </React.Fragment>
         ))}
         <div className={styles.pagination}>
-          <span>
-            <button
-              onClick={(e) => handleClick(e, "prev")}
-              className={
-                parseInt(router.query.page as string) === 1
-                  ? styles["btn-fill-disabled"]
-                  : ""
-              }
-              disabled={parseInt(router.query.page as string) === 1 && true}
-            >
-              Prev
-            </button>
-          </span>
+          <button
+            onClick={(e) => handleClick(e, "prev")}
+            className={
+              parseInt(router.query.page as string) === 1
+                ? styles["btn-fill-disabled"]
+                : ""
+            }
+            disabled={parseInt(router.query.page as string) === 1 && true}
+          >
+            Prev
+          </button>
           {props.pages?.map((link, index) => (
             <Link
               href={{
@@ -135,17 +131,15 @@ const PackagePage: React.FC<{
                 pathname: link.href,
                 query: { page: link.page },
               }}
-              key={`[name]-btn-${index}`}
+              key={`[name]-btn-${index * 452}`}
             >
               <button
                 className={`${
                   parseInt(router.query.page as string) === link.page
                     ? styles["btn-active"]
-                    : typeof router.query.page === "undefined" &&
-                      router.asPath === link.href
-                    ? styles["btn-active"]
                     : ""
                 }`}
+                disabled={parseInt(router.query.page as string) === link.page}
               >
                 {link.page}
               </button>
@@ -189,7 +183,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   //The value of this variable is the value that is passed to the `start` offset in the query.
   const dataOffset = PAGE === 1 ? 0 : ITEM_PER_PAGE * PAGE - ITEM_PER_PAGE;
-
   const client = initializeApollo();
   const paths = await getallPaths();
   const urlExists = { exists: false };
@@ -239,7 +232,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 const getPkgCount = async (url: string, ITEM_PER_PAGE: number) => {
-  return new Promise<IgetPkgCount[]>(async (resolve, reject) => {
+  return new Promise<PkgCountType[]>(async (resolve, reject) => {
     const client = initializeApollo();
     const data = [];
 

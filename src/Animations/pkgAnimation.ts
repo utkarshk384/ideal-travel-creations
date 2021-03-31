@@ -44,6 +44,15 @@ class _Animation extends _gsapAnimation {
           delay: -0.75,
         });
   }
+
+  public mountAnimation(node: HTMLElement, done: () => void, state: boolean) {
+    const tl = gsap.timeline({
+      defaults: { ease: "power2.out", onComplete: done },
+    });
+
+    if (state) tl.from(node, { y: -100 });
+    else tl.to(node, { y: -100 });
+  }
 }
 const Animation = new _Animation();
 

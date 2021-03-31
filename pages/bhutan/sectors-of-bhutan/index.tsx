@@ -1,31 +1,33 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+///<----Global Imports--->
 import React from "react";
-import _ from "lodash";
+import Link from "next/link";
 import { GetStaticProps } from "next";
+import _ from "lodash";
 import Image from "next/image";
+import ClampLines from "react-clamp-lines";
+
+///<----Local Imports--->
+
+//Types
+import { imageType } from "@/src/helperTypes";
 
 //Graphql
 import { initializeApollo } from "@/apolloClient";
 import { gql } from "@apollo/client";
 
+//Styles
 import styles from "styles/pages/parts-of-bhutan.module.scss";
 
 type DzongkhagType = {
   title: string;
   description: string;
-  coverImage: {
-    width: number;
-    height: number;
-    url: string;
-  };
+  coverImage: imageType;
   sectors: string;
 };
 
-interface IDzongkhagType {
-  dataForDzongkhags: DzongkhagType[];
-}
-
 const SectionBhutan: React.FC<{
-  data?: IDzongkhagType;
+  data?: { dataForDzongkhags: DzongkhagType[] };
 }> = ({ data }) => {
   return (
     <>
@@ -38,7 +40,10 @@ const SectionBhutan: React.FC<{
             {data?.dataForDzongkhags.map(
               (card, index) =>
                 card.sectors === "WesternBhutan" && (
-                  <Card key={`western-bhutan-iteration-${index}`} data={card} />
+                  <Card
+                    key={`western-bhutan-iteration-${index * 234}`}
+                    data={card}
+                  />
                 )
             )}
           </div>
@@ -51,7 +56,10 @@ const SectionBhutan: React.FC<{
             {data?.dataForDzongkhags.map(
               (card, index) =>
                 card.sectors === "CentralBhutan" && (
-                  <Card key={`central-bhutan-iteration-${index}`} data={card} />
+                  <Card
+                    key={`central-bhutan-iteration-${index * 987}`}
+                    data={card}
+                  />
                 )
             )}
           </div>
@@ -64,7 +72,10 @@ const SectionBhutan: React.FC<{
             {data?.dataForDzongkhags.map(
               (card, index) =>
                 card.sectors === "EasternBhutan" && (
-                  <Card key={`eastern-bhutan-iteration-${index}`} data={card} />
+                  <Card
+                    key={`eastern-bhutan-iteration-${index * 328}`}
+                    data={card}
+                  />
                 )
             )}
           </div>
@@ -76,21 +87,32 @@ const SectionBhutan: React.FC<{
 
 const Card: React.FC<{ data?: DzongkhagType }> = ({ data }) => {
   return (
-    <button className={styles.card}>
-      <div className={styles["card-cover"]}>
-        <div className={styles["card-cover-heading"]}>
-          <h2>{_.startCase(data?.title)}</h2>
-          <Image
-            src="/images/travel-packages/Happiness-Travel.jpg"
-            layout="fill"
-          />
-          {/* <Image src={data!.coverImage.url} layout="fill" /> */}
+    <Link
+      href="/bhutan/parts-of-bhutan/[dzongkhag]"
+      as={`/bhutan/parts-of-bhutan/${data?.title}`}
+    >
+      <a className={styles.card}>
+        <div className={styles["card-cover"]}>
+          <div className={styles["card-cover-heading"]}>
+            <h2>{_.startCase(data?.title)}</h2>
+            <Image
+              src="/images/travel-packages/Happiness-Travel.jpg"
+              layout="fill"
+            />
+            {/* <Image src={data!.coverImage.url} layout="fill" /> */}
+          </div>
         </div>
-      </div>
-      <div className={styles["card-description"]}>
-        <p>{data?.description.substring(0, 115)}</p>
-      </div>
-    </button>
+        <div className={styles["card-description"]}>
+          <ClampLines
+            id={`${data?.title.length! * 23}`}
+            text={data?.description as string}
+            innerElement="p"
+            buttons={false}
+            lines={4}
+          />
+        </div>
+      </a>
+    </Link>
   );
 };
 
@@ -112,7 +134,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   `;
 
-  const { data } = await client.query<IDzongkhagType>({
+  const { data } = await client.query<{ dataForDzongkhags: DzongkhagType[] }>({
     query,
   });
 

@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react";
-
+import _ from "lodash";
 interface Iconfig {
   width: number | undefined;
   height: number | undefined;
@@ -15,15 +15,18 @@ export default function useWindowSize() {
   useEffect(() => {
     // Handler to call on window resize
 
-    function handleResize() {
-      // Set window width/height to state
+    const handleResize = _.debounce(
+      () => {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
 
-      setWindowSize({
-        width: window.innerWidth,
-
-        height: window.innerHeight,
-      });
-    }
+          height: window.innerHeight,
+        });
+      },
+      50,
+      { trailing: true }
+    );
 
     // Add event listener
 

@@ -4,27 +4,22 @@
 @use "../layout/button";
 
 @mixin homeSlider() {
-  @include mixins.Container(90%) {
-    margin-bottom: 5rem;
-    box-shadow: variables.$shadow-1;
-  }
-  background: variables.$white;
   position: relative;
 
   &-h-wrapper {
     display: flex;
     justify-content: center;
-  }
+    margin: 2rem 0rem;
 
-  &-heading {
-    font-weight: variables.$font-bold;
-    color: variables.$secondary;
+    h1 {
+      color: variables.$secondary;
+    }
   }
 
   &-wrapper {
+    overflow: hidden;
     display: flex;
     justify-content: space-between;
-    overflow: hidden;
     margin-bottom: 3rem;
   }
 
@@ -50,22 +45,32 @@
     content: "\f3d1";
   }
 
+  :is(.slider-l-arrow, .slider-r-arrow).disabled-btn {
+    &::before {
+      color: variables.$grey;
+    }
+  }
+
   &-cta {
-    margin-bottom: 3em;
-    @include mixins.Container(100%);
-    @include button.Button-anim-icon(
-      20rem,
-      (
-        background-color: variables.$accent,
-        border-radius: 10px,
-      ),
-      "\f3d1",
-      "Ionicons",
-      variables.$primary
-    );
-    @include mixins.font(variables.$font-bold, variables.$font-sans);
-    font-size: variables.$font-sm;
-    color: variables.$white;
+    @include mixins.flex($center: true);
+    margin: 3rem auto;
+    width: 100%;
+
+    & .cta-btn {
+      @include button.Button-anim-icon(
+        20rem,
+        (
+          background-color: variables.$accent,
+          border-radius: 10px,
+        ),
+        "\f3d1",
+        "Ionicons",
+        variables.$primary
+      );
+      @include mixins.font(variables.$font-bold, variables.$font-sans);
+      font-size: variables.$font-sm;
+      color: variables.$white;
+    }
   }
 
   /*Card Section*/
@@ -84,12 +89,13 @@
 
   .sc {
     @include mixins.setPosition();
+    min-height: 100%;
     width: 100%;
-    height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: variables.$secondary;
+    background-color: rgba(variables.$secondary, 0.9);
+
     box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.25);
 
     //Responsiveness
@@ -99,7 +105,6 @@
 
     @include include-media.media(">=md") {
       width: 60%;
-      height: fit-content;
     }
 
     @include include-media.media(">=lg") {
@@ -128,17 +133,19 @@
       display: flex;
       align-items: center;
       flex-direction: column;
-      padding: 1rem 1.5rem 15rem 1.5rem;
+      padding: 1.5rem;
     }
 
     &-heading {
+      text-align: center;
       color: variables.$primary;
       margin-bottom: 15%;
     }
     &-body {
+      height: 100%;
+      margin-bottom: 2rem;
       text-align: left;
       color: variables.$white;
-      margin-bottom: 2rem;
     }
   }
 

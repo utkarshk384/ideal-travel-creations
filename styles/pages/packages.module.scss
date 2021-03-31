@@ -21,15 +21,11 @@
     @include flex(
       "xl",
       (
-        align-items: center,
         flex-direction: row,
-        justify-content: center,
       ),
-      false
-    ) {
-      align-items: center;
-      justify-content: center;
-    }
+      false,
+      true
+    );
   }
 
   &-card {

@@ -1,34 +1,47 @@
+///<----Global Imports--->
 import React, { useState, useRef, useEffect, useReducer } from "react";
-import gsap from "gsap";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import gsap from "gsap";
+import _ from "lodash";
 import { Transition } from "react-transition-group";
 
+///<----Local Imports--->
+
+import { routerIndex } from "./helperFuncs";
+
+//Data
 import Menu from "./MobileMenu";
 import navLinks from "./NavData";
-import useWindowSize from "../../src/Hooks/useWindow";
 
-import gsapAnimation from "./_animation";
-import _, { uniqueId } from "lodash";
+//Custom hooks
+import useWindowSize from "../../src/Hooks/useWindow";
 import useHideNav from "../../src/Hooks/useHideNav";
+import useScrollBlock from "../../src/Hooks/useScrollBlock";
+
+//Animations
+import gsapAnimation from "./_animation";
+
+//Reducer functions
 import hoverReducer from "../../src/reducers/hoverReducer";
 
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import { useRouter } from "next/router";
-import { routerIndex } from "src/helperFuncs";
+//Styles
+import styles from "styles/components/nav.module.scss";
 
+//Imported Types
 import type {
   hovActionTypes,
   hovState,
   IHoverState,
 } from "../../src/reducers/hoverReducer";
+import type { urlType } from "@/src/helperTypes";
+import useOverlay from "../../src/Hooks/useOverlay";
 
-import styles from "styles/components/nav.module.scss";
-
-interface IChildLinks {
-  name: string;
-  href: string;
-  as: string;
+interface IProps {
+  className?: string;
+  disableAnimation?: boolean;
+  routerHistory?: string[];
 }
 
 const hovIniState: IHoverState = {
@@ -36,32 +49,31 @@ const hovIniState: IHoverState = {
   aboutBhutan: { parent: false, menu: false },
 };
 
-const Nav = React.forwardRef<
-  HTMLDivElement,
-  { className?: string; disableAnimation?: boolean; routerHistory?: string[] }
->((props, ref) => {
+const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
   //Router
   const router = useRouter();
 
-  //Local States
+  ///<----Local States--->
   const [menu, setMenu] = useState<boolean>(false);
   const [animating, setAnimation] = useState<boolean>(false);
 
+  ///<----Global States--->
   const [hover, hovDispatch] = useReducer(hoverReducer, hovIniState);
-  //Custom Hooks
-  const size = useWindowSize();
-  const visible = useHideNav();
 
-  //Use Refs
+  ///<----Custom hooks--->
+  const size = useWindowSize(); //Listens for the resize of browser window
+  const visible = useHideNav(); // Listens for the scroll event to hide the navbar accordingly.
+  const { activeOverlay } = useOverlay();
+  const { setLock } = useScrollBlock();
+
+  ///<----Refs--->
   const burgerIconRef = useRef<HTMLDivElement>(null);
   const navWrapperRef = useRef<HTMLDivElement>(null);
   const navItemsRef = useRef<HTMLSpanElement[]>([]);
 
-  //handle MouseEvents
-
+  ///<----Handle MouseEvents--->
   const onHover = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const el = e.currentTarget;
-
     const dataName = el.attributes["data-name" as any];
 
     if (dataName.nodeValue === "Packages")
@@ -71,37 +83,32 @@ const Nav = React.forwardRef<
     else return;
   };
 
-  //useEffects
-
+  ///<----Use Effects--->
   useEffect(() => {
     if (!visible) {
       hovDispatch({ type: "both-aboutBhutan" });
       hovDispatch({ type: "both-packages" });
     }
-  }, [visible]);
+  }, [visible]); // Hides the hover menus if navbar is hidden.
 
   useEffect(() => {
     if (!props.disableAnimation) {
       let gsapAnim = new gsapAnimation();
-      gsapAnim.stickyNavbar(ref, navWrapperRef);
+      gsapAnim.changeNavColor(ref, navWrapperRef);
     } else {
       navWrapperRef.current?.classList.add(styles["nav-bg"]);
     }
-  }, [props.disableAnimation, ref]);
+  }, [props.disableAnimation, ref]); // If page !=home then the navbar background is set.
 
-  useEffect((): void => {
+  useEffect(() => {
     if (menu) {
       burgerIconRef.current!.classList.add(styles.open);
-      disableBodyScroll(
-        (document.getElementsByTagName("body") as unknown) as Element
-      );
+      setLock(true);
       return;
     }
     burgerIconRef.current!.classList.remove(styles.open);
-    enableBodyScroll(
-      (document.getElementsByTagName("body") as unknown) as Element
-    );
-  }, [menu]);
+    setLock(false);
+  }, [menu]); // Locks scrolling when menu is active
 
   return (
     <nav
@@ -120,7 +127,7 @@ const Nav = React.forwardRef<
         >
           <div className={styles["nav-burger__btn"]} ref={burgerIconRef} />
         </button>
-        <div>
+        <div style={{ cursor: "pointer" }}>
           <Link href="/">
             <Image
               src="/images/logo/ideal-logo-white.png"
@@ -137,21 +144,21 @@ const Nav = React.forwardRef<
 
         <ul className={styles["nav-ul"]}>
           <HoverMenu
-            data={navLinks[1].children}
-            states={{ state: hover.packages, dispatch: hovDispatch }}
-            name={navLinks[1].name}
-          />
-          <HoverMenu
             data={navLinks[2]?.children}
             states={{ state: hover.aboutBhutan, dispatch: hovDispatch }}
             name={navLinks[2].name}
           />
-          {navLinks.map((link) => (
+          <HoverMenu
+            data={navLinks[1].children}
+            states={{ state: hover.packages, dispatch: hovDispatch }}
+            name={navLinks[1].name}
+          />
+          {navLinks.map((link, index) => (
             <button
-              key={uniqueId(`nav-links-${new Date().getUTCDate()}`)}
+              key={`nav-links-s-${index * 213}`}
               data-name={link.name}
               className={styles["nav-links"]}
-              onMouseEnter={(e) => onHover(e)}
+              onMouseEnter={activeOverlay ? () => {} : (e) => onHover(e)}
             >
               <span
                 ref={(el) => navItemsRef.current.push(el as HTMLSpanElement)}
@@ -172,13 +179,14 @@ const Nav = React.forwardRef<
 });
 
 const HoverMenu: React.FC<{
-  data?: IChildLinks[];
+  data?: urlType[];
   states: {
     state: hovState;
     dispatch: React.Dispatch<hovActionTypes>;
   };
   name: string;
 }> = ({ data, states, name }) => {
+  //Animation function for the RTG Transistion component.
   const endListener = (node: HTMLElement, done: () => void) => {
     const tl = gsap.timeline();
     if (tl.isActive()) tl.kill();
@@ -189,6 +197,7 @@ const HoverMenu: React.FC<{
       tl.to(node, { x: "-10%", opacity: 0, duration: 0.2, onComplete: done });
   };
 
+  ///<----Handle Mouse Events--->
   const onLeave = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const el = e.currentTarget;
 
@@ -221,6 +230,8 @@ const HoverMenu: React.FC<{
       addEndListener={endListener}
     >
       <div
+        role="button"
+        tabIndex={0}
         className={`${styles["nav-hover-menu"]} ${
           styles[`hov-${_.kebabCase(name)}`]
         }`}
@@ -231,9 +242,9 @@ const HoverMenu: React.FC<{
         <div className={styles["push-content"]} />
 
         <div className={styles.content}>
-          {data?.map((childLink) => (
+          {data?.map((childLink, index) => (
             <Link
-              key={uniqueId(`${new Date().getUTCDate()}`)}
+              key={`child-links-s=${index * 123}`}
               href={childLink?.href as string}
               as={childLink?.as}
             >

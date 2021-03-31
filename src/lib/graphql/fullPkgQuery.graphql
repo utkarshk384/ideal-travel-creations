@@ -3,6 +3,7 @@ query fullPkg($title: String) {
     title
     description
     itineraries {
+      key
       name
       time
       distance
@@ -20,6 +21,7 @@ query fullPkg($title: String) {
       url
       height
       width
+      caption
     }
     description
   }

@@ -46,9 +46,10 @@
 
 .l {
   &-title-wrapper {
+    margin: 1rem auto;
     h1 {
       color: $secondary;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
     }
   }
 
@@ -59,6 +60,7 @@
   }
 
   &-desc {
+    padding: 1rem 0rem 2.5rem 0rem;
     p {
       @include font($font-normal, $font-serif);
       color: $secondary;
@@ -111,6 +113,25 @@
   }
 }
 
+.cta-btn {
+  margin-top: 2rem;
+  button {
+    @include Button-anim-icon(
+      12.5rem,
+      (
+        background-color: $accent,
+      ),
+      "\f3d1",
+      "Ionicons",
+      $primary
+    );
+    @include font($font-bold, $font-sans);
+    font-size: $font-sm;
+    color: $white;
+    box-shadow: $shadow-1;
+  }
+}
+
 ///Bottom Content
 
 .b-itineraries {
@@ -151,12 +172,7 @@
 ///t --> title
 
 .iti-t-container {
-  @include flex(
-    $breakpoint-css: (
-      justify-content: space-between,
-      align-items: center,
-    )
-  ) {
+  @include flex() {
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
@@ -179,11 +195,7 @@
   }
 
   &-item {
-    @include flex(
-      $breakpoint-css: (
-        align-items: center,
-      )
-    ) {
+    @include flex {
       flex-direction: row;
       align-items: center;
     }
@@ -265,14 +277,21 @@
 .b-highlight {
   h2 {
     color: $secondary;
-    margin-bottom: 1rem;
+    margin: 2rem 0rem 1rem 0rem;
   }
 
   li {
     @include font($font-normal, $font-serif);
-    margin-left: 1rem;
+    margin: 0.5rem 0rem 0.5rem 1rem;
+    padding-left: 0.5rem;
+
     font-size: $font-xs;
     color: $secondary;
+  }
+
+  p {
+    color: $secondary;
+    margin-bottom: 1rem;
   }
 }
 
@@ -301,7 +320,7 @@
     &-right {
       width: 30%;
       position: sticky;
-      top: -12rem;
+      transition: top ease-in-out 0.5s 0.025s;
     }
   }
 

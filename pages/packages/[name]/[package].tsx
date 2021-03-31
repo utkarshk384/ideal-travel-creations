@@ -1,11 +1,23 @@
+///<----Global Imports--->
 import React, { useEffect } from "react";
+import { Transition } from "react-transition-group";
 import Image from "next/image";
+import { GetServerSideProps } from "next";
 import ReactMarkdown from "react-markdown";
 import _ from "lodash";
+import gfm from "remark-gfm";
+
+///<----Local Imports--->
+///Custom Hooks
+import useHideNav from "@/src/Hooks/useHideNav";
+import useOverlay from "../../../src/Hooks/useOverlay";
 
 //Animation
 import animation from "@/animations/pkgAnimation";
-import { GetServerSideProps } from "next";
+import BookingTour from "@/components/Dialog Boxes/TourBooking";
+
+//Styles
+import styles from "styles/pages/dync-package.module.scss";
 
 //Graphql
 import { initializeApollo } from "@/apolloClient";
@@ -16,89 +28,152 @@ import type {
 } from "@/graphql/generated/graphql-frontend";
 import fullPkgQuery from "@/graphql/fullPkgQuery.graphql";
 
-import styles from "styles/pages/dync-package.module.scss";
-
 const Package: React.FC<{ data?: IQuery }> = ({ data }) => {
+  ///<----useStates--->
+  const visible = useHideNav();
+
+  ///<----Custom Hooks--->
+  const { overlay, setOverlay } = useOverlay();
+
+  ///<----Use Effects--->
   useEffect(() => {
     animation.init();
-  });
+  }, []);
 
   return (
-    <div className={styles.pkg}>
-      <div className={styles["pkg-container"]}>
-        <div className={`${styles["pkg-left"]} ${styles["pkg-item"]}`}>
-          <div className={styles["l-title-wrapper"]}>
-            <h1>{_.startCase(data?.packages![0]?.title)}</h1>
-          </div>
-          <div className={styles["l-img-container"]}>
-            <Image
-              src="/images/travel-packages/Happiness-Travel.jpg"
-              height={1080}
-              width={1920}
-              layout="intrinsic"
-            />
-          </div>
-          <div className={styles["l-desc"]}>
-            <ReactMarkdown source={data?.packages![0]?.description as string} />
-          </div>
-        </div>
-        <div className={`${styles["pkg-right"]} ${styles["pkg-item"]}`}>
-          <div className={`${styles["package-insight"]} ${styles["r-item"]}`}>
-            <h3>Package Insight</h3>
-            <hr />
-            <p>{data?.packages![0]?.packageInsight}</p>
-          </div>
-          <div className={styles["r-item"]}>
-            <h3>Arrival</h3>
-            <hr />
-            <p>{data?.packages![0]?.arrival}</p>
-          </div>
-          <div className={styles["r-item"]}>
-            <h3>Departure</h3>
-            <hr />
-            <p>{data?.packages![0]?.departure}</p>
-          </div>
-          <div className={styles["r-item"]}>
-            <h3>Duration</h3>
-            <hr />
-            <p>{data?.packages![0]?.duration}</p>
-          </div>
-          <div className={styles["r-item"]}>
-            <h3>Best time to Travel</h3>
-            <hr />
-            <p>{data?.packages![0]?.bestTravelTime}</p>
-          </div>
-          <div className={styles["r-item"]}>
-            <h3>Destinations</h3>
-            <hr />
-            <p>{data?.packages![0]?.destinations}</p>
-          </div>
-        </div>
-        <div className={`${styles["pkg-bot"]} ${styles["pkg-item"]}`}>
-          <div className={styles["b-itineraries"]}>
-            <h1>Itinerary</h1>
-            {data?.packages![0]?.itineraries?.map((itinerary, index) => (
-              <Itinerary
-                key={`itinerary-${data.packages![0]?.title}-${index}`}
-                data={itinerary as Iitinerary}
+    <>
+      <Transition
+        in={overlay}
+        mountOnEnter
+        unmountOnExit
+        timeout={1000}
+        addEndListener={(node, done) =>
+          animation.mountAnimation(node, done, overlay)
+        }
+      >
+        <BookingTour setState={setOverlay!} />
+      </Transition>
+
+      <div className={styles.pkg}>
+        <div className={styles["pkg-container"]}>
+          <div className={`${styles["pkg-left"]} ${styles["pkg-item"]}`}>
+            <div className={styles["l-title-wrapper"]}>
+              <h1>{_.startCase(data?.packages![0]?.title)}</h1>
+            </div>
+            <div className={styles["l-img-container"]}>
+              <Image
+                src="/images/travel-packages/Happiness-Travel.jpg"
+                height={1080}
+                width={1920}
+                layout="intrinsic"
               />
-            ))}
+            </div>
+            <div className={styles["l-desc"]}>
+              <ReactMarkdown
+                plugins={[[gfm, { tableCellPadding: true }]]}
+                source={data?.packages![0]?.description as string}
+              />
+            </div>
           </div>
-          <div className={styles["b-highlight"]}>
-            <h2>Package Highlight</h2>
-            <li>{data?.packages![0]?.packageHighlight}</li>
+          <div
+            className={`${styles["pkg-right"]} ${styles["pkg-item"]} ${
+              visible ? "visible-nav" : "hidden-nav"
+            }`}
+          >
+            <div className={`${styles["package-insight"]} ${styles["r-item"]}`}>
+              <h3>Package Insight</h3>
+              <hr />
+              <p>{data?.packages![0]?.packageInsight}</p>
+            </div>
+            <div className={styles["r-item"]}>
+              <h3>Arrival</h3>
+              <hr />
+              <p>{data?.packages![0]?.arrival}</p>
+            </div>
+            <div className={styles["r-item"]}>
+              <h3>Departure</h3>
+              <hr />
+              <p>{data?.packages![0]?.departure}</p>
+            </div>
+            <div className={styles["r-item"]}>
+              <h3>Duration</h3>
+              <hr />
+              <p>{data?.packages![0]?.duration}</p>
+            </div>
+            <div className={styles["r-item"]}>
+              <h3>Best time to Travel</h3>
+              <hr />
+              <p>{data?.packages![0]?.bestTravelTime}</p>
+            </div>
+            <div className={styles["r-item"]}>
+              <h3>Destinations</h3>
+              <hr />
+              <p>{data?.packages![0]?.destinations}</p>
+            </div>
+
+            <div className={styles["r-item"]}>
+              <div className={styles["cta-btn"]}>
+                <button onClick={() => setOverlay!(!overlay)}>
+                  Book This Tour
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={`${styles["pkg-bot"]} ${styles["pkg-item"]}`}>
+            <div className={styles["b-itineraries"]}>
+              <h1>Itinerary</h1>
+              {data?.packages![0]?.itineraries?.map((itinerary, i) => (
+                <Itinerary
+                  key={`adsoasodnasiub12${i * 1346}`}
+                  data={itinerary as Iitinerary}
+                />
+              ))}
+            </div>
+            <div className={styles["b-highlight"]}>
+              <h2>Package Highlight</h2>
+              <ReactMarkdown
+                plugins={[[gfm, { tableCellPadding: true }]]}
+                source={data?.packages![0]?.packageHighlight as string}
+              />
+              <h2>Note</h2>
+              <p>
+                We reserve the right to change the itinerary/hotels as may be
+                required, in case of unforeseen contingencies or unavailability
+                of hotels.
+              </p>
+              <p>
+                Some of the sites to be visited may be closed on government
+                holidays or during breaks. In such cases we shall do other
+                sightseeing in its place.
+              </p>
+              <p>
+                The itinerary can be tailor made for any duration or with any
+                destination & can be combined with any kind of activities such
+                as rafting, cycling, etc.
+              </p>
+              <p>
+                It is advisable to book tours in Bhutan at least 6 months prior
+                to the travel date because of limited Bhutan tourism
+                infrastructures and inventories.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
 const Itinerary: React.FC<{ data: Iitinerary }> = ({ data }) => {
   return (
     <div
+      tabIndex={0}
+      role="button"
+      key={data.key}
       className={styles.itinerary}
-      onClick={(e) => animation.itineraryDropdown(e)}
+      onClick={(e) => {
+        animation.itineraryDropdown(e);
+      }}
     >
       <div className={styles["iti-t-container"]}>
         <div className={styles["iti-heading"]}>
@@ -175,7 +250,7 @@ const DrivingIcon: React.FC<{ className: string }> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const client = initializeApollo();
-  const pkgTitle = ctx.query.package as string;
+  const pkgTitle = ctx.query.package as string; // Get kebabed title from the url query parameter
 
   const { data } = await client.query<IQuery, IVars>({
     query: fullPkgQuery,

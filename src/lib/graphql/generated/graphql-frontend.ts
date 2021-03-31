@@ -402,6 +402,181 @@ export type DeleteDataForDzongkhagPayload = {
   dataForDzongkhag?: Maybe<DataForDzongkhag>;
 };
 
+export type Employee = {
+  __typename?: 'Employee';
+  id: Scalars['ID'];
+  _id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  employeeName: Scalars['String'];
+  employeeOccupation: Scalars['String'];
+  employeeDescription: Scalars['String'];
+  employeeImage?: Maybe<UploadFile>;
+  employeeID: Scalars['Int'];
+  extraDetails?: Maybe<Scalars['String']>;
+};
+
+export type EmployeeConnection = {
+  __typename?: 'EmployeeConnection';
+  values?: Maybe<Array<Maybe<Employee>>>;
+  groupBy?: Maybe<EmployeeGroupBy>;
+  aggregate?: Maybe<EmployeeAggregator>;
+};
+
+export type EmployeeAggregator = {
+  __typename?: 'EmployeeAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+  sum?: Maybe<EmployeeAggregatorSum>;
+  avg?: Maybe<EmployeeAggregatorAvg>;
+  min?: Maybe<EmployeeAggregatorMin>;
+  max?: Maybe<EmployeeAggregatorMax>;
+};
+
+export type EmployeeAggregatorSum = {
+  __typename?: 'EmployeeAggregatorSum';
+  employeeID?: Maybe<Scalars['Float']>;
+};
+
+export type EmployeeAggregatorAvg = {
+  __typename?: 'EmployeeAggregatorAvg';
+  employeeID?: Maybe<Scalars['Float']>;
+};
+
+export type EmployeeAggregatorMin = {
+  __typename?: 'EmployeeAggregatorMin';
+  employeeID?: Maybe<Scalars['Float']>;
+};
+
+export type EmployeeAggregatorMax = {
+  __typename?: 'EmployeeAggregatorMax';
+  employeeID?: Maybe<Scalars['Float']>;
+};
+
+export type EmployeeGroupBy = {
+  __typename?: 'EmployeeGroupBy';
+  id?: Maybe<Array<Maybe<EmployeeConnectionId>>>;
+  _id?: Maybe<Array<Maybe<EmployeeConnection_Id>>>;
+  createdAt?: Maybe<Array<Maybe<EmployeeConnectionCreatedAt>>>;
+  updatedAt?: Maybe<Array<Maybe<EmployeeConnectionUpdatedAt>>>;
+  employeeName?: Maybe<Array<Maybe<EmployeeConnectionEmployeeName>>>;
+  employeeOccupation?: Maybe<Array<Maybe<EmployeeConnectionEmployeeOccupation>>>;
+  employeeDescription?: Maybe<Array<Maybe<EmployeeConnectionEmployeeDescription>>>;
+  employeeImage?: Maybe<Array<Maybe<EmployeeConnectionEmployeeImage>>>;
+  employeeID?: Maybe<Array<Maybe<EmployeeConnectionEmployeeId>>>;
+  extraDetails?: Maybe<Array<Maybe<EmployeeConnectionExtraDetails>>>;
+};
+
+export type EmployeeConnectionId = {
+  __typename?: 'EmployeeConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnection_Id = {
+  __typename?: 'EmployeeConnection_id';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnectionCreatedAt = {
+  __typename?: 'EmployeeConnectionCreatedAt';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnectionUpdatedAt = {
+  __typename?: 'EmployeeConnectionUpdatedAt';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnectionEmployeeName = {
+  __typename?: 'EmployeeConnectionEmployeeName';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnectionEmployeeOccupation = {
+  __typename?: 'EmployeeConnectionEmployeeOccupation';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnectionEmployeeDescription = {
+  __typename?: 'EmployeeConnectionEmployeeDescription';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnectionEmployeeImage = {
+  __typename?: 'EmployeeConnectionEmployeeImage';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnectionEmployeeId = {
+  __typename?: 'EmployeeConnectionEmployeeID';
+  key?: Maybe<Scalars['Int']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeConnectionExtraDetails = {
+  __typename?: 'EmployeeConnectionExtraDetails';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<EmployeeConnection>;
+};
+
+export type EmployeeInput = {
+  employeeName: Scalars['String'];
+  employeeOccupation: Scalars['String'];
+  employeeDescription: Scalars['String'];
+  employeeImage?: Maybe<Scalars['ID']>;
+  employeeID: Scalars['Int'];
+  extraDetails?: Maybe<Scalars['String']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type EditEmployeeInput = {
+  employeeName?: Maybe<Scalars['String']>;
+  employeeOccupation?: Maybe<Scalars['String']>;
+  employeeDescription?: Maybe<Scalars['String']>;
+  employeeImage?: Maybe<Scalars['ID']>;
+  employeeID?: Maybe<Scalars['Int']>;
+  extraDetails?: Maybe<Scalars['String']>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type CreateEmployeeInput = {
+  data?: Maybe<EmployeeInput>;
+};
+
+export type CreateEmployeePayload = {
+  __typename?: 'createEmployeePayload';
+  employee?: Maybe<Employee>;
+};
+
+export type UpdateEmployeeInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditEmployeeInput>;
+};
+
+export type UpdateEmployeePayload = {
+  __typename?: 'updateEmployeePayload';
+  employee?: Maybe<Employee>;
+};
+
+export type DeleteEmployeeInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeleteEmployeePayload = {
+  __typename?: 'deleteEmployeePayload';
+  employee?: Maybe<Employee>;
+};
+
 export enum Enum_Package_Packagetype {
   BhutanLuxuryTours = 'BhutanLuxuryTours',
   CulturalToursInBhutan = 'CulturalToursInBhutan',
@@ -1388,6 +1563,7 @@ export type ComponentItineraryItinerary = {
   distance?: Maybe<Scalars['Int']>;
   content?: Maybe<Scalars['String']>;
   altitude?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']>;
 };
 
 export type ComponentItineraryItineraryInput = {
@@ -1396,6 +1572,7 @@ export type ComponentItineraryItineraryInput = {
   distance?: Maybe<Scalars['Int']>;
   content?: Maybe<Scalars['String']>;
   altitude?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']>;
 };
 
 export type EditComponentItineraryItineraryInput = {
@@ -1405,9 +1582,10 @@ export type EditComponentItineraryItineraryInput = {
   distance?: Maybe<Scalars['Int']>;
   content?: Maybe<Scalars['String']>;
   altitude?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']>;
 };
 
-export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | AboutBhutanSection | AboutBhutanSectionConnection | AboutBhutanSectionAggregator | AboutBhutanSectionGroupBy | AboutBhutanSectionConnectionId | AboutBhutanSectionConnection_Id | AboutBhutanSectionConnectionCreatedAt | AboutBhutanSectionConnectionUpdatedAt | AboutBhutanSectionConnectionTitle | AboutBhutanSectionConnectionContent | AboutBhutanSectionConnectionCoverImage | AboutBhutanSectionConnectionUrl | AboutBhutanSectionConnectionPublished_At | CreateAboutBhutanSectionPayload | UpdateAboutBhutanSectionPayload | DeleteAboutBhutanSectionPayload | DataForDzongkhag | DataForDzongkhagConnection | DataForDzongkhagAggregator | DataForDzongkhagAggregatorSum | DataForDzongkhagAggregatorAvg | DataForDzongkhagAggregatorMin | DataForDzongkhagAggregatorMax | DataForDzongkhagGroupBy | DataForDzongkhagConnectionId | DataForDzongkhagConnection_Id | DataForDzongkhagConnectionCreatedAt | DataForDzongkhagConnectionUpdatedAt | DataForDzongkhagConnectionTitle | DataForDzongkhagConnectionDescription | DataForDzongkhagConnectionInterestedPlaces | DataForDzongkhagConnectionCoverImage | DataForDzongkhagConnectionSectors | DataForDzongkhagConnectionUniqueId | DataForDzongkhagConnectionPublished_At | CreateDataForDzongkhagPayload | UpdateDataForDzongkhagPayload | DeleteDataForDzongkhagPayload | Package | PackageConnection | PackageAggregator | PackageAggregatorSum | PackageAggregatorAvg | PackageAggregatorMin | PackageAggregatorMax | PackageGroupBy | PackageConnectionId | PackageConnection_Id | PackageConnectionCreatedAt | PackageConnectionUpdatedAt | PackageConnectionPackageId | PackageConnectionDuration | PackageConnectionDescription | PackageConnectionTitle | PackageConnectionPackageInsight | PackageConnectionPackageType | PackageConnectionPackageHighlight | PackageConnectionBestTravelTime | PackageConnectionArrival | PackageConnectionDeparture | PackageConnectionDestinations | PackageConnectionPublished_At | CreatePackagePayload | UpdatePackagePayload | DeletePackagePayload | Testimonial | TestimonialConnection | TestimonialAggregator | TestimonialAggregatorSum | TestimonialAggregatorAvg | TestimonialAggregatorMin | TestimonialAggregatorMax | TestimonialGroupBy | TestimonialConnectionId | TestimonialConnection_Id | TestimonialConnectionCreatedAt | TestimonialConnectionUpdatedAt | TestimonialConnectionGuestName | TestimonialConnectionImage | TestimonialConnectionComments | TestimonialConnectionUniqueId | TestimonialConnectionPublished_At | CreateTestimonialPayload | UpdateTestimonialPayload | DeleteTestimonialPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_Id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_Id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_Id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentItineraryItinerary;
+export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | AboutBhutanSection | AboutBhutanSectionConnection | AboutBhutanSectionAggregator | AboutBhutanSectionGroupBy | AboutBhutanSectionConnectionId | AboutBhutanSectionConnection_Id | AboutBhutanSectionConnectionCreatedAt | AboutBhutanSectionConnectionUpdatedAt | AboutBhutanSectionConnectionTitle | AboutBhutanSectionConnectionContent | AboutBhutanSectionConnectionCoverImage | AboutBhutanSectionConnectionUrl | AboutBhutanSectionConnectionPublished_At | CreateAboutBhutanSectionPayload | UpdateAboutBhutanSectionPayload | DeleteAboutBhutanSectionPayload | DataForDzongkhag | DataForDzongkhagConnection | DataForDzongkhagAggregator | DataForDzongkhagAggregatorSum | DataForDzongkhagAggregatorAvg | DataForDzongkhagAggregatorMin | DataForDzongkhagAggregatorMax | DataForDzongkhagGroupBy | DataForDzongkhagConnectionId | DataForDzongkhagConnection_Id | DataForDzongkhagConnectionCreatedAt | DataForDzongkhagConnectionUpdatedAt | DataForDzongkhagConnectionTitle | DataForDzongkhagConnectionDescription | DataForDzongkhagConnectionInterestedPlaces | DataForDzongkhagConnectionCoverImage | DataForDzongkhagConnectionSectors | DataForDzongkhagConnectionUniqueId | DataForDzongkhagConnectionPublished_At | CreateDataForDzongkhagPayload | UpdateDataForDzongkhagPayload | DeleteDataForDzongkhagPayload | Employee | EmployeeConnection | EmployeeAggregator | EmployeeAggregatorSum | EmployeeAggregatorAvg | EmployeeAggregatorMin | EmployeeAggregatorMax | EmployeeGroupBy | EmployeeConnectionId | EmployeeConnection_Id | EmployeeConnectionCreatedAt | EmployeeConnectionUpdatedAt | EmployeeConnectionEmployeeName | EmployeeConnectionEmployeeOccupation | EmployeeConnectionEmployeeDescription | EmployeeConnectionEmployeeImage | EmployeeConnectionEmployeeId | EmployeeConnectionExtraDetails | CreateEmployeePayload | UpdateEmployeePayload | DeleteEmployeePayload | Package | PackageConnection | PackageAggregator | PackageAggregatorSum | PackageAggregatorAvg | PackageAggregatorMin | PackageAggregatorMax | PackageGroupBy | PackageConnectionId | PackageConnection_Id | PackageConnectionCreatedAt | PackageConnectionUpdatedAt | PackageConnectionPackageId | PackageConnectionDuration | PackageConnectionDescription | PackageConnectionTitle | PackageConnectionPackageInsight | PackageConnectionPackageType | PackageConnectionPackageHighlight | PackageConnectionBestTravelTime | PackageConnectionArrival | PackageConnectionDeparture | PackageConnectionDestinations | PackageConnectionPublished_At | CreatePackagePayload | UpdatePackagePayload | DeletePackagePayload | Testimonial | TestimonialConnection | TestimonialAggregator | TestimonialAggregatorSum | TestimonialAggregatorAvg | TestimonialAggregatorMin | TestimonialAggregatorMax | TestimonialGroupBy | TestimonialConnectionId | TestimonialConnection_Id | TestimonialConnectionCreatedAt | TestimonialConnectionUpdatedAt | TestimonialConnectionGuestName | TestimonialConnectionImage | TestimonialConnectionComments | TestimonialConnectionUniqueId | TestimonialConnectionPublished_At | CreateTestimonialPayload | UpdateTestimonialPayload | DeleteTestimonialPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_Id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_Id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_Id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentItineraryItinerary;
 
 export type InputId = {
   id: Scalars['ID'];
@@ -1434,6 +1612,9 @@ export type Query = {
   dataForDzongkhag?: Maybe<DataForDzongkhag>;
   dataForDzongkhags?: Maybe<Array<Maybe<DataForDzongkhag>>>;
   dataForDzongkhagsConnection?: Maybe<DataForDzongkhagConnection>;
+  employee?: Maybe<Employee>;
+  employees?: Maybe<Array<Maybe<Employee>>>;
+  employeesConnection?: Maybe<EmployeeConnection>;
   package?: Maybe<Package>;
   packages?: Maybe<Array<Maybe<Package>>>;
   packagesConnection?: Maybe<PackageConnection>;
@@ -1496,6 +1677,29 @@ export type QueryDataForDzongkhagsArgs = {
 
 
 export type QueryDataForDzongkhagsConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QueryEmployeeArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryEmployeesArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QueryEmployeesConnectionArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -1634,6 +1838,9 @@ export type Mutation = {
   createDataForDzongkhag?: Maybe<CreateDataForDzongkhagPayload>;
   updateDataForDzongkhag?: Maybe<UpdateDataForDzongkhagPayload>;
   deleteDataForDzongkhag?: Maybe<DeleteDataForDzongkhagPayload>;
+  createEmployee?: Maybe<CreateEmployeePayload>;
+  updateEmployee?: Maybe<UpdateEmployeePayload>;
+  deleteEmployee?: Maybe<DeleteEmployeePayload>;
   createPackage?: Maybe<CreatePackagePayload>;
   updatePackage?: Maybe<UpdatePackagePayload>;
   deletePackage?: Maybe<DeletePackagePayload>;
@@ -1692,6 +1899,21 @@ export type MutationUpdateDataForDzongkhagArgs = {
 
 export type MutationDeleteDataForDzongkhagArgs = {
   input?: Maybe<DeleteDataForDzongkhagInput>;
+};
+
+
+export type MutationCreateEmployeeArgs = {
+  input?: Maybe<CreateEmployeeInput>;
+};
+
+
+export type MutationUpdateEmployeeArgs = {
+  input?: Maybe<UpdateEmployeeInput>;
+};
+
+
+export type MutationDeleteEmployeeArgs = {
+  input?: Maybe<DeleteEmployeeInput>;
 };
 
 
@@ -1821,21 +2043,54 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+export type GetEmployeesQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type GetEmployeesQuery = (
+  { __typename?: 'Query' }
+  & { employees?: Maybe<Array<Maybe<(
+    { __typename?: 'Employee' }
+    & Pick<Employee, 'employeeName' | 'employeeDescription' | 'employeeOccupation' | 'extraDetails'>
+    & { employeeImage?: Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'height' | 'width' | 'caption' | 'url'>
+    )> }
+  )>>> }
+);
+
+export type HomeTestimonialsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomeTestimonialsQuery = (
+  { __typename?: 'Query' }
+  & { testimonials?: Maybe<Array<Maybe<(
+    { __typename?: 'Testimonial' }
+    & Pick<Testimonial, 'guestName' | 'comments'>
+    & { image?: Maybe<(
+      { __typename?: 'UploadFile' }
+      & Pick<UploadFile, 'url' | 'caption' | 'width' | 'height'>
+    )> }
+  )>>> }
+);
+
 export type DzongkhagQueryVariables = Exact<{
-  uniqueID: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
 }>;
 
 
 export type DzongkhagQuery = (
   { __typename?: 'Query' }
-  & { dataForDzongkhag?: Maybe<(
+  & { dataForDzongkhags?: Maybe<Array<Maybe<(
     { __typename?: 'DataForDzongkhag' }
     & Pick<DataForDzongkhag, 'title' | 'description' | 'sectors' | 'InterestedPlaces'>
     & { coverImage?: Maybe<(
       { __typename?: 'UploadFile' }
       & Pick<UploadFile, 'width' | 'height' | 'url' | 'caption'>
     )> }
-  )> }
+  )>>> }
 );
 
 export type FilteredPkgCountQueryVariables = Exact<{
@@ -1860,10 +2115,10 @@ export type FullPkgQuery = (
     & Pick<Package, 'title' | 'description' | 'packageHighlight' | 'packageInsight' | 'arrival' | 'departure' | 'duration' | 'bestTravelTime' | 'destinations'>
     & { itineraries?: Maybe<Array<Maybe<(
       { __typename?: 'ComponentItineraryItinerary' }
-      & Pick<ComponentItineraryItinerary, 'name' | 'time' | 'distance' | 'content' | 'altitude'>
+      & Pick<ComponentItineraryItinerary, 'key' | 'name' | 'time' | 'distance' | 'content' | 'altitude'>
     )>>>, images?: Maybe<Array<Maybe<(
       { __typename?: 'UploadFile' }
-      & Pick<UploadFile, 'url' | 'height' | 'width'>
+      & Pick<UploadFile, 'url' | 'height' | 'width' | 'caption'>
     )>>> }
   )>>> }
 );
@@ -1879,24 +2134,24 @@ export type GetPackagesQuery = (
     { __typename?: 'Package' }
     & { images?: Maybe<Array<Maybe<(
       { __typename?: 'UploadFile' }
-      & Pick<UploadFile, 'url' | 'width' | 'height'>
+      & Pick<UploadFile, 'url' | 'width' | 'height' | 'caption'>
     )>>> }
   )>>> }
 );
 
-export type PackagesQueryVariables = Exact<{
+export type PackageDetailsQueryVariables = Exact<{
   limit?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type PackagesQuery = (
+export type PackageDetailsQuery = (
   { __typename?: 'Query' }
   & { packages?: Maybe<Array<Maybe<(
     { __typename?: 'Package' }
-    & Pick<Package, 'title' | 'description'>
+    & Pick<Package, 'title' | 'packageType' | 'description'>
     & { images?: Maybe<Array<Maybe<(
       { __typename?: 'UploadFile' }
-      & Pick<UploadFile, 'url' | 'height' | 'width'>
+      & Pick<UploadFile, 'url' | 'height' | 'width' | 'caption'>
     )>>> }
   )>>> }
 );
@@ -1915,7 +2170,7 @@ export type PackagesFilterQuery = (
     & Pick<Package, 'title' | 'packageId' | 'description'>
     & { images?: Maybe<Array<Maybe<(
       { __typename?: 'UploadFile' }
-      & Pick<UploadFile, 'url' | 'height' | 'width'>
+      & Pick<UploadFile, 'url' | 'height' | 'width' | 'caption'>
     )>>> }
   )>>> }
 );
@@ -1932,7 +2187,7 @@ export type DataAboutBhutanQuery = (
     & Pick<AboutBhutanSection, 'title' | 'content'>
     & { coverImage?: Maybe<(
       { __typename?: 'UploadFile' }
-      & Pick<UploadFile, 'width' | 'height' | 'caption'>
+      & Pick<UploadFile, 'width' | 'height' | 'url' | 'caption'>
     )> }
   )>>> }
 );
@@ -1950,7 +2205,7 @@ export type GetTestimonialsQuery = (
     & Pick<Testimonial, 'guestName' | 'comments'>
     & { image?: Maybe<(
       { __typename?: 'UploadFile' }
-      & Pick<UploadFile, 'url' | 'caption'>
+      & Pick<UploadFile, 'width' | 'height' | 'url' | 'caption'>
     )> }
   )>>> }
 );

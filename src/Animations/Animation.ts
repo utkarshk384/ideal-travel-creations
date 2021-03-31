@@ -8,7 +8,7 @@ type SpanHeading_ArrayType = React.MutableRefObject<
   (HTMLSpanElement | HTMLHeadingElement | null)[]
 >;
 
-type refType = MutableRefObject<(HTMLDivElement | HTMLButtonElement | null)[]>;
+type refType = MutableRefObject<(HTMLDivElement | HTMLAnchorElement | null)[]>;
 type targetRefType = MutableRefObject<HTMLDivElement | null>;
 
 export default abstract class _gsapAnimation {
@@ -42,8 +42,8 @@ export default abstract class _gsapAnimation {
 
     ScrollTrigger.create({
       trigger: targetRef.current as HTMLDivElement,
-      toggleActions: "play none complete reset",
-      start: "-30% 65%",
+      toggleActions: "play complete complete complete",
+      start: "-30% 30%",
       animation: tl,
       ...triggerConfig,
     });

@@ -11,12 +11,13 @@
     color: variables.$primary;
     padding-left: 3rem;
     margin-bottom: 1rem;
+    position: relative;
 
     &::before {
+      @include mixins.setPosition(0, 10rem, auto, 0);
       font-family: "Ionicons";
       color: variables.$primary;
       font-size: variables.$font-md;
-      @include mixins.setPosition(-0.5rem, auto, auto, 0);
     }
   }
   a,
@@ -37,6 +38,7 @@
   @include mixins.Container(100%);
   padding: 1rem 1.5rem;
   background-color: variables.$secondary;
+  margin-top: 5rem;
 
   &-container {
     @include include-media.media(">=lg") {
@@ -45,16 +47,18 @@
   }
 
   &-contacts {
-    display: flex;
-    flex-direction: column;
+    @include mixins.flex(
+      $breakpoint-css: (
+        justify-content: space-between,
+      )
+    );
     @include mixins.Container(70%);
+    text-align: center;
 
     //Responsiveness
     @include include-media.media(">=lg") {
       width: 100%;
-      justify-content: space-between;
-      align-items: stretch;
-      flex-direction: row;
+      text-align: left;
     }
   }
 
@@ -76,7 +80,11 @@
     align-items: center;
   }
   &-socials {
-    @include mixins.flex() {
+    @include mixins.flex(
+      $breakpoint-css: (
+        justify-content: flex-start,
+      )
+    ) {
       flex-direction: row;
       justify-content: space-evenly;
     }
@@ -98,7 +106,7 @@
     color: variables.$white;
 
     i::before {
-      content: "\f1f9 \ ";
+      content: "\f1f9 ";
       padding-right: 0.15rem;
       font-family: "Font Awesome 5 Free";
       font-size: variables.$font-xs;
@@ -107,10 +115,11 @@
   }
 }
 
-.footer-wrapper.call-us {
+.footer-wrapper.important-links {
   h3 {
     &::before {
-      content: "\f2d2";
+      content: "\f0c1";
+      font-family: "Font Awesome 5 Free";
     }
   }
 }
@@ -131,15 +140,16 @@
 }
 
 .license {
-  @include mixins.flex(
-    $breakpoint-css: (
-      flex-direction: row,
-      justify-content: center,
-    )
-  ) {
+  &-container {
+    @include mixins.flex($center: true);
+  }
+
+  @include mixins.flex {
     flex-direction: row;
     justify-content: center;
   }
+
+  @include mixins.flex-Margin(1rem 2rem);
 
   a {
     margin-right: 0.5rem;
@@ -157,6 +167,24 @@
 }
 
 @include include-media.media(">=lg") {
+  :is(.important-links, .email-us, .address) h3::before {
+    top: -0.25rem;
+  }
+
+  .email-us {
+    text-align: center;
+    h3::before {
+      left: -7rem;
+    }
+  }
+
+  .address {
+    text-align: right;
+    h3::before {
+      right: 6.5rem;
+    }
+  }
+
   .footer-socials {
     a::before {
       @include mixins.flex-Margin(1.25rem);

@@ -1,17 +1,21 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/// <---Global Imports--->
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+
+/// <---Local Imports--->
+//Animation
 import homeAnimation from "../../src/Animations/homeAnimation";
 
+//Styles
 import styles from "styles/pages/home.module.scss";
 
 const Hero: React.FC = () => {
-  //Refs
+  //<---Refs--->
   const heroTextRef = useRef<(HTMLSpanElement | HTMLHeadingElement | null)[]>(
     []
   );
 
-  //useEffects
+  //<---useEffects--->
   useEffect(() => {
     homeAnimation.slideIn(heroTextRef);
   }, []);
@@ -23,7 +27,7 @@ const Hero: React.FC = () => {
         layout="fill"
         className={styles["hero-bg"]}
       />
-      <div className={styles["hero-container"]}>
+      <div className={styles["hero-container"]} id="home-page">
         <div className={styles["hero-center-text"]}>
           <span ref={(el) => heroTextRef.current.push(el)}>
             Explore <b>Bhutan</b> with us

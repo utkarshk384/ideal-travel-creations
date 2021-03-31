@@ -9,7 +9,7 @@ interface InavRef {
 }
 
 class gsapAnimation {
-  public stickyNavbar(
+  public changeNavColor(
     ref: React.ForwardedRef<HTMLDivElement>,
     targetRef: React.RefObject<HTMLDivElement>
   ) {
@@ -24,7 +24,8 @@ class gsapAnimation {
       trigger: (ref as React.MutableRefObject<HTMLDivElement>)!.current,
       start: "400 350",
       end: "+=0",
-      toggleActions: "play none reverse reset",
+      toggleActions: "play none none reverse",
+      markers: false, // Are helpful to debug the animation as it shows the start and end position of the trigger points.
       animation: tl,
     });
 

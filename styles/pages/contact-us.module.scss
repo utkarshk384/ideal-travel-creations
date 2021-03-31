@@ -1,6 +1,5 @@
 @use "../main" as *;
 @use "../vendors/include-media" as breakpoint;
-@use "../layout/form.scss" as *;
 
 .contact-us {
   @include flex();
@@ -29,10 +28,6 @@
   margin-bottom: 3rem;
 }
 
-.adr-header {
-  margin-bottom: 2rem;
-}
-
 .form-header,
 .adr-header {
   h2 {
@@ -49,39 +44,53 @@
   );
   @include flex-Margin(3rem, vertical);
 
-  //Styles for the different form components of the form
-  @include label-text();
-  @include p-text();
-  @include error-text();
-  @include input-field();
   width: 100%;
+
+  & > p {
+    @include font($font-bold, $font-sans);
+    color: $secondary;
+  }
 }
 
 .form-submit {
-  @include form-btn();
+  button {
+    @include btn-anim-outline(10rem, 1px solid transparent, $white, $accent) {
+      filter: brightness(70%);
+    }
+    @include font($font-bold, $font-sans);
+    letter-spacing: 2px;
+    background-color: $accent;
+    color: $white;
+  }
 }
 
 .form-name {
   @include flex("xl");
+}
 
-  .name-item {
-    @include flex-Margin(1rem, horizontal, "xl") {
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-      width: 100%;
-    }
+.name-item {
+  @include flex-Margin(1rem);
+  @include flex(
+    $breakpoint-css: (
+      flex-direction: column,
+    )
+  ) {
+  }
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
   }
 }
 
-.input-field.error-border {
-  border: 1px solid $alert;
+//Right Side
+
+.adr-header {
+  margin-bottom: 2rem;
 }
 
 .contact-address {

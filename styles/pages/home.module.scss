@@ -16,6 +16,14 @@
   }
 }
 
+.container {
+  @include Container($width: 90%) {
+    margin-bottom: 5rem;
+    box-shadow: $shadow-1;
+    background: $white;
+  }
+}
+
 //Hero Container
 .hero {
   width: 100%;
@@ -42,19 +50,11 @@
 
     @include font($font-bold, $font-sans);
 
-    @include breakpoint.media(">=sm") {
-      @include Container(85%);
-    }
-
     & span {
-      width: 15ch;
+      width: 16ch;
       font-size: $font-xl;
       text-transform: uppercase;
       margin-bottom: 1em;
-
-      @include breakpoint.media(">=sm") {
-        font-size: $font-xl;
-      }
     }
 
     & h2 {
@@ -64,78 +64,75 @@
   }
   margin-bottom: 10%;
 }
-//Card Section
-.card {
-  @include Container($width: 90%, $padding: false, $responsive-xxs: true) {
-    margin-bottom: 5rem;
-    box-shadow: $shadow-1;
-  }
+
+//Why-us and Cards Section
+.cards {
   display: flex;
   flex-direction: column;
-  background-color: $white;
+
+  h1 {
+    margin: 1.5rem 0rem;
+    font-weight: $font-bold;
+    color: $secondary;
+    text-align: center;
+  }
+
+  h2 {
+    margin-bottom: 0.5em;
+    text-align: center;
+    color: $primary;
+  }
+
+  p {
+    color: $white;
+  }
 
   &-heading {
     display: flex;
     justify-content: center;
-    h1 {
-      font-weight: $font-bold;
-      color: $secondary;
-      text-align: center;
-    }
   }
 
   &-container {
     @include flex(
-      "lg",
-      (
+      $breakpoint: "lg",
+      $breakpoint-css: (
         flex-direction: row,
         align-items: stretch,
       )
-    ) {
-      align-items: center;
-    }
-    margin-bottom: 2em;
+    );
   }
 
-  &-cards {
-    background: $secondary;
-    padding: 1em 1.25em;
+  &-card {
     @include flex-Width(3);
     @include flex-Margin(0.5em);
-    h2 {
-      margin-bottom: 0.5em;
-      font-weight: $font-bold;
-      text-align: center;
-      color: $primary;
-    }
-
-    p {
-      margin-bottom: 1em;
-      color: $white;
-    }
+    background-color: $secondary;
+    padding: 1em 1.25em 2.5em 1.25em;
   }
 
   &-cta {
-    margin-bottom: 3em;
-    @include Container(100%);
-    @include Button-anim-icon(
-      20rem,
-      (
-        background-color: $accent,
-        border-radius: 10px,
-      ),
-      "\f3d1",
-      "Ionicons",
-      $primary
-    );
-    @include font($font-bold, $font-sans);
-    font-size: $font-md;
-    color: $white;
+    @include flex($center: true);
+    width: 100%;
+    margin: 3rem auto;
+    & .cta-btn {
+      @include Button-anim-icon(
+        20rem,
+        (
+          background-color: $accent,
+          border-radius: 10px,
+        ),
+        "\f3d1",
+        "Ionicons",
+        $primary
+      );
+      @include font($font-bold, $font-sans);
+      font-size: $font-md;
+      color: $white;
+    }
   }
 }
 
 .parallex {
-  @include Container(100%, false, true);
+  width: 100%;
 
   &-image-container {
     width: 100%;
@@ -144,7 +141,7 @@
   }
 
   &-image {
-    object-fit: cover;
+    object-fit: contain;
     filter: brightness(40%); //Darkens Image
     position: fixed;
   }
@@ -162,27 +159,100 @@
       text-align: center;
     }
   }
+  margin-bottom: 5rem;
 }
 
 //Slider Section
 .slider {
   overflow-x: hidden;
   @include slider.homeSlider();
-  padding-bottom: 2rem;
+}
+
+//Testimonials Section
+.tstmials {
+  &-heading {
+    @include Container(80%, true, 1rem);
+    @include flex($center: true);
+    h1 {
+      color: $secondary;
+    }
+  }
+
+  &-wrapper {
+    @include flex("sm", $breakpoint-css: (align-items: stretch)) {
+      align-items: center;
+      justify-content: stretch;
+    }
+    @include Container(90%);
+    padding: 2rem 0rem 0rem 0rem;
+  }
+
+  &-cta {
+    padding-bottom: 3rem;
+  }
+}
+
+.tstmials-card {
+  @include flex-Width(3 2 1, "sm");
+  @include flex-Margin($margin: 1rem, $breakpoint: "sm");
+  background-color: rgba($secondary, 0.9);
+  box-shadow: $shadow-1;
+  position: relative;
+
+  &::before,
+  &::after {
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 100px;
+    color: $accent;
+    filter: opacity(40%);
+  }
+
+  &::before {
+    @include setPosition(50%, auto, auto, 50%);
+    content: "\f10d";
+    transform: translate(-50%, 20%);
+    filter: opacity(20%);
+  }
+}
+
+.tc {
+  &-img-container {
+    position: relative;
+    height: 10rem;
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &-content {
+    padding: 0rem 1.25rem 2rem 1.25rem;
+
+    p {
+      color: $white;
+    }
+  }
+
+  &-title {
+    h2 {
+      color: $primary;
+      text-align: center;
+      margin: 1rem 0rem;
+    }
+  }
 }
 
 //Affiliation Section
 .aff {
-  @include Container(90%, false) {
-    margin-bottom: 5rem;
-    box-shadow: $shadow-1;
-  }
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: $white;
 
   &-h-wrapper {
+    margin: 1.5rem auto;
     color: $secondary;
   }
   &-logo-container {
@@ -214,10 +284,17 @@
     width: 90%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 2rem;
 
     p {
       @include flex-Margin(1rem, vertical);
       color: $secondary;
     }
+  }
+}
+
+@include breakpoint.media(">=sm") {
+  .hero-centered-text {
+    @include Container(85%);
   }
 }

@@ -1,4 +1,22 @@
 
+declare module '*/EmployessQuery.graphql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const getEmployees: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/HomeTestimonials.graphql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const HomeTestimonials: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/dzongkhagQuery.graphql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -38,7 +56,7 @@ declare module '*/getImgQuery.graphql' {
 declare module '*/packageQuery.graphql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const packages: DocumentNode;
+  export const packageDetails: DocumentNode;
 
   export default defaultDocument;
 }
@@ -62,7 +80,7 @@ declare module '*/ssgBhutan.graphql' {
 }
     
 
-declare module '*/testimonailsQuery.graphql' {
+declare module '*/testimonialsQuery.graphql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const getTestimonials: DocumentNode;

@@ -1,25 +1,34 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/// <---Global Imports--->
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import _ from "lodash";
+import ClampLines from "react-clamp-lines";
 
+/// <---Local Imports--->
+//Custom Hooks
 import useWindowSize from "../src/Hooks/useWindow";
+
+//Animations
 import homeAnimation from "../src/Animations/homeAnimation";
 
-import { IsliderData } from "@/graphql/types";
-
+//Styles
 import styles from "styles/pages/home.module.scss";
 
+/// <---Graphql--->
+import { IsliderData } from "@/graphql/types";
+
 const Slider: React.FC<{ data: IsliderData[] }> = ({ data }) => {
-  //States
+  /// <---States--->
   const [activeCard, setCard] = useState(1);
   const [animating, setAnimation] = useState(false);
   const { width } = useWindowSize();
 
-  //Refs
-  const activeCardRef = useRef<(HTMLButtonElement | null)[]>([]);
+  /// <---Refs--->
+  const activeCardRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  //UseEffects
-
+  /// <---Use Effects--->
   useEffect(() => {
     setAnimation(false);
   }, [activeCard]);
@@ -34,7 +43,7 @@ const Slider: React.FC<{ data: IsliderData[] }> = ({ data }) => {
     }
   }, [width, data, activeCard]);
 
-  //handle Clicks
+  /// <---Handle Mouse Events--->
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnimation(true);
     const eventTarget = e.target as Element;
@@ -50,73 +59,92 @@ const Slider: React.FC<{ data: IsliderData[] }> = ({ data }) => {
     }
   };
 
-  //Function to check if the butotn should be disabled or not
-
+  //Function to check if the slider buttons should be disabled or not
   const checkLeftButton = () => {
-    if (width! > 1280 && activeCard === 1) return true;
-    else if (animating) return true;
+    if (activeCard === 0) return true;
+    else if (width! > 1280 && activeCard === 1) return true;
     return false;
   };
 
   const checkRightButton = () => {
-    if (width! > 1280 && activeCard === data.length - 2) return true;
-    else if (animating) return true;
+    if (data.length - 1 === activeCard) return true;
+    else if (width! > 1280 && activeCard === data.length - 2) return true;
     return false;
   };
 
   return (
-    <div className={styles.slider}>
+    <div className={`${styles.slider} ${styles.container}`}>
       <div className={styles["slider-h-wrapper"]}>
         <h1 className={styles["slider-heading"]}>Travel Packages</h1>
       </div>
       <div className={styles["slider-wrapper"]}>
         <button
-          className={styles["slider-l-arrow"]}
+          className={`${styles["slider-l-arrow"]} ${
+            checkLeftButton() ? styles["disabled-btn"] : ""
+          }`}
           onClick={(e) => handleClick(e)}
-          disabled={activeCard === 0 ? true : checkLeftButton()}
+          disabled={checkLeftButton()}
         />
         <div className={styles["sc-container"]}>
           <div className={styles["sc-wrapper"]}>
             {data.map((card, index) => (
-              <button
-                ref={(el) => activeCardRef.current.push(el)}
-                key={`sc-${index}`}
-                className={`${styles["sc"]} ${
-                  card.index === activeCard
-                    ? styles["sc-active"]
-                    : styles["sc-inactive"]
-                } ${
-                  card.index === activeCard - 1
-                    ? styles["sc-active-left"]
-                    : styles["sc-inactive-left"]
-                } ${
-                  card.index === activeCard + 1
-                    ? styles["sc-active-right"]
-                    : styles["sc-inactive-right"]
-                }`}
+              <Link
+                href="/packages/[name]/[packages]"
+                as={card.url}
+                key={`sc-${index * 9586}`}
               >
-                <div className={styles["sc-img-wrapper"]}>
-                  <Image layout="fill" src={`${card.images![0]?.url}`} />
-                </div>
-                <div className={styles["sc-content"]}>
-                  <div className={styles["sc-heading"]}>
-                    <h2>{_.startCase(card.title)}</h2>
+                <a
+                  ref={(el) => activeCardRef.current.push(el)}
+                  key={`sc-${index}`}
+                  className={`${styles["sc"]} ${
+                    card.index === activeCard
+                      ? styles["sc-active"]
+                      : styles["sc-inactive"]
+                  } ${
+                    card.index === activeCard - 1
+                      ? styles["sc-active-left"]
+                      : styles["sc-inactive-left"]
+                  } ${
+                    card.index === activeCard + 1
+                      ? styles["sc-active-right"]
+                      : styles["sc-inactive-right"]
+                  }`}
+                >
+                  <div className={styles["sc-img-wrapper"]}>
+                    <Image layout="fill" src={`${card.images![0]?.url}`} />
                   </div>
-                  <div className={styles["sc-body"]}>
-                    <p>{card.description?.substring(0, 100)}...</p>
+                  <div className={styles["sc-content"]}>
+                    <div className={styles["sc-heading"]}>
+                      <h3>{_.startCase(card.title)}</h3>
+                    </div>
+                    <div className={styles["sc-body"]}>
+                      <ClampLines
+                        id={`clamped-content-${index * 7}`}
+                        text={card.description as string}
+                        buttons={false}
+                        lines={6}
+                        innerElement="p"
+                      />
+                    </div>
                   </div>
-                </div>
-              </button>
+                </a>
+              </Link>
             ))}
           </div>
         </div>
         <button
-          className={styles["slider-r-arrow"]}
+          className={`${styles["slider-r-arrow"]} ${
+            checkRightButton() ? styles["disabled-btn"] : ""
+          }`}
           onClick={(e) => handleClick(e)}
-          disabled={data.length - 1 === activeCard ? true : checkRightButton()}
+          disabled={checkRightButton()}
         />
       </div>
-      <button className={styles["slider-cta"]}>Contact Us</button>
+      <div className={styles["slider-cta"]}>
+        <Link href="/packages">
+          <a className={styles["cta-btn"]}>More Packages</a>
+        </Link>
+      </div>
     </div>
   );
 };

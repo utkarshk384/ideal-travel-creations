@@ -12,6 +12,9 @@
 /.next/
 /out/
 
+# ngrok Server
+ngrok.js
+
 # production
 /build
 

@@ -1,23 +1,27 @@
+///<----Global Imports--->
 import React from "react";
 import Image from "next/image";
 import _ from "lodash";
 import ReactMarkdown from "react-markdown";
 import { GetStaticPaths, GetStaticProps } from "next";
+
+///<----Local Imports--->
+import QuickLinks from "@/components/quickLinks";
+
+//Styles
+import styles from "styles/pages/dync-dzongkhag.module.scss";
+
+//Graphql
 import { initializeApollo } from "@/apolloClient";
 import { gql } from "@apollo/client";
+import { getallPaths } from "src/lib/graphql_helperFunc";
 import dzongkhagQuery from "@/graphql/dzongkhagQuery.graphql";
 import type {
   DzongkhagQuery as IQuery,
   DzongkhagQueryVariables as IVars,
 } from "@/graphql/generated/graphql-frontend";
-import { getallPaths } from "src/lib/graphql_helperFunc";
-import QuickLinks from "@/components/quickLinks";
 
-import styles from "styles/pages/dync-dzongkhag.module.scss";
-
-interface IPaths {
-  params: { dzongkhag: string };
-}
+type pathType = { params: { dzongkhag: string } };
 
 const Dzongkhag: React.FC<{
   data?: IQuery;
@@ -32,7 +36,7 @@ const Dzongkhag: React.FC<{
           <div className={styles["l-img-container"]}>
             <div className={styles["img-heading"]}>
               <h1>
-                {_.startCase(data?.dataForDzongkhag?.title)
+                {_.startCase(data?.dataForDzongkhags![0]?.title)
                   .replace("And", "and")
                   .replace("In", "in")}
               </h1>
@@ -47,14 +51,14 @@ const Dzongkhag: React.FC<{
               <h1>Overview</h1>
               <hr />
               <ReactMarkdown
-                source={data?.dataForDzongkhag?.description as string}
+                source={data?.dataForDzongkhags![0]?.description as string}
               />
             </div>
             <div className={styles["interested-places"]}>
               <h1>Interested places</h1>
               <hr />
               <ReactMarkdown
-                source={data?.dataForDzongkhag?.InterestedPlaces as string}
+                source={data?.dataForDzongkhags![0]?.InterestedPlaces as string}
               />
             </div>
           </div>
@@ -66,13 +70,13 @@ const Dzongkhag: React.FC<{
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const uniqueID = ctx.params?.dzongkhag as string;
+  const title = ctx.params?.dzongkhag as string;
 
   const client = initializeApollo();
 
   const { data } = await client.query<IQuery, IVars>({
     query: dzongkhagQuery,
-    variables: { uniqueID },
+    variables: { title: _.startCase(title) },
   });
 
   return {
@@ -81,21 +85,29 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  const paths: IPaths[] = [];
+  const paths: pathType[] = [];
   const client = initializeApollo();
 
   const query = gql`
-    query {
-      dzongkhagsCount
+    query dzongkhags {
+      dataForDzongkhags {
+        title
+      }
     }
   `;
 
-  const { data } = await client.query<{ dzongkhagsCount: number }>({ query });
+  type queryType = {
+    title: string;
+  };
+
+  const { data } = await client.query<{ dataForDzongkhags: queryType[] }>({
+    query,
+  });
 
   if (data) {
-    for (let i = 1; i <= data.dzongkhagsCount; i++) {
-      paths.push({ params: { dzongkhag: `${i}` } });
-    }
+    data.dataForDzongkhags.map((url) => {
+      return paths.push({ params: { dzongkhag: _.lowerCase(url.title) } });
+    });
   }
 
   return {

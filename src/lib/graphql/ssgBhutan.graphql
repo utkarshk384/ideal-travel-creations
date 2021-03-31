@@ -5,6 +5,7 @@ query dataAboutBhutan($url: String) {
     coverImage {
       width
       height
+      url
       caption
     }
   }

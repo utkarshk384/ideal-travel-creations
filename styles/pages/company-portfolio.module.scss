@@ -1,0 +1,97 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+.cp{
+    @include Container(80%){
+        @include breakpoint.media("<lg"){
+            @include Container(95%);
+        }
+    }
+}
+
+.cp-container{
+    @include flex($breakpoint-css: (justify-content: space-between) );
+}
+
+.l-container{
+    background-color: $white;
+    width: 100%;
+    padding-bottom: 5rem;
+}
+
+
+.content-img-container{
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    height: 1rem;
+}
+
+.l-content{
+    padding: 0rem 2rem;
+
+
+    .content-flex{
+        @include flex();
+    }
+
+    .flex-content{
+        width: 100%;
+    }
+
+    h2, h3{
+        color: $secondary;
+        margin-top: 2rem;
+    }
+    
+    a{
+        color: $accent;
+        font-size: $font-xs;
+        text-decoration: underline;
+    }
+
+    p{
+        color: $secondary;
+        margin: 1rem 0rem;
+    }
+    
+    li{
+        margin: 1rem 0rem;
+    }
+    
+
+    hr{
+        border: 3px solid $primary;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+    }
+}
+
+@include breakpoint.media(">=lg"){
+
+    .l-container{
+        width: 65%;
+    }
+
+    .left{
+        float: left;
+        margin-right: 2rem;
+    }
+    .right{
+        float: right;
+        margin-left: 2rem;
+
+    }
+
+    .l-content .content-img-container{
+        width: 50%;
+        padding-top: 31.25%;
+
+    }
+
+    .padding-left{
+        padding-left: 2rem;
+
+    }
+
+}

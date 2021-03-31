@@ -1,15 +1,21 @@
+///<----Global Imports--->
 import React from "react";
 import Image from "next/image";
-import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import Map from "@/components/Map";
+import { GetStaticPaths, GetStaticProps } from "next";
 import _ from "lodash";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from "react-markdown/with-html";
 import gfm from "remark-gfm";
 
+///<----Local Imports--->
+
+import Map from "@/components/Map";
 import QuickLinks from "@/components/quickLinks";
 
-//graphql
+//Styles
+import styles from "styles/pages/dync-bhutan.module.scss";
+
+//Graphql
 import { initializeApollo } from "@/apolloClient";
 import ssgBhutanQuery from "@/graphql/ssgBhutan.graphql";
 import {
@@ -17,8 +23,6 @@ import {
   DataAboutBhutanQueryVariables as IVars,
 } from "@/graphql/generated/graphql-frontend";
 import { getAboutBhtPaths, getallPaths } from "@/graphql/../graphql_helperFunc";
-
-import styles from "styles/pages/dync-bhutan.module.scss";
 
 interface Ipaths {
   params: {
@@ -53,12 +57,15 @@ const SsgBhutan: React.FC<{
               />
             </div>
             <div className={styles["l-content"]}>
-              <ReactMarkdown
-                plugins={[[gfm, { tableCellPadding: true }]]}
-                source={
-                  props.mainData?.aboutBhutanSections![0]?.content as string
-                }
-              />
+              <div className="table-container">
+                <ReactMarkdown
+                  plugins={[[gfm, { tableCellPadding: true }]]}
+                  allowDangerousHtml
+                  source={
+                    props.mainData?.aboutBhutanSections![0]?.content as string
+                  }
+                />
+              </div>
               {router.asPath === "/bhutan/location" && (
                 <Map
                   lat={27.5002}

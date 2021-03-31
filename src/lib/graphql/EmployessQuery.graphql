@@ -1,0 +1,14 @@
+query getEmployees($limit: Int = 0, $offset: Int = 0) {
+  employees(limit: $limit, start: $offset) {
+    employeeName
+    employeeDescription
+    employeeOccupation
+    extraDetails
+    employeeImage {
+      height
+      width
+      caption
+      url
+    }
+  }
+}

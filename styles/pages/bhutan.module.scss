@@ -13,6 +13,7 @@
   @include flex(
     $breakpoint-css: (
       justify-content: space-between,
+      flex-wrap: wrap,
     )
   );
 
@@ -23,15 +24,8 @@
 
 .img-heading {
   @include Container(80%);
-  @include flex(
-    $breakpoint-css: (
-      justify-content: center,
-      align-items: center,
-    )
-  ) {
+  @include flex($center: true) {
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
   }
   height: 100%;
   h1 {
@@ -42,12 +36,14 @@
 }
 
 .l-intro {
-  @include Container(100%) {
-    background-color: $white;
-    box-shadow: $shadow-1;
-  }
+  @include Container(100%);
+}
 
+.l-item {
+  background-color: $white;
+  box-shadow: $shadow-2;
   height: min-content;
+
   h2 {
     color: $secondary;
     margin-bottom: 2rem;
@@ -71,10 +67,29 @@
     }
   }
 
-  &-container {
+  &-container-bht {
     @include Container(90%, true, 3rem 1rem) {
       padding: 3rem 1rem;
     }
+  }
+}
+
+.b-nav {
+  background-color: $white;
+  box-shadow: $shadow-2;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+
+  h3 {
+    color: $secondary;
+  }
+
+  a {
+    @include font($font-normal, $font-sans);
+    @include flex-Margin(0.5rem, vertical);
+    display: block;
+    color: $accent;
   }
 }
 

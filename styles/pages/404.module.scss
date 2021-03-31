@@ -1,0 +1,84 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+.not-found {
+  @include Container(80%);
+  @include flex(
+    $breakpoint-css: (
+      flex-direction: column,
+    )
+  ) {
+    justify-content: space-around;
+  }
+  overflow: hidden;
+  height: 60vh;
+  background-color: $white;
+}
+.container {
+  @include Container(80%);
+  @include flex(
+    $breakpoint-css: (
+      flex-direction: column,
+    )
+  ) {
+  }
+
+  position: relative;
+  &::before {
+    @include setPosition(50%, 0, 0, 50%);
+    @include font($font-bold, $font-sans);
+    content: "404";
+    color: rgba($alert, 0.2);
+    font-size: 20vw;
+  }
+
+  h1 {
+    color: $alert;
+    font-size: $font-xl;
+  }
+
+  b {
+    @include font($font-bold, $font-sans);
+    color: $alert;
+  }
+
+  hr {
+    padding: 2px;
+    width: 100%;
+    border-radius: 15px;
+    background-color: $alert;
+    margin: 1rem 0rem 2rem 0rem;
+    border: none;
+  }
+  p {
+    @include font($font-bold, $font-serif);
+    font-size: $font-md;
+    color: $secondary;
+    margin-bottom: 3rem;
+  }
+
+  a {
+    @include Button-anim-icon(
+      15rem,
+      (
+        background-color: $accent,
+        border-radius: 10px,
+      ),
+      "\f3d1",
+      "Ionicons",
+      $primary
+    );
+    @include font($font-bold, $font-sans);
+    font-size: $font-sm;
+    color: $white;
+  }
+}
+
+.container.server-error::before {
+  content: "500";
+}
+@include breakpoint.media(">=lg") {
+  .container::before {
+    top: 0%;
+  }
+}

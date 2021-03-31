@@ -1,11 +1,13 @@
-query packages($limit: Int = 0) {
+query packageDetails($limit: Int) {
   packages(limit: $limit) {
     title
+    packageType
+    description
     images {
       url
       height
       width
+      caption
     }
-    description
   }
 }

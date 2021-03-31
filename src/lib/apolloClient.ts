@@ -7,7 +7,6 @@ import {
 } from "@apollo/client";
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
-
 export const createApolloClient = () => {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",

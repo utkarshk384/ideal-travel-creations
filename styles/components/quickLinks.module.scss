@@ -3,12 +3,16 @@
 
 .r {
   &-container {
-    padding: 2rem 1rem;
+    @include flex-Margin(2rem);
+    padding: 0rem 1rem 2rem 1rem;
+    background-color: $white;
+    box-shadow: $shadow-1;
   }
 
   &-heading {
     color: $secondary;
     margin-bottom: 1.5rem;
+    margin-top: 3rem;
   }
 }
 
@@ -16,15 +20,26 @@
   @include font($font-normal, $font-sans);
   display: block;
   color: $accent;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 @include breakpoint.media(">=lg") {
   .r-container {
+    transition: top ease-in-out 500ms;
     position: sticky;
-    top: 90px;
     width: 30%;
+    margin-right: 0; // Counter the margin on larger screen for consistent look.
     padding: 1.5rem 2rem;
     height: min-content;
+  }
+
+  .links a {
+    margin-bottom: 1rem;
+  }
+}
+
+.loader-container {
+  @include flex {
+    justify-content: center;
   }
 }

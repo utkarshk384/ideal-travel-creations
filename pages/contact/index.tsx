@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Form } from "react-final-form";
-import FormContent from "@/components/Form";
-import Map from "@/components/Map";
-import emailjs from "emailjs-com";
+///<----Global Imports--->
+import React from "react";
 import { FormApi } from "final-form";
-import { enableBodyScroll, disableBodyScroll } from "body-scroll-lock";
+import { Form } from "react-final-form";
+import emailjs from "emailjs-com";
 
+///<----Local Imports--->
+import FormContent from "@/components/Forms/ContactUs-Form";
+import Map from "@/components/Map";
+
+//Custom Hooks
+import useOverlay from "../../src/Hooks/useOverlay";
+
+//Styles
 import styles from "styles/pages/contact-us.module.scss";
 
 emailjs.init(process.env.EMAILJS_USERID as string);
@@ -19,19 +25,10 @@ interface Idata {
 }
 
 const ContactPage = () => {
-  const [expandedMap, setMap] = useState(false);
+  ///<----Custom Hook--->
+  const { overlay, setOverlay } = useOverlay();
 
-  useEffect(() => {
-    const body = document.getElementsByTagName("body");
-    if (expandedMap) {
-      disableBodyScroll((body as unknown) as HTMLElement);
-      document.querySelector(".overlay")?.classList.add("tint-bg");
-    } else {
-      enableBodyScroll((body as unknown) as HTMLElement);
-      document.querySelector(".overlay")?.classList.remove("tint-bg");
-    }
-  }, [expandedMap]);
-
+  ///<----Handle Events--->
   const onSubmit = (data: Idata, form: FormApi) => {
     emailjs.send(
       process.env.EMAILJS_SERVICE_ID as string,
@@ -49,7 +46,7 @@ const ContactPage = () => {
 
   return (
     <>
-      {expandedMap && (
+      {overlay && (
         <div className={styles["expanded-map"]}>
           <Map
             lat={27.4482}
@@ -58,7 +55,7 @@ const ContactPage = () => {
             className={styles["map-area"]}
           />
           <div className={`${styles["overlay-btn"]} z-6`}>
-            <button onClick={() => setMap(!expandedMap)}>Close Map</button>
+            <button onClick={() => setOverlay!(!overlay)}>Close Map</button>
           </div>
         </div>
       )}
@@ -91,7 +88,7 @@ const ContactPage = () => {
           </div>
           <Map lat={27.4482} lng={89.6583} zoom={17.0} />
           <div className={styles["btn-container"]}>
-            <button onClick={() => setMap(!expandedMap)}>Expand Map</button>
+            <button onClick={() => setOverlay!(!overlay)}>Expand Map</button>
           </div>
         </div>
       </div>

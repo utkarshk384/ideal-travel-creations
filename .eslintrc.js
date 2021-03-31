@@ -1,12 +1,17 @@
 module.exports = {
-  plugins: ["prettier", "@typescript-eslint"],
-  extends: ["react-app", "prettier"],
+  plugins: ["prettier", "@typescript-eslint", "jsx-a11y"],
+  extends: ["react-app", "prettier", "plugin:jsx-a11y/strict"],
   parser: "@typescript-eslint/parser",
   overrides: [
     {
       files: ["*.ts", "*.tsx"], // Your TypeScript files extension
       parserOptions: {
         project: ["./Frontend/tsconfig.json"], // Specify it only for TypeScript files
+      },
+      rules: {
+        "jsx-a11y/label-has-for": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/anchor-has-content": 0,
       },
     },
   ],

@@ -1,5 +1,8 @@
-import { getAboutBhtPaths } from "@/graphql/../graphql_helperFunc";
+///<----Global Imports--->
 import _ from "lodash";
+
+//Graphql
+import { getAboutBhtPaths } from "@/graphql/../graphql_helperFunc";
 
 const bhtPaths: any[] = [];
 
@@ -16,8 +19,8 @@ getAboutBhtPaths()
     );
     bhtPaths.push({
       name: "Sectors of Bhutan",
-      href: "/bhutan/parts-of-bhutan",
-      as: "/bhutan/parts-of-bhutan",
+      href: "/bhutan/sectors-of-bhutan",
+      as: "/bhutan/sectors-of-bhutan",
     });
   })
   .catch((err) => console.log(err));
@@ -87,8 +90,8 @@ const navLinks = [
     children: bhtPaths,
   },
   {
-    name: "test",
-    href: "/",
+    name: "About Us",
+    href: "/about",
     index: 3,
   },
   {

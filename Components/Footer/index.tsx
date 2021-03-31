@@ -1,5 +1,8 @@
+///<----Global Imports--->
 import React from "react";
 
+///<----Local Imports--->
+//Styles
 import styles from "styles/components/footer.module.scss";
 
 const Footer = () => {
@@ -7,16 +10,18 @@ const Footer = () => {
     <div className={styles["footer"]}>
       <div className={styles["footer-container"]}>
         <div className={styles["footer-contacts"]}>
-          <div className={`${styles["footer-wrapper"]} ${styles["call-us"]}`}>
-            <h3>Call Us</h3>
-            <a href="tel:+975-2-324987">+975-2-324987</a>
-            <a href="tel:+975-2-341089">+975-2-341089</a>
+          <div
+            className={`${styles["footer-wrapper"]} ${styles["important-links"]}`}
+          >
+            <h3>Important Links</h3>
           </div>
           <div className={`${styles["footer-wrapper"]} ${styles["email-us"]}`}>
-            <h3>Mail Us</h3>
+            <h3>Contact Us or Mail Us</h3>
             <a href="mailto:idealtravelcreations@gmail.com">
               idealtravelcreations@gmail.com
             </a>
+            <a href="tel:+975-2-324987">+975-2-324987</a>
+            <a href="tel:+975-2-341089">+975-2-341089</a>
           </div>
           <div className={`${styles["footer-wrapper"]} ${styles.address}`}>
             <h3>Address</h3>
@@ -31,38 +36,55 @@ const Footer = () => {
         <hr className={styles["footer-hr"]} />
         <div className={styles["footer-end"]}>
           <div className={styles["footer-socials"]}>
-            <a href="#" />
-            <a href="#" />
+            <a
+              href="https://www.facebook.com"
+              target="_blank"
+              rel="noreferrer"
+            />
+            <a
+              href="https://www.twitter.com"
+              target="_blank"
+              rel="noreferrer"
+            />
           </div>
           <p className={styles["footer-copyright"]}>
             <i className={styles["copyright"]} />
             Copyright 2021, All Rights Reserved
           </p>
         </div>
-        <div className={styles["license"]}>
-          <a
-            href="https://icons8.com/icon/65471/mountain"
-            className={styles["mountain-icon"]}
-          >
-            Icons provided by Icons8
-          </a>
-        </div>
-        <div className={styles.license}>
-          <p>Maps by &nbsp;</p>
-          <a
-            href="https://www.mapbox.com/about/maps/"
-            rel="noreferrer"
-            target="_blank"
-          >
-            &copy; Mapbox
-          </a>
-          <a
-            href="https://www.openstreetmap.org"
-            target="_blank"
-            rel="noreferrer"
-          >
-            &copy; OpenStreetMap
-          </a>
+        <div className={styles["license-container"]}>
+          <div className={styles.license}>
+            <p>Icons provided by &nbsp;</p>
+            <a
+              href="https://icons8.com/icon/65471/mountain"
+              className={styles["mountain-icon"]}
+            >
+              Icons8
+            </a>
+          </div>
+          <div className={styles.license}>
+            <p>Maps by &nbsp;</p>
+            <a
+              href="https://www.mapbox.com/about/maps/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              &copy; Mapbox
+            </a>
+            <a
+              href="https://www.openstreetmap.org"
+              target="_blank"
+              rel="noreferrer"
+            >
+              &copy; OpenStreetMap
+            </a>
+          </div>
+          <div className={styles.license}>
+            <p>Spinner by &nbsp;</p>
+            <a href="https://loading.io/" rel="noreferrer" target="_blank">
+              loading.io
+            </a>
+          </div>
         </div>
       </div>
     </div>

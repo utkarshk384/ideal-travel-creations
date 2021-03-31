@@ -14,10 +14,8 @@ $default-btn: (
 /// @param {map} $properties - Any css property value pair for the button style.
 
 @mixin btn-basic($width, $properties: $default-btn) {
+  @include mixins.flex($center: true);
   width: calc(#{$width} * 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
   padding: calc(#{$width} * 0.075) calc(#{$width} * 0.025);
 
@@ -75,6 +73,7 @@ $default-btn: (
     transition: all 0.2s linear 0s;
     justify-content: center;
 
+    @content;
     //Responsiveness
     @include include-media.media(">=md") {
       right: 0rem;
@@ -164,7 +163,8 @@ $default-btn: (
 @mixin btn-anim-fill-center(
   $width,
   $border: 1px solid black,
-  $colors: [black, white],
+  $colors: [black,
+  white],
   $bg-color: black,
   $properties: $default-btn
 ) {
@@ -175,7 +175,7 @@ $default-btn: (
   border: $border;
   color: list.nth($colors, 1);
   transition: color ease-in-out 500ms;
-  
+
   @content;
   &::before {
     @include mixins.setPosition(50%, 50%, 0, 0);
@@ -185,7 +185,7 @@ $default-btn: (
     z-index: -1;
     transition: all ease-in-out 250ms;
   }
-  
+
   @media (hover: hover) {
     &:hover {
       color: list.nth($colors, 2);

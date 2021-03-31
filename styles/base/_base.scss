@@ -11,6 +11,7 @@
  */
 html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -81,6 +82,7 @@ h4,
 h5,
 h6 {
   font-family: variables.$font-sans;
+  letter-spacing: 1.01px;
 }
 h1 {
   font-size: font-clamp(map.get(variables.$font-sizes, lg), true);

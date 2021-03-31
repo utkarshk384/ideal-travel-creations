@@ -1,0 +1,90 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+.about {
+  @include Container(80%) {
+    @include breakpoint.media("<=xs") {
+      width: 95%;
+    }
+  }
+  @include flex();
+
+  &-item {
+    @include flex-Margin(1rem);
+    width: 100%;
+  }
+}
+
+.l-container {
+  background-color: $white;
+  box-shadow: $shadow-2;
+}
+
+.l {
+  &-heading {
+    @include flex($center: true);
+    height: 100%;
+    z-index: $z-1;
+    position: relative;
+    color: $primary;
+    h1 {
+      letter-spacing: 1.5px;
+    }
+  }
+  &-img-container {
+    position: relative;
+    width: 100%;
+    height: 15vh;
+    img {
+      object-fit: cover;
+      filter: brightness(70%);
+    }
+  }
+
+  &-content {
+    padding: 2rem;
+    h2 {
+      color: $secondary;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      color: $secondary;
+      margin-bottom: 1rem;
+
+      b {
+        @include font($font-bold, $font-sans);
+        font-size: $font-xs;
+        color: $secondary;
+      }
+    }
+  }
+}
+
+.cta {
+  button {
+    @include font($font-bold, $font-sans);
+    @include Button-anim-icon(12rem, (), "\f3d1", "Ionicons", $primary) {
+      font-size: $font-md;
+    }
+    background: $accent;
+    color: $white;
+    box-shadow: $shadow-1;
+    border-radius: 2px;
+    margin: 2rem 0rem;
+  }
+}
+
+@include breakpoint.media(">=lg") {
+  .l-img-container {
+    height: clamp(25vh, 27.5vh, 30vh);
+  }
+
+  .about-item.l-container {
+    width: 65%;
+    margin-left: 0; // To counter the margin added by the @flex-Margin().
+  }
+  .about-item.r-container {
+    width: 35%;
+  }
+}

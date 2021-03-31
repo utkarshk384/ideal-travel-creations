@@ -1,6 +1,5 @@
 @use "../main" as  *;
 @use "../vendors/include-media" as breakpoint;
-@use "../components/quickLinks.scss";
 
 .ssg-bht {
   @include Container(80%);
@@ -13,9 +12,9 @@
   @include flex();
 
   &-item {
+    @include flex-Margin(2rem);
     background-color: $white;
     box-shadow: $shadow-1;
-    @include flex-Margin(2rem);
   }
 }
 

@@ -1,32 +1,29 @@
+/// <---Global Imports--->
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
+/// <---Local Imports--->
+//Data
 import homeAnimation from "../../src/Animations/homeAnimation";
-import useWindowSize from "../../src/Hooks/useWindow";
 
+//Custom Hooks
+import useWindowSize, { breakpoints } from "../../src/Hooks/useWindow";
+
+//Styles
 import styles from "styles/pages/home.module.scss";
 
-const breakpoints = {
-  xs: 450,
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
-  "2xl": 1536,
-};
 const Parallex: React.FC = () => {
-  //States
+  /// <---States--->
   const { width } = useWindowSize();
   const [
     timeline,
     setTimeline,
   ] = useState<null | gsap.plugins.ScrollTriggerInstance>(null);
 
-  //Refs
+  /// <---Refs--->
   const ContainerRef = useRef<HTMLDivElement>(null);
 
-  //UseEffects
-
+  /// <---Use Effects--->
   useEffect(() => {
     setTimeline(homeAnimation.parallexSection(".parallex-image", ContainerRef));
   }, []);
@@ -38,7 +35,7 @@ const Parallex: React.FC = () => {
       try {
         timeline!.enable();
       } catch (err) {
-        console.warn("Error: Parallex couldn't be enabled");
+        console.info("Parallex couldn't be enabled");
       }
     }
   }, [width, timeline]);

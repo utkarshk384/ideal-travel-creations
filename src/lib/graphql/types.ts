@@ -2,9 +2,10 @@ import { UploadFile, Maybe } from "./generated/graphql-frontend";
 
 export interface IsliderData {
   index: number;
-  __typename?: "Package" | undefined;
-  title?: string | undefined;
-  description?: string | undefined;
+  __typename?: "Package";
+  title?: string;
+  description?: string;
+  url?: string;
   images?:
     | Maybe<
         Maybe<

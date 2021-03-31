@@ -19,14 +19,11 @@
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
     }
-    @include mixins.flex(
-      $breakpoint-css: (
-        align-items: center,
-      )
-    );
+    @include mixins.flex {
+      align-items: center;
+    }
     color: variables.$accent;
     list-style-type: none;
-    align-items: center;
     cursor: pointer;
 
     @media (hover: hover) {

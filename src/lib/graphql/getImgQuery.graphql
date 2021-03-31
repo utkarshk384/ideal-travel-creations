@@ -4,6 +4,7 @@ query getPackages($packageType: String) {
       url
       width
       height
+      caption
     }
   }
 }

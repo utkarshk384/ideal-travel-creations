@@ -1,6 +1,8 @@
-module.exports = {
+module.exports={
   env: {
-    BACKEND_ENDPOINT: "http://localhost:1337/graphql",
+    USER: "utkarshk202@gmail.com",
+    PASSWORD: "uk don12345",
+    BACKEND_ENDPOINT: process.env.NODE_ENV === "production" ? "http://localhost:1337/graphql" : "https://7c82b061d144.in.ngrok.io/graphql",
     GOOGLE_MAPS_API: "AIzaSyDr1wtmTRCrtaSI3uFP4iEP6i7a_1J6i_o", //Requires Google Billing account to properly use the API service
     MAPBOX_API:
       "pk.eyJ1IjoidXRrYXJzaGszODQiLCJhIjoiY2ttMWhxcGtyMTMzNTJ1bzZzeDBma3liaiJ9.hEhfkK7bXYTUzlvOHQh8uA",
@@ -24,7 +26,7 @@ module.exports = {
   },
   webpack: (config, options) => {
     config.module.rules.push({
-      test: /\.(graphql|gql)$/,
+      test: /.(graphql|gql)$/,
       exclude: /node_modules/,
       loader: "graphql-tag/loader",
     });

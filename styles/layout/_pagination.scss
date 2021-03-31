@@ -1,0 +1,67 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+@mixin paginationMenu {
+  margin-top: 5rem;
+  @include flex(
+    $breakpoint-css: (
+      justify-content: center,
+    )
+  ) {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  button {
+    @include btn-anim-outline(
+      4.5rem,
+      1px solid $accent,
+      $white,
+      $accent,
+      (
+        border-radius: 5px,
+      )
+    );
+    @include font($font-bold, $font-sans);
+    @include flex-Margin(0.25rem);
+    color: $accent;
+  }
+
+  & > button {
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+
+    @include breakpoint.media(">lg") {
+      visibility: visible;
+      position: relative;
+      opacity: 1;
+    }
+  }
+
+  .btn-active {
+    background-color: $accent;
+    color: $primary;
+    @media (hover: hover) {
+      &:hover {
+        color: $primary;
+        border: 1px solid $accent;
+      }
+    }
+  }
+
+  .btn-fill-disabled {
+    color: rgba($accent, 0.5);
+    background-color: $bg;
+    border: 1px solid $bg;
+    @media (hover: hover) {
+      &:hover {
+        color: rgba($accent, 0.5);
+        border: 1px solid $bg;
+      }
+      &:hover::before {
+        top: 100%;
+      }
+    }
+  }
+}

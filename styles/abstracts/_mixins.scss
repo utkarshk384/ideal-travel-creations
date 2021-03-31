@@ -1,6 +1,8 @@
 @use "../vendors/include-media";
 @use "variables";
 @use "sass:map";
+@use "sass:meta";
+@use "sass:list";
 
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass mixins.
@@ -54,6 +56,10 @@
       padding: $cust-padding;
     }
   }
+
+  @include include-media.media(">3000px") {
+    width: 96rem;
+  }
 }
 
 //-------------------------------
@@ -61,6 +67,12 @@
 //-------------------------------
 
 //Mobile first Flex design
+///Behavior of the flex design:
+
+///1. Any screen above lg breakpoint, the styles of the breakpoint will be applied.
+///2. Any styles written in the @content section will also be applied to the large breakpoint until unless it is overwritten using the @param $breakpoint-css parameter of the mixin.
+///Eg: if justify-content: center is set inside the @content then this style is also applied to screen sizes bigger than large screen.
+
 ///@access public
 ///@param {String, Number} $breakpoint - specify the string or Number value of the breakpoint.
 ///@param {Map} $breakpoint-css - Optional css given to the css for the breakpoint.
@@ -68,8 +80,6 @@
 ///@param {Boolean} $center - Aligns and justify the content in the center in all screen sizes.
 
 $flex-config: (
-  align-items: stretch,
-  justify-content: flex-start,
   flex-wrap: nowrap,
 );
 @mixin flex(
@@ -86,7 +96,7 @@ $flex-config: (
   display: flex;
   flex-direction: column;
 
-  @if $center {
+  @if $center or $center == "vertical" {
     justify-content: center;
     align-items: center;
   }
@@ -97,12 +107,11 @@ $flex-config: (
     @if not map.has-key($breakpoint-css, flex-direction) {
       flex-direction: row;
     }
-
     @each $property, $value in $breakpoint-css {
       #{$property}: $value;
     }
 
-    @if $center {
+    @if $center or $center == "horizontal" {
       justify-content: center;
       align-items: center;
     }
@@ -114,28 +123,54 @@ $flex-config: (
 /// @param {Number} $margin - Any css unit for margin
 /// @param {String} $axis - the orientation for the margin to be applied, values: horizontal, vertical
 @mixin flex-Margin($margin: 1rem, $axis: horizontal, $breakpoint: "lg") {
+  $margin-vertical: #{$margin};
+  $margin-horizontal: #{$margin};
+
+  @if (meta.type-of($margin) == "list") {
+    $margin-vertical: list.nth($margin, 1);
+    $margin-horizontal: list.nth($margin, 2);
+  }
+
   @if ($axis == horizontal) {
-    margin-top: $margin;
-    margin-bottom: $margin;
-    margin-right: calc(#{$margin} * 0.1);
+    margin-top: $margin-vertical;
+    margin-bottom: $margin-vertical;
+    margin-right: calc(#{$margin-horizontal} * 0.1);
 
     @content;
     @include include-media.media(">=#{$breakpoint}") {
-      margin: calc(#{$margin} * 0.2) $margin;
+      margin: calc(#{$margin-vertical} * 0.2) $margin-horizontal;
     }
   } @else if($axis == vertical) {
-    margin-bottom: $margin;
-    margin-top: $margin;
+    margin-bottom: $margin-vertical;
+    margin-top: $margin-vertical;
   }
 }
 
 //Responsive widths for flex items
 /// @access public
-/// @param {Number} $noItems - The number of flex items
-@mixin flex-Width($noItems: 2) {
-  width: 100%;
+/// @param {Number, List} $noItems - The number of flex items
+/// @param {String} $breakpoint - Selects the breakpoint for the middle value
+@mixin flex-Width($noItems: 2, $breakpoint: "md") {
+  @if (type-of($noItems) == "list" and list.length($noItems) == 3) {
+    width: list.nth($noItems, 3);
+  } @else if (type-of($noItems) == "list" and list.length($noItems) == 2) {
+    width: list.nth($noItems, 2);
+  } @else {
+    width: 100%;
+  }
+
+  @if (type-of($noItems) == "list" and list.length($noItems) == 3) {
+    @include include-media.media(">=#{$breakpoint}") {
+      width: calc(100% / #{list.nth($noItems, 2)});
+    }
+  }
+
   @include include-media.media(">=lg") {
-    width: calc(100% / #{$noItems});
+    @if (type-of($noItems) == "list") {
+      width: calc(100% / #{list.nth($noItems, 1)});
+    } @else {
+      width: calc(100% / #{$noItems});
+    }
   }
 }
 

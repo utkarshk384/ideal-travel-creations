@@ -1,0 +1,69 @@
+@use "../main" as  *;
+@use "../vendors/include-media" as breakpoint;
+
+.team {
+  @include Container(80%) {
+    @include breakpoint.media("<lg") {
+      @include Container(95%);
+    }
+  }
+  background: rgba($white, 0.3);
+}
+
+.team-cards {
+  @include flex(
+    $breakpoint-css: (
+      flex-wrap: wrap,
+      gap: 5vw,
+      align-items: stretch,
+    )
+  ) {
+    @include breakpoint.media(">1092px") {
+      justify-content: space-around;
+    }
+
+    gap: 3rem 0rem;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.card {
+  width: clamp(17.5rem, 20rem, 22.5rem);
+  background-color: $white;
+  box-shadow: $shadow-1;
+
+  &-img-container {
+    position: relative;
+    height: clamp(22.5vh, 23vh, 24vh);
+  }
+
+  &-content {
+    padding: 1rem 1rem 2rem 1rem;
+
+    h2,
+    span {
+      text-align: center;
+    }
+
+    h2 {
+      color: $secondary;
+    }
+
+    span {
+      @include font($font-normal, $font-sans);
+      display: block;
+      color: $grey;
+      margin-bottom: 2rem;
+    }
+
+    p {
+      color: $secondary;
+    }
+
+    .extra-details {
+      text-align: left;
+      margin-top: 2rem;
+    }
+  }
+}

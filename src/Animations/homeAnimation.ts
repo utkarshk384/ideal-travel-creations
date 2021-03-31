@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 class _Animation extends _gsapAnimation {
   public sliderSection(
-    activeRefs: React.MutableRefObject<(HTMLButtonElement | null)[]>,
+    activeRefs: React.MutableRefObject<(HTMLAnchorElement | null)[]>,
     event: string
   ) {
     const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1 } });
@@ -43,6 +43,7 @@ class _Animation extends _gsapAnimation {
       end: "+=80%",
       animation: tl,
       scrub: true,
+      markers: false,
       ...scrollConfig,
     });
     return scrollTrigger;

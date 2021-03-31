@@ -1,8 +1,10 @@
 query getTestimonials($offset: Int = 0, $limit: Int) {
-  testimonials(start: $offset limit: $limit) {
+  testimonials(start: $offset, limit: $limit) {
     guestName
     comments
     image {
+      width
+      height
       url
       caption
     }

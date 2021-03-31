@@ -1,48 +1,64 @@
+///<----Global Imports--->
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+
+///<----Local Imports--->
+
+import useWindowSize, { breakpoints } from "@/src/Hooks/useWindow";
+
+//Animations
+import homeAnimation from "../../src/Animations/homeAnimation";
+//Styles
 import styles from "styles/pages/home.module.scss";
 
-import homeAnimation from "../../src/Animations/homeAnimation";
-
-//To-DO: Change Image location of logos.
-
+const logos = [
+  {
+    name: "tourism-council-of-bhutan.png",
+    url: "https://www.tourism.gov.bt/",
+  },
+  { name: "druk-air-logo.png", url: "https://www.drukair.com.bt/" },
+  { name: "bhutan-airline-logo.png", url: "http://www.bhutanairlines.bt/" },
+];
 const Affiliations = () => {
-  const logos = [
-    "tourism-council-of-bhutan.png",
-    "druk-air-logo.png",
-    "bhutan-airline-logo.png",
-  ];
+  ///<----States--->
+  const { width } = useWindowSize();
 
-  //Refs
+  ///<----Refs--->
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const logoRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
-  //useEffects
+  const logoRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  ///<----Use Effects--->
   useEffect(() => {
-    homeAnimation.slideIn_ScrollTrigger(logoRefs, containerRef, {
-      delay: 0.25,
-      stagger: { amount: 0 },
-    });
+    const startAnimation = width! > breakpoints.sm ? "-30% 30%" : "-30% 60%";
+    homeAnimation.slideIn_ScrollTrigger(
+      logoRefs,
+      containerRef,
+      {
+        delay: 0.25,
+        stagger: { amount: 0 },
+      },
+      { start: startAnimation }
+    );
   }, []);
 
   return (
-    <div className={styles.aff} ref={containerRef}>
+    <div className={`${styles.aff} ${styles.container}`} ref={containerRef}>
       <div className={styles["aff-h-wrapper"]}>
         <h1>Affiliations</h1>
       </div>
       <div className={styles["aff-logo-container"]}>
         {logos.map((logo, index) => (
-          <button
-            key={`affiliations-${index}`}
+          <a
+            href={logo.url}
+            key={`aff-1-${index * 3857}`}
             className={styles["aff-logo-wrapper"]}
             ref={(el) => logoRefs.current.push(el)}
           >
             <Image
               layout="fill"
-              src={`/images/logo/partners/${logo}`}
+              src={`/images/logo/partners/${logo.name}`}
               className={styles["aff-logo"]}
             />
-          </button>
+          </a>
         ))}
       </div>
       <div className={styles["aff-body-wrapper"]}>

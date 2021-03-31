@@ -1,0 +1,180 @@
+@use "../main" as *;
+@use "../vendors/include-media" as breakpoint;
+
+.info-text,
+.error-text {
+  display: inline-block;
+  height: 1rem;
+  margin: 0.5rem 0rem;
+}
+
+.info-text {
+  color: rgba($black, 0.75);
+}
+
+.paragraph-text {
+  @include font($font-bold, $font-sans);
+  color: $secondary;
+  margin-bottom: 0.25rem;
+}
+
+.error-text {
+  color: $alert;
+  margin-top: 1rem;
+}
+
+.hide-text {
+  visibility: hidden;
+}
+
+@mixin input-field {
+  @include font($font-normal, $font-sans);
+  width: 100%;
+  border: 1px solid $accent;
+  padding: 0.5rem;
+  background: $bg;
+  color: $secondary;
+
+  transition: all 100ms ease-in;
+
+  &::placeholder {
+    font: inherit;
+    color: rgba($secondary, 0.7);
+  }
+
+  &:focus {
+    background: $white;
+    outline: 3px solid $accent;
+    outline-offset: -4px;
+    color: $black;
+  }
+}
+
+.input-field {
+  @include input-field;
+}
+
+.textarea-field {
+  @include input-field;
+  height: 10rem;
+}
+
+.input-field.error-border {
+  border: 1px solid $alert;
+  &:focus {
+    border: 1px solid transparent;
+  }
+}
+
+.textarea-field.error-border {
+  border: 1px solid $alert;
+
+  &:focus {
+    border: 1px solid transparent;
+  }
+}
+
+.sel {
+  @include font($font-normal, $font-sans);
+  background-color: inherit;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding: 0.5rem;
+  padding-right: 2rem;
+  appearance: none;
+  color: $black;
+
+  &:focus {
+    background: $white;
+  }
+}
+
+.select-container {
+  background: $primary;
+  @include input-field();
+  padding: 0;
+  position: relative;
+  width: 100%;
+
+  &::after {
+    @include setPosition(0px, 5px, auto, auto);
+    content: "\f078";
+    pointer-events: none;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: $font-lg;
+    font-style: normal;
+    color: $accent;
+    transform: rotate(0deg);
+    transition: transform 250ms ease-in;
+  }
+
+  &.active::after {
+    transform: rotate(180deg);
+  }
+}
+
+.checkbox-container {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(1, 1fr);
+}
+.checkbox-group {
+  @include flex(
+    $breakpoint-css: (
+      justify-content: flex-start,
+      align-items: center,
+    )
+  ) {
+    flex-direction: row;
+  }
+  padding: 1rem;
+
+  & > input {
+    width: 17px;
+    height: 17px;
+    margin-right: 1rem;
+    cursor: pointer;
+    outline: 2px solid $accent;
+    outline-offset: 1px;
+    border: 2px solid transparent;
+    appearance: none;
+    transition: border 150ms ease-in, outline-offset 150ms ease-in;
+
+    &:hover {
+      border: 2px solid $accent;
+    }
+
+    &:checked {
+      outline-offset: 0px;
+      background-color: $accent;
+      position: relative;
+
+      &::before {
+        @include setPosition(-2px, 0, 0, -0.75px);
+        content: "\f00c";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        color: $white;
+      }
+    }
+  }
+
+  & > label {
+    @include font($font-normal, $font-sans);
+    color: $secondary;
+  }
+}
+
+@include breakpoint.media("<lg", ">=sm") {
+  .checkbox-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include breakpoint.media(">=lg") {
+  .checkbox-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

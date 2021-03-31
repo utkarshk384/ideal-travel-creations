@@ -1,6 +1,8 @@
+///<----Global Imports--->
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 
+//Mapbox Token
 mapboxgl.accessToken = process.env.MAPBOX_API as string;
 
 const Map: React.FC<{
@@ -9,10 +11,15 @@ const Map: React.FC<{
   zoom: number;
   className?: string;
 }> = (props) => {
-  const mapContainer = useRef<HTMLDivElement | null>(null);
+  ///<----States--->
   const [lat, setLat] = useState(props.lat);
   const [lng, setLng] = useState(props.lng);
   const [zoom, setZoom] = useState(props.zoom);
+
+  ///<----Refs--->
+  const mapContainer = useRef<HTMLDivElement | null>(null);
+
+  ///<----Use Effects--->
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: (mapContainer.current as unknown) as HTMLElement,
@@ -29,6 +36,7 @@ const Map: React.FC<{
     });
 
     return () => map.remove();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

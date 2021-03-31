@@ -1,0 +1,64 @@
+{
+    "customizedTour": {
+        "preferredAccodationData": [
+            "Premium Properties such as Amankora, Uma by Como/ similar",
+            "5 Star Properties",
+            "4 Star Properties",
+            "3*/4* Properties",
+            "3 Star Properties",
+            "3*/2* Properties",
+            "2*/similar or Budget properties"
+          ],
+          "SectorData":[
+            "Bangkok (Thailand) to Paro Airport by flight",
+            "Singapore to Paro Airport by flight",
+            "Kathmandu (Nepal) to Paro Airport by Flight",
+            "Dhaka (Bangladesh) to Paro Airport by flight",
+            "Bagdogra (India) to Paro Airport by flight",
+            "Guwahati (India) to Paro Airport by flight",
+            "Gaya (India) to Paro Airport by flight",
+            "Kolkotta (India) to Paro Airport by flight",
+            "New Delhi (India) to Paro Airport by flight",
+            "Mumbai (India) to Paro Airport by flight",
+            "Guwahati (India) to Samdrupjongkhar by Road",
+            "IXB/NJP/Siliguri (India) to Phuentsholing by Road",
+            "Lataguri/Goruma/Similar to Phuentsholing by Road",
+            "Cooch Bihar(India) to Phuentsholing by Road",
+            "New Alipurduar (India) to Phuentsholing by Road",
+            "Hasimara (India) to Phuentsholing by Road",
+            "Gangtok/Darjeeling/Kalimpong to Phuentsholing by Road",
+            "NA – mentioned in ADDITIONAL MESSAGE at the end"
+          ],
+          "interestsData":[
+            "Cultural Tour",
+            "Festival Tour",
+            "Birding",
+            "Buddhism",
+            "Photography",
+            "Trekking",
+            "Motor cycling",
+            "Hiking/Walking",
+            "Mountain Biking",
+            "Textile",
+            "Village visits",
+            "Fishing"
+          ],
+          "placesData": [
+            "Paro",
+            "Thimphu",
+            "Haa",
+            "Punakha / Wangdue",
+            "Gangtey / Phobjikha",
+            "Trongsa",
+            "Zhemgang",
+            "Bumthang",
+            "Mongar",
+            "Tashigang",
+            "Tashiyangtse",
+            "Lhuentse",
+            "Samdrup Jongkhar",
+            "Phuentsholing",
+            "Others"
+          ]
+    }
+}

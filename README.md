@@ -1,34 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Website Technologies used for the Frontend
 
-## Getting Started
+This packages that are used to power this website are as follows:
 
-First, run the development server:
+1. React with Next js.
+2. Graphql Frontend with @Apollo/client.
+3. Sass for styling all the React Components.
+4. React Markdown to render Markdown using GFM(Github Flavored Markdown) plugin.
+5. Typescript to strongly type out the code.
+6. GSAP and React Transition Group for any animations other than the hover animation.
+7. Hover animations are done by using CSS Animations.
+8. React Final form for form components and validation.
+9. Ngrok to get the backend running in a HTTPS protocal.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Npm/yarn Scripts
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`yarn dev` - is used to run `next-dev` and `ngrok` in a parallel manner.
+`yarn next-dev` - is used for starting the development server on a given port.
+`yarn dev-local` - Runs `next-dev-local` and `ngrok` in a parallel manner.
+`yarn next-dev-local` - Runs dev server on another port.
+`yarn build` - is ued for building out the whole project in production mode.
+`yarn test` - tests the project using jest.
+`yarn ngrok` - starts ngrok and forwards the port 1337(backend port) to ngrok https servers and creates a new next.config.js file each time it is called.
+`yarn generate` - Runs codegen. Codegen is a graphql scheme types generator for typescript.
+`yarn start` - Starts the production build.
