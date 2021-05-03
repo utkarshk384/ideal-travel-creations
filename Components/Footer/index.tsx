@@ -1,11 +1,35 @@
 ///<----Global Imports--->
-import React from "react";
+import _ from "lodash";
+import React, { useRef, useState } from "react";
+import { ApolloQueryResult } from "@apollo/client/core";
+import Link from "next/link";
 
 ///<----Local Imports--->
+
+import { FourDots } from "../SVGS/Spinners";
+
 //Styles
 import styles from "styles/components/footer.module.scss";
 
+//Graphql
+import {
+  getAboutBhtPaths,
+  IstaticPathQuery,
+  staticPathType,
+} from "@/graphql/../graphql_helperFunc";
+import Utilities from "@/src/utils";
+
+type pathType = ApolloQueryResult<IstaticPathQuery>;
+
 const Footer = () => {
+  const [loading, setLoading] = useState(true);
+  let paths = useRef<null | pathType>(null);
+
+  getAboutBhtPaths().then((payload) => {
+    paths.current = payload;
+    setLoading(false);
+  });
+
   return (
     <div className={styles["footer"]}>
       <div className={styles["footer-container"]}>
@@ -14,9 +38,16 @@ const Footer = () => {
             className={`${styles["footer-wrapper"]} ${styles["important-links"]}`}
           >
             <h3>Important Links</h3>
+            {loading ? (
+              <FourDots height={80} />
+            ) : (
+              paths.current!.data.aboutBhutanSections.map((path) => (
+                <RenderLink key={path._id} path={path} />
+              ))
+            )}
           </div>
           <div className={`${styles["footer-wrapper"]} ${styles["email-us"]}`}>
-            <h3>Contact Us or Mail Us</h3>
+            <h3>Contact Us</h3>
             <a href="mailto:idealtravelcreations@gmail.com">
               idealtravelcreations@gmail.com
             </a>
@@ -88,6 +119,20 @@ const Footer = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const RenderLink: React.FC<{ path: staticPathType }> = ({ path }) => {
+  return (
+    <>
+      {!path.navURL && (
+        <p>
+          <Link href="/bhutan/[bhutan]" as={`/bhutan/${path.url}`}>
+            {Utilities.startCase(path.url)}
+          </Link>
+        </p>
+      )}
+    </>
   );
 };
 

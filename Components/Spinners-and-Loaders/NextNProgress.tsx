@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { useNProgress } from "@tanem/react-nprogress";
 
 ///<----Local Imports--->
-import { FourDots } from "@/components/Spinners-and-Loaders/Spinners";
+import { FourDots } from "@/components/SVGS/Spinners";
 import loaderAnimation, { AnimationType } from "@/animations/loaderAnimation";
 import useWindowSize from "@/src/Hooks/useWindow";
 

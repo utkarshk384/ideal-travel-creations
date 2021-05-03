@@ -1,8 +1,9 @@
 /// <---Global Imports--->
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
 
 /// <---Local Imports--->
+import Image from "@/components/ImageWrapper";
+
 //Animation
 import homeAnimation from "../../src/Animations/homeAnimation";
 
@@ -23,9 +24,10 @@ const Hero: React.FC = () => {
   return (
     <div className={styles.hero}>
       <Image
-        src="/images/home/hero.jpg"
+        src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247554/Hero_5f80e23af2.jpg"
         layout="fill"
         className={styles["hero-bg"]}
+        priority
       />
       <div className={styles["hero-container"]} id="home-page">
         <div className={styles["hero-center-text"]}>

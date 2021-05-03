@@ -5,6 +5,7 @@ import { FormRenderProps } from "react-final-form";
 ///<----Local Imports--->
 import InputFieldWrapper from "@/components/Forms/Wrappers/InputFieldWrapper";
 import valFunc from "./ValidateFuncs";
+import SubmitToast from "./SubmitToast";
 
 //Styles
 import styles from "styles/pages/contact-us.module.scss";
@@ -65,8 +66,18 @@ const FormContent: React.FC<FormRenderProps> = (props) => {
         valInput={valFunc.emptyFields}
       />
 
-      <div className={styles["form-submit"]}>
+      <div className={styles["contact-form-submit"]}>
         <button type="submit">Submit</button>
+        <div className={styles["sucessful-toast"]}>
+          <SubmitToast
+            submitStates={{
+              submitting: props.submitting,
+              submitSucceeded: props.submitSucceeded,
+              submitFailed: props.submitFailed,
+            }}
+            error={props.submitErrors as string[]}
+          />
+        </div>
       </div>
     </form>
   );

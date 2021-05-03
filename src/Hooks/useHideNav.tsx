@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import _ from "lodash";
 
-const useHideNav = () => {
+const useHideNav = (menuState?: boolean) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
 
@@ -17,10 +17,10 @@ const useHideNav = () => {
       { leading: false, trailing: true }
     );
 
-    window.addEventListener("scroll", handleScroll);
+    if (!menuState) window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos, visible]);
+  }, [prevScrollPos, visible, menuState]);
 
   return visible;
 };

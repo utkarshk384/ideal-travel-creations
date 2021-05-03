@@ -1,5 +1,6 @@
-import { useEffect, useState, useContext, useLayoutEffect } from "react";
+import { useEffect, useState, useContext } from "react";
 import { OverlayContext } from "@/src/Contexts/overlayContext";
+import useLayoutEffect from "./useIsomorphicLayoutEffect";
 
 const useOverlay = () => {
   ///Global State
@@ -22,14 +23,8 @@ const useOverlay = () => {
   }, [activeOverlay]);
 
   useLayoutEffect(() => {
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-
     if (overlay) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "visible";
-
-    return () => {
-      document.body.style.overflow = originalStyle;
-    };
+    else document.body.style.overflow = "auto";
   }, [overlay]);
 
   useEffect(() => {

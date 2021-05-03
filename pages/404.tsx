@@ -1,16 +1,24 @@
 import React from "react";
 import Link from "next/link";
 
-import styles from "styles/pages/404.module.scss";
+import styles from "styles/pages/errors.module.scss";
+import { NextPage } from "next";
 
-const NotFound = () => {
+interface IProps {
+  statusCode: number;
+  message: string;
+}
+
+const NotFound: NextPage<IProps> = ({ statusCode, message }) => {
   return (
     <div className={styles["not-found"]}>
       <div className={styles.container}>
-        <h1>Opps!</h1>
+        <h2 className={styles["error-code"]}>404</h2>
+        <h1>Opps! Not Found!</h1>
         <hr />
         <p>
-          We <b>couldn't</b> find the page that your looking for.
+          <b>Sorry, </b>
+          Couldn't find the page that your looking for.
         </p>
         <Link href="/">
           <a>Back Home?</a>

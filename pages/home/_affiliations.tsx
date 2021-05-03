@@ -1,9 +1,10 @@
 ///<----Global Imports--->
 import React, { useEffect, useRef } from "react";
-import Image from "next/image";
 
 ///<----Local Imports--->
+import Image from "@/components/ImageWrapper";
 
+//Custom Hooks
 import useWindowSize, { breakpoints } from "@/src/Hooks/useWindow";
 
 //Animations
@@ -38,10 +39,14 @@ const Affiliations = () => {
       },
       { start: startAnimation }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className={`${styles.aff} ${styles.container}`} ref={containerRef}>
+    <div
+      className={`${styles.aff} ${styles["home-container"]}`}
+      ref={containerRef}
+    >
       <div className={styles["aff-h-wrapper"]}>
         <h1>Affiliations</h1>
       </div>
@@ -57,6 +62,8 @@ const Affiliations = () => {
               layout="fill"
               src={`/images/logo/partners/${logo.name}`}
               className={styles["aff-logo"]}
+              objectFit="contain"
+              objectPosition="center"
             />
           </a>
         ))}

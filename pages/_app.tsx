@@ -73,12 +73,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
   return (
     <>
       <Head>
-        <meta name="format-detection" content="telephone=yes" />
-        <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; target-densityDpi=device-dpi"
-        />
+        {/* <NextSeo titleTemplate="%s | Ideal Travel Creations" /> */}
       </Head>
       <OverlayProvider>
         <div className="overlay" />
@@ -98,5 +93,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
     </>
   );
 };
-
 export default App;
+
+//TODO: SEO for all the pages.

@@ -18,10 +18,9 @@ import navLinks from "./NavData";
 //Custom hooks
 import useWindowSize from "../../src/Hooks/useWindow";
 import useHideNav from "../../src/Hooks/useHideNav";
-import useScrollBlock from "../../src/Hooks/useScrollBlock";
 
 //Animations
-import gsapAnimation from "./_animation";
+import gsapAnimation from "../../src/Animations/navAnimation";
 
 //Reducer functions
 import hoverReducer from "../../src/reducers/hoverReducer";
@@ -36,7 +35,7 @@ import type {
   IHoverState,
 } from "../../src/reducers/hoverReducer";
 import type { urlType } from "@/src/helperTypes";
-import useOverlay from "../../src/Hooks/useOverlay";
+import useOverlay from "@/src/Hooks/useOverlay";
 
 interface IProps {
   className?: string;
@@ -62,14 +61,14 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
 
   ///<----Custom hooks--->
   const size = useWindowSize(); //Listens for the resize of browser window
-  const visible = useHideNav(); // Listens for the scroll event to hide the navbar accordingly.
+  const visible = useHideNav(menu); // Listens for the scroll event to hide the navbar accordingly.
   const { activeOverlay } = useOverlay();
-  const { setLock } = useScrollBlock();
 
   ///<----Refs--->
   const burgerIconRef = useRef<HTMLDivElement>(null);
   const navWrapperRef = useRef<HTMLDivElement>(null);
   const navItemsRef = useRef<HTMLSpanElement[]>([]);
+  const menuRef = useRef<HTMLUListElement | null>(null);
 
   ///<----Handle MouseEvents--->
   const onHover = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -99,20 +98,16 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
       navWrapperRef.current?.classList.add(styles["nav-bg"]);
     }
   }, [props.disableAnimation, ref]); // If page !=home then the navbar background is set.
-
   useEffect(() => {
     if (menu) {
       burgerIconRef.current!.classList.add(styles.open);
-      setLock(true);
       return;
     }
     burgerIconRef.current!.classList.remove(styles.open);
-    setLock(false);
-  }, [menu]); // Locks scrolling when menu is active
-
+  }, [menu]);
   return (
     <nav
-      className={styles[`${props.className}`] || styles.nav}
+      className={`${styles.nav} ${props.className || ""} `}
       ref={navWrapperRef}
       style={{ top: visible ? "0" : "-100px" }}
     >
@@ -129,17 +124,21 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
         </button>
         <div style={{ cursor: "pointer" }}>
           <Link href="/">
-            <Image
-              src="/images/logo/ideal-logo-white.png"
-              width={215}
-              height={85}
-              layout="fixed"
-            />
+            <a href="/">
+              {/* PROD: Change Image URL */}
+              <Image
+                // src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247763/ideal_logo_white_b68b04b7ec.png"
+                src="/images/logo/ideal-logo-white.png"
+                width={215}
+                height={85}
+                layout="fixed"
+              />
+            </a>
           </Link>
         </div>
 
         {size.width! <= 1024 && (
-          <Menu states={{ menu, setAnimation, setMenu }} />
+          <Menu states={{ menu, setAnimation, setMenu }} ref={menuRef} />
         )}
 
         <ul className={styles["nav-ul"]}>
@@ -163,7 +162,7 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
               <span
                 ref={(el) => navItemsRef.current.push(el as HTMLSpanElement)}
                 className={`${styles["nav-span"]} ${
-                  routerIndex(router.asPath) === link.index
+                  routerIndex(router?.asPath) === link.index
                     ? styles["nav-active"]
                     : ""
                 }`}

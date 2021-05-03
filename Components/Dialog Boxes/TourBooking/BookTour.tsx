@@ -19,33 +19,13 @@ const BookTour: React.FC = () => {
   const onSubmit = async (values: object, form: FormApi) => {
     let config: AxiosRequestConfig = {
       method: "post",
-      url: "/api/book-tour",
+      url: "/api/handle-emails?source=bookTour",
       headers: {
         "Content-Type": "application/json",
       },
       data: values,
     };
-    const errors: IErrors = {};
-
-    const _fields = form.getRegisteredFields();
-    const fields: string[] = [];
-    _fields.forEach((field) => {
-      switch (field) {
-        case "subject":
-        case "tour":
-          break;
-        default:
-          fields.push(field);
-      }
-    });
-    const fieldDirtyStates = form.getState().dirtyFields;
-
-    fields.forEach((field) => {
-      if (!(field in fieldDirtyStates)) {
-        errors[field] = `Please fill out the ${_.startCase(field)} section.`;
-      }
-    });
-
+    const { errors, fields } = onsubmitErrors(form);
     if (Object.keys(errors).length > 0) {
       scrollToInvalidField(fields, form);
       return errors;
@@ -68,6 +48,31 @@ const BookTour: React.FC = () => {
       </div>
     </>
   );
+};
+
+const onsubmitErrors = (form: FormApi) => {
+  const errors: IErrors = {};
+
+  const _fields = form.getRegisteredFields();
+  const fields: string[] = [];
+  _fields.forEach((field) => {
+    switch (field) {
+      case "subject":
+      case "tour":
+        break;
+      default:
+        fields.push(field);
+    }
+  });
+  const fieldDirtyStates = form.getState().dirtyFields;
+
+  fields.forEach((field) => {
+    if (!(field in fieldDirtyStates)) {
+      errors[field] = `Please fill out the ${_.startCase(field)} section.`;
+    }
+  });
+
+  return { errors, fields };
 };
 
 export default BookTour;

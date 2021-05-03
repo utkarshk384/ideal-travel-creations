@@ -1,13 +1,12 @@
 ///<----Global Imports--->
 import React from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
-import _ from "lodash";
 import ReactMarkdown from "react-markdown/with-html";
 import gfm from "remark-gfm";
 
 ///<----Local Imports--->
+import Image from "@/components/ImageWrapper";
 
 import Map from "@/components/Map";
 import QuickLinks from "@/components/quickLinks";
@@ -23,6 +22,7 @@ import {
   DataAboutBhutanQueryVariables as IVars,
 } from "@/graphql/generated/graphql-frontend";
 import { getAboutBhtPaths, getallPaths } from "@/graphql/../graphql_helperFunc";
+import Utilities from "@/src/utils";
 
 interface Ipaths {
   params: {
@@ -31,11 +31,13 @@ interface Ipaths {
 }
 
 const SsgBhutan: React.FC<{
-  mainData?: IQuery;
-  quickLinks?: { packageTypes: string[] };
+  mainData: IQuery;
+  quickLinks: { packageTypes: string[] };
 }> = (props) => {
   ///Router
   const router = useRouter();
+
+  const data = props.mainData.aboutBhutanSections![0];
   return (
     <>
       <div className={styles["ssg-bht"]}>
@@ -45,28 +47,19 @@ const SsgBhutan: React.FC<{
           >
             <div className={styles["l-img-container"]}>
               <div className={styles["img-heading"]}>
-                <h1>
-                  {_.startCase(props.mainData?.aboutBhutanSections![0]?.title)
-                    .replace("And", "and")
-                    .replace("In", "in")}
-                </h1>
+                <h1>{Utilities.startCase(data!.title)}</h1>
               </div>
-              <Image
-                src="/images/travel-packages/Happiness-Travel.jpg"
-                layout="fill"
-              />
+              <Image src={data?.coverImage?.url as string} layout="fill" />
             </div>
             <div className={styles["l-content"]}>
               <div className="table-container">
                 <ReactMarkdown
                   plugins={[[gfm, { tableCellPadding: true }]]}
                   allowDangerousHtml
-                  source={
-                    props.mainData?.aboutBhutanSections![0]?.content as string
-                  }
+                  source={data?.content as string}
                 />
               </div>
-              {router.asPath === "/bhutan/location" && (
+              {router.asPath === "/bhutan/location-and-geography" && (
                 <Map
                   lat={27.5002}
                   lng={90.5081}
@@ -85,14 +78,26 @@ const SsgBhutan: React.FC<{
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const client = initializeApollo();
+  const url = ctx.params?.bhutan;
+
+  if (typeof url !== "string") return { notFound: true };
+
+  const quickLinks = await getallPaths();
 
   const { data } = await client.query<IQuery, IVars>({
     query: ssgBhutanQuery,
-    variables: { url: ctx.params!.bhutan as string },
+    variables: { url },
   });
 
+  if (
+    data.aboutBhutanSections &&
+    data.aboutBhutanSections.length === 0 &&
+    quickLinks.packageTypes.length === 0
+  )
+    return { notFound: true };
+
   return {
-    props: { mainData: data, quickLinks: await getallPaths() },
+    props: { mainData: data, quickLinks },
   };
 };
 

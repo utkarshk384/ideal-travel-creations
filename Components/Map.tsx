@@ -41,7 +41,10 @@ const Map: React.FC<{
 
   return (
     <div>
-      <div className={`map-container ${props.className}`} ref={mapContainer} />
+      <div
+        className={`map-container ${props.className || ""}`}
+        ref={mapContainer}
+      />
     </div>
   );
 };

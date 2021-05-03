@@ -6,16 +6,68 @@ import type { targetRefType } from "./Animation";
 
 gsap.registerPlugin(ScrollTrigger);
 
+type paramsType = {
+  cardWidth: number;
+  sliderWidth: number;
+  isExtraSmall: boolean;
+};
+
 class _Animation extends _gsapAnimation {
+  private sliderWidth: number;
+  private cardWidth: number;
+  private screenOffset: number = 70;
+  // If true,
+  //then the transitions and width will be set with an offset of -70px because in smaller screens the default values seems to overflow from the main container
+  private ref: React.MutableRefObject<HTMLDivElement | null>;
+
+  //TODO: Get the home slider working on mobile and tablet devices.
+  public init(
+    ref: React.MutableRefObject<HTMLDivElement | null>,
+    css: paramsType
+  ) {
+    this.ref = ref;
+    this.updateVal({
+      cardWidth: css.cardWidth,
+      sliderWidth: css.sliderWidth,
+      isExtraSmall: css.isExtraSmall,
+    });
+  }
+
+  public updateVal(params: paramsType) {
+    this.sliderWidth = params.sliderWidth * 16;
+    this.cardWidth = params.cardWidth * 16;
+
+    const offset = params.isExtraSmall ? this.screenOffset : 0;
+
+    gsap.set(this.ref.current, { width: this.sliderWidth });
+    gsap.set(this.ref.current!.children as HTMLCollection, {
+      // width: this.cardWidth,
+      x: (i) => i * (this.cardWidth + 80) - offset,
+    });
+  }
+
   public sliderSection(
-    activeRefs: React.MutableRefObject<(HTMLAnchorElement | null)[]>,
+    activeRefs: React.MutableRefObject<HTMLDivElement | null>,
     event: string
   ) {
     const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 1 } });
-    if (event === "left")
-      tl.to(activeRefs.current, { css: { left: "-=125%" } });
-    else if (event === "right")
-      tl.to(activeRefs.current, { css: { left: "+=125%" } });
+
+    tl.to(activeRefs.current?.children as HTMLCollection, {
+      x: (i, target) => {
+        const offset =
+          event === "left" ? this.cardWidth + 80 : -this.cardWidth - 80;
+        return (gsap.getProperty(target, "x") as number) + offset;
+      },
+      modifiers: {
+        x: gsap.utils.unitize((x) =>
+          gsap.utils.wrap(
+            -this.cardWidth - 80,
+            (this.cardWidth + 80) * 4,
+            parseInt(x)
+          )
+        ),
+      },
+    });
 
     return tl;
   }

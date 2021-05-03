@@ -9,15 +9,20 @@
   }
 }
 
-.contact-item {
-  @include Container(80%) {
-    background-color: $white;
-    box-shadow: $shadow-1;
-    padding: 3rem 2rem;
+.contact {
+  &-form,
+  &-address {
+    @include Container(100%) {
+      background-color: $white;
+      box-shadow: $shadow-1;
+      padding: 3rem 2rem;
+    }
+    overflow: hidden;
   }
-  @include flex-Margin(1rem);
-  width: 100%;
-  overflow: hidden;
+}
+
+.contact-form {
+  margin-bottom: 3rem;
 }
 
 .form {
@@ -42,7 +47,7 @@
       flex-direction: column,
     )
   );
-  @include flex-Margin(3rem, vertical);
+  @include flex-Margin(1rem, vertical);
 
   width: 100%;
 
@@ -52,7 +57,40 @@
   }
 }
 
-.form-submit {
+.contact-form-submit {
+  @include flex(
+    "md",
+    (
+      align-items: center,
+    )
+  ) {
+    align-items: flex-start;
+  }
+
+  .sucessful-toast {
+    @include breakpoint.media("<=md") {
+      margin-top: 1rem;
+    }
+
+    @include flex(
+      $breakpoint-css: (
+        flex-direction: row,
+      )
+    ) {
+      align-items: center;
+    }
+  }
+
+  svg {
+    margin-right: 1rem;
+    height: 48px;
+    width: 48px;
+  }
+
+  span {
+    @include font($font-normal, $font-sans);
+  }
+
   button {
     @include btn-anim-outline(10rem, 1px solid transparent, $white, $accent) {
       filter: brightness(70%);
@@ -61,6 +99,7 @@
     letter-spacing: 2px;
     background-color: $accent;
     color: $white;
+    margin-right: 2vw;
   }
 }
 
@@ -69,15 +108,12 @@
 }
 
 .name-item {
-  @include flex-Margin(1rem);
   @include flex(
     $breakpoint-css: (
       flex-direction: column,
     )
   ) {
   }
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
 
   &:first-child {
     margin-left: 0;
@@ -118,6 +154,10 @@
   }
 }
 
+.contact-map {
+  height: clamp(11rem, 13rem, 15rem);
+}
+
 .expanded-map {
   @include setPosition($position: fixed);
   @include flex($center: true);
@@ -144,6 +184,14 @@
   }
 }
 
+@include breakpoint.media(">=lg") {
+  .contact-form {
+    width: 120%;
+    margin-right: 2vw;
+    margin-bottom: 0rem;
+  }
+}
+
 @include breakpoint.media(">=xl") {
   .contact-form {
     width: 70%;
@@ -155,5 +203,9 @@
   }
   .name-item {
     width: 50%;
+
+    &:first-child {
+      margin-right: 2rem;
+    }
   }
 }

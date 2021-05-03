@@ -1,6 +1,7 @@
 /// <---Global Imports--->
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
+
 /// <---Local Imports--->
 import useWindowSize, { breakpoints } from "@/src/Hooks/useWindow";
 
@@ -38,7 +39,7 @@ const Card: React.FC = () => {
 
   return (
     <div
-      className={`${styles.cards} ${styles.container}`}
+      className={`${styles.cards} ${styles["home-container"]}`}
       ref={cardContainerRef}
     >
       <div className={styles["cards-heading"]}>
@@ -53,7 +54,7 @@ const Card: React.FC = () => {
           >
             <h2>{card.heading}</h2>
             {card.body.map((cardBody, i) => (
-              <p key={`card-2-${index * 5968}`}>{cardBody}</p>
+              <p key={`card-2-${i * 5968}`}>{cardBody}</p>
             ))}
           </div>
         ))}

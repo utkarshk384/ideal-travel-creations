@@ -6,17 +6,24 @@ import { getAboutBhtPaths } from "@/graphql/../graphql_helperFunc";
 
 const bhtPaths: any[] = [];
 
+bhtPaths.push({
+  name: "Overview",
+  href: "/bhutan",
+  as: "/bhutan",
+});
+
 getAboutBhtPaths()
   .then((paths) => {
-    paths.data.aboutBhutanSections.map((path) =>
-      bhtPaths.push({
-        name: `${_.startCase(path.url)
-          .replace("And", "and")
-          .replace("In", "in")}`,
-        href: "/bhutan/[bhutan]",
-        as: `/bhutan/${path.url}`,
-      })
-    );
+    paths.data.aboutBhutanSections.map((path) => {
+      if (path.navURL)
+        return bhtPaths.push({
+          name: `${_.startCase(path.url)
+            .replace("And", "and")
+            .replace("In", "in")}`,
+          href: "/bhutan/[bhutan]",
+          as: `/bhutan/${path.url}`,
+        });
+    });
     bhtPaths.push({
       name: "Sectors of Bhutan",
       href: "/bhutan/sectors-of-bhutan",
@@ -30,6 +37,7 @@ const navLinks = [
     name: "Home",
     href: "/",
     index: 0,
+    children: [],
   },
   {
     name: "Packages",
@@ -93,11 +101,13 @@ const navLinks = [
     name: "About Us",
     href: "/about",
     index: 3,
+    children: [],
   },
   {
     name: "Contact Us",
     href: "/contact",
     index: 4,
+    children: [],
   },
 ];
 

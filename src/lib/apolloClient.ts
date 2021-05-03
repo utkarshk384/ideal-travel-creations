@@ -5,6 +5,7 @@ import {
   HttpLink,
   NormalizedCacheObject,
 } from "@apollo/client";
+import fetch from "cross-fetch";
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 export const createApolloClient = () => {
@@ -12,6 +13,7 @@ export const createApolloClient = () => {
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
       uri: process.env.BACKEND_ENDPOINT,
+      fetch,
     }),
     cache: new InMemoryCache(),
   });

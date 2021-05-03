@@ -1,6 +1,13 @@
 @use "../main" as  *;
 @use "../vendors/include-media" as breakpoint;
 
+@mixin list-style($clr, $content) {
+  @include setPosition(auto, calc(100% + 10px));
+  content: $content;
+  color: $clr;
+  font-size: 100%;
+}
+
 .ssg-bht {
   @include Container(80%);
   @include breakpoint.media("<=xs") {
@@ -9,12 +16,19 @@
 }
 
 .container {
-  @include flex();
+  @include flex(
+    $breakpoint-css: (
+      justify-content: space-between,
+    )
+  );
 
   &-item {
     @include flex-Margin(2rem);
     background-color: $white;
     box-shadow: $shadow-1;
+  }
+  &-item:first-child {
+    margin-left: 0;
   }
 }
 
@@ -28,6 +42,7 @@
     position: relative;
     z-index: $z-2;
     color: $primary;
+    text-align: center;
   }
 }
 
@@ -63,6 +78,52 @@
 
     p {
       margin-bottom: 1.5rem;
+    }
+
+    :is(p, li) a {
+      color: $accent;
+      text-decoration: underline;
+    }
+
+    li {
+      position: relative;
+      list-style-type: none;
+      @include font($font-normal, $font-serif);
+      color: $secondary;
+      margin: 0 0 1rem 1.25rem;
+
+      a {
+        position: relative;
+        &::before {
+          text-decoration: none;
+          top: calc(auto + 1px);
+        }
+      }
+    }
+
+    ul,
+    ol {
+      margin-bottom: 1rem;
+    }
+
+    ol > li {
+      counter-increment: step-counter;
+      &::before {
+        @include list-style($secondary, counter(step-counter) ".");
+      }
+
+      & a::before {
+        @include list-style($accent, counter(step-counter) ".");
+      }
+    }
+
+    ul > li::before {
+      @include list-style($secondary, "\f00c");
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      & a::before {
+        @include list-style($accent, "\f00c");
+      }
     }
 
     h2,

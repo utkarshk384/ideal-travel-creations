@@ -12,7 +12,7 @@ import Slider from "../Components/homeSlider";
 import Testimonials from "./home/_testimonials";
 
 //Styles
-import "../styles/pages/home.module.scss";
+import styles from "../styles/pages/home.module.scss";
 
 //Graphql
 import { initializeApollo } from "@/apolloClient";
@@ -23,19 +23,21 @@ import {
 } from "@/graphql/generated/graphql-frontend";
 import packageQuery from "@/graphql/packageQuery.graphql";
 import homeTestimonialsQuery from "@/graphql/HomeTestimonials.graphql";
-import { IsliderData } from "@/graphql/types";
 import WhyUs from "./home/why-us";
 
+//Types
+import { ISliderData } from "@/src/helperTypes";
+
 const Home: React.FC<{
-  sliderData: IsliderData[];
+  sliderData: ISliderData[];
   testimonialsData: IHomeQuery;
 }> = (props) => {
   ///<----Refs--->
   const homeRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="home" ref={homeRef}>
-      <Nav className="home-nav" ref={homeRef} />
+    <div className={styles.home} ref={homeRef}>
+      <Nav className={styles["home-nav"]} ref={homeRef} />
       <Hero />
       <WhyUs />
       <Card />
@@ -70,6 +72,10 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query<IHomeQuery>({
     query: homeTestimonialsQuery,
   });
+
+  if (data.testimonials && data.testimonials?.length === 0) {
+    return { notFound: true };
+  }
 
   return {
     props: {
