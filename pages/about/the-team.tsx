@@ -1,9 +1,9 @@
 ///<----Global Imports--->
 import React from "react";
-import Image from "next/image";
 import { GetStaticProps } from "next";
 
 ///<----Local Imports--->
+import Image from "@/components/ImageWrapper";
 
 //Types
 import type { imageType } from "@/src/helperTypes";
@@ -25,7 +25,7 @@ interface IData {
   employeeDescription: string;
   employeeOccupation: string;
   extraDetails: string;
-  image: imageType;
+  employeeImage: imageType;
 }
 
 const TeamPage: React.FC<{ data?: IQuery }> = ({ data }) => {
@@ -40,18 +40,11 @@ const TeamPage: React.FC<{ data?: IQuery }> = ({ data }) => {
   );
 };
 
-const Card: React.FC<{ data?: IData }> = ({ data }) => {
+const Card: React.FC<{ data: IData }> = ({ data }) => {
   return (
     <div className={styles["card"]}>
       <div className={styles["card-img-container"]}>
-        <Image
-          src="/images/travel-packages/Happiness-Travel.jpg"
-          layout="fill"
-        />
-        {/* <Image
-          src={data.image.url}
-          layout="fill"
-        /> */}
+        <Image src={data.employeeImage?.url} layout="fill" />
       </div>
       <div className={styles["card-content"]}>
         <h2>{data?.employeeName}</h2>
@@ -70,6 +63,9 @@ export const getStaticProps: GetStaticProps = async () => {
     query: EmployeesQuery,
     variables: {},
   });
+
+  if (data.employees && data.employees.length === 0) return { notFound: true };
+
   return {
     props: { data },
   };

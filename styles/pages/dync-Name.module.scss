@@ -4,7 +4,7 @@
 @use "../layout/pagination" as *;
 
 .dync-name {
-  @include Container(80%) {
+  @include Container(95%) {
     box-shadow: $shadow-1;
   }
   background-color: $white;
@@ -12,38 +12,34 @@
 
 .items {
   @include Container(90%);
-  padding-top: 2rem;
   padding-bottom: 2rem;
 
   &-hr {
     border: none;
     border-radius: 5em;
-    background-color: $primary;
-    height: 5px;
+    background-color: $accent;
+    height: 4px;
   }
 }
 
 .item {
-  @include flex();
+  @include flex(
+    $breakpoint-css: (
+      align-items: center,
+    )
+  ) {
+  }
   &-img-container {
     max-height: 50rem;
     overflow: hidden;
     width: 100%;
     position: relative;
-
-    @include breakpoint.media(">=lg") {
-      width: 40%;
-    }
   }
 
   &-text-container {
     width: 100%;
-    @include breakpoint.media(">lg") {
-      width: 60%;
-    }
   }
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding: 3rem 0rem;
 }
 
 .flex-item {
@@ -77,4 +73,20 @@
 
 .pagination {
   @include paginationMenu;
+}
+
+@include breakpoint.media(">=lg") {
+  .dync-name {
+    width: 80%;
+  }
+
+  .item {
+    &-img-container {
+      width: 40%;
+    }
+
+    &-text-container {
+      width: 60%;
+    }
+  }
 }

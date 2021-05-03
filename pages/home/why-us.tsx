@@ -33,7 +33,7 @@ const WhyUs = () => {
 
   return (
     <div
-      className={`${styles.cards} ${styles.container}`}
+      className={`${styles.cards} ${styles["home-container"]}`}
       ref={cardContainerRef}
     >
       <div className={styles["cards-heading"]}>

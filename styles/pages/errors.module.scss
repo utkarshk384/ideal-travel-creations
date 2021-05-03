@@ -24,13 +24,6 @@
   }
 
   position: relative;
-  &::before {
-    @include setPosition(50%, 0, 0, 50%);
-    @include font($font-bold, $font-sans);
-    content: "404";
-    color: rgba($alert, 0.2);
-    font-size: 20vw;
-  }
 
   h1 {
     color: $alert;
@@ -74,11 +67,15 @@
   }
 }
 
-.container.server-error::before {
-  content: "500";
+.error-code {
+  @include setPosition(50%, 0, 0, 50%);
+  @include font($font-bold, $font-sans);
+  color: rgba($alert, 0.2);
+  font-size: 20vw;
 }
+
 @include breakpoint.media(">=lg") {
-  .container::before {
+  .error-code {
     top: 0%;
   }
 }

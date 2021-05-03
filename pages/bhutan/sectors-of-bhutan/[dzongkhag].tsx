@@ -1,12 +1,13 @@
 ///<----Global Imports--->
 import React from "react";
-import Image from "next/image";
 import _ from "lodash";
 import ReactMarkdown from "react-markdown";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 ///<----Local Imports--->
+import Image from "@/components/ImageWrapper";
 import QuickLinks from "@/components/quickLinks";
+import Utilities from "@/src/utils";
 
 //Styles
 import styles from "styles/pages/dync-dzongkhag.module.scss";
@@ -24,8 +25,8 @@ import type {
 type pathType = { params: { dzongkhag: string } };
 
 const Dzongkhag: React.FC<{
-  data?: IQuery;
-  quickLinks?: {
+  data: IQuery;
+  quickLinks: {
     packageTypes: string[];
   };
 }> = ({ data, quickLinks }) => {
@@ -42,7 +43,7 @@ const Dzongkhag: React.FC<{
               </h1>
             </div>
             <Image
-              src="/images/travel-packages/Happiness-Travel.jpg"
+              src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
               layout="fill"
             />
           </div>
@@ -51,16 +52,20 @@ const Dzongkhag: React.FC<{
               <h1>Overview</h1>
               <hr />
               <ReactMarkdown
-                source={data?.dataForDzongkhags![0]?.description as string}
+                source={data?.dataForDzongkhags?.[0]?.description as string}
               />
             </div>
-            <div className={styles["interested-places"]}>
-              <h1>Interested places</h1>
-              <hr />
-              <ReactMarkdown
-                source={data?.dataForDzongkhags![0]?.InterestedPlaces as string}
-              />
-            </div>
+            {data?.dataForDzongkhags?.[0]?.InterestedPlaces && (
+              <div className={styles["interested-places"]}>
+                <h1>Interested places</h1>
+                <hr />
+                <ReactMarkdown
+                  source={
+                    data?.dataForDzongkhags[0]?.InterestedPlaces as string
+                  }
+                />
+              </div>
+            )}
           </div>
         </div>
         <QuickLinks data={quickLinks} />
@@ -70,24 +75,33 @@ const Dzongkhag: React.FC<{
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const title = ctx.params?.dzongkhag as string;
+  const title = ctx.params?.dzongkhag;
+  if (typeof title !== "string") return { notFound: true };
 
   const client = initializeApollo();
+
+  const quickLinks = await getallPaths();
 
   const { data } = await client.query<IQuery, IVars>({
     query: dzongkhagQuery,
-    variables: { title: _.startCase(title) },
+    variables: { title: Utilities.startCase(title as string) },
   });
 
+  if (
+    data.dataForDzongkhags &&
+    data.dataForDzongkhags.length === 0 &&
+    quickLinks.packageTypes.length === 0
+  )
+    return { notFound: true };
+
   return {
-    props: { data, quickLinks: await getallPaths() },
+    props: { data, quickLinks },
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths: pathType[] = [];
   const client = initializeApollo();
-
   const query = gql`
     query dzongkhags {
       dataForDzongkhags {
@@ -106,7 +120,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
   if (data) {
     data.dataForDzongkhags.map((url) => {
-      return paths.push({ params: { dzongkhag: _.lowerCase(url.title) } });
+      return paths.push({ params: { dzongkhag: _.kebabCase(url.title) } });
     });
   }
 

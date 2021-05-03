@@ -5,7 +5,7 @@ import _ from "lodash";
 
 ///<----Local Imports--->
 
-import { FourDots } from "@/components/Spinners-and-Loaders/Spinners";
+import { FourDots } from "@/components/SVGS/Spinners";
 
 //Types
 import type { urlType } from "@/src/helperTypes";
@@ -19,7 +19,7 @@ import { getAboutBhtPaths, getallPaths } from "@/src/lib/graphql_helperFunc";
 
 const QuickLinks: React.FC<{ data?: { packageTypes: string[] } }> = (props) => {
   ///<----Custom Hooks--->
-  const visible = useHideNav(); // Used to hide the navbar
+  const visible = useHideNav(false); // Used to hide the navbar
 
   const { loading, data, error } = useGetPaths(); // Custom Graphql hook that fetches data similar to the useQuery hook from apollo
 

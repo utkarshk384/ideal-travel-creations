@@ -3,9 +3,9 @@ import React from "react";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import _ from "lodash";
 
 ///<----Local Imports--->
+import Utilities from "@/src/utils";
 
 import { getAboutBhtPaths } from "@/src/lib/graphql_helperFunc";
 
@@ -25,7 +25,7 @@ interface IintroData {
   val: string;
 }
 
-const BhutanPage: React.FC<{ data?: urlType[] }> = ({ data }) => {
+const BhutanPage: React.FC<{ data: urlType[] }> = ({ data }) => {
   ///<----Custom Hooks--->
   const windowSize = useWindowSize(); // Used to get the browser window size
 
@@ -40,7 +40,7 @@ const BhutanPage: React.FC<{ data?: urlType[] }> = ({ data }) => {
                   <h1>About Bhutan</h1>
                 </div>
                 <Image
-                  src="/images/travel-packages/Happiness-Travel.jpg"
+                  src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
                   layout="fill"
                 />
               </div>
@@ -77,12 +77,13 @@ const BhutanPage: React.FC<{ data?: urlType[] }> = ({ data }) => {
   );
 };
 
-const IntroRight: React.FC<{ data?: IintroData }> = ({ data }) => {
+//INFO: The data that is rendered here is not feteched from the db but rather a relative import.
+const IntroRight: React.FC<{ data: IintroData }> = ({ data }) => {
   return (
     <div className={styles["r-item"]}>
       <div className={styles["r-content"]}>
-        <p>{`${data?.key}:`}</p>
-        <span>{data?.val}</span>
+        <p>{`${data.key}:`}</p>
+        <span>{data.val}</span>
       </div>
       <hr />
     </div>
@@ -94,9 +95,11 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const { data } = await getAboutBhtPaths();
 
+  if (data.aboutBhutanSections.length === 0) return { notFound: true };
+
   data.aboutBhutanSections.forEach((url) =>
     urls.push({
-      name: _.startCase(url.url),
+      name: Utilities.startCase(url.url),
       href: "/bhutan/[bhutan]",
       as: `/bhutan/${url.url}`,
     })

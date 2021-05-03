@@ -24,9 +24,11 @@
       "@/animations/*": ["./src/Animations/*"],
       "@/components/*": ["./Components/*"],
       "@/apolloClient": ["./src/lib/apolloClient.ts"],
+      "@/apolloQuery": ["./src/lib/apolloQuery.ts"],
       "@/styles/*": ["./styles/pages/*"],
       "@/src/*": ["./src/*"],
       "@/api/*": ["./pages/api/*"],
+      "@/pages/*": ["./pages/*"],
     }
   },
   "include": [

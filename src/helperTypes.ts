@@ -15,3 +15,18 @@ export type imageType = {
 export type setBooleanState = React.Dispatch<React.SetStateAction<boolean>>;
 
 export type ApolloClientType = ApolloClient<NormalizedCacheObject>;
+
+export type ApolloErrorType = {
+  statusCode: number;
+  message: string;
+  error: boolean;
+};
+
+export interface ISliderData {
+  __typename?: "Package";
+  index: number;
+  title: string;
+  description: string;
+  url: string;
+  images: imageType[];
+}

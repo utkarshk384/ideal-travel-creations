@@ -1,8 +1,9 @@
 /// <---Global Imports--->
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 /// <---Local Imports--->
+import Image from "@/components/ImageWrapper";
+
 //Data
 import homeAnimation from "../../src/Animations/homeAnimation";
 
@@ -25,7 +26,12 @@ const Parallex: React.FC = () => {
 
   /// <---Use Effects--->
   useEffect(() => {
-    setTimeline(homeAnimation.parallexSection(".parallex-image", ContainerRef));
+    setTimeline(
+      homeAnimation.parallexSection(
+        `.${styles["parallex-image"]}`,
+        ContainerRef
+      )
+    );
   }, []);
 
   useEffect(() => {
@@ -47,6 +53,7 @@ const Parallex: React.FC = () => {
           src="/images/home/Mask Dance.jpg"
           layout="fill"
           className={styles["parallex-image"]}
+          priority
         />
         <div className={styles["parallex-text"]}>
           <span>

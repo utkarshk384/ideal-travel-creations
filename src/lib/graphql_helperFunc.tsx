@@ -9,22 +9,37 @@ export interface IstaticPathQuery {
 }
 
 export type staticPathType = {
+  _id: string;
   url: string;
+  navURL: boolean;
 };
+
+export interface IpkgType {
+  name: string;
+}
 
 export const getallPaths = async () => {
   return new Promise<{ packageTypes: string[] }>(async (resolve, reject) => {
-    const client = initializeApollo();
-    const query = gql`
-      query {
-        packageTypes
-      }
-    `;
+    try {
+      const client = initializeApollo();
+      const query = gql`
+        query {
+          packageTypes {
+            name
+          }
+        }
+      `;
 
-    const queryRes = await client.query<{ packageTypes: string[] }>({ query });
-    const kebab = queryRes.data.packageTypes.map((url) => _.kebabCase(url));
-    resolve({ packageTypes: kebab });
-    reject(queryRes.error || queryRes.errors);
+      const queryRes = await client.query<{ packageTypes: IpkgType[] }>({
+        query,
+      });
+      const kebab = queryRes.data.packageTypes.map((url) =>
+        _.kebabCase(url.name)
+      );
+      resolve({ packageTypes: kebab });
+    } catch (err) {
+      reject(err);
+    }
   });
 };
 
@@ -37,7 +52,9 @@ export const getAboutBhtPaths = async () => {
         const query = gql`
           query titlesOfBhutan {
             aboutBhutanSections {
+              _id
               url
+              navURL
             }
           }
         `;

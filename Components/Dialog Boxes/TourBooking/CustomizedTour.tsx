@@ -21,7 +21,7 @@ const CustomizedTour: React.FC = () => {
     const errors: IErrors = {};
     const config: AxiosRequestConfig = {
       method: "post",
-      url: "/api/customize-tour",
+      url: "/api/handle-emails?source=customizedTour",
       headers: {
         "Content-Type": "application/json",
       },

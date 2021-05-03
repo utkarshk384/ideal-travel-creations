@@ -65,6 +65,11 @@ $font-sizes: (
     avg: 1vw,
     max: 1.1rem,
   ),
+  icons: (
+    min: 4rem,
+    avg: 4.5rem,
+    max: 5rem,
+  ),
 );
 
 $font-2xl: font-clamp(map.get($font-sizes, 2xl));
@@ -73,6 +78,7 @@ $font-lg: font-clamp(map.get($font-sizes, lg));
 $font-md: font-clamp(map.get($font-sizes, md));
 $font-sm: font-clamp(map.get($font-sizes, sm));
 $font-xs: font-clamp(map.get($font-sizes, xs));
+$font-icons: font-clamp(map.get($font-sizes, icons));
 
 ///Z- Indexs
 $z-1: 1;

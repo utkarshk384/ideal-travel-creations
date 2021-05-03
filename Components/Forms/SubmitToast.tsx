@@ -5,7 +5,7 @@ import { SwitchTransition, CSSTransition } from "react-transition-group";
 ///<---Local Imports--->
 import TickIcon from "@/components/SVGS/Tick";
 import TimesIcon from "@/components/SVGS/Times";
-import { FourDots } from "@/components/Spinners-and-Loaders/Spinners";
+import { FourDots } from "@/components/SVGS/Spinners";
 
 //Styles
 import styles from "styles/components/tour-dialog.module.scss";

@@ -4,10 +4,11 @@ import React from "react";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import _ from "lodash";
-import Image from "next/image";
-import ClampLines from "react-clamp-lines";
+import Clamp from "react-multiline-clamp";
 
 ///<----Local Imports--->
+import Image from "@/components/ImageWrapper";
+import Utilities from "@/src/utils";
 
 //Types
 import { imageType } from "@/src/helperTypes";
@@ -17,7 +18,7 @@ import { initializeApollo } from "@/apolloClient";
 import { gql } from "@apollo/client";
 
 //Styles
-import styles from "styles/pages/parts-of-bhutan.module.scss";
+import styles from "styles/pages/sectors-of-bhutan.module.scss";
 
 type DzongkhagType = {
   title: string;
@@ -42,7 +43,7 @@ const SectionBhutan: React.FC<{
                 card.sectors === "WesternBhutan" && (
                   <Card
                     key={`western-bhutan-iteration-${index * 234}`}
-                    data={card}
+                    card={card}
                   />
                 )
             )}
@@ -58,7 +59,7 @@ const SectionBhutan: React.FC<{
                 card.sectors === "CentralBhutan" && (
                   <Card
                     key={`central-bhutan-iteration-${index * 987}`}
-                    data={card}
+                    card={card}
                   />
                 )
             )}
@@ -74,7 +75,7 @@ const SectionBhutan: React.FC<{
                 card.sectors === "EasternBhutan" && (
                   <Card
                     key={`eastern-bhutan-iteration-${index * 328}`}
-                    data={card}
+                    card={card}
                   />
                 )
             )}
@@ -85,31 +86,23 @@ const SectionBhutan: React.FC<{
   );
 };
 
-const Card: React.FC<{ data?: DzongkhagType }> = ({ data }) => {
+const Card: React.FC<{ card: DzongkhagType }> = ({ card }) => {
   return (
     <Link
-      href="/bhutan/parts-of-bhutan/[dzongkhag]"
-      as={`/bhutan/parts-of-bhutan/${data?.title}`}
+      href="/bhutan/sectors-of-bhutan/[dzongkhag]"
+      as={`/bhutan/sectors-of-bhutan/${_.kebabCase(card?.title)}`}
     >
       <a className={styles.card}>
         <div className={styles["card-cover"]}>
           <div className={styles["card-cover-heading"]}>
-            <h2>{_.startCase(data?.title)}</h2>
-            <Image
-              src="/images/travel-packages/Happiness-Travel.jpg"
-              layout="fill"
-            />
-            {/* <Image src={data!.coverImage.url} layout="fill" /> */}
+            <h2>{Utilities.startCase(card?.title)}</h2>
+            <Image src={card.coverImage.url} layout="fill" />
           </div>
         </div>
         <div className={styles["card-description"]}>
-          <ClampLines
-            id={`${data?.title.length! * 23}`}
-            text={data?.description as string}
-            innerElement="p"
-            buttons={false}
-            lines={4}
-          />
+          <Clamp lines={7}>
+            <p>{Utilities.sanitizeMarkdown(card.description)}</p>
+          </Clamp>
         </div>
       </a>
     </Link>
@@ -137,6 +130,9 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data } = await client.query<{ dataForDzongkhags: DzongkhagType[] }>({
     query,
   });
+
+  if (data.dataForDzongkhags && data.dataForDzongkhags.length === 0)
+    return { notFound: true };
 
   return {
     props: { data },

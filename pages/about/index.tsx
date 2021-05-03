@@ -1,9 +1,9 @@
 ///<----Global Imports--->
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 
-///<----Global Imports--->
+///<----Local Imports--->
+import Image from "@/components/ImageWrapper";
 
 import QuickLinks from "@/components/quickLinks";
 
@@ -18,8 +18,9 @@ const AboutPage: React.FC = () => {
           <div className={styles["l-heading"]}>
             <h1>About Us</h1>
           </div>
+
           <Image
-            src="/images/travel-packages/Happiness-Travel.jpg"
+            src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
             layout="fill"
           />
         </div>
@@ -92,6 +93,11 @@ const AboutPage: React.FC = () => {
             attention. We make travel to Bhutan easy for every different
             individual.
           </p>
+          <div className={styles.cta}>
+            <Link href="/about/company-portfolio">
+              <button>Our Company</button>
+            </Link>
+          </div>
         </div>
       </div>
       <QuickLinks />

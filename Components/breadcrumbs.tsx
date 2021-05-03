@@ -1,12 +1,12 @@
 ///<----Global Imports--->
 import React from "react";
-import _ from "lodash";
 import { NextRouter, useRouter } from "next/router";
 import Link from "next/link";
 
 ///<----Local Imports--->
 //Styles
 import styles from "styles/components/breadcrumbs.module.scss";
+import Utilities from "@/src/utils";
 
 interface IPathnames {
   name: string;
@@ -60,7 +60,7 @@ const getPathNames = (router: NextRouter): IPathnames[] => {
       hrefSplit![index]
     }`;
     pathNames.push({
-      name: _.startCase(path).replace("In", "in").replace("And", "and"),
+      name: Utilities.startCase(path),
       as,
       href,
     });

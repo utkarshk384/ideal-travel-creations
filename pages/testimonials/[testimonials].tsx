@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { gql } from "@apollo/client";
-import _ from "lodash";
 
 ///<----Local Imports--->
 
@@ -101,7 +100,10 @@ const Testimonials: React.FC<{ data?: IQuery; pages?: string[] }> = ({
 const Card: React.FC<{ data?: IData; flip?: boolean }> = ({ data, flip }) => {
   const CardImage = () => (
     <div className={`${styles["card-img-container"]}`}>
-      <Image layout="fill" src="/images/travel-packages/Happiness-Travel.jpg" />
+      <Image
+        layout="fill"
+        src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
+      />
       {/* <Image layout="fill" src={data?.image.url as string} /> */}
     </div>
   );

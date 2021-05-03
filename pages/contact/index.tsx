@@ -1,5 +1,7 @@
 ///<----Global Imports--->
 import React from "react";
+import _ from "lodash";
+import axios, { AxiosRequestConfig } from "axios";
 import { FormApi } from "final-form";
 import { Form } from "react-final-form";
 import emailjs from "emailjs-com";
@@ -7,9 +9,13 @@ import emailjs from "emailjs-com";
 ///<----Local Imports--->
 import FormContent from "@/components/Forms/ContactUs-Form";
 import Map from "@/components/Map";
+import { scrollToInvalidField } from "@/components/Dialog Boxes/TourBooking/helperFunction";
 
 //Custom Hooks
 import useOverlay from "../../src/Hooks/useOverlay";
+
+//Types
+import { IErrors } from "@/src/helperTypes";
 
 //Styles
 import styles from "styles/pages/contact-us.module.scss";
@@ -29,19 +35,30 @@ const ContactPage = () => {
   const { overlay, setOverlay } = useOverlay();
 
   ///<----Handle Events--->
-  const onSubmit = (data: Idata, form: FormApi) => {
-    emailjs.send(
-      process.env.EMAILJS_SERVICE_ID as string,
-      process.env.EMAILJS_TEMPLATE_ID as string,
-      {
-        first_name: data.firstname,
-        last_name: data.lastname,
-        message: data.message,
-        subject: data.subject,
-        to_email: data.email,
+  const onSubmit = async (values: Idata, form: FormApi) => {
+    let config: AxiosRequestConfig = {
+      method: "post",
+      url: "/api/handle-emails?source=contactUs",
+      headers: {
+        "Content-Type": "application/json",
       },
-      process.env.EMAILJS_USERID as string
-    );
+      data: values,
+    };
+
+    const { errors, fields } = onsubmitErrors(form);
+    if (Object.keys(errors).length > 0) {
+      scrollToInvalidField(fields, form);
+      return errors;
+    }
+
+    try {
+      const response = await axios(config);
+      if (response.status === 200) {
+        return false;
+      }
+    } catch (err) {
+      return "Error in submitting the form. Please try again.";
+    }
   };
 
   return (
@@ -60,15 +77,13 @@ const ContactPage = () => {
         </div>
       )}
       <div className={styles["contact-us"]}>
-        <div className={`${styles["contact-item"]} ${styles["contact-form"]}`}>
+        <div className={` ${styles["contact-form"]}`}>
           <div className={styles["form-header"]}>
             <h2>Contact Form</h2>
           </div>
           <Form onSubmit={onSubmit} component={FormContent} />
         </div>
-        <div
-          className={`${styles["contact-address"]} ${styles["contact-item"]}`}
-        >
+        <div className={`${styles["contact-address"]}`}>
           <div className={styles["adr-header"]}>
             <h2>Contact Address</h2>
           </div>
@@ -86,7 +101,12 @@ const ContactPage = () => {
               info@idealtravelcreations.com
             </p>
           </div>
-          <Map lat={27.4482} lng={89.6583} zoom={17.0} />
+          <Map
+            lat={27.4482}
+            lng={89.6583}
+            zoom={17.0}
+            className={styles["contact-map"]}
+          />
           <div className={styles["btn-container"]}>
             <button onClick={() => setOverlay!(!overlay)}>Expand Map</button>
           </div>
@@ -94,6 +114,32 @@ const ContactPage = () => {
       </div>
     </>
   );
+};
+
+const onsubmitErrors = (form: FormApi) => {
+  const errors: IErrors = {};
+
+  const _fields = form.getRegisteredFields();
+  const fields: string[] = [];
+
+  //Excluding fields that are required like the subject or tour
+  _fields.forEach((field) => {
+    switch (field) {
+      case "subject":
+        break;
+      default:
+        fields.push(field);
+    }
+  });
+  const fieldDirtyStates = form.getState().dirtyFields;
+
+  fields.forEach((field) => {
+    if (!(field in fieldDirtyStates)) {
+      errors[field] = `Please fill out the ${_.startCase(field)} section.`;
+    }
+  });
+
+  return { errors, fields };
 };
 
 export default ContactPage;

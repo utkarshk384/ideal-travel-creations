@@ -1,15 +1,12 @@
 //<---Global Import--->
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 //<---Local Import--->
+import Image from "@/components/ImageWrapper";
 
 //Types
 import { imageType } from "@/src/helperTypes";
-
-//Custom Hooks
-import useWindowSize from "@/src/Hooks/useWindow";
 
 //Styles
 import styles from "styles/pages/home.module.scss";
@@ -26,20 +23,20 @@ interface IData {
 
 const Testimonials: React.FC<{ data: IQuery }> = ({ data }) => {
   //<---Custom Hooks--->
-  const { width } = useWindowSize();
 
   return (
-    <div className={`${styles.testimonials} ${styles.container}`}>
+    <div className={`${styles["home-container"]}`}>
       <div className={styles["tstmials-heading"]}>
         <h1>Testimonials</h1>
       </div>
       <div className={styles["tstmials-wrapper"]}>
-        {data?.testimonials!.map((card, index) => (
+        {/* {data?.testimonials!.map((card, index) => (
           <TestimonialsCard
             data={card as IData}
             key={`testimonials-map-1-${index}`}
           />
-        ))}
+        ))} */}
+        <TestimonialsCard />
       </div>
       <div className={`${styles["slider-cta"]} ${styles["tstmials-cta"]}`}>
         <Link href="/testimonials">
@@ -57,8 +54,11 @@ const TestimonialsCard: React.FC<{ data?: IData }> = ({ data }) => {
     <div className={styles["tstmials-card"]}>
       <div className={styles["tc-img-container"]}>
         <Image
-          src="/images/travel-packages/Happiness-Travel.jpg"
-          layout="fill"
+          src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
+          width={1920}
+          height={1080}
+          layout="responsive"
+          objectFit="contain"
         />
         {/* <Image
           src={data!.image.url}
@@ -66,7 +66,7 @@ const TestimonialsCard: React.FC<{ data?: IData }> = ({ data }) => {
         /> */}
       </div>
       <div className={styles["tc-content"]}>
-        <div className={styles["tc-title"]}>
+        <div>
           <h2>{data?.guestName || "Title"}</h2>
         </div>
         <p>

@@ -17,7 +17,6 @@ const BookTourForm: React.FC<FormRenderProps> = (props) => {
   const router = useRouter();
 
   const path = router.asPath.split("/");
-  console.log(props);
   return (
     <form action="" className={styles["form"]} onSubmit={props.handleSubmit}>
       <InputFieldWrapper

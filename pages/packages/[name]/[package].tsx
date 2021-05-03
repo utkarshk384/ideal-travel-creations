@@ -1,13 +1,13 @@
 ///<----Global Imports--->
 import React, { useEffect } from "react";
 import { Transition } from "react-transition-group";
-import Image from "next/image";
 import { GetServerSideProps } from "next";
 import ReactMarkdown from "react-markdown";
-import _ from "lodash";
 import gfm from "remark-gfm";
 
 ///<----Local Imports--->
+import Image from "@/components/ImageWrapper";
+
 ///Custom Hooks
 import useHideNav from "@/src/Hooks/useHideNav";
 import useOverlay from "../../../src/Hooks/useOverlay";
@@ -20,13 +20,15 @@ import BookingTour from "@/components/Dialog Boxes/TourBooking";
 import styles from "styles/pages/dync-package.module.scss";
 
 //Graphql
-import { initializeApollo } from "@/apolloClient";
+import { apolloQuery } from "@/apolloQuery";
 import type {
   FullPkgQuery as IQuery,
   FullPkgQueryVariables as IVars,
   ComponentItineraryItinerary as Iitinerary,
 } from "@/graphql/generated/graphql-frontend";
 import fullPkgQuery from "@/graphql/fullPkgQuery.graphql";
+import withError from "@/components/withError";
+import Utilities from "@/src/utils";
 
 const Package: React.FC<{ data?: IQuery }> = ({ data }) => {
   ///<----useStates--->
@@ -58,14 +60,12 @@ const Package: React.FC<{ data?: IQuery }> = ({ data }) => {
         <div className={styles["pkg-container"]}>
           <div className={`${styles["pkg-left"]} ${styles["pkg-item"]}`}>
             <div className={styles["l-title-wrapper"]}>
-              <h1>{_.startCase(data?.packages![0]?.title)}</h1>
+              <h1>{Utilities.startCase(data!.packages![0]?.title!)}</h1>
             </div>
             <div className={styles["l-img-container"]}>
               <Image
-                src="/images/travel-packages/Happiness-Travel.jpg"
-                height={1080}
-                width={1920}
-                layout="intrinsic"
+                src={data!.packages![0]?.images![0]?.url as string}
+                layout="fill"
               />
             </div>
             <div className={styles["l-desc"]}>
@@ -169,7 +169,7 @@ const Itinerary: React.FC<{ data: Iitinerary }> = ({ data }) => {
     <div
       tabIndex={0}
       role="button"
-      key={data.key}
+      key={data._id}
       className={styles.itinerary}
       onClick={(e) => {
         animation.itineraryDropdown(e);
@@ -249,18 +249,18 @@ const DrivingIcon: React.FC<{ className: string }> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const client = initializeApollo();
   const pkgTitle = ctx.query.package as string; // Get kebabed title from the url query parameter
 
-  const { data } = await client.query<IQuery, IVars>({
+  const query = await apolloQuery<IQuery, IVars>({
     query: fullPkgQuery,
     variables: { title: pkgTitle },
   });
 
-  if (data.packages?.length === 0) {
-    return { props: {}, notFound: true };
+  if (query.error) return { props: { error: query.error } };
+  else if (query.data?.packages!.length === 0) {
+    return { notFound: true };
   }
 
-  return { props: { data } };
+  return { props: { data: query.data } };
 };
-export default Package;
+export default withError(Package);

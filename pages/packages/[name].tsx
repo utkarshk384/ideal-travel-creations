@@ -2,19 +2,18 @@
 import React, { useRef } from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import _ from "lodash";
 
 ///<----Local Imports--->
-
-import { getallPaths } from "@/graphql/../graphql_helperFunc";
+import Image from "@/components/ImageWrapper";
+import withError from "@/components/withError";
 
 //Styles
 import styles from "styles/pages/dync-Name.module.scss";
 
 //Graphql
-import { initializeApollo } from "@/apolloClient";
+import { apolloQuery } from "@/apolloQuery";
 import filteredPackageQuery from "@/graphql/packageQuery_WithFilter.graphql";
 import PkgCountQuery from "@/graphql/filterPkgCont.graphql";
 import {
@@ -23,17 +22,20 @@ import {
   FilteredPkgCountQuery as ICountQuery,
   FilteredPkgCountQueryVariables as ICountVars,
 } from "@/graphql/generated/graphql-frontend";
+import { getallPaths } from "@/graphql/../graphql_helperFunc";
+import Utilities from "@/src/utils";
 
 type PkgCountType = { href: string; page: number };
 
-const PackagePage: React.FC<{
+interface IProps {
   data?: IFilteredQuery;
   pages?: PkgCountType[];
   url?: string;
-}> = (props) => {
+}
+
+const PackagePage: React.FC<IProps> = (props) => {
   ///Router
   const router = useRouter();
-
   ///<----Refs--->
   const paragraphRef = useRef<(HTMLParagraphElement | null)[]>([]);
 
@@ -60,36 +62,28 @@ const PackagePage: React.FC<{
       );
     }
   };
-  console.log(props.pages);
   return (
     <div className={styles["dync-name"]}>
       <div className={styles.items}>
-        {props.data?.packages?.map((item, index) => (
+        {props.data!.packages!.map((item, index) => (
           <React.Fragment key={`name-1-${index * 573}`}>
             <div className={styles.item}>
               <div
                 className={`${styles["item-img-container"]} ${styles["flex-item"]}`}
               >
                 <Image
-                  src="/images/travel-packages/Happiness-Travel.jpg"
-                  layout="intrinsic"
-                  width="1920"
-                  height="1080"
-                  objectFit="fill"
-                />
-                {/* <Image
                   src={item?.images![0]?.url as string}
                   layout="intrinsic"
                   width={item?.images![0]?.width as number}
                   height={item?.images![0]?.height as number}
                   objectFit="fill"
-                /> */}
+                />
               </div>
               <div
                 className={`${styles["item-text-container"]} ${styles["flex-item"]}`}
               >
                 <div className={styles["text-heading-wrapper"]}>
-                  <h2>{_.startCase(item?.title)}</h2>
+                  <h2>{Utilities.startCase(item!.title)}</h2>
                 </div>
                 <div className={styles["text-body-wrapper"]}>
                   <p ref={(el) => paragraphRef.current.push(el)}>
@@ -110,17 +104,19 @@ const PackagePage: React.FC<{
           </React.Fragment>
         ))}
         <div className={styles.pagination}>
-          <button
-            onClick={(e) => handleClick(e, "prev")}
-            className={
-              parseInt(router.query.page as string) === 1
-                ? styles["btn-fill-disabled"]
-                : ""
-            }
-            disabled={parseInt(router.query.page as string) === 1 && true}
-          >
-            Prev
-          </button>
+          <span>
+            <button
+              onClick={(e) => handleClick(e, "prev")}
+              className={
+                parseInt(router.query.page as string) === 1
+                  ? styles["btn-fill-disabled"]
+                  : ""
+              }
+              disabled={parseInt(router.query.page as string) === 1 && true}
+            >
+              Prev
+            </button>
+          </span>
           {props.pages?.map((link, index) => (
             <Link
               href={{
@@ -169,7 +165,8 @@ const PackagePage: React.FC<{
 };
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   //This constant holds the value of how many items can be rendered on the page. The way it works is that with the help of this number apollo fetches only a limited amount of data which will be rendered by the render method in react.
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 4;
+  const pages = [];
 
   //This constant holds the current page that the user is on.
   const PAGE = parseInt(ctx.query.page as string);
@@ -183,8 +180,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   //The value of this variable is the value that is passed to the `start` offset in the query.
   const dataOffset = PAGE === 1 ? 0 : ITEM_PER_PAGE * PAGE - ITEM_PER_PAGE;
-  const client = initializeApollo();
-  const paths = await getallPaths();
+  const paths = await getallPaths().catch((e) => {});
+
+  if (!paths) return { notFound: true };
+
   const urlExists = { exists: false };
 
   const url = ctx.params!.name as string;
@@ -201,10 +200,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       notFound: true,
     };
   }
-
   // This is the main data for the page
-
-  const { data } = await client.query<IFilteredQuery, IFilteredvars>({
+  const query = await apolloQuery<IFilteredQuery, IFilteredvars>({
     query: filteredPackageQuery,
     variables: {
       packageType: formattedUrl,
@@ -213,43 +210,29 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   });
 
-  if (data.packages?.length === 0)
-    return {
-      notFound: true,
-    };
+  const countQuery = await apolloQuery<ICountQuery, ICountVars>({
+    query: PkgCountQuery,
+    variables: { packageType: url },
+  });
 
-  //This query gets the package count for a given packageType
+  if (countQuery.error || query.error) return { props: { error: query.error } };
+  else if (query.data?.packages!.length === 0) return { notFound: true };
 
-  const pages = await getPkgCount(url, ITEM_PER_PAGE);
+  const NO_OF_PAGES = Math.ceil(
+    countQuery.data?.packagesCount! / ITEM_PER_PAGE
+  );
+
+  for (let i = 1; i <= NO_OF_PAGES; i++) {
+    pages.push({ href: `/packages/${url}`, page: i });
+  }
 
   return {
     props: {
-      data,
+      data: query.data,
       pages,
       url,
     },
   };
 };
 
-const getPkgCount = async (url: string, ITEM_PER_PAGE: number) => {
-  return new Promise<PkgCountType[]>(async (resolve, reject) => {
-    const client = initializeApollo();
-    const data = [];
-
-    const countQuery = await client.query<ICountQuery, ICountVars>({
-      query: PkgCountQuery,
-      variables: { packageType: url },
-    });
-
-    const NO_OF_PAGES = Math.ceil(
-      countQuery.data.packagesCount / ITEM_PER_PAGE
-    );
-    for (let i = 1; i <= NO_OF_PAGES; i++) {
-      data.push({ href: `/packages/${url}`, page: i });
-    }
-
-    resolve(data);
-  });
-};
-
-export default PackagePage;
+export default withError(PackagePage);

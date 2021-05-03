@@ -9,7 +9,7 @@
   @include mixins.flex-Margin(1.5rem, vertical);
   h3 {
     color: variables.$primary;
-    padding-left: 3rem;
+    padding-left: 2.5vw;
     margin-bottom: 1rem;
     position: relative;
 
@@ -24,6 +24,7 @@
   p {
     color: variables.$white;
     font-family: variables.$font-sans;
+    margin-bottom: 1vh;
   }
 
   a {
@@ -106,7 +107,7 @@
     color: variables.$white;
 
     i::before {
-      content: "\f1f9 ";
+      content: "\f1f9";
       padding-right: 0.15rem;
       font-family: "Font Awesome 5 Free";
       font-size: variables.$font-xs;
@@ -173,9 +174,6 @@
 
   .email-us {
     text-align: center;
-    h3::before {
-      left: -7rem;
-    }
   }
 
   .address {
