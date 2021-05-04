@@ -7,6 +7,7 @@ try {
 
 const config = `{
   
+  target: "serverless",
   env: {
     USER: "idealtravelcreation@gmail.com",
     PASSWORD: "ideal-travel-creation-2012",

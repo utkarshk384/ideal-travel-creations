@@ -2,6 +2,12 @@
   "name": "ideal-travel-creations",
   "version": "0.1.0",
   "private": true,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/next"
+    }
+  ],
   "scripts": {
     "make-dev-config": "node ./build-scripts/ngrok.js",
     "make-prod-config": "node ./build-scripts/ngrok-build.js",

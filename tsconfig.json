@@ -6,6 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "typeRoots": ["node_modules/@types", "types"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -29,6 +30,7 @@
       "@/src/*": ["./src/*"],
       "@/api/*": ["./pages/api/*"],
       "@/pages/*": ["./pages/*"],
+      "react-multiline-clamp": ["./types/react-multiline-clamp"]
     }
   },
   "include": [
@@ -39,7 +41,7 @@
     "**/*.tsx", 
     ],
   "exclude": [
-    "node_modules"
+    "node_modules", "types/**/*"
   ]
   
 }
