@@ -35,6 +35,7 @@ const Card: React.FC = () => {
       },
       { start: startAnimation }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

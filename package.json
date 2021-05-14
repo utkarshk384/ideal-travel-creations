@@ -9,8 +9,8 @@
     }
   ],
   "scripts": {
-    "make-dev-config": "node ./build-scripts/ngrok.js",
-    "make-prod-config": "node ./build-scripts/ngrok-build.js",
+    "make-dev-config": "node ./build-scripts/development-script.js",
+    "make-prod-config": "node ./build-scripts/production-script.js",
     "pre-dev": "wait-on -d 1000 file:./next.config.js && next dev",
     "pre-prod": "wait-on -d 1000 file:./next.config.js && next build",
     "dev": "concurrently \"npm run make-dev-config\" \"npm run pre-dev -- -H 192.168.0.105\"",

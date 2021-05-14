@@ -1,11 +1,14 @@
 ///<----Global Imports--->
 import React from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { gql } from "@apollo/client";
 
 ///<----Local Imports--->
+import { getSEOConfig } from "@/src/lib/graphql_helperFunc";
+import withSEO from "@/components/withSEO";
 
 //Types
 import { imageType } from "@/src/helperTypes";
@@ -20,7 +23,6 @@ import type {
   GetTestimonialsQuery as IQuery,
   GetTestimonialsQueryVariables as IVars,
 } from "@/graphql/generated/graphql-frontend";
-import { useRouter } from "next/router";
 
 interface IData {
   __typename?: string;
@@ -28,6 +30,8 @@ interface IData {
   comments: string;
   image: imageType;
 }
+
+const SEO_URL = "/testimonials";
 
 const Testimonials: React.FC<{ data?: IQuery; pages?: string[] }> = ({
   data,
@@ -176,8 +180,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   for (let i = 0; i < pageCount; i++) urls.push(`/testimonials/${i + 1}`);
 
+  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
+  if (seoError) {
+    console.log(seoError);
+    return { notFound: true };
+  }
+
   return {
     props: {
+      seoConfig,
       data,
       pages: urls,
     },
@@ -204,4 +215,4 @@ const getPages = async () => {
   });
 };
 
-export default Testimonials;
+export default withSEO(Testimonials);

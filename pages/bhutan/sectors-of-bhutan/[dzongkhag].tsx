@@ -15,14 +15,20 @@ import styles from "styles/pages/dync-dzongkhag.module.scss";
 //Graphql
 import { initializeApollo } from "@/apolloClient";
 import { gql } from "@apollo/client";
-import { getallPaths } from "src/lib/graphql_helperFunc";
+import { getallPaths, getSEOConfig } from "src/lib/graphql_helperFunc";
 import dzongkhagQuery from "@/graphql/dzongkhagQuery.graphql";
 import type {
   DzongkhagQuery as IQuery,
   DzongkhagQueryVariables as IVars,
 } from "@/graphql/generated/graphql-frontend";
+import withSEO from "@/components/withSEO";
 
 type pathType = { params: { dzongkhag: string } };
+
+const SEO_URL_BASE = "/bhutan/sectors-of-bhutan/[dzongkhag]";
+
+//This variable would be later used to populate the data required to render the SEO tags for the page.
+let seoData = {};
 
 const Dzongkhag: React.FC<{
   data: IQuery;
@@ -45,6 +51,9 @@ const Dzongkhag: React.FC<{
             <Image
               src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
               layout="fill"
+              alt={
+                data.dataForDzongkhags![0]?.coverImage?.alternativeText || ""
+              }
             />
           </div>
           <div className={styles["l-content"]}>
@@ -75,8 +84,8 @@ const Dzongkhag: React.FC<{
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const title = ctx.params?.dzongkhag;
-  if (typeof title !== "string") return { notFound: true };
+  const url = ctx.params?.dzongkhag;
+  if (typeof url !== "string") return { notFound: true };
 
   const client = initializeApollo();
 
@@ -84,7 +93,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const { data } = await client.query<IQuery, IVars>({
     query: dzongkhagQuery,
-    variables: { title: Utilities.startCase(title as string) },
+    variables: { title: Utilities.startCase(url as string) },
   });
 
   if (
@@ -94,8 +103,29 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   )
     return { notFound: true };
 
+  seoData = {
+    title: `${data.dataForDzongkhags![0]!.title} | Ideal Travel Creations`,
+    description: data.dataForDzongkhags![0]!.description,
+    canonical: `https://www.idealtravelcreations.bt/bhutan`,
+    openGraph: {
+      images: [
+        {
+          url: data.dataForDzongkhags![0]?.coverImage?.url,
+          alt: data.dataForDzongkhags![0]?.coverImage?.alternativeText,
+          height: data.dataForDzongkhags![0]?.coverImage?.height,
+          width: data.dataForDzongkhags![0]?.coverImage?.width,
+        },
+      ],
+    },
+  };
+
+  const { seoConfig, seoError } = await getSEOConfig(SEO_URL_BASE, seoData);
+  if (seoError) {
+    console.log(seoError);
+    return { notFound: true };
+  }
   return {
-    props: { data, quickLinks },
+    props: { seoConfig, data, quickLinks },
   };
 };
 
@@ -130,4 +160,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export default Dzongkhag;
+export default withSEO(Dzongkhag);

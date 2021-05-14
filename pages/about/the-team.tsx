@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 
 ///<----Local Imports--->
 import Image from "@/components/ImageWrapper";
+import SEOWrapper, { SEOConfig } from "@/components/SEOWrapper";
 
 //Types
 import type { imageType } from "@/src/helperTypes";
@@ -28,15 +29,24 @@ interface IData {
   employeeImage: imageType;
 }
 
+const seoConfig = SEOConfig({
+  title: "The Team | Ideal Travel Creation",
+  description: "The team of Ideal Travel Creaitons.",
+  canonical: `https://www.idealtravelcreations.bt/the-team`,
+});
+
 const TeamPage: React.FC<{ data?: IQuery }> = ({ data }) => {
   return (
-    <div className={styles.team}>
-      <div className={styles["team-cards"]}>
-        {data?.employees?.map((employee, index) => (
-          <Card key={`the-team-1-${index * 2348}`} data={employee as IData} />
-        ))}
+    <>
+      <SEOWrapper config={seoConfig} />
+      <div className={styles.team}>
+        <div className={styles["team-cards"]}>
+          {data?.employees?.map((employee, index) => (
+            <Card key={`the-team-1-${index * 2348}`} data={employee as IData} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

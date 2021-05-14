@@ -1,5 +1,11 @@
+const fs = require("fs");
+const chalk = require("chalk");
 
-        module.exports={
+try {
+  fs.unlinkSync(`${__dirname}/../next.config.js`);
+} catch (e) {}
+
+const config = `{
   
   target: "serverless",
   env: {
@@ -25,7 +31,7 @@
   },
   webpack: (config, options) => {
     config.module.rules.push({
-      test: /.(graphql|gql)$/,
+      test: /\.(graphql|gql)$/,
       exclude: /node_modules/,
       loader: "graphql-tag/loader",
     });
@@ -51,5 +57,16 @@
     return config;
   },
 };
-;
-        
+`;
+
+fs.writeFileSync(
+  `${__dirname}/../next.config.js`,
+  `
+        module.exports=${config};
+        `,
+  (err) => {
+    if (err) {
+      return console.log(chalk.red(err));
+    }
+  }
+);

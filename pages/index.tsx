@@ -1,6 +1,6 @@
 ///<----Global Imports--->
 import React, { useRef } from "react";
-import { GetStaticProps } from "next";
+import { GetStaticProps, NextPage } from "next";
 
 ///<----Local Imports--->
 import Nav from "@/components/Navbar";
@@ -10,6 +10,8 @@ import Hero from "./home/_hero";
 import Parallex from "./home/_parallex";
 import Slider from "../Components/homeSlider";
 import Testimonials from "./home/_testimonials";
+import WhyUs from "./home/why-us";
+import withSEO from "@/components/withSEO";
 
 //Styles
 import styles from "../styles/pages/home.module.scss";
@@ -23,18 +25,20 @@ import {
 } from "@/graphql/generated/graphql-frontend";
 import packageQuery from "@/graphql/packageQuery.graphql";
 import homeTestimonialsQuery from "@/graphql/HomeTestimonials.graphql";
-import WhyUs from "./home/why-us";
 
 //Types
 import { ISliderData } from "@/src/helperTypes";
+import { getSEOConfig } from "@/src/lib/graphql_helperFunc";
 
-const Home: React.FC<{
+//This is the url that is passed to the SEO function of the current page
+const SEO_URL = "/";
+
+const Home: NextPage<{
   sliderData: ISliderData[];
   testimonialsData: IHomeQuery;
 }> = (props) => {
   ///<----Refs--->
   const homeRef = useRef<HTMLDivElement>(null);
-
   return (
     <div className={styles.home} ref={homeRef}>
       <Nav className={styles["home-nav"]} ref={homeRef} />
@@ -49,7 +53,7 @@ const Home: React.FC<{
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const _ = require("lodash");
   const client = initializeApollo();
 
@@ -73,16 +77,20 @@ export const getStaticProps: GetStaticProps = async () => {
     query: homeTestimonialsQuery,
   });
 
+  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
+  if (seoError) return { notFound: true };
+
   if (data.testimonials && data.testimonials?.length === 0) {
     return { notFound: true };
   }
 
   return {
     props: {
+      seoConfig,
       sliderData,
       testimonialsData: data,
     },
   };
 };
 
-export default Home;
+export default withSEO(Home);

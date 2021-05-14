@@ -21,7 +21,7 @@ query fullPkg($title: String) {
       url
       height
       width
-      caption
+      alternativeText
     }
     description
   }

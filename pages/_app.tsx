@@ -1,5 +1,4 @@
 ///<----Global Imports--->
-import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
@@ -51,7 +50,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
         loadingKey: prevState.loadingKey ^ 1,
       }));
     };
-
     const handleRouteChangeEnd = () => {
       setRouter((prevState) => ({
         ...prevState,
@@ -72,9 +70,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
 
   return (
     <>
-      <Head>
-        {/* <NextSeo titleTemplate="%s | Ideal Travel Creations" /> */}
-      </Head>
       <OverlayProvider>
         <div className="overlay" />
         <ApolloProvider client={client}>
@@ -94,5 +89,3 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
   );
 };
 export default App;
-
-//TODO: SEO for all the pages.

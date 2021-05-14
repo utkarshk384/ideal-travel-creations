@@ -4,12 +4,13 @@ import _ from "lodash";
 import axios, { AxiosRequestConfig } from "axios";
 import { FormApi } from "final-form";
 import { Form } from "react-final-form";
-import emailjs from "emailjs-com";
 
 ///<----Local Imports--->
 import FormContent from "@/components/Forms/ContactUs-Form";
 import Map from "@/components/Map";
 import { scrollToInvalidField } from "@/components/Dialog Boxes/TourBooking/helperFunction";
+import { getSEOConfig } from "@/src/lib/graphql_helperFunc";
+import withSEO from "@/components/withSEO";
 
 //Custom Hooks
 import useOverlay from "../../src/Hooks/useOverlay";
@@ -19,8 +20,7 @@ import { IErrors } from "@/src/helperTypes";
 
 //Styles
 import styles from "styles/pages/contact-us.module.scss";
-
-emailjs.init(process.env.EMAILJS_USERID as string);
+import { GetStaticProps } from "next";
 
 interface Idata {
   firstname?: string;
@@ -29,6 +29,8 @@ interface Idata {
   subject?: string;
   message?: string;
 }
+
+const SEO_URL = "/contact";
 
 const ContactPage = () => {
   ///<----Custom Hook--->
@@ -142,4 +144,13 @@ const onsubmitErrors = (form: FormApi) => {
   return { errors, fields };
 };
 
-export default ContactPage;
+export const getStaticProps: GetStaticProps = async () => {
+  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
+  if (seoError) {
+    console.log(seoError);
+    return { notFound: true };
+  }
+
+  return { props: { seoConfig } };
+};
+export default withSEO(ContactPage);

@@ -1,13 +1,21 @@
+///<----Global Imports--->>
 import React from "react";
 import Link from "next/link";
+import { GetStaticProps, NextPage } from "next";
 
+///<----Local Imports--->>
+import { getSEOConfig } from "@/src/lib/graphql_helperFunc";
+import withSEO from "@/components/withSEO";
+
+//Styles
 import styles from "styles/pages/errors.module.scss";
-import { NextPage } from "next";
 
 interface IProps {
   statusCode: number;
   message: string;
 }
+
+const SEO_URL = "/404";
 
 const NotFound: NextPage<IProps> = ({ statusCode, message }) => {
   return (
@@ -21,11 +29,20 @@ const NotFound: NextPage<IProps> = ({ statusCode, message }) => {
           Couldn't find the page that your looking for.
         </p>
         <Link href="/">
-          <a>Back Home?</a>
+          <a href="/">Back Home?</a>
         </Link>
       </div>
     </div>
   );
 };
 
-export default NotFound;
+export const getStaticProps: GetStaticProps = async () => {
+  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
+  if (seoError) {
+    console.log(seoError);
+  }
+
+  return { props: { seoConfig } };
+};
+
+export default withSEO(NotFound);

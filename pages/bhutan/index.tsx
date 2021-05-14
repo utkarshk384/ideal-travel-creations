@@ -7,7 +7,7 @@ import Link from "next/link";
 ///<----Local Imports--->
 import Utilities from "@/src/utils";
 
-import { getAboutBhtPaths } from "@/src/lib/graphql_helperFunc";
+import { getAboutBhtPaths, getSEOConfig } from "@/src/lib/graphql_helperFunc";
 
 //Data
 import introData from "../api/introData.json";
@@ -20,10 +20,13 @@ import type { urlType } from "@/src/helperTypes";
 
 //Styles
 import styles from "styles/pages/bhutan.module.scss";
+import withSEO from "@/components/withSEO";
 interface IintroData {
   key: string;
   val: string;
 }
+
+const SEO_URL = "/bhutan";
 
 const BhutanPage: React.FC<{ data: urlType[] }> = ({ data }) => {
   ///<----Custom Hooks--->
@@ -111,6 +114,12 @@ export const getStaticProps: GetStaticProps = async () => {
     as: "/bhutan/parts-of-bhutan",
   });
 
-  return { props: { data: urls } };
+  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
+  if (seoError) {
+    console.log(seoError);
+    return { notFound: true };
+  }
+
+  return { props: { seoConfig, data: urls } };
 };
-export default BhutanPage;
+export default withSEO(BhutanPage);

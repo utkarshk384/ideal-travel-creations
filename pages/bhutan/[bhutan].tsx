@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown/with-html";
 import gfm from "remark-gfm";
 
 ///<----Local Imports--->
+import withSEO from "@/components/withSEO";
 import Image from "@/components/ImageWrapper";
 
 import Map from "@/components/Map";
@@ -21,7 +22,11 @@ import {
   DataAboutBhutanQuery as IQuery,
   DataAboutBhutanQueryVariables as IVars,
 } from "@/graphql/generated/graphql-frontend";
-import { getAboutBhtPaths, getallPaths } from "@/graphql/../graphql_helperFunc";
+import {
+  getAboutBhtPaths,
+  getallPaths,
+  getSEOConfig,
+} from "@/graphql/../graphql_helperFunc";
 import Utilities from "@/src/utils";
 
 interface Ipaths {
@@ -29,6 +34,9 @@ interface Ipaths {
     bhutan: string;
   };
 }
+
+//This is the base of the SEO URL that will used in the getStaticProps via the getStaticPaths method of next js
+const SEO_URL_BASE = "/bhutan";
 
 const SsgBhutan: React.FC<{
   mainData: IQuery;
@@ -96,8 +104,14 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   )
     return { notFound: true };
 
+  const { seoConfig, seoError } = await getSEOConfig(`${SEO_URL_BASE}/${url}`);
+  if (seoError) {
+    console.log(seoError);
+    return { notFound: true };
+  }
+
   return {
-    props: { mainData: data, quickLinks },
+    props: { seoConfig, mainData: data, quickLinks },
   };
 };
 
@@ -116,4 +130,4 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
   };
 };
 
-export default SsgBhutan;
+export default withSEO(SsgBhutan);

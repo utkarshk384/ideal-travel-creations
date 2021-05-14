@@ -8,6 +8,8 @@ import _ from "lodash";
 ///<----Local Imports--->
 import Image from "@/components/ImageWrapper";
 import withError from "@/components/withError";
+import withSEO from "@/components/withSEO";
+import Utilities from "@/src/utils";
 
 //Styles
 import styles from "styles/pages/dync-Name.module.scss";
@@ -22,8 +24,7 @@ import {
   FilteredPkgCountQuery as ICountQuery,
   FilteredPkgCountQueryVariables as ICountVars,
 } from "@/graphql/generated/graphql-frontend";
-import { getallPaths } from "@/graphql/../graphql_helperFunc";
-import Utilities from "@/src/utils";
+import { getallPaths, getSEOConfig } from "@/graphql/../graphql_helperFunc";
 
 type PkgCountType = { href: string; page: number };
 
@@ -32,6 +33,8 @@ interface IProps {
   pages?: PkgCountType[];
   url?: string;
 }
+
+const SEO_URL_BASE = "/packages";
 
 const PackagePage: React.FC<IProps> = (props) => {
   ///Router
@@ -226,8 +229,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     pages.push({ href: `/packages/${url}`, page: i });
   }
 
+  const { seoConfig, seoError } = await getSEOConfig(
+    `${SEO_URL_BASE}/${ctx.params!.name}`
+  );
+  if (seoError) {
+    console.log(seoError);
+    return { notFound: true };
+  }
+
   return {
     props: {
+      seoConfig,
       data: query.data,
       pages,
       url,
@@ -235,4 +247,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-export default withError(PackagePage);
+export default withSEO(withError(PackagePage));

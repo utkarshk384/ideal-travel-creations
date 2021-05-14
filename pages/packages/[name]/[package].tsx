@@ -1,12 +1,15 @@
 ///<----Global Imports--->
 import React, { useEffect } from "react";
+import { NextSeoProps } from "next-seo";
 import { Transition } from "react-transition-group";
 import { GetServerSideProps } from "next";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
+import _ from "lodash";
 
 ///<----Local Imports--->
 import Image from "@/components/ImageWrapper";
+import withSEO from "@/components/withSEO";
 
 ///Custom Hooks
 import useHideNav from "@/src/Hooks/useHideNav";
@@ -261,6 +264,24 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return { notFound: true };
   }
 
-  return { props: { data: query.data } };
+  const seo = query.data!.packages![0]!;
+
+  const seoConfig: NextSeoProps = {
+    title: `${_.startCase(seo.title)} | Ideal Travel Creations`,
+    description: seo.description,
+    openGraph: {
+      images: [
+        {
+          url: seo.images![0]?.url!,
+          height: seo.images![0]!.height!,
+          width: seo.images![0]!.width!,
+          alt: seo.images![0]!.alternativeText!,
+        },
+      ],
+    },
+    twitter: { cardType: "summary" },
+  };
+
+  return { props: { seoConfig, data: query.data } };
 };
-export default withError(Package);
+export default withSEO(withError(Package));

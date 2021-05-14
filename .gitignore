@@ -12,8 +12,9 @@
 /.next/
 /out/
 
-# ngrok Server
-ngrok.js
+# build-scripts
+development-scripts.js
+production-scripts.js
 
 # production
 /build
@@ -35,7 +36,3 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-
-# dev files
-dummyimg.tsx
