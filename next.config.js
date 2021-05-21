@@ -2,13 +2,6 @@
         module.exports={
   
   target: "serverless",
-  env: {
-    USER: "idealtravelcreation@gmail.com",
-    PASSWORD: "ideal-travel-creation-2012",
-    BACKEND_ENDPOINT: "https://itc-backend-server.herokuapp.com/graphql",
-    MAPBOX_API:
-      "pk.eyJ1IjoidXRrYXJzaGszODQiLCJhIjoiY2ttMWhxcGtyMTMzNTJ1bzZzeDBma3liaiJ9.hEhfkK7bXYTUzlvOHQh8uA",
-  },
   images: {
     domains: ["res.cloudinary.com"],
   },
