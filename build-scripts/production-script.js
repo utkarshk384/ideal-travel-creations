@@ -6,9 +6,7 @@ try {
 } catch (e) {}
 
 const config = `{
-  
-  target: "serverless",
-  images: {
+    images: {
     domains: ["res.cloudinary.com"],
   },
   async redirects() {
