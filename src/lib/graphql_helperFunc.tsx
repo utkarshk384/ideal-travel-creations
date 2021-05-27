@@ -1,6 +1,11 @@
-import { ApolloQueryResult, gql } from "@apollo/client";
+import {
+  ApolloQueryResult,
+  gql,
+  HttpLink,
+  InMemoryCache,
+} from "@apollo/client";
 import _ from "lodash";
-import { initializeApollo } from "./apolloClient";
+import { ApolloClient } from "@apollo/client";
 import SEOQuery from "@/graphql/SEOConfigQuery.graphql";
 import {
   SeoConfigQuery,
@@ -24,10 +29,17 @@ export interface IpkgType {
   name: string;
 }
 
+const apolloClient = new ApolloClient({
+  link: new HttpLink({
+    uri: process.env.BACKEND_ENDPOINT,
+    fetch,
+  }),
+  cache: new InMemoryCache(),
+});
+
 export const getallPaths = async () => {
   return new Promise<{ packageTypes: string[] }>(async (resolve, reject) => {
     try {
-      const client = initializeApollo();
       const query = gql`
         query {
           packageTypes {
@@ -36,7 +48,7 @@ export const getallPaths = async () => {
         }
       `;
 
-      const queryRes = await client.query<{ packageTypes: IpkgType[] }>({
+      const queryRes = await apolloClient.query<{ packageTypes: IpkgType[] }>({
         query,
       });
       const kebab = queryRes.data.packageTypes.map((url) =>
@@ -53,8 +65,6 @@ export const getAboutBhtPaths = async () => {
   return new Promise<ApolloQueryResult<IstaticPathQuery>>(
     async (resolve, reject) => {
       try {
-        const client = initializeApollo();
-
         const query = gql`
           query titlesOfBhutan {
             aboutBhutanSections {
@@ -65,7 +75,7 @@ export const getAboutBhtPaths = async () => {
           }
         `;
 
-        const paths = await client.query<IstaticPathQuery>({ query });
+        const paths = await apolloClient.query<IstaticPathQuery>({ query });
 
         resolve(paths);
       } catch (err) {
@@ -78,11 +88,9 @@ export const getAboutBhtPaths = async () => {
 type SEOReturnType = { seoConfig?: NextSeoProps; seoError?: any[] };
 
 export const getSEOConfig = async (url: string, extraData?: NextSeoProps) => {
-  const client = initializeApollo();
-
   const errors: any[] = [];
 
-  const { data, error } = await client.query<
+  const { data, error } = await apolloClient.query<
     SeoConfigQuery,
     SEOConfigQueryVars
   >({

@@ -7,7 +7,7 @@ try {
 } catch (e) {}
 
 //If true, then the development site connects to the hosted DB.
-const connServerDB = false;
+const connServerDB = true;
 
 // prettier-ignore
 const DB_URL = connServerDB
@@ -68,6 +68,22 @@ const config = `{
 }
 `;
 
+const makeConfig = (config) => {
+  fs.writeFileSync(
+    `${__dirname}/../next.config.js`,
+    `
+  const withSourceMaps = require('@zeit/next-source-maps');
+
+  module.exports=withSourceMaps(${config});`,
+    (err) => {
+      if (err) {
+        return console.log(chalk.red(err));
+      }
+      console.log(chalk.green("ready - ") + val);
+    }
+  );
+};
+
 const onStatusChange = (data) => {
   if (data === "connected" || data === "reconnected") {
     const apiUrl = ngrok.getUrl();
@@ -79,33 +95,23 @@ const onStatusChange = (data) => {
   return console.log(chalk.red(`event - `) + data);
 };
 
-(async function () {
-  return await ngrok
-    .connect({
-      addr: 1337,
-      authtoken: "1g7qKABqqqiG4SdqUxYjN0ZHkra_57MTjjCyGp5rvEg3Cq1i3",
-      region: "in",
-      onStatusChange: (data) => onStatusChange(data),
-    })
-    .then((val) => {
-      console.log(chalk.green("ready - ") + val);
-      const finalConfig = config.replace(
-        "http://localhost:1337/graphqls",
-        `${val}/graphql`
-      );
-      fs.writeFileSync(
-        `${__dirname}/../next.config.js`,
-        `
-        const withSourceMaps = require('@zeit/next-source-maps');
-
-        module.exports=withSourceMaps(${finalConfig});`,
-        (err) => {
-          if (err) {
-            return console.log(chalk.red(err));
-          }
-          console.log(chalk.green("ready - ") + val);
-        }
-      );
-    })
-    .catch((err) => console.log(chalk.red(err)));
-})();
+if (process.argv.length > 2)
+  (async function () {
+    return await ngrok
+      .connect({
+        addr: 1337,
+        authtoken: "1g7qKABqqqiG4SdqUxYjN0ZHkra_57MTjjCyGp5rvEg3Cq1i3",
+        region: "in",
+        onStatusChange: (data) => onStatusChange(data),
+      })
+      .then((val) => {
+        console.log(chalk.green("ready - ") + val);
+        const finalConfig = config.replace(
+          "http://localhost:1337/graphqls",
+          `${val}/graphql`
+        );
+        makeConfig(finalConfig);
+      })
+      .catch((err) => console.log(chalk.red(err)));
+  })();
+else makeConfig(config);
