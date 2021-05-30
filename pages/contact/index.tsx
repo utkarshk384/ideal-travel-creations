@@ -9,14 +9,14 @@ import { Form } from "react-final-form";
 import FormContent from "@/components/Forms/ContactUs-Form";
 import Map from "@/components/Map";
 import { scrollToInvalidField } from "@/components/Dialog Boxes/TourBooking/helperFunction";
-import { getSEOConfig } from "@/src/lib/graphql_helperFunc";
+import { getSEOConfig } from "@/src/helperFunc";
 import withSEO from "@/components/withSEO";
 
 //Custom Hooks
 import useOverlay from "../../src/Hooks/useOverlay";
 
 //Types
-import { IErrors } from "@/src/helperTypes";
+import { IErrors } from "@/src/types/helperTypes";
 
 //Styles
 import styles from "styles/pages/contact-us.module.scss";
@@ -145,11 +145,8 @@ const onsubmitErrors = (form: FormApi) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
-  if (seoError) {
-    console.log(seoError);
-    return { notFound: true };
-  }
+  const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
+  if (error.length > 0) return { props: { error } };
 
   return { props: { seoConfig } };
 };

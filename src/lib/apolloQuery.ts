@@ -1,7 +1,7 @@
 import { QueryOptions } from "@apollo/client";
 import { initializeApollo } from "./apolloClient";
-import { handleError } from "@/src/handleApolloError";
-import { ApolloErrorType } from "../helperTypes";
+import { handleError } from "@/src/handleErrors";
+import { ApolloErrorType } from "../types/helperTypes";
 
 type queryVars = Record<string, any>;
 

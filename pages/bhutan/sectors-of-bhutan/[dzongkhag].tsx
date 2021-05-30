@@ -15,12 +15,12 @@ import styles from "styles/pages/dync-dzongkhag.module.scss";
 //Graphql
 import { initializeApollo } from "@/apolloClient";
 import { gql } from "@apollo/client";
-import { getallPaths, getSEOConfig } from "src/lib/graphql_helperFunc";
+import { getSEOConfig } from "@/src/helperFunc";
 import dzongkhagQuery from "@/graphql/dzongkhagQuery.graphql";
 import type {
   DzongkhagQuery as IQuery,
   DzongkhagQueryVariables as IVars,
-} from "@/graphql/generated/graphql-frontend";
+} from "@/src/types/generated/graphql-frontend";
 import withSEO from "@/components/withSEO";
 
 type pathType = { params: { dzongkhag: string } };
@@ -32,10 +32,7 @@ let seoData = {};
 
 const Dzongkhag: React.FC<{
   data: IQuery;
-  quickLinks: {
-    packageTypes: string[];
-  };
-}> = ({ data, quickLinks }) => {
+}> = ({ data }) => {
   return (
     <div className={styles["ssg-dzongkhags"]}>
       <div className={styles.container}>
@@ -77,7 +74,7 @@ const Dzongkhag: React.FC<{
             )}
           </div>
         </div>
-        <QuickLinks data={quickLinks} />
+        <QuickLinks />
       </div>
     </div>
   );
@@ -89,18 +86,12 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const client = initializeApollo();
 
-  const quickLinks = await getallPaths();
-
   const { data } = await client.query<IQuery, IVars>({
     query: dzongkhagQuery,
     variables: { title: Utilities.startCase(url as string) },
   });
 
-  if (
-    data.dataForDzongkhags &&
-    data.dataForDzongkhags.length === 0 &&
-    quickLinks.packageTypes.length === 0
-  )
+  if (data.dataForDzongkhags && data.dataForDzongkhags.length === 0)
     return { notFound: true };
 
   seoData = {
@@ -119,13 +110,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     },
   };
 
-  const { seoConfig, seoError } = await getSEOConfig(SEO_URL_BASE, seoData);
-  if (seoError) {
-    console.log(seoError);
-    return { notFound: true };
-  }
+  const { data: seoConfig, error } = await getSEOConfig(SEO_URL_BASE, seoData);
+  if (error) return { props: { error } };
+
   return {
-    props: { seoConfig, data, quickLinks },
+    props: { seoConfig, data },
   };
 };
 

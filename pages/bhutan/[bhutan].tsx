@@ -21,12 +21,8 @@ import ssgBhutanQuery from "@/graphql/ssgBhutan.graphql";
 import {
   DataAboutBhutanQuery as IQuery,
   DataAboutBhutanQueryVariables as IVars,
-} from "@/graphql/generated/graphql-frontend";
-import {
-  getAboutBhtPaths,
-  getallPaths,
-  getSEOConfig,
-} from "@/graphql/../graphql_helperFunc";
+} from "@/src/types/generated/graphql-frontend";
+import { getAboutBhtPaths, getSEOConfig } from "@/src/helperFunc";
 import Utilities from "@/src/utils";
 
 interface Ipaths {
@@ -40,7 +36,6 @@ const SEO_URL_BASE = "/bhutan";
 
 const SsgBhutan: React.FC<{
   mainData: IQuery;
-  quickLinks: { packageTypes: string[] };
 }> = (props) => {
   ///Router
   const router = useRouter();
@@ -77,7 +72,7 @@ const SsgBhutan: React.FC<{
               )}
             </div>
           </div>
-          <QuickLinks data={props.quickLinks} />
+          <QuickLinks />
         </div>
       </div>
     </>
@@ -90,40 +85,31 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   if (typeof url !== "string") return { notFound: true };
 
-  const quickLinks = await getallPaths();
-
   const { data } = await client.query<IQuery, IVars>({
     query: ssgBhutanQuery,
     variables: { url },
   });
 
-  if (
-    data.aboutBhutanSections &&
-    data.aboutBhutanSections.length === 0 &&
-    quickLinks.packageTypes.length === 0
-  )
+  if (data.aboutBhutanSections && data.aboutBhutanSections.length === 0)
     return { notFound: true };
 
-  const { seoConfig, seoError } = await getSEOConfig(`${SEO_URL_BASE}/${url}`);
-  if (seoError) {
-    console.log(seoError);
-    return { notFound: true };
-  }
+  const { data: seoConfig, error } = await getSEOConfig(
+    `${SEO_URL_BASE}/${url}`
+  );
+  if (error.length > 0) return { props: { error } };
 
   return {
-    props: { seoConfig, mainData: data, quickLinks },
+    props: { seoConfig, mainData: data },
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths: Ipaths[] = [];
+  const payload = await getAboutBhtPaths();
 
-  const path = await getAboutBhtPaths();
+  if (payload.error.length > 0) return { paths: [], fallback: false };
 
-  if (path.data.aboutBhutanSections.length !== 0)
-    path.data.aboutBhutanSections.map((item) =>
-      paths.push({ params: { bhutan: item.url } })
-    );
+  payload.data.map((item) => paths.push({ params: { bhutan: item.url } }));
   return {
     paths,
     fallback: false,

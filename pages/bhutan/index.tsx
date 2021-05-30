@@ -7,7 +7,7 @@ import Link from "next/link";
 ///<----Local Imports--->
 import Utilities from "@/src/utils";
 
-import { getAboutBhtPaths, getSEOConfig } from "@/src/lib/graphql_helperFunc";
+import { getAboutBhtPaths, getSEOConfig } from "@/src/helperFunc";
 
 //Data
 import introData from "../api/introData.json";
@@ -16,7 +16,7 @@ import introData from "../api/introData.json";
 import useWindowSize, { breakpoints } from "@/src/Hooks/useWindow";
 
 //Types
-import type { urlType } from "@/src/helperTypes";
+import type { urlType } from "@/src/types/helperTypes";
 
 //Styles
 import styles from "styles/pages/bhutan.module.scss";
@@ -96,11 +96,11 @@ const IntroRight: React.FC<{ data: IintroData }> = ({ data }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const urls: urlType[] = [];
 
-  const { data } = await getAboutBhtPaths();
+  const { data, error: queryError } = await getAboutBhtPaths();
 
-  if (data.aboutBhutanSections.length === 0) return { notFound: true };
+  if (queryError.length > 0 || data.length === 0) return { notFound: true };
 
-  data.aboutBhutanSections.forEach((url) =>
+  data.forEach((url) =>
     urls.push({
       name: Utilities.startCase(url.url),
       href: "/bhutan/[bhutan]",
@@ -114,11 +114,8 @@ export const getStaticProps: GetStaticProps = async () => {
     as: "/bhutan/parts-of-bhutan",
   });
 
-  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
-  if (seoError) {
-    console.log(seoError);
-    return { notFound: true };
-  }
+  const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
+  if (error.length > 0) return { props: { error } };
 
   return { props: { seoConfig, data: urls } };
 };

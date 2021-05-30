@@ -8,14 +8,13 @@ const Image: React.FC<IProps<{ overideImage?: boolean }>> = ({
   overideImage,
   ...rest
 }) => {
-  if (process.env.NODE_ENV === "production")
-    return <NextImage src={src} {...rest} />;
+  const { height, width, layout, ...others } = { ...rest };
+
+  if (process.env.NODE_ENV === "production" || overideImage)
+    <NextImage src={src} {...rest} />;
 
   return (
-    <NextImage
-      src={overideImage ? src : "/images/travel-packages/Happiness-Travel.jpg"}
-      {...rest}
-    />
+    <NextImage layout="fill" {...others} src={"/images/Happiness-Travel.jpg"} />
   );
 };
 

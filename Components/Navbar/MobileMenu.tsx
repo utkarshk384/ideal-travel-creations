@@ -9,7 +9,7 @@ import { Transition } from "react-transition-group";
 import { routerIndex } from "./helperFuncs";
 
 //Types
-import type { setBooleanState, urlType } from "@/src/helperTypes";
+import type { setBooleanState, urlType } from "@/src/types/helperTypes";
 
 //Data
 import navLinks from "./NavData";

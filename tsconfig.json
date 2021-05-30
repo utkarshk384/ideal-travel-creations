@@ -31,7 +31,7 @@
       "@/src/*": ["./src/*"],
       "@/api/*": ["./pages/api/*"],
       "@/pages/*": ["./pages/*"],
-      "react-multiline-clamp": ["./types/react-multiline-clamp"]
+      "react-multiline-clamp": ["src/types/react-multiline-clamp"],
     }
   },
   "include": [
@@ -39,7 +39,7 @@
     "html.d.ts",
     "graphql.d.ts",
     "**/*.ts",
-    "**/*.tsx", 
+    "**/*.tsx", "sts.config.js", 
     ],
   "exclude": [
     "node_modules", "types/**/*"

@@ -7,7 +7,7 @@ import Image from "@/components/ImageWrapper";
 import SEOWrapper, { SEOConfig } from "@/components/SEOWrapper";
 
 //Types
-import type { imageType } from "@/src/helperTypes";
+import type { imageType } from "@/src/types/helperTypes";
 
 //Styles
 import styles from "styles/pages/team.module.scss";
@@ -18,7 +18,7 @@ import EmployeesQuery from "@/graphql/EmployessQuery.graphql";
 import {
   GetEmployeesQuery as IQuery,
   GetEmployeesQueryVariables as IVars,
-} from "@/graphql/generated/graphql-frontend";
+} from "@/src/types/generated/graphql-frontend";
 
 interface IData {
   __typename: string;

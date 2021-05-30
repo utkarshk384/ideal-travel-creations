@@ -6,13 +6,13 @@ import Link from "next/link";
 import Image from "@/components/ImageWrapper";
 
 //Types
-import { imageType } from "@/src/helperTypes";
+import { imageType } from "@/src/types/helperTypes";
 
 //Styles
 import styles from "styles/pages/home.module.scss";
 
 //Graphql
-import { HomeTestimonialsQuery as IQuery } from "@/graphql/generated/graphql-frontend";
+import { HomeTestimonialsQuery as IQuery } from "@/src/types/generated/graphql-frontend";
 
 interface IData {
   __typename: string;

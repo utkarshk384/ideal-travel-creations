@@ -17,7 +17,11 @@ const config = `{
         destination: "/testimonials/1",
         permanent: true,
       },
-      
+      {
+        source: "/packages",
+        destination: "/packages/cultural-tours-in-bhutan?page=1",
+        permanent: true,
+      },
     ];
   },
   webpack: (config, options) => {

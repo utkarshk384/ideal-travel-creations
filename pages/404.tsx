@@ -4,7 +4,7 @@ import Link from "next/link";
 import { GetStaticProps, NextPage } from "next";
 
 ///<----Local Imports--->>
-import { getSEOConfig } from "@/src/lib/graphql_helperFunc";
+import { getSEOConfig } from "@/src/helperFunc";
 import withSEO from "@/components/withSEO";
 
 //Styles
@@ -17,7 +17,7 @@ interface IProps {
 
 const SEO_URL = "/404";
 
-const NotFound: NextPage<IProps> = ({ statusCode, message }) => {
+const NotFound: NextPage<IProps> = () => {
   return (
     <div className={styles["not-found"]}>
       <div className={styles.container}>
@@ -37,12 +37,10 @@ const NotFound: NextPage<IProps> = ({ statusCode, message }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
-  if (seoError) {
-    console.log(seoError);
-  }
+  const { data, error } = await getSEOConfig(SEO_URL);
+  if (error.length > 0) return { props: { error } };
 
-  return { props: { seoConfig } };
+  return { props: { data } };
 };
 
 export default withSEO(NotFound);

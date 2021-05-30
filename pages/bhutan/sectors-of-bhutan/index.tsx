@@ -12,7 +12,7 @@ import Utilities from "@/src/utils";
 import withSEO from "@/components/withSEO";
 
 //Types
-import { imageType } from "@/src/helperTypes";
+import { imageType } from "@/src/types/helperTypes";
 
 //Graphql
 import { initializeApollo } from "@/apolloClient";
@@ -20,7 +20,7 @@ import { gql } from "@apollo/client";
 
 //Styles
 import styles from "styles/pages/sectors-of-bhutan.module.scss";
-import { getSEOConfig } from "@/src/lib/graphql_helperFunc";
+import { getSEOConfig } from "@/src/helperFunc";
 
 type DzongkhagType = {
   title: string;
@@ -135,11 +135,8 @@ export const getStaticProps: GetStaticProps = async () => {
     query,
   });
 
-  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
-  if (seoError) {
-    console.log(seoError);
-    return { notFound: true };
-  }
+  const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
+  if (error) return { props: { error } };
 
   if (data.dataForDzongkhags && data.dataForDzongkhags.length === 0)
     return { notFound: true };

@@ -7,12 +7,12 @@ try {
 } catch (e) {}
 
 //If true, then the development site connects to the hosted DB.
-const connServerDB = true;
+const connServerDB = false;
 
 // prettier-ignore
 const DB_URL = connServerDB
-  ? "\"https://itc-backend-server.herokuapp.com/graphql"
-  : "\"http://localhost:1337/graphql";
+  ? "\"https://itc-backend-server.herokuapp.com"
+  : "\"http://localhost:1337";
 
 const config = `{
   
@@ -34,6 +34,11 @@ const config = `{
       {
         source: "/testimonials",
         destination: "/testimonials/1",
+        permanent: true,
+      },
+      {
+        source: "/packages",
+        destination: "/packages/cultural-tours-in-bhutan?page=1",
         permanent: true,
       },
     ];

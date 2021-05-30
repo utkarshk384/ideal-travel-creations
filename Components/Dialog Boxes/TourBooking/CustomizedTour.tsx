@@ -11,7 +11,7 @@ import CustomizedTourForm from "@/components/Forms/CustomizedTour-Form";
 import { scrollToInvalidField } from "./helperFunction";
 
 //Types
-import { IErrors } from "@/src/helperTypes";
+import { IErrors } from "@/src/types/helperTypes";
 
 //Styles
 import styles from "styles/components/tour-dialog.module.scss";

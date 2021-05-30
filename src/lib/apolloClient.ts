@@ -9,10 +9,11 @@ import fetch from "cross-fetch";
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 export const createApolloClient = () => {
+  const URI = `${process.env.BACKEND_ENDPOINT}/graphql`;
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
-      uri: process.env.BACKEND_ENDPOINT,
+      uri: URI,
       fetch,
     }),
     cache: new InMemoryCache(),

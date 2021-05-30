@@ -2,7 +2,7 @@
 import _ from "lodash";
 
 //Graphql
-import { getAboutBhtPaths } from "@/graphql/../graphql_helperFunc";
+import { getAboutBhtPaths } from "@/src/helperFunc";
 
 const bhtPaths: any[] = [];
 
@@ -12,25 +12,27 @@ bhtPaths.push({
   as: "/bhutan",
 });
 
-getAboutBhtPaths()
-  .then((paths) => {
-    paths.data.aboutBhutanSections.map((path) => {
-      if (path.navURL)
-        return bhtPaths.push({
-          name: `${_.startCase(path.url)
-            .replace("And", "and")
-            .replace("In", "in")}`,
-          href: "/bhutan/[bhutan]",
-          as: `/bhutan/${path.url}`,
-        });
-    });
-    bhtPaths.push({
-      name: "Sectors of Bhutan",
-      href: "/bhutan/sectors-of-bhutan",
-      as: "/bhutan/sectors-of-bhutan",
-    });
-  })
-  .catch((err) => console.log(err));
+getAboutBhtPaths().then((payload) => {
+  //TODO: Add proper error handling
+  if (payload.error.length > 0) {
+    throw new Error(JSON.stringify(payload.error));
+  }
+  payload.data.map((path) => {
+    if (path.navURL)
+      return bhtPaths.push({
+        name: `${_.startCase(path.url)
+          .replace("And", "and")
+          .replace("In", "in")}`,
+        href: "/bhutan/[bhutan]",
+        as: `/bhutan/${path.url}`,
+      });
+  });
+  bhtPaths.push({
+    name: "Sectors of Bhutan",
+    href: "/bhutan/sectors-of-bhutan",
+    as: "/bhutan/sectors-of-bhutan",
+  });
+});
 
 const navLinks = [
   {

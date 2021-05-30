@@ -6,7 +6,7 @@
   env: {
     USER: "utkarshk202@gmail.com",
     PASSWORD: "uk don12345",
-    BACKEND_ENDPOINT: "https://itc-backend-server.herokuapp.com/graphql",
+    BACKEND_ENDPOINT: "http://localhost:1337",
     GOOGLE_MAPS_API: "AIzaSyDr1wtmTRCrtaSI3uFP4iEP6i7a_1J6i_o", //Requires Google Billing account to properly use the API service
     MAPBOX_API:
       "pk.eyJ1IjoidXRrYXJzaGszODQiLCJhIjoiY2ttMWhxcGtyMTMzNTJ1bzZzeDBma3liaiJ9.hEhfkK7bXYTUzlvOHQh8uA",
@@ -21,6 +21,11 @@
       {
         source: "/testimonials",
         destination: "/testimonials/1",
+        permanent: true,
+      },
+      {
+        source: "/packages",
+        destination: "/packages/cultural-tours-in-bhutan?page=1",
         permanent: true,
       },
     ];

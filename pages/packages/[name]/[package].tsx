@@ -28,7 +28,7 @@ import type {
   FullPkgQuery as IQuery,
   FullPkgQueryVariables as IVars,
   ComponentItineraryItinerary as Iitinerary,
-} from "@/graphql/generated/graphql-frontend";
+} from "@/src/types/generated/graphql-frontend";
 import fullPkgQuery from "@/graphql/fullPkgQuery.graphql";
 import withError from "@/components/withError";
 import Utilities from "@/src/utils";
@@ -266,6 +266,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const seo = query.data!.packages![0]!;
 
+  //TODO: Make SEO available on backend GUI
   const seoConfig: NextSeoProps = {
     title: `${_.startCase(seo.title)} | Ideal Travel Creations`,
     description: seo.description,

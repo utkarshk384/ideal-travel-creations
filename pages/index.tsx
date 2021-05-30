@@ -22,13 +22,13 @@ import {
   PackageDetailsQuery as IQuery,
   PackageDetailsQueryVariables as Ivar,
   HomeTestimonialsQuery as IHomeQuery,
-} from "@/graphql/generated/graphql-frontend";
+} from "@/src/types/generated/graphql-frontend";
 import packageQuery from "@/graphql/packageQuery.graphql";
 import homeTestimonialsQuery from "@/graphql/HomeTestimonials.graphql";
 
 //Types
-import { ISliderData } from "@/src/helperTypes";
-import { getSEOConfig } from "@/src/lib/graphql_helperFunc";
+import { ISliderData } from "@/src/types/helperTypes";
+import { getSEOConfig } from "@/src/helperFunc";
 
 //This is the url that is passed to the SEO function of the current page
 const SEO_URL = "/";
@@ -53,7 +53,7 @@ const Home: NextPage<{
   );
 };
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async () => {
   const _ = require("lodash");
   const client = initializeApollo();
 
@@ -77,8 +77,8 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     query: homeTestimonialsQuery,
   });
 
-  const { seoConfig, seoError } = await getSEOConfig(SEO_URL);
-  if (seoError) return { notFound: true };
+  const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
+  if (error.length > 0) return { props: { error } };
 
   if (data.testimonials && data.testimonials?.length === 0) {
     return { notFound: true };

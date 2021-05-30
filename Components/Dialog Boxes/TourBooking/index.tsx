@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 ///<---Local Imports--->
 import BookTour from "./BookTour";
 import CustomizedTour from "./CustomizedTour";
-import { setBooleanState } from "@/src/helperTypes";
+import { setBooleanState } from "@/src/types/helperTypes";
 
 //Animations
 import Anim from "@/animations/TourBookingAnimation";
