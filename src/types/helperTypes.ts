@@ -31,6 +31,7 @@ export interface DataWithError<T, K = string[]> {
   data: T;
   error: K;
 }
+<<<<<<< HEAD
 
 export interface homeData<T = string> {
   heading: string;
@@ -41,3 +42,5 @@ export interface homeAffilationData {
   image: Pick<imageType, "url" | "alternativeText">;
   url: string;
 }
+=======
+>>>>>>> 799c392748433afc52a16b4c8e57e9984cdc5d79

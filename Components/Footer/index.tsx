@@ -1,7 +1,6 @@
 ///<----Global Imports--->
 import _ from "lodash";
 import React, { useRef, useState } from "react";
-import { ApolloQueryResult } from "@apollo/client/core";
 import Link from "next/link";
 
 ///<----Local Imports--->

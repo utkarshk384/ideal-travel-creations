@@ -1,6 +1,5 @@
-
-        module.exports={
-    images: {
+module.exports = {
+  images: {
     domains: ["res.cloudinary.com"],
   },
   async redirects() {
@@ -46,5 +45,3 @@
     return config;
   },
 };
-;
-        

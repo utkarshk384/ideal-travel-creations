@@ -23,6 +23,12 @@ export type Scalars = {
   Upload: any;
 };
 
+export type PkgTypes = {
+  __typename?: 'pkgTypes';
+  name: Scalars['String'];
+  description: Scalars['String'];
+};
+
 export type FileInfoInput = {
   name?: Maybe<Scalars['String']>;
   alternativeText?: Maybe<Scalars['String']>;
@@ -1713,6 +1719,7 @@ export type EditComponentItineraryItineraryInput = {
   content?: Maybe<Scalars['String']>;
   altitude?: Maybe<Scalars['String']>;
   distance?: Maybe<Scalars['String']>;
+<<<<<<< HEAD:src/types/generated/graphql-frontend.ts
 };
 
 export enum Enum_Componentseoopengraph_Ogtype {
@@ -1742,6 +1749,37 @@ export type ComponentSeoOpenGraphInput = {
   ogImage?: Maybe<Scalars['ID']>;
 };
 
+=======
+};
+
+export enum Enum_Componentseoopengraph_Ogtype {
+  Basic = 'basic',
+  Video = 'video',
+  Article = 'article',
+  Book = 'book',
+  Profile = 'profile'
+}
+
+export type ComponentSeoOpenGraph = {
+  __typename?: 'ComponentSeoOpenGraph';
+  id: Scalars['ID'];
+  _id: Scalars['ID'];
+  ogUrl: Scalars['String'];
+  ogTitle: Scalars['String'];
+  ogType: Enum_Componentseoopengraph_Ogtype;
+  ogDescription: Scalars['String'];
+  ogImage?: Maybe<UploadFile>;
+};
+
+export type ComponentSeoOpenGraphInput = {
+  ogUrl: Scalars['String'];
+  ogTitle: Scalars['String'];
+  ogType?: Maybe<Enum_Componentseoopengraph_Ogtype>;
+  ogDescription: Scalars['String'];
+  ogImage?: Maybe<Scalars['ID']>;
+};
+
+>>>>>>> 799c392748433afc52a16b4c8e57e9984cdc5d79:src/lib/graphql/generated/graphql-frontend.ts
 export type EditComponentSeoOpenGraphInput = {
   id?: Maybe<Scalars['ID']>;
   ogUrl?: Maybe<Scalars['String']>;
@@ -1780,7 +1818,11 @@ export type EditComponentSeoTwitterCardInput = {
   handle?: Maybe<Scalars['String']>;
 };
 
+<<<<<<< HEAD:src/types/generated/graphql-frontend.ts
 export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | PkgTypes | AboutBhutanSection | AboutBhutanSectionConnection | AboutBhutanSectionAggregator | AboutBhutanSectionGroupBy | AboutBhutanSectionConnectionId | AboutBhutanSectionConnection_Id | AboutBhutanSectionConnectionCreatedAt | AboutBhutanSectionConnectionUpdatedAt | AboutBhutanSectionConnectionTitle | AboutBhutanSectionConnectionContent | AboutBhutanSectionConnectionCoverImage | AboutBhutanSectionConnectionUrl | AboutBhutanSectionConnectionNavUrl | AboutBhutanSectionConnectionPublished_At | CreateAboutBhutanSectionPayload | UpdateAboutBhutanSectionPayload | DeleteAboutBhutanSectionPayload | DataForDzongkhag | DataForDzongkhagConnection | DataForDzongkhagAggregator | DataForDzongkhagGroupBy | DataForDzongkhagConnectionId | DataForDzongkhagConnection_Id | DataForDzongkhagConnectionCreatedAt | DataForDzongkhagConnectionUpdatedAt | DataForDzongkhagConnectionTitle | DataForDzongkhagConnectionInterestedPlaces | DataForDzongkhagConnectionCoverImage | DataForDzongkhagConnectionSectors | DataForDzongkhagConnectionDescription | DataForDzongkhagConnectionPublished_At | CreateDataForDzongkhagPayload | UpdateDataForDzongkhagPayload | DeleteDataForDzongkhagPayload | Employee | EmployeeConnection | EmployeeAggregator | EmployeeAggregatorSum | EmployeeAggregatorAvg | EmployeeAggregatorMin | EmployeeAggregatorMax | EmployeeGroupBy | EmployeeConnectionId | EmployeeConnection_Id | EmployeeConnectionCreatedAt | EmployeeConnectionUpdatedAt | EmployeeConnectionEmployeeName | EmployeeConnectionEmployeeOccupation | EmployeeConnectionEmployeeDescription | EmployeeConnectionEmployeeImage | EmployeeConnectionEmployeeId | EmployeeConnectionExtraDetails | CreateEmployeePayload | UpdateEmployeePayload | DeleteEmployeePayload | Package | PackageConnection | PackageAggregator | PackageAggregatorSum | PackageAggregatorAvg | PackageAggregatorMin | PackageAggregatorMax | PackageGroupBy | PackageConnectionId | PackageConnection_Id | PackageConnectionCreatedAt | PackageConnectionUpdatedAt | PackageConnectionPackageId | PackageConnectionDuration | PackageConnectionDescription | PackageConnectionTitle | PackageConnectionPackageInsight | PackageConnectionPackageType | PackageConnectionPackageHighlight | PackageConnectionBestTravelTime | PackageConnectionArrival | PackageConnectionDeparture | PackageConnectionDestinations | PackageConnectionPublished_At | CreatePackagePayload | UpdatePackagePayload | DeletePackagePayload | SeoOfPage | SeoOfPageConnection | SeoOfPageAggregator | SeoOfPageGroupBy | SeoOfPageConnectionId | SeoOfPageConnection_Id | SeoOfPageConnectionCreatedAt | SeoOfPageConnectionUpdatedAt | SeoOfPageConnectionPageUrl | SeoOfPageConnectionTitle | SeoOfPageConnectionDescription | SeoOfPageConnectionCanonical | SeoOfPageConnectionOpenGraphTags | SeoOfPageConnectionTwitterCard | CreateSeoOfPagePayload | UpdateSeoOfPagePayload | DeleteSeoOfPagePayload | Testimonial | TestimonialConnection | TestimonialAggregator | TestimonialAggregatorSum | TestimonialAggregatorAvg | TestimonialAggregatorMin | TestimonialAggregatorMax | TestimonialGroupBy | TestimonialConnectionId | TestimonialConnection_Id | TestimonialConnectionCreatedAt | TestimonialConnectionUpdatedAt | TestimonialConnectionGuestName | TestimonialConnectionImage | TestimonialConnectionComments | TestimonialConnectionUniqueId | TestimonialConnectionPublished_At | CreateTestimonialPayload | UpdateTestimonialPayload | DeleteTestimonialPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_Id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_Id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_Id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentItineraryItinerary | ComponentSeoOpenGraph | ComponentSeoTwitterCard;
+=======
+export type Morph = PkgTypes | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | AboutBhutanSection | AboutBhutanSectionConnection | AboutBhutanSectionAggregator | AboutBhutanSectionGroupBy | AboutBhutanSectionConnectionId | AboutBhutanSectionConnection_Id | AboutBhutanSectionConnectionCreatedAt | AboutBhutanSectionConnectionUpdatedAt | AboutBhutanSectionConnectionTitle | AboutBhutanSectionConnectionContent | AboutBhutanSectionConnectionCoverImage | AboutBhutanSectionConnectionUrl | AboutBhutanSectionConnectionNavUrl | AboutBhutanSectionConnectionPublished_At | CreateAboutBhutanSectionPayload | UpdateAboutBhutanSectionPayload | DeleteAboutBhutanSectionPayload | DataForDzongkhag | DataForDzongkhagConnection | DataForDzongkhagAggregator | DataForDzongkhagGroupBy | DataForDzongkhagConnectionId | DataForDzongkhagConnection_Id | DataForDzongkhagConnectionCreatedAt | DataForDzongkhagConnectionUpdatedAt | DataForDzongkhagConnectionTitle | DataForDzongkhagConnectionInterestedPlaces | DataForDzongkhagConnectionCoverImage | DataForDzongkhagConnectionSectors | DataForDzongkhagConnectionDescription | DataForDzongkhagConnectionPublished_At | CreateDataForDzongkhagPayload | UpdateDataForDzongkhagPayload | DeleteDataForDzongkhagPayload | Employee | EmployeeConnection | EmployeeAggregator | EmployeeAggregatorSum | EmployeeAggregatorAvg | EmployeeAggregatorMin | EmployeeAggregatorMax | EmployeeGroupBy | EmployeeConnectionId | EmployeeConnection_Id | EmployeeConnectionCreatedAt | EmployeeConnectionUpdatedAt | EmployeeConnectionEmployeeName | EmployeeConnectionEmployeeOccupation | EmployeeConnectionEmployeeDescription | EmployeeConnectionEmployeeImage | EmployeeConnectionEmployeeId | EmployeeConnectionExtraDetails | CreateEmployeePayload | UpdateEmployeePayload | DeleteEmployeePayload | Package | PackageConnection | PackageAggregator | PackageAggregatorSum | PackageAggregatorAvg | PackageAggregatorMin | PackageAggregatorMax | PackageGroupBy | PackageConnectionId | PackageConnection_Id | PackageConnectionCreatedAt | PackageConnectionUpdatedAt | PackageConnectionPackageId | PackageConnectionDuration | PackageConnectionDescription | PackageConnectionTitle | PackageConnectionPackageInsight | PackageConnectionPackageType | PackageConnectionPackageHighlight | PackageConnectionBestTravelTime | PackageConnectionArrival | PackageConnectionDeparture | PackageConnectionDestinations | PackageConnectionPublished_At | CreatePackagePayload | UpdatePackagePayload | DeletePackagePayload | SeoOfPage | SeoOfPageConnection | SeoOfPageAggregator | SeoOfPageGroupBy | SeoOfPageConnectionId | SeoOfPageConnection_Id | SeoOfPageConnectionCreatedAt | SeoOfPageConnectionUpdatedAt | SeoOfPageConnectionPageUrl | SeoOfPageConnectionTitle | SeoOfPageConnectionDescription | SeoOfPageConnectionCanonical | SeoOfPageConnectionOpenGraphTags | SeoOfPageConnectionTwitterCard | CreateSeoOfPagePayload | UpdateSeoOfPagePayload | DeleteSeoOfPagePayload | Testimonial | TestimonialConnection | TestimonialAggregator | TestimonialAggregatorSum | TestimonialAggregatorAvg | TestimonialAggregatorMin | TestimonialAggregatorMax | TestimonialGroupBy | TestimonialConnectionId | TestimonialConnection_Id | TestimonialConnectionCreatedAt | TestimonialConnectionUpdatedAt | TestimonialConnectionGuestName | TestimonialConnectionImage | TestimonialConnectionComments | TestimonialConnectionUniqueId | TestimonialConnectionPublished_At | CreateTestimonialPayload | UpdateTestimonialPayload | DeleteTestimonialPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_Id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_Id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_Id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentItineraryItinerary | ComponentSeoOpenGraph | ComponentSeoTwitterCard;
+>>>>>>> 799c392748433afc52a16b4c8e57e9984cdc5d79:src/lib/graphql/generated/graphql-frontend.ts
 
 export type InputId = {
   id: Scalars['ID'];
