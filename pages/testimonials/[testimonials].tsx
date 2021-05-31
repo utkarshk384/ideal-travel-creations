@@ -1,14 +1,17 @@
 ///<----Global Imports--->
 import React from "react";
-import Image from "next/image";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { gql } from "@apollo/client";
 
 ///<----Local Imports--->
+import { getSEOConfig } from "@/api/helperFunc";
+import Image from "@/components/ImageWrapper";
+import withSEO from "@/components/withSEO";
 
 //Types
-import { imageType } from "@/src/helperTypes";
+import { imageType } from "@/src/types/helperTypes";
 
 //Styles
 import styles from "styles/pages/testimonials.module.scss";
@@ -19,8 +22,7 @@ import testimonailsQuery from "@/graphql/testimonialsQuery.graphql";
 import type {
   GetTestimonialsQuery as IQuery,
   GetTestimonialsQueryVariables as IVars,
-} from "@/graphql/generated/graphql-frontend";
-import { useRouter } from "next/router";
+} from "@/src/types/generated/graphql-frontend";
 
 interface IData {
   __typename?: string;
@@ -28,6 +30,8 @@ interface IData {
   comments: string;
   image: imageType;
 }
+
+const SEO_URL = "/testimonials";
 
 const Testimonials: React.FC<{ data?: IQuery; pages?: string[] }> = ({
   data,
@@ -104,7 +108,6 @@ const Card: React.FC<{ data?: IData; flip?: boolean }> = ({ data, flip }) => {
         layout="fill"
         src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
       />
-      {/* <Image layout="fill" src={data?.image.url as string} /> */}
     </div>
   );
 
@@ -176,8 +179,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   for (let i = 0; i < pageCount; i++) urls.push(`/testimonials/${i + 1}`);
 
+  const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
+  if (error.length > 0) return { props: { error } };
+
   return {
     props: {
+      seoConfig,
       data,
       pages: urls,
     },
@@ -204,4 +211,4 @@ const getPages = async () => {
   });
 };
 
-export default Testimonials;
+export default withSEO(Testimonials);

@@ -23,12 +23,6 @@ export type Scalars = {
   Upload: any;
 };
 
-export type PkgTypes = {
-  __typename?: 'pkgTypes';
-  name: Scalars['String'];
-  description: Scalars['String'];
-};
-
 export type FileInfoInput = {
   name?: Maybe<Scalars['String']>;
   alternativeText?: Maybe<Scalars['String']>;
@@ -74,6 +68,12 @@ export type UsersPermissionsLoginPayload = {
 export type UserPermissionsPasswordPayload = {
   __typename?: 'UserPermissionsPasswordPayload';
   ok: Scalars['Boolean'];
+};
+
+export type PkgTypes = {
+  __typename?: 'pkgTypes';
+  name: Scalars['String'];
+  description: Scalars['String'];
 };
 
 export type AboutBhutanSection = {
@@ -820,6 +820,157 @@ export type DeletePackagePayload = {
   package?: Maybe<Package>;
 };
 
+export type SeoOfPage = {
+  __typename?: 'SeoOfPage';
+  id: Scalars['ID'];
+  _id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  pageURL: Scalars['String'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  canonical: Scalars['String'];
+  OpenGraphTags?: Maybe<ComponentSeoOpenGraph>;
+  TwitterCard?: Maybe<ComponentSeoTwitterCard>;
+};
+
+export type SeoOfPageConnection = {
+  __typename?: 'SeoOfPageConnection';
+  values?: Maybe<Array<Maybe<SeoOfPage>>>;
+  groupBy?: Maybe<SeoOfPageGroupBy>;
+  aggregate?: Maybe<SeoOfPageAggregator>;
+};
+
+export type SeoOfPageAggregator = {
+  __typename?: 'SeoOfPageAggregator';
+  count?: Maybe<Scalars['Int']>;
+  totalCount?: Maybe<Scalars['Int']>;
+};
+
+export type SeoOfPageGroupBy = {
+  __typename?: 'SeoOfPageGroupBy';
+  id?: Maybe<Array<Maybe<SeoOfPageConnectionId>>>;
+  _id?: Maybe<Array<Maybe<SeoOfPageConnection_Id>>>;
+  createdAt?: Maybe<Array<Maybe<SeoOfPageConnectionCreatedAt>>>;
+  updatedAt?: Maybe<Array<Maybe<SeoOfPageConnectionUpdatedAt>>>;
+  pageURL?: Maybe<Array<Maybe<SeoOfPageConnectionPageUrl>>>;
+  title?: Maybe<Array<Maybe<SeoOfPageConnectionTitle>>>;
+  description?: Maybe<Array<Maybe<SeoOfPageConnectionDescription>>>;
+  canonical?: Maybe<Array<Maybe<SeoOfPageConnectionCanonical>>>;
+  OpenGraphTags?: Maybe<Array<Maybe<SeoOfPageConnectionOpenGraphTags>>>;
+  TwitterCard?: Maybe<Array<Maybe<SeoOfPageConnectionTwitterCard>>>;
+};
+
+export type SeoOfPageConnectionId = {
+  __typename?: 'SeoOfPageConnectionId';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnection_Id = {
+  __typename?: 'SeoOfPageConnection_id';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnectionCreatedAt = {
+  __typename?: 'SeoOfPageConnectionCreatedAt';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnectionUpdatedAt = {
+  __typename?: 'SeoOfPageConnectionUpdatedAt';
+  key?: Maybe<Scalars['DateTime']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnectionPageUrl = {
+  __typename?: 'SeoOfPageConnectionPageURL';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnectionTitle = {
+  __typename?: 'SeoOfPageConnectionTitle';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnectionDescription = {
+  __typename?: 'SeoOfPageConnectionDescription';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnectionCanonical = {
+  __typename?: 'SeoOfPageConnectionCanonical';
+  key?: Maybe<Scalars['String']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnectionOpenGraphTags = {
+  __typename?: 'SeoOfPageConnectionOpenGraphTags';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageConnectionTwitterCard = {
+  __typename?: 'SeoOfPageConnectionTwitterCard';
+  key?: Maybe<Scalars['ID']>;
+  connection?: Maybe<SeoOfPageConnection>;
+};
+
+export type SeoOfPageInput = {
+  pageURL: Scalars['String'];
+  title: Scalars['String'];
+  description: Scalars['String'];
+  canonical: Scalars['String'];
+  OpenGraphTags?: Maybe<ComponentSeoOpenGraphInput>;
+  TwitterCard?: Maybe<ComponentSeoTwitterCardInput>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type EditSeoOfPageInput = {
+  pageURL?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  canonical?: Maybe<Scalars['String']>;
+  OpenGraphTags?: Maybe<EditComponentSeoOpenGraphInput>;
+  TwitterCard?: Maybe<EditComponentSeoTwitterCardInput>;
+  created_by?: Maybe<Scalars['ID']>;
+  updated_by?: Maybe<Scalars['ID']>;
+};
+
+export type CreateSeoOfPageInput = {
+  data?: Maybe<SeoOfPageInput>;
+};
+
+export type CreateSeoOfPagePayload = {
+  __typename?: 'createSeoOfPagePayload';
+  seoOfPage?: Maybe<SeoOfPage>;
+};
+
+export type UpdateSeoOfPageInput = {
+  where?: Maybe<InputId>;
+  data?: Maybe<EditSeoOfPageInput>;
+};
+
+export type UpdateSeoOfPagePayload = {
+  __typename?: 'updateSeoOfPagePayload';
+  seoOfPage?: Maybe<SeoOfPage>;
+};
+
+export type DeleteSeoOfPageInput = {
+  where?: Maybe<InputId>;
+};
+
+export type DeleteSeoOfPagePayload = {
+  __typename?: 'deleteSeoOfPagePayload';
+  seoOfPage?: Maybe<SeoOfPage>;
+};
+
 export type Testimonial = {
   __typename?: 'Testimonial';
   id: Scalars['ID'];
@@ -1564,7 +1715,72 @@ export type EditComponentItineraryItineraryInput = {
   distance?: Maybe<Scalars['String']>;
 };
 
-export type Morph = PkgTypes | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | AboutBhutanSection | AboutBhutanSectionConnection | AboutBhutanSectionAggregator | AboutBhutanSectionGroupBy | AboutBhutanSectionConnectionId | AboutBhutanSectionConnection_Id | AboutBhutanSectionConnectionCreatedAt | AboutBhutanSectionConnectionUpdatedAt | AboutBhutanSectionConnectionTitle | AboutBhutanSectionConnectionContent | AboutBhutanSectionConnectionCoverImage | AboutBhutanSectionConnectionUrl | AboutBhutanSectionConnectionNavUrl | AboutBhutanSectionConnectionPublished_At | CreateAboutBhutanSectionPayload | UpdateAboutBhutanSectionPayload | DeleteAboutBhutanSectionPayload | DataForDzongkhag | DataForDzongkhagConnection | DataForDzongkhagAggregator | DataForDzongkhagGroupBy | DataForDzongkhagConnectionId | DataForDzongkhagConnection_Id | DataForDzongkhagConnectionCreatedAt | DataForDzongkhagConnectionUpdatedAt | DataForDzongkhagConnectionTitle | DataForDzongkhagConnectionInterestedPlaces | DataForDzongkhagConnectionCoverImage | DataForDzongkhagConnectionSectors | DataForDzongkhagConnectionDescription | DataForDzongkhagConnectionPublished_At | CreateDataForDzongkhagPayload | UpdateDataForDzongkhagPayload | DeleteDataForDzongkhagPayload | Employee | EmployeeConnection | EmployeeAggregator | EmployeeAggregatorSum | EmployeeAggregatorAvg | EmployeeAggregatorMin | EmployeeAggregatorMax | EmployeeGroupBy | EmployeeConnectionId | EmployeeConnection_Id | EmployeeConnectionCreatedAt | EmployeeConnectionUpdatedAt | EmployeeConnectionEmployeeName | EmployeeConnectionEmployeeOccupation | EmployeeConnectionEmployeeDescription | EmployeeConnectionEmployeeImage | EmployeeConnectionEmployeeId | EmployeeConnectionExtraDetails | CreateEmployeePayload | UpdateEmployeePayload | DeleteEmployeePayload | Package | PackageConnection | PackageAggregator | PackageAggregatorSum | PackageAggregatorAvg | PackageAggregatorMin | PackageAggregatorMax | PackageGroupBy | PackageConnectionId | PackageConnection_Id | PackageConnectionCreatedAt | PackageConnectionUpdatedAt | PackageConnectionPackageId | PackageConnectionDuration | PackageConnectionDescription | PackageConnectionTitle | PackageConnectionPackageInsight | PackageConnectionPackageType | PackageConnectionPackageHighlight | PackageConnectionBestTravelTime | PackageConnectionArrival | PackageConnectionDeparture | PackageConnectionDestinations | PackageConnectionPublished_At | CreatePackagePayload | UpdatePackagePayload | DeletePackagePayload | Testimonial | TestimonialConnection | TestimonialAggregator | TestimonialAggregatorSum | TestimonialAggregatorAvg | TestimonialAggregatorMin | TestimonialAggregatorMax | TestimonialGroupBy | TestimonialConnectionId | TestimonialConnection_Id | TestimonialConnectionCreatedAt | TestimonialConnectionUpdatedAt | TestimonialConnectionGuestName | TestimonialConnectionImage | TestimonialConnectionComments | TestimonialConnectionUniqueId | TestimonialConnectionPublished_At | CreateTestimonialPayload | UpdateTestimonialPayload | DeleteTestimonialPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_Id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_Id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_Id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentItineraryItinerary;
+export enum Enum_Componentseoopengraph_Ogtype {
+  Basic = 'basic',
+  Video = 'video',
+  Article = 'article',
+  Book = 'book',
+  Profile = 'profile'
+}
+
+export type ComponentSeoOpenGraph = {
+  __typename?: 'ComponentSeoOpenGraph';
+  id: Scalars['ID'];
+  _id: Scalars['ID'];
+  ogUrl: Scalars['String'];
+  ogTitle: Scalars['String'];
+  ogType: Enum_Componentseoopengraph_Ogtype;
+  ogDescription: Scalars['String'];
+  ogImage?: Maybe<UploadFile>;
+};
+
+export type ComponentSeoOpenGraphInput = {
+  ogUrl: Scalars['String'];
+  ogTitle: Scalars['String'];
+  ogType?: Maybe<Enum_Componentseoopengraph_Ogtype>;
+  ogDescription: Scalars['String'];
+  ogImage?: Maybe<Scalars['ID']>;
+};
+
+export type EditComponentSeoOpenGraphInput = {
+  id?: Maybe<Scalars['ID']>;
+  ogUrl?: Maybe<Scalars['String']>;
+  ogTitle?: Maybe<Scalars['String']>;
+  ogType?: Maybe<Enum_Componentseoopengraph_Ogtype>;
+  ogDescription?: Maybe<Scalars['String']>;
+  ogImage?: Maybe<Scalars['ID']>;
+};
+
+export enum Enum_Componentseotwittercard_Cardtype {
+  Summary = 'summary',
+  SummaryLargeImage = 'summary_large_image',
+  App = 'app',
+  Player = 'player'
+}
+
+export type ComponentSeoTwitterCard = {
+  __typename?: 'ComponentSeoTwitterCard';
+  id: Scalars['ID'];
+  _id: Scalars['ID'];
+  cardType: Enum_Componentseotwittercard_Cardtype;
+  site?: Maybe<Scalars['String']>;
+  handle?: Maybe<Scalars['String']>;
+};
+
+export type ComponentSeoTwitterCardInput = {
+  cardType?: Maybe<Enum_Componentseotwittercard_Cardtype>;
+  site?: Maybe<Scalars['String']>;
+  handle?: Maybe<Scalars['String']>;
+};
+
+export type EditComponentSeoTwitterCardInput = {
+  id?: Maybe<Scalars['ID']>;
+  cardType?: Maybe<Enum_Componentseotwittercard_Cardtype>;
+  site?: Maybe<Scalars['String']>;
+  handle?: Maybe<Scalars['String']>;
+};
+
+export type Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | PkgTypes | AboutBhutanSection | AboutBhutanSectionConnection | AboutBhutanSectionAggregator | AboutBhutanSectionGroupBy | AboutBhutanSectionConnectionId | AboutBhutanSectionConnection_Id | AboutBhutanSectionConnectionCreatedAt | AboutBhutanSectionConnectionUpdatedAt | AboutBhutanSectionConnectionTitle | AboutBhutanSectionConnectionContent | AboutBhutanSectionConnectionCoverImage | AboutBhutanSectionConnectionUrl | AboutBhutanSectionConnectionNavUrl | AboutBhutanSectionConnectionPublished_At | CreateAboutBhutanSectionPayload | UpdateAboutBhutanSectionPayload | DeleteAboutBhutanSectionPayload | DataForDzongkhag | DataForDzongkhagConnection | DataForDzongkhagAggregator | DataForDzongkhagGroupBy | DataForDzongkhagConnectionId | DataForDzongkhagConnection_Id | DataForDzongkhagConnectionCreatedAt | DataForDzongkhagConnectionUpdatedAt | DataForDzongkhagConnectionTitle | DataForDzongkhagConnectionInterestedPlaces | DataForDzongkhagConnectionCoverImage | DataForDzongkhagConnectionSectors | DataForDzongkhagConnectionDescription | DataForDzongkhagConnectionPublished_At | CreateDataForDzongkhagPayload | UpdateDataForDzongkhagPayload | DeleteDataForDzongkhagPayload | Employee | EmployeeConnection | EmployeeAggregator | EmployeeAggregatorSum | EmployeeAggregatorAvg | EmployeeAggregatorMin | EmployeeAggregatorMax | EmployeeGroupBy | EmployeeConnectionId | EmployeeConnection_Id | EmployeeConnectionCreatedAt | EmployeeConnectionUpdatedAt | EmployeeConnectionEmployeeName | EmployeeConnectionEmployeeOccupation | EmployeeConnectionEmployeeDescription | EmployeeConnectionEmployeeImage | EmployeeConnectionEmployeeId | EmployeeConnectionExtraDetails | CreateEmployeePayload | UpdateEmployeePayload | DeleteEmployeePayload | Package | PackageConnection | PackageAggregator | PackageAggregatorSum | PackageAggregatorAvg | PackageAggregatorMin | PackageAggregatorMax | PackageGroupBy | PackageConnectionId | PackageConnection_Id | PackageConnectionCreatedAt | PackageConnectionUpdatedAt | PackageConnectionPackageId | PackageConnectionDuration | PackageConnectionDescription | PackageConnectionTitle | PackageConnectionPackageInsight | PackageConnectionPackageType | PackageConnectionPackageHighlight | PackageConnectionBestTravelTime | PackageConnectionArrival | PackageConnectionDeparture | PackageConnectionDestinations | PackageConnectionPublished_At | CreatePackagePayload | UpdatePackagePayload | DeletePackagePayload | SeoOfPage | SeoOfPageConnection | SeoOfPageAggregator | SeoOfPageGroupBy | SeoOfPageConnectionId | SeoOfPageConnection_Id | SeoOfPageConnectionCreatedAt | SeoOfPageConnectionUpdatedAt | SeoOfPageConnectionPageUrl | SeoOfPageConnectionTitle | SeoOfPageConnectionDescription | SeoOfPageConnectionCanonical | SeoOfPageConnectionOpenGraphTags | SeoOfPageConnectionTwitterCard | CreateSeoOfPagePayload | UpdateSeoOfPagePayload | DeleteSeoOfPagePayload | Testimonial | TestimonialConnection | TestimonialAggregator | TestimonialAggregatorSum | TestimonialAggregatorAvg | TestimonialAggregatorMin | TestimonialAggregatorMax | TestimonialGroupBy | TestimonialConnectionId | TestimonialConnection_Id | TestimonialConnectionCreatedAt | TestimonialConnectionUpdatedAt | TestimonialConnectionGuestName | TestimonialConnectionImage | TestimonialConnectionComments | TestimonialConnectionUniqueId | TestimonialConnectionPublished_At | CreateTestimonialPayload | UpdateTestimonialPayload | DeleteTestimonialPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_Id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_Metadata | DeleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_Id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | CreateRolePayload | UpdateRolePayload | DeleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_Id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | CreateUserPayload | UpdateUserPayload | DeleteUserPayload | ComponentItineraryItinerary | ComponentSeoOpenGraph | ComponentSeoTwitterCard;
 
 export type InputId = {
   id: Scalars['ID'];
@@ -1597,6 +1813,9 @@ export type Query = {
   package?: Maybe<Package>;
   packages?: Maybe<Array<Maybe<Package>>>;
   packagesConnection?: Maybe<PackageConnection>;
+  seoOfPage?: Maybe<SeoOfPage>;
+  seoOfPages?: Maybe<Array<Maybe<SeoOfPage>>>;
+  seoOfPagesConnection?: Maybe<SeoOfPageConnection>;
   testimonial?: Maybe<Testimonial>;
   testimonials?: Maybe<Array<Maybe<Testimonial>>>;
   testimonialsConnection?: Maybe<TestimonialConnection>;
@@ -1609,11 +1828,11 @@ export type Query = {
   user?: Maybe<UsersPermissionsUser>;
   users?: Maybe<Array<Maybe<UsersPermissionsUser>>>;
   usersConnection?: Maybe<UsersPermissionsUserConnection>;
+  me?: Maybe<UsersPermissionsMe>;
   dzongkhagsCount: Scalars['Int'];
   packagesCount: Scalars['Int'];
   packageTypes?: Maybe<Array<Maybe<PkgTypes>>>;
   testimonialsCount: Scalars['Int'];
-  me?: Maybe<UsersPermissionsMe>;
 };
 
 
@@ -1702,6 +1921,29 @@ export type QueryPackagesArgs = {
 
 
 export type QueryPackagesConnectionArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+};
+
+
+export type QuerySeoOfPageArgs = {
+  id: Scalars['ID'];
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QuerySeoOfPagesArgs = {
+  sort?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
+  start?: Maybe<Scalars['Int']>;
+  where?: Maybe<Scalars['JSON']>;
+  publicationState?: Maybe<PublicationState>;
+};
+
+
+export type QuerySeoOfPagesConnectionArgs = {
   sort?: Maybe<Scalars['String']>;
   limit?: Maybe<Scalars['Int']>;
   start?: Maybe<Scalars['Int']>;
@@ -1823,6 +2065,9 @@ export type Mutation = {
   createPackage?: Maybe<CreatePackagePayload>;
   updatePackage?: Maybe<UpdatePackagePayload>;
   deletePackage?: Maybe<DeletePackagePayload>;
+  createSeoOfPage?: Maybe<CreateSeoOfPagePayload>;
+  updateSeoOfPage?: Maybe<UpdateSeoOfPagePayload>;
+  deleteSeoOfPage?: Maybe<DeleteSeoOfPagePayload>;
   createTestimonial?: Maybe<CreateTestimonialPayload>;
   updateTestimonial?: Maybe<UpdateTestimonialPayload>;
   deleteTestimonial?: Maybe<DeleteTestimonialPayload>;
@@ -1908,6 +2153,21 @@ export type MutationUpdatePackageArgs = {
 
 export type MutationDeletePackageArgs = {
   input?: Maybe<DeletePackageInput>;
+};
+
+
+export type MutationCreateSeoOfPageArgs = {
+  input?: Maybe<CreateSeoOfPageInput>;
+};
+
+
+export type MutationUpdateSeoOfPageArgs = {
+  input?: Maybe<UpdateSeoOfPageInput>;
+};
+
+
+export type MutationDeleteSeoOfPageArgs = {
+  input?: Maybe<DeleteSeoOfPageInput>;
 };
 
 
@@ -2036,17 +2296,43 @@ export type GetEmployeesQuery = (
   )>>> }
 );
 
-export type HomeTestimonialsQueryVariables = Exact<{ [key: string]: never; }>;
+export type HomeTestimonialsQueryVariables = Exact<{
+  limit?: Maybe<Scalars['Int']>;
+}>;
 
 
 export type HomeTestimonialsQuery = (
   { __typename?: 'Query' }
   & { testimonials?: Maybe<Array<Maybe<(
     { __typename?: 'Testimonial' }
-    & Pick<Testimonial, 'guestName' | 'comments'>
+    & Pick<Testimonial, '_id' | 'guestName' | 'comments'>
     & { image?: Maybe<(
       { __typename?: 'UploadFile' }
       & Pick<UploadFile, 'url' | 'caption' | 'width' | 'height'>
+    )> }
+  )>>> }
+);
+
+export type SeoConfigQueryVariables = Exact<{
+  url?: Maybe<Scalars['String']>;
+}>;
+
+
+export type SeoConfigQuery = (
+  { __typename?: 'Query' }
+  & { seoOfPages?: Maybe<Array<Maybe<(
+    { __typename?: 'SeoOfPage' }
+    & Pick<SeoOfPage, 'title' | 'description' | 'canonical'>
+    & { OpenGraphTags?: Maybe<(
+      { __typename?: 'ComponentSeoOpenGraph' }
+      & Pick<ComponentSeoOpenGraph, 'ogUrl' | 'ogTitle' | 'ogType' | 'ogDescription'>
+      & { ogImage?: Maybe<(
+        { __typename?: 'UploadFile' }
+        & Pick<UploadFile, 'url' | 'alternativeText' | 'width' | 'height'>
+      )> }
+    )>, TwitterCard?: Maybe<(
+      { __typename?: 'ComponentSeoTwitterCard' }
+      & Pick<ComponentSeoTwitterCard, 'cardType' | 'site' | 'handle'>
     )> }
   )>>> }
 );
@@ -2063,7 +2349,7 @@ export type DzongkhagQuery = (
     & Pick<DataForDzongkhag, 'title' | 'description' | 'sectors' | 'InterestedPlaces'>
     & { coverImage?: Maybe<(
       { __typename?: 'UploadFile' }
-      & Pick<UploadFile, 'width' | 'height' | 'url' | 'caption'>
+      & Pick<UploadFile, 'width' | 'height' | 'url' | 'alternativeText'>
     )> }
   )>>> }
 );
@@ -2093,7 +2379,7 @@ export type FullPkgQuery = (
       & Pick<ComponentItineraryItinerary, '_id' | 'name' | 'time' | 'distance' | 'content' | 'altitude'>
     )>>>, images?: Maybe<Array<Maybe<(
       { __typename?: 'UploadFile' }
-      & Pick<UploadFile, 'url' | 'height' | 'width' | 'caption'>
+      & Pick<UploadFile, 'url' | 'height' | 'width' | 'alternativeText'>
     )>>> }
   )>>> }
 );

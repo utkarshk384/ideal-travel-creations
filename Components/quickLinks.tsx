@@ -4,20 +4,21 @@ import Link from "next/link";
 import _ from "lodash";
 
 ///<----Local Imports--->
+import utils from "@/src/utils";
 
 import { FourDots } from "@/components/SVGS/Spinners";
 
 //Types
-import type { urlType } from "@/src/helperTypes";
+import type { urlType } from "@/src/types/helperTypes";
 
 //Styles
 import styles from "styles/components/quickLinks.module.scss";
 
 //Custom Hooks
 import useHideNav from "@/src/Hooks/useHideNav";
-import { getAboutBhtPaths, getallPaths } from "@/src/lib/graphql_helperFunc";
+import { getAboutBhtPaths, getPackagesPaths } from "@/api/helperFunc";
 
-const QuickLinks: React.FC<{ data?: { packageTypes: string[] } }> = (props) => {
+const QuickLinks: React.FC = () => {
   ///<----Custom Hooks--->
   const visible = useHideNav(false); // Used to hide the navbar
 
@@ -53,25 +54,20 @@ const QuickLinks: React.FC<{ data?: { packageTypes: string[] } }> = (props) => {
   );
 };
 
-const Links: React.FC<{ data: urlType[]; error: string }> = ({
+const Links: React.FC<{ data: urlType[]; error: string[] }> = ({
   data,
   error,
 }) => {
-  if (!error)
-    return (
-      <>
-        {data?.map((link, index) => (
-          <Link
-            key={`quick-links-map-1-${index}`}
-            href={link.href}
-            as={link.as}
-          >
-            {link.name}
-          </Link>
-        ))}
-      </>
-    );
-  return <p>{error}</p>;
+  if (error.length > 0) return <p>{error}</p>;
+  return (
+    <>
+      {data?.map((link, index) => (
+        <Link key={`quick-links-map-1-${index}`} href={link.href} as={link.as}>
+          {link.name}
+        </Link>
+      ))}
+    </>
+  );
 };
 
 const useGetPaths = () => {
@@ -81,33 +77,36 @@ const useGetPaths = () => {
   ///<----Refs--->
   const PkgsPaths = useRef<urlType[]>([]);
   const abtBhtPaths = useRef<urlType[]>([]);
-  const error = useRef<string>("");
+  const error = useRef<string[]>([]);
 
   useEffect(() => {
     if (PkgsPaths.current.length === 0 && abtBhtPaths.current.length === 0) {
-      Promise.all([getallPaths(), getAboutBhtPaths()])
+      Promise.all([getPackagesPaths()])
         .then((values) => {
-          const pkgPaths = values[0].packageTypes;
+          if (values[0].error.length > 0) {
+            values[0].error.forEach((err) => error.current.push(err));
+            return;
+          }
+          const pkgPaths = values[0].data;
           pkgPaths.map((url) =>
             PkgsPaths.current.push({
-              name: _.startCase(url).replace("And", "and").replace("In", "in"),
+              name: utils.startCase(url),
               href: "/packages/[name]",
               as: `/packages/${url}`,
             })
           );
-          const bhtPaths = values[1].data.aboutBhutanSections;
-          bhtPaths.map((url) =>
-            abtBhtPaths.current.push({
-              name: _.startCase(url.url)
-                .replace("And", "and")
-                .replace("In", "in"),
-              href: "/bhutan/[bhutan]",
-              as: `/bhutan/${url.url}`,
-            })
-          );
-        })
-        .catch((err) => {
-          error.current = err;
+          // if (values[1].error.length > 0) {
+          //   values[1].error.forEach((err) => error.current.push(err));
+          //   return;
+          // }
+          // const bhtPaths = values[1].data;
+          // bhtPaths.map((url) =>
+          //   abtBhtPaths.current.push({
+          //     name: utils.startCase(url.url),
+          //     href: "/bhutan/[bhutan]",
+          //     as: `/bhutan/${url.url}`,
+          //   })
+          // );
         })
         .finally(() => {
           setLoading(false);

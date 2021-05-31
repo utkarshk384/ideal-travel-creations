@@ -17,6 +17,15 @@ declare module '*/HomeTestimonials.graphql' {
 }
     
 
+declare module '*/SEOConfigQuery.graphql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const seoConfig: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/dzongkhagQuery.graphql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;

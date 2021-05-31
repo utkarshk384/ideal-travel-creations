@@ -34,7 +34,7 @@ import type {
   hovState,
   IHoverState,
 } from "../../src/reducers/hoverReducer";
-import type { urlType } from "@/src/helperTypes";
+import type { urlType } from "@/src/types/helperTypes";
 import useOverlay from "@/src/Hooks/useOverlay";
 
 interface IProps {
@@ -127,8 +127,11 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
             <a href="/">
               {/* PROD: Change Image URL */}
               <Image
-                // src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247763/ideal_logo_white_b68b04b7ec.png"
-                src="/images/logo/ideal-logo-white.png"
+                src={
+                  process.env.NODE_ENV === "production"
+                    ? "https://res.cloudinary.com/djujm0tsp/image/upload/v1617247763/ideal_logo_white_b68b04b7ec.png"
+                    : "/ideal-logo-white.png"
+                }
                 width={215}
                 height={85}
                 layout="fixed"

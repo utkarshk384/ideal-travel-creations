@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown/with-html";
 import gfm from "remark-gfm";
 
 ///<----Local Imports--->
+import withSEO from "@/components/withSEO";
 import Image from "@/components/ImageWrapper";
 
 import Map from "@/components/Map";
@@ -20,8 +21,8 @@ import ssgBhutanQuery from "@/graphql/ssgBhutan.graphql";
 import {
   DataAboutBhutanQuery as IQuery,
   DataAboutBhutanQueryVariables as IVars,
-} from "@/graphql/generated/graphql-frontend";
-import { getAboutBhtPaths, getallPaths } from "@/graphql/../graphql_helperFunc";
+} from "@/src/types/generated/graphql-frontend";
+import { getAboutBhtPaths, getSEOConfig } from "@/api/helperFunc";
 import Utilities from "@/src/utils";
 
 interface Ipaths {
@@ -30,9 +31,11 @@ interface Ipaths {
   };
 }
 
+//This is the base of the SEO URL that will used in the getStaticProps via the getStaticPaths method of next js
+const SEO_URL_BASE = "/bhutan";
+
 const SsgBhutan: React.FC<{
   mainData: IQuery;
-  quickLinks: { packageTypes: string[] };
 }> = (props) => {
   ///Router
   const router = useRouter();
@@ -69,7 +72,7 @@ const SsgBhutan: React.FC<{
               )}
             </div>
           </div>
-          <QuickLinks data={props.quickLinks} />
+          <QuickLinks />
         </div>
       </div>
     </>
@@ -82,38 +85,35 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   if (typeof url !== "string") return { notFound: true };
 
-  const quickLinks = await getallPaths();
-
   const { data } = await client.query<IQuery, IVars>({
     query: ssgBhutanQuery,
     variables: { url },
   });
 
-  if (
-    data.aboutBhutanSections &&
-    data.aboutBhutanSections.length === 0 &&
-    quickLinks.packageTypes.length === 0
-  )
+  if (data.aboutBhutanSections && data.aboutBhutanSections.length === 0)
     return { notFound: true };
 
+  const { data: seoConfig, error } = await getSEOConfig(
+    `${SEO_URL_BASE}/${url}`
+  );
+  if (error.length > 0) return { props: { error } };
+
   return {
-    props: { mainData: data, quickLinks },
+    props: { seoConfig, mainData: data },
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths: Ipaths[] = [];
+  const payload = await getAboutBhtPaths();
 
-  const path = await getAboutBhtPaths();
+  if (payload.error.length > 0) return { paths: [], fallback: false };
 
-  if (path.data.aboutBhutanSections.length !== 0)
-    path.data.aboutBhutanSections.map((item) =>
-      paths.push({ params: { bhutan: item.url } })
-    );
+  payload.data.map((item) => paths.push({ params: { bhutan: item.url } }));
   return {
     paths,
     fallback: false,
   };
 };
 
-export default SsgBhutan;
+export default withSEO(SsgBhutan);

@@ -8,7 +8,7 @@ query dzongkhag($title: String = "") {
       width
       height
       url
-      caption
+      alternativeText
     }
   }
 }

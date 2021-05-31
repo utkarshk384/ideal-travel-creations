@@ -9,9 +9,10 @@ import Clamp from "react-multiline-clamp";
 ///<----Local Imports--->
 import Image from "@/components/ImageWrapper";
 import Utilities from "@/src/utils";
+import withSEO from "@/components/withSEO";
 
 //Types
-import { imageType } from "@/src/helperTypes";
+import { imageType } from "@/src/types/helperTypes";
 
 //Graphql
 import { initializeApollo } from "@/apolloClient";
@@ -19,6 +20,7 @@ import { gql } from "@apollo/client";
 
 //Styles
 import styles from "styles/pages/sectors-of-bhutan.module.scss";
+import { getSEOConfig } from "@/api/helperFunc";
 
 type DzongkhagType = {
   title: string;
@@ -26,6 +28,8 @@ type DzongkhagType = {
   coverImage: imageType;
   sectors: string;
 };
+
+const SEO_URL = "/bhutan/sectors-of-bhutan";
 
 const SectionBhutan: React.FC<{
   data?: { dataForDzongkhags: DzongkhagType[] };
@@ -131,12 +135,15 @@ export const getStaticProps: GetStaticProps = async () => {
     query,
   });
 
+  const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
+  if (error) return { props: { error } };
+
   if (data.dataForDzongkhags && data.dataForDzongkhags.length === 0)
     return { notFound: true };
 
   return {
-    props: { data },
+    props: { seoConfig, data },
   };
 };
 
-export default SectionBhutan;
+export default withSEO(SectionBhutan);

@@ -1,5 +1,6 @@
-query HomeTestimonials {
-  testimonials(limit: 3) {
+query HomeTestimonials($limit: Int) {
+  testimonials(limit: $limit) {
+    _id
     guestName
     comments
     image {

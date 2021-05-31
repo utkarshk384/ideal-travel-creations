@@ -8,6 +8,8 @@ import _ from "lodash";
 ///<----Local Imports--->
 import Image from "@/components/ImageWrapper";
 import withError from "@/components/withError";
+import withSEO from "@/components/withSEO";
+import Utilities from "@/src/utils";
 
 //Styles
 import styles from "styles/pages/dync-Name.module.scss";
@@ -21,9 +23,8 @@ import {
   PackagesFilterQueryVariables as IFilteredvars,
   FilteredPkgCountQuery as ICountQuery,
   FilteredPkgCountQueryVariables as ICountVars,
-} from "@/graphql/generated/graphql-frontend";
-import { getallPaths } from "@/graphql/../graphql_helperFunc";
-import Utilities from "@/src/utils";
+} from "@/src/types/generated/graphql-frontend";
+import { getPackagesPaths, getSEOConfig } from "@/api/helperFunc";
 
 type PkgCountType = { href: string; page: number };
 
@@ -32,6 +33,8 @@ interface IProps {
   pages?: PkgCountType[];
   url?: string;
 }
+
+const SEO_URL_BASE = "/packages";
 
 const PackagePage: React.FC<IProps> = (props) => {
   ///Router
@@ -180,9 +183,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   //The value of this variable is the value that is passed to the `start` offset in the query.
   const dataOffset = PAGE === 1 ? 0 : ITEM_PER_PAGE * PAGE - ITEM_PER_PAGE;
-  const paths = await getallPaths().catch((e) => {});
+  const paths = await getPackagesPaths();
 
-  if (!paths) return { notFound: true };
+  if (paths.error.length > 0) return { props: { error: paths.error } };
 
   const urlExists = { exists: false };
 
@@ -191,7 +194,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const formattedUrl = startCaseUrl.split(" ").join("");
 
   ///If given path exists then the query is made.
-  paths.packageTypes.forEach((path) => {
+  paths.data.forEach((path) => {
     if (path === url) urlExists.exists = true;
   });
 
@@ -226,8 +229,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     pages.push({ href: `/packages/${url}`, page: i });
   }
 
+  const { data: seoConfig, error } = await getSEOConfig(
+    `${SEO_URL_BASE}/${ctx.params!.name}`
+  );
+
+  if (seoConfig && Object.keys(seoConfig).length == 0)
+    return { notFound: true };
+  if (error.length > 0) return { props: { error } };
+
   return {
     props: {
+      seoConfig,
       data: query.data,
       pages,
       url,
@@ -235,4 +247,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-export default withError(PackagePage);
+export default withSEO(withError(PackagePage));

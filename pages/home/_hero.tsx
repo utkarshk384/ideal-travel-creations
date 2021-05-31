@@ -1,5 +1,5 @@
 /// <---Global Imports--->
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 /// <---Local Imports--->
 import Image from "@/components/ImageWrapper";
@@ -16,10 +16,13 @@ const Hero: React.FC = () => {
     []
   );
 
+  //<---States--->
+  const [imgLoad, setLoad] = useState(false);
+
   //<---useEffects--->
   useEffect(() => {
-    homeAnimation.slideIn(heroTextRef);
-  }, []);
+    if (imgLoad) homeAnimation.slideIn(heroTextRef, 1);
+  }, [imgLoad]);
 
   return (
     <div className={styles.hero}>
@@ -28,6 +31,8 @@ const Hero: React.FC = () => {
         layout="fill"
         className={styles["hero-bg"]}
         priority
+        onLoad={() => setLoad(true)}
+        loading="eager"
       />
       <div className={styles["hero-container"]} id="home-page">
         <div className={styles["hero-center-text"]}>

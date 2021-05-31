@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /// <---Global Imports--->
 import React, { useRef, useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import Clamp from "react-multiline-clamp";
 
 /// <---Local Imports--->
+import Utilities from "@/src/utils";
+import Image from "./ImageWrapper";
+
 //Custom Hooks
 import useWindowSize, { breakpoints } from "../src/Hooks/useWindow";
 
@@ -16,8 +18,7 @@ import homeAnimation from "../src/Animations/homeAnimation";
 import styles from "styles/pages/home.module.scss";
 
 //Types
-import { ISliderData } from "@/src/helperTypes";
-import Utilities from "@/src/utils";
+import { ISliderData } from "@/src/types/helperTypes";
 
 const Slider: React.FC<{ data: ISliderData[] }> = ({ data }) => {
   /// <---States--->
@@ -103,18 +104,12 @@ const Slider: React.FC<{ data: ISliderData[] }> = ({ data }) => {
                 } `}
               >
                 <div className={styles["sc-img-wrapper"]}>
-                  {/* PROD: Change the image location  */}
-                  {/* <Image
+                  <Image
                     layout="intrinsic"
                     height={card.images?.[0]?.height}
                     width={card.images?.[0]?.width}
                     objectFit="contain"
                     src={`${card.images?.[0]?.url}`}
-                  /> */}
-                  <Image
-                    layout="fill"
-                    objectFit="contain"
-                    src={"/images/travel-packages/Happiness-Travel.jpg"}
                   />
                 </div>
                 <div className={styles["sc-content"]}>

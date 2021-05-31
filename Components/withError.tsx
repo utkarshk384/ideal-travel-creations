@@ -1,4 +1,4 @@
-import { ApolloErrorType } from "@/src/helperTypes";
+import { ApolloErrorType } from "@/src/types/helperTypes";
 import React from "react";
 import ErrorPage from "../pages/_error";
 

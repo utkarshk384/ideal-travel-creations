@@ -2,14 +2,21 @@
   "name": "ideal-travel-creations",
   "version": "0.1.0",
   "private": true,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/next"
+    }
+  ],
   "scripts": {
-    "make-dev-config": "node ./build-scripts/ngrok.js",
-    "make-prod-config": "node ./build-scripts/ngrok-build.js",
+    "make-config": "node ./build-scripts/development-script.js",
+    "make-dev-config": "node ./build-scripts/development-script.js run-server",
+    "make-prod-config": "node ./build-scripts/production-script.js",
     "pre-dev": "wait-on -d 1000 file:./next.config.js && next dev",
     "pre-prod": "wait-on -d 1000 file:./next.config.js && next build",
     "dev": "concurrently \"npm run make-dev-config\" \"npm run pre-dev -- -H 192.168.0.105\"",
     "build": "concurrently \"npm run make-prod-config\" \"npm run pre-prod\"",
-    "prod-dev": "concurrently \"npm run make-prod-config\" \"npm run next-dev\"",
+    "prod-dev": "concurrently \"npm run make-config\" \"npm run pre-prod\"",
     "start": "next start  -- -p 4000",
     "generate": "graphql-codegen --config codegen.yml",
     "test": "jest"

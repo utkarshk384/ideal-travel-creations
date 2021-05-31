@@ -2,6 +2,8 @@
 import React from "react";
 
 ///<----Local Imports--->
+import SEOWrapper, { SEOConfig } from "@/components/SEOWrapper";
+
 import Image from "@/components/ImageWrapper";
 
 import QuickLinks from "@/components/quickLinks";
@@ -11,16 +13,18 @@ import * as data from "../api/company-portfolio.json";
 
 //Styles
 import styles from "styles/pages/company-portfolio.module.scss";
-import SEOWrapper from "@/components/SEOWrapper";
 
-const seoConfig = {
-  title: "The Company",
-  description: "",
-};
+const seoConfig = SEOConfig({
+  title: "Company's Profile | Ideal Travel Creation",
+  description:
+    "Our Office is open from 9 am to 5 pm, Monday through Friday and 9 am to 2 pm on Saturdays.Approval, Certification, Licence and Affiliations",
+  canonical: `https://www.idealtravelcreations.bt/about/company-portfolio`,
+});
+
 const CompanyPortfolio = () => {
   return (
     <>
-      {/* <SEOWrapper config={seoConfig} /> */}
+      <SEOWrapper config={seoConfig} />
       <div className={styles["cp"]}>
         <div className={styles["cp-container"]}>
           <div className={styles["l-container"]}>
@@ -30,6 +34,7 @@ const CompanyPortfolio = () => {
               <div
                 className={`${styles["content-img-container"]} ${styles["left"]}`}
               >
+                {/* PROD: Change Image */}
                 <Image
                   src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
                   layout="fill"

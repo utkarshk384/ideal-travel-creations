@@ -58,7 +58,6 @@ const contact: NextApiHandler = async (req, res) => {
     mailOptions = dataCustomizedTour(data as customizedTourType);
   else if (source === "contactUs")
     mailOptions = dataContactUs(data as contactUsType);
-  return res.status(200).send(mailOptions);
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",

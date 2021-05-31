@@ -1,20 +1,22 @@
 //<---Global Import--->
 import React from "react";
+import { GetStaticProps } from "next";
 import Link from "next/link";
 
 //<---Local Import--->
 import Image from "@/components/ImageWrapper";
 
 //Types
-import { imageType } from "@/src/helperTypes";
+import { imageType } from "@/src/types/helperTypes";
 
 //Styles
 import styles from "styles/pages/home.module.scss";
 
 //Graphql
-import { HomeTestimonialsQuery as IQuery } from "@/graphql/generated/graphql-frontend";
+import { HomeTestimonialsQuery as IQuery } from "@/src/types/generated/graphql-frontend";
 
 interface IData {
+  _id: string;
   __typename: string;
   guestName: string;
   comments: string;
@@ -30,13 +32,9 @@ const Testimonials: React.FC<{ data: IQuery }> = ({ data }) => {
         <h1>Testimonials</h1>
       </div>
       <div className={styles["tstmials-wrapper"]}>
-        {/* {data?.testimonials!.map((card, index) => (
-          <TestimonialsCard
-            data={card as IData}
-            key={`testimonials-map-1-${index}`}
-          />
-        ))} */}
-        <TestimonialsCard />
+        {data?.testimonials!.map((card) => (
+          <TestimonialsCard data={card as IData} key={card!._id} />
+        ))}
       </div>
       <div className={`${styles["slider-cta"]} ${styles["tstmials-cta"]}`}>
         <Link href="/testimonials">
@@ -53,17 +51,7 @@ const TestimonialsCard: React.FC<{ data?: IData }> = ({ data }) => {
   return (
     <div className={styles["tstmials-card"]}>
       <div className={styles["tc-img-container"]}>
-        <Image
-          src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
-          width={1920}
-          height={1080}
-          layout="responsive"
-          objectFit="contain"
-        />
-        {/* <Image
-          src={data!.image.url}
-          layout="fill"
-        /> */}
+        <Image src={data!.image.url} layout="fill" />
       </div>
       <div className={styles["tc-content"]}>
         <div>

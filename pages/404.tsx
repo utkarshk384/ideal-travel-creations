@@ -1,15 +1,23 @@
+///<----Global Imports--->>
 import React from "react";
 import Link from "next/link";
+import { GetStaticProps, NextPage } from "next";
 
+///<----Local Imports--->>
+import { getSEOConfig } from "@/api/helperFunc";
+import withSEO from "@/components/withSEO";
+
+//Styles
 import styles from "styles/pages/errors.module.scss";
-import { NextPage } from "next";
 
 interface IProps {
   statusCode: number;
   message: string;
 }
 
-const NotFound: NextPage<IProps> = ({ statusCode, message }) => {
+const SEO_URL = "/404";
+
+const NotFound: NextPage<IProps> = () => {
   return (
     <div className={styles["not-found"]}>
       <div className={styles.container}>
@@ -21,11 +29,18 @@ const NotFound: NextPage<IProps> = ({ statusCode, message }) => {
           Couldn't find the page that your looking for.
         </p>
         <Link href="/">
-          <a>Back Home?</a>
+          <a href="/">Back Home?</a>
         </Link>
       </div>
     </div>
   );
 };
 
-export default NotFound;
+export const getStaticProps: GetStaticProps = async () => {
+  const { data, error } = await getSEOConfig(SEO_URL);
+  if (error.length > 0) return { props: { error } };
+
+  return { props: { data } };
+};
+
+export default withSEO(NotFound);

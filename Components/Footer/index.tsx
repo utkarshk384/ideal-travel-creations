@@ -12,21 +12,31 @@ import { FourDots } from "../SVGS/Spinners";
 import styles from "styles/components/footer.module.scss";
 
 //Graphql
-import {
-  getAboutBhtPaths,
-  IstaticPathQuery,
-  staticPathType,
-} from "@/graphql/../graphql_helperFunc";
+import { getAboutBhtPaths } from "@/api/helperFunc";
 import Utilities from "@/src/utils";
+import { IAboutBhutanPaths } from "@/src/types/apiResponse";
 
-type pathType = ApolloQueryResult<IstaticPathQuery>;
+type pathType = Pick<IAboutBhutanPaths, "_id" | "navURL" | "url">;
 
 const Footer = () => {
   const [loading, setLoading] = useState(true);
-  let paths = useRef<null | pathType>(null);
+  const [error, setError] = useState<string[]>([]);
+  let paths = useRef<pathType[]>([]);
 
   getAboutBhtPaths().then((payload) => {
-    paths.current = payload;
+    if (payload.error.length > 0) {
+      let errs: string[] = [];
+      payload.error.forEach((err) => errs.push(err));
+      setError(errs);
+    } else {
+      payload.data.map((item) =>
+        paths.current.push({
+          _id: item._id,
+          url: item.url,
+          navURL: item.navURL,
+        })
+      );
+    }
     setLoading(false);
   });
 
@@ -41,8 +51,8 @@ const Footer = () => {
             {loading ? (
               <FourDots height={80} />
             ) : (
-              paths.current!.data.aboutBhutanSections.map((path) => (
-                <RenderLink key={path._id} path={path} />
+              paths.current.map((path) => (
+                <RenderLink key={path._id} path={path} error={error} />
               ))
             )}
           </div>
@@ -122,7 +132,12 @@ const Footer = () => {
   );
 };
 
-const RenderLink: React.FC<{ path: staticPathType }> = ({ path }) => {
+const RenderLink: React.FC<{ path: pathType; error: string[] }> = ({
+  path,
+  error,
+}) => {
+  if (error.length > 0) return <p>{error}</p>;
+
   return (
     <>
       {!path.navURL && (

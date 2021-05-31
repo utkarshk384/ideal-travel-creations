@@ -1,6 +1,6 @@
 ///<----Global Imports--->
 import React, { useRef } from "react";
-import { GetStaticProps } from "next";
+import { GetStaticProps, NextPage } from "next";
 
 ///<----Local Imports--->
 import Nav from "@/components/Navbar";
@@ -10,6 +10,8 @@ import Hero from "./home/_hero";
 import Parallex from "./home/_parallex";
 import Slider from "../Components/homeSlider";
 import Testimonials from "./home/_testimonials";
+import WhyUs from "./home/why-us";
+import withSEO from "@/components/withSEO";
 
 //Styles
 import styles from "../styles/pages/home.module.scss";
@@ -19,22 +21,25 @@ import { initializeApollo } from "@/apolloClient";
 import {
   PackageDetailsQuery as IQuery,
   PackageDetailsQueryVariables as Ivar,
-  HomeTestimonialsQuery as IHomeQuery,
-} from "@/graphql/generated/graphql-frontend";
+  HomeTestimonialsQuery as ITestimonialsQuery,
+  HomeTestimonialsQueryVariables as ITestimonialVars,
+} from "@/src/types/generated/graphql-frontend";
 import packageQuery from "@/graphql/packageQuery.graphql";
 import homeTestimonialsQuery from "@/graphql/HomeTestimonials.graphql";
-import WhyUs from "./home/why-us";
 
 //Types
-import { ISliderData } from "@/src/helperTypes";
+import { ISliderData } from "@/src/types/helperTypes";
+import { getSEOConfig } from "@/api/helperFunc";
 
-const Home: React.FC<{
+//This is the url that is passed to the SEO function of the current page
+const SEO_URL = "/";
+
+const Home: NextPage<{
   sliderData: ISliderData[];
-  testimonialsData: IHomeQuery;
+  testimonialsData: ITestimonialsQuery;
 }> = (props) => {
   ///<----Refs--->
   const homeRef = useRef<HTMLDivElement>(null);
-
   return (
     <div className={styles.home} ref={homeRef}>
       <Nav className={styles["home-nav"]} ref={homeRef} />
@@ -69,20 +74,24 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   });
 
-  const { data } = await client.query<IHomeQuery>({
+  const { data } = await client.query<ITestimonialsQuery, ITestimonialVars>({
     query: homeTestimonialsQuery,
+    variables: { limit: 1 },
   });
 
-  if (data.testimonials && data.testimonials?.length === 0) {
+  if (data.testimonials && data.testimonials?.length === 0)
     return { notFound: true };
-  }
+
+  const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
+  if (error.length > 0) return { props: { error } };
 
   return {
     props: {
+      seoConfig,
       sliderData,
       testimonialsData: data,
     },
   };
 };
 
-export default Home;
+export default withSEO(Home);

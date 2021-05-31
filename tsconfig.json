@@ -6,10 +6,12 @@
       "dom.iterable",
       "esnext"
     ],
+    "typeRoots": ["node_modules/@types", "types"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -29,6 +31,7 @@
       "@/src/*": ["./src/*"],
       "@/api/*": ["./pages/api/*"],
       "@/pages/*": ["./pages/*"],
+      "react-multiline-clamp": ["src/types/react-multiline-clamp"],
     }
   },
   "include": [
@@ -36,10 +39,10 @@
     "html.d.ts",
     "graphql.d.ts",
     "**/*.ts",
-    "**/*.tsx", 
+    "**/*.tsx", "sts.config.js", 
     ],
   "exclude": [
-    "node_modules"
+    "node_modules", "types/**/*"
   ]
   
 }
