@@ -51,16 +51,18 @@ const TestimonialsCard: React.FC<{ data?: IData }> = ({ data }) => {
   return (
     <div className={styles["tstmials-card"]}>
       <div className={styles["tc-img-container"]}>
-        <Image src={data!.image.url} layout="fill" />
+        <Image
+          src={data!.image.url}
+          width={data!.image.width}
+          height={data!.image.height}
+          layout="intrinsic"
+        />
       </div>
       <div className={styles["tc-content"]}>
         <div>
-          <h2>{data?.guestName || "Title"}</h2>
+          <h2>{data?.guestName}</h2>
         </div>
-        <p>
-          {data?.comments ||
-            "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptasmagnam impedit nam ratione eius itaque et nihil deserunt blanditiisomnis, repudiandae molestiae laboriosam. Quas porro pariatur fugamolestias sapiente qui."}
-        </p>
+        <p>{data?.comments}</p>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import { ApolloProvider } from "@apollo/client";
 import { LoaderOverlay } from "@/components/Spinners-and-Loaders/NextNProgress";
 import Nav from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BreadCrumbs from "@/components/breadcrumbs";
+import BreadCrumbs from "@/components/home/breadcrumbs";
 
 //contexts
 import OverlayProvider from "@/src/Contexts/overlayContext";
@@ -77,12 +77,12 @@ const App: React.FC<AppProps> = ({ Component, pageProps }): JSX.Element => {
             key={routerState.loadingKey}
             isRouteChanging={routerState.isRouteChanging}
           />
-          {/* {router.pathname !== "/" && (
+          {router.pathname !== "/" && (
             <Nav routerHistory={history} disableAnimation />
-          )} */}
+          )}
           {router.pathname !== "/" && <BreadCrumbs />}
           <Component {...pageProps} />
-          {/* <Footer /> */}
+          <Footer />
         </ApolloProvider>
       </OverlayProvider>
     </>

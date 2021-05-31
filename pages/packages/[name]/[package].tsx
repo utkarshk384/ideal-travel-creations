@@ -68,7 +68,9 @@ const Package: React.FC<{ data?: IQuery }> = ({ data }) => {
             <div className={styles["l-img-container"]}>
               <Image
                 src={data!.packages![0]?.images![0]?.url as string}
-                layout="fill"
+                layout="intrinsic"
+                height={data!.packages![0]?.images![0]?.height as number}
+                width={data!.packages![0]?.images![0]?.width as number}
               />
             </div>
             <div className={styles["l-desc"]}>

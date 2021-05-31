@@ -4,8 +4,7 @@ import Link from "next/link";
 import DOMPurify from "dompurify";
 
 /// <---Local Imports--->
-//Data
-import data from "../api/home.json";
+import { homeData } from "@/src/types/helperTypes";
 
 //Animations
 import homeAnimation from "../../src/Animations/homeAnimation";
@@ -13,12 +12,7 @@ import homeAnimation from "../../src/Animations/homeAnimation";
 //Styles
 import styles from "styles/pages/home.module.scss";
 
-interface IData {
-  heading: string;
-  body: string;
-}
-
-const WhyUs = () => {
+const WhyUs: React.FC<{ data: homeData[] }> = ({ data }) => {
   // <---Refs--->
   const cardContainerRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -30,7 +24,6 @@ const WhyUs = () => {
       delay: 0.15,
     });
   }, []);
-
   return (
     <div
       className={`${styles.cards} ${styles["home-container"]}`}
@@ -40,9 +33,9 @@ const WhyUs = () => {
         <h1>Why Travel with us?</h1>
       </div>
       <div className={styles["cards-container"]}>
-        {data["why-us"].map((card, index) => (
+        {data.map((card, index) => (
           <Card
-            key={`why-us-1-${index * 4875}`}
+            key={`whyUs-1-${index * 4875}`}
             data={card}
             ref={(el) => cardRefs.current.push(el)}
           />
@@ -58,7 +51,7 @@ const WhyUs = () => {
     </div>
   );
 };
-const Card = React.forwardRef<HTMLDivElement, { data: IData }>(
+const Card = React.forwardRef<HTMLDivElement, { data: homeData }>(
   ({ data }, ref) => {
     const cleanRef = useRef<HTMLParagraphElement | null>(null);
 

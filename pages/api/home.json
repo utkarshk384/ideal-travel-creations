@@ -1,44 +1,70 @@
 {
-    "card":[
-        {
-            "heading": "Green",
-            "body": [
-                "If happiness is what you are looking for come to the Kingdom of Bhutan. It is a country that gave birth to the concept of \"Gross National Happiness.\"",
-                
-                "Bhutan’s location in the eastern Himalayas and  70% of untouched forest coverage therefore makes it one of the few ecological hot spots.",
-                
-                "Bhutan happens to be the first carbon negative country in the world!"
-                
-        ]
-        },
-        {
-            "heading": "Tiny",
-            "body": [
-                "Roughly the size of Switzerland, this tiny Himalayan Kingdom lies between India and China. It’s spectacularly diverse landscape, culture and biodiversity remains virtually untouched through the passage of time."
-    ]
-        },
-        {
-            "heading": "Culturally Unique",
-            "body": [
-                "The magnificence of the Kingdom Bhutan is complemented by its renowned culture, tradition and the unique Bhutanese Art and Architecture. These unique tradition and custom includes the festivals of Bhutan known as \u201CTshechus\u201D.",
+  "card": [
+    {
+      "heading": "Green",
+      "body": [
+        "If happiness is what you are looking for come to the Kingdom of Bhutan. It is a country that gave birth to the concept of \"Gross National Happiness.\"",
 
-                "The ancient Dzongs and monasteries, unique village houses, untouched natural environment and friendly people of Bhutan compliments travelling to Bhutan."
-            ]
-        }
-    ], 
-    "why-us": [
-        {
-            "heading": "Local Bhutanese Tour Operator", 
-            "body": "We are a local Bhutanese tour operator based in Thimphu Bhutan, we were born and brought up in Bhutan and we know Bhutan, which puts us at the biggest advantage to operate tours and treks in Bhutan."
-        }, 
-        
-        {
-            "heading": "Dedicated team", 
-            "body": "We are a full time tour operators with all our team (which is more like a family) putting in their efforts with full heart and soul to ensure that every Bhutan Tour and trek is successful."
-        }, 
-        {
-            "heading": "24 x 7 Availability", 
-            "body": "Our Office is open from 9 am to 5 pm, Monday through Friday and 9 am to 1 pm on Saturdays. However we are available 24 x 7 when needed. We are available in the following numbers anytime – <a href=\"tel:+97517668047\">+975 17668047<\/a> and <a href=\"tel:+97517124946\">+975 17124946<\/a>"
-        }
-    ]
+        "Bhutan’s location in the eastern Himalayas and  70% of untouched forest coverage therefore makes it one of the few ecological hot spots.",
+
+        "Bhutan happens to be the first carbon negative country in the world!"
+      ]
+    },
+    {
+      "heading": "Tiny",
+      "body": [
+        "Roughly the size of Switzerland, this tiny Himalayan Kingdom lies between India and China. It’s spectacularly diverse landscape, culture and biodiversity remains virtually untouched through the passage of time."
+      ]
+    },
+    {
+      "heading": "Culturally Unique",
+      "body": [
+        "The magnificence of the Kingdom Bhutan is complemented by its renowned culture, tradition and the unique Bhutanese Art and Architecture. These unique tradition and custom includes the festivals of Bhutan known as \u201CTshechus\u201D.",
+
+        "The ancient Dzongs and monasteries, unique village houses, untouched natural environment and friendly people of Bhutan compliments travelling to Bhutan."
+      ]
+    }
+  ],
+  "whyUs": [
+    {
+      "heading": "Local Bhutanese Tour Operator",
+      "body": "We are a local Bhutanese tour operator based in Thimphu Bhutan, we were born and brought up in Bhutan and we know Bhutan, which puts us at the biggest advantage to operate tours and treks in Bhutan."
+    },
+
+    {
+      "heading": "Dedicated team",
+      "body": "We are a full time tour operators with all our team (which is more like a family) putting in their efforts with full heart and soul to ensure that every Bhutan Tour and trek is successful."
+    },
+    {
+      "heading": "24 x 7 Availability",
+      "body": "Our Office is open from 9 am to 5 pm, Monday through Friday and 9 am to 1 pm on Saturdays. However we are available 24 x 7 when needed. We are available in the following numbers anytime – <a href=\"tel:+97517668047\">+975 17668047</a> and <a href=\"tel:+97517124946\">+975 17124946</a>"
+    }
+  ],
+  "affiliations": [
+    {
+      "id": "affilation-logo-1",
+      "image": {
+        "url": "https://res.cloudinary.com/ideal-travel-creations/image/upload/v1622415489/tourism_council_of_bhutan_c857298d96.png",
+        "alternativeText": ""
+      },
+      "url": "https://www.tourism.gov.bt/"
+    },
+    {
+      "id": "affilation-logo-2",
+
+      "image": {
+        "url": "https://res.cloudinary.com/ideal-travel-creations/image/upload/v1622415489/druk_air_logo_bd551f2d1c.png",
+        "alternativeText": ""
+      },
+      "url": "https://www.drukair.com.bt/"
+    },
+    {
+      "id": "affilation-logo-3",
+      "image": {
+        "url": "https://res.cloudinary.com/ideal-travel-creations/image/upload/v1622415489/bhutan_airline_logo_549ff6ed7f.png",
+        "alternativeText": ""
+      },
+      "url": "http://www.bhutanairlines.bt/"
+    }
+  ]
 }

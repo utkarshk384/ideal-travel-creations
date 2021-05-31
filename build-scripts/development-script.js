@@ -19,7 +19,7 @@ const config = `{
   env: {
     USER: "utkarshk202@gmail.com",
     PASSWORD: "uk don12345",
-    BACKEND_ENDPOINT: ${DB_URL}",
+    NEXT_PUBLIC_BACKEND_ENDPOINT: ${DB_URL}",
     GOOGLE_MAPS_API: "AIzaSyDr1wtmTRCrtaSI3uFP4iEP6i7a_1J6i_o", //Requires Google Billing account to properly use the API service
     MAPBOX_API:
       "pk.eyJ1IjoidXRrYXJzaGszODQiLCJhIjoiY2ttMWhxcGtyMTMzNTJ1bzZzeDBma3liaiJ9.hEhfkK7bXYTUzlvOHQh8uA",

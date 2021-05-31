@@ -31,3 +31,13 @@ export interface DataWithError<T, K = string[]> {
   data: T;
   error: K;
 }
+
+export interface homeData<T = string> {
+  heading: string;
+  body: T;
+}
+export interface homeAffilationData {
+  id: string;
+  image: Pick<imageType, "url" | "alternativeText">;
+  url: string;
+}

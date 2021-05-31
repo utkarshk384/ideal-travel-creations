@@ -81,7 +81,7 @@ const useGetPaths = () => {
 
   useEffect(() => {
     if (PkgsPaths.current.length === 0 && abtBhtPaths.current.length === 0) {
-      Promise.all([getPackagesPaths()])
+      Promise.all([getPackagesPaths(), getAboutBhtPaths()])
         .then((values) => {
           if (values[0].error.length > 0) {
             values[0].error.forEach((err) => error.current.push(err));
@@ -95,18 +95,18 @@ const useGetPaths = () => {
               as: `/packages/${url}`,
             })
           );
-          // if (values[1].error.length > 0) {
-          //   values[1].error.forEach((err) => error.current.push(err));
-          //   return;
-          // }
-          // const bhtPaths = values[1].data;
-          // bhtPaths.map((url) =>
-          //   abtBhtPaths.current.push({
-          //     name: utils.startCase(url.url),
-          //     href: "/bhutan/[bhutan]",
-          //     as: `/bhutan/${url.url}`,
-          //   })
-          // );
+          if (values[1].error.length > 0) {
+            values[1].error.forEach((err) => error.current.push(err));
+            return;
+          }
+          const bhtPaths = values[1].data;
+          bhtPaths.map((url) =>
+            abtBhtPaths.current.push({
+              name: utils.startCase(url.url),
+              href: "/bhutan/[bhutan]",
+              as: `/bhutan/${url.url}`,
+            })
+          );
         })
         .finally(() => {
           setLoading(false);

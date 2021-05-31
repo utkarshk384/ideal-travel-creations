@@ -5,8 +5,7 @@ import Link from "next/link";
 /// <---Local Imports--->
 import useWindowSize, { breakpoints } from "@/src/Hooks/useWindow";
 
-//Data
-import * as cardData from "../api/home.json";
+import { homeData } from "@/src/types/helperTypes";
 
 //Animations
 import homeAnimation from "../../src/Animations/homeAnimation";
@@ -14,7 +13,7 @@ import homeAnimation from "../../src/Animations/homeAnimation";
 //Styles
 import styles from "styles/pages/home.module.scss";
 
-const Card: React.FC = () => {
+const Card: React.FC<{ data: homeData<string[]>[] }> = ({ data }) => {
   // <---States--->
   const { width } = useWindowSize();
 
@@ -47,7 +46,7 @@ const Card: React.FC = () => {
         <h1>The Kingdom of Bhutan</h1>
       </div>
       <div className={styles["cards-container"]}>
-        {cardData.card.map((card, index) => (
+        {data.map((card, index) => (
           <div
             className={styles["cards-card"]}
             key={`card-1-${index * 344}`}

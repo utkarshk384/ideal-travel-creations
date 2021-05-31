@@ -4,14 +4,17 @@ import { GetStaticProps, NextPage } from "next";
 
 ///<----Local Imports--->
 import Nav from "@/components/Navbar";
-import Affiliations from "./home/_affiliations";
-import Card from "./home/_card";
-import Hero from "./home/_hero";
-import Parallex from "./home/_parallex";
+import Affiliations from "../Components/home/affiliations";
+import Card from "../Components/home/card";
+import Hero from "../Components/home/hero";
+import Parallex from "../Components/home/parallex";
 import Slider from "../Components/homeSlider";
-import Testimonials from "./home/_testimonials";
-import WhyUs from "./home/why-us";
+import Testimonials from "../Components/home/testimonials";
+import WhyUs from "../Components/home/why-us";
 import withSEO from "@/components/withSEO";
+
+//Data
+import * as homeData from "./api/home.json";
 
 //Styles
 import styles from "../styles/pages/home.module.scss";
@@ -44,12 +47,12 @@ const Home: NextPage<{
     <div className={styles.home} ref={homeRef}>
       <Nav className={styles["home-nav"]} ref={homeRef} />
       <Hero />
-      <WhyUs />
-      <Card />
+      <WhyUs data={homeData.whyUs} />
+      <Card data={homeData.card} />
       <Parallex />
       <Slider data={props.sliderData} />
       <Testimonials data={props.testimonialsData} />
-      <Affiliations />
+      <Affiliations data={homeData.affiliations} />
     </div>
   );
 };

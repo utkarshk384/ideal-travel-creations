@@ -12,15 +12,9 @@ import homeAnimation from "../../src/Animations/homeAnimation";
 //Styles
 import styles from "styles/pages/home.module.scss";
 
-const logos = [
-  {
-    name: "tourism-council-of-bhutan.png",
-    url: "https://www.tourism.gov.bt/",
-  },
-  { name: "druk-air-logo.png", url: "https://www.drukair.com.bt/" },
-  { name: "bhutan-airline-logo.png", url: "http://www.bhutanairlines.bt/" },
-];
-const Affiliations = () => {
+import { homeAffilationData } from "@/src/types/helperTypes";
+
+const Affiliations: React.FC<{ data: homeAffilationData[] }> = ({ data }) => {
   ///<----States--->
   const { width } = useWindowSize();
 
@@ -51,16 +45,18 @@ const Affiliations = () => {
         <h1>Affiliations</h1>
       </div>
       <div className={styles["aff-logo-container"]}>
-        {logos.map((logo, index) => (
+        {data.map((logo) => (
           <a
             href={logo.url}
-            key={`aff-1-${index * 3857}`}
+            key={logo.id}
             className={styles["aff-logo-wrapper"]}
             ref={(el) => logoRefs.current.push(el)}
           >
             <Image
-              layout="fill"
-              src={`/images/logo/partners/${logo.name}`}
+              layout="intrinsic"
+              height={250}
+              width={200}
+              src={logo.image.url}
               className={styles["aff-logo"]}
               objectFit="contain"
               objectPosition="center"

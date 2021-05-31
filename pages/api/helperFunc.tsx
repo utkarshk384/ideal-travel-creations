@@ -21,7 +21,9 @@ export const getPackagesPaths = async () => {
   let error: string[] = [];
   return new Promise<DataWithError<string[]>>(async (resolve) => {
     try {
-      const res = await fetch(`${process.env.BACKEND_ENDPOINT}/packages/types`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/packages/types`
+      );
       if (res.status >= 400) {
         let err = handleErrorResp(res.status);
         if (err.length > 0) {
@@ -48,7 +50,7 @@ export const getAboutBhtPaths = async () => {
     try {
       const paths: AboutBhtPathsType[] = [];
       const res = await fetch(
-        `${process.env.BACKEND_ENDPOINT}/about-bhutan-sections`,
+        `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/about-bhutan-sections`,
         {
           cache: "force-cache",
           headers: { "Content-Type": "application/json" },
@@ -82,7 +84,7 @@ export const getSEOConfig = async (url: string, extraData?: NextSeoProps) => {
     async (resolve) => {
       let error: string[] = [];
       const res = await fetch(
-        `${process.env.BACKEND_ENDPOINT}/seo-of-pages?pageURL=${url}`
+        `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/seo-of-pages?pageURL=${url}`
       );
 
       if (res.status >= 400) {
