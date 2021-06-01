@@ -17,7 +17,7 @@
     "dev": "concurrently \"npm run make-dev-config\" \"npm run pre-dev -- -H 192.168.0.105\"",
     "build": "concurrently \"npm run make-prod-config\" \"npm run pre-prod\"",
     "prod-dev": "concurrently \"npm run make-config\" \"npm run pre-prod\"",
-    "start": "next start  -- -p 4000",
+    "start": "next start  -- -p $PORT",
     "generate": "graphql-codegen --config codegen.yml",
     "test": "jest"
   },
