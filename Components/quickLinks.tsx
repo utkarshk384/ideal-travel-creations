@@ -12,7 +12,7 @@ import { FourDots } from "@/components/SVGS/Spinners";
 import type { urlType } from "@/src/types/helperTypes";
 
 //Styles
-import styles from "styles/components/quickLinks.module.scss";
+import styles from "styles/layout/quickLinks.module.scss";
 
 //Custom Hooks
 import useHideNav from "@/src/Hooks/useHideNav";
@@ -54,7 +54,7 @@ const QuickLinks: React.FC = () => {
   );
 };
 
-const Links: React.FC<{ data: urlType[]; error: string[] }> = ({
+const Links: React.FC<{ data: urlType[]; error: string }> = ({
   data,
   error,
 }) => {
@@ -77,14 +77,14 @@ const useGetPaths = () => {
   ///<----Refs--->
   const PkgsPaths = useRef<urlType[]>([]);
   const abtBhtPaths = useRef<urlType[]>([]);
-  const error = useRef<string[]>([]);
+  const error = useRef<string>("");
 
   useEffect(() => {
     if (PkgsPaths.current.length === 0 && abtBhtPaths.current.length === 0) {
       Promise.all([getPackagesPaths(), getAboutBhtPaths()])
         .then((values) => {
-          if (values[0].error.length > 0) {
-            values[0].error.forEach((err) => error.current.push(err));
+          if (values[0].error) {
+            error.current = values[0].error;
             return;
           }
           const pkgPaths = values[0].data;
@@ -95,8 +95,8 @@ const useGetPaths = () => {
               as: `/packages/${url}`,
             })
           );
-          if (values[1].error.length > 0) {
-            values[1].error.forEach((err) => error.current.push(err));
+          if (values[1].error) {
+            error.current = values[1].error;
             return;
           }
           const bhtPaths = values[1].data;

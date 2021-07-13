@@ -8,7 +8,7 @@
  *    See: https://code.google.com/p/chromium/issues/detail?id=457146
  */
 @use "../abstracts/variables";
-@use "../vendors/include-media" as breakpoint;
+@use "../vendors/include-media" as bp;
 
 .hidden-nav {
   top: 0px;
@@ -56,7 +56,7 @@
   }
 }
 
-@include breakpoint.media("<=sm") {
+@include bp.media("<=sm") {
   .table-container {
     width: 100%;
     overflow-x: scroll;

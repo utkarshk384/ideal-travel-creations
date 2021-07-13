@@ -16,3 +16,8 @@
     #{map.get($values, max)}
   );
 }
+
+@function inner-map-item($map, $primary-map-key, $secondary-map-key) {
+  $second-key: #{$primary-map-key}-#{$secondary-map-key};
+  @return map.get(map.get($map, $primary-map-key), $second-key);
+}

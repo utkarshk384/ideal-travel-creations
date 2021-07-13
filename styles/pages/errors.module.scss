@@ -1,7 +1,7 @@
 @use "../main" as  *;
 @use "../vendors/include-media" as breakpoint;
 
-.not-found {
+.error-wrapper {
   @include Container(80%);
   @include flex(
     $breakpoint-css: (
@@ -14,7 +14,7 @@
   height: 60vh;
   background-color: $white;
 }
-.container {
+.error-container {
   @include Container(80%);
   @include flex(
     $breakpoint-css: (

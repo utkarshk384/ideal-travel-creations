@@ -180,7 +180,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   for (let i = 0; i < pageCount; i++) urls.push(`/testimonials/${i + 1}`);
 
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
-  if (error.length > 0) return { props: { error } };
+  if (error) return { props: { error } };
 
   return {
     props: {

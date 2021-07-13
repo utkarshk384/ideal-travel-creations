@@ -8,7 +8,7 @@ import Affiliations from "../Components/home/affiliations";
 import Card from "../Components/home/card";
 import Hero from "../Components/home/hero";
 import Parallex from "../Components/home/parallex";
-import Slider from "../Components/homeSlider";
+import Slider from "../Components/home/homeSlider";
 import Testimonials from "../Components/home/testimonials";
 import WhyUs from "../Components/home/why-us";
 import withSEO from "@/components/withSEO";
@@ -86,7 +86,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return { notFound: true };
 
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
-  if (error.length > 0) return { props: { error } };
+  if (error) return { props: { error } };
 
   return {
     props: {

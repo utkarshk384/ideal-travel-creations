@@ -20,7 +20,6 @@ class _Animation extends _gsapAnimation {
   //then the transitions and width will be set with an offset of -70px because in smaller screens the default values seems to overflow from the main container
   private ref: React.MutableRefObject<HTMLDivElement | null>;
 
-  //TODO: Get the home slider working on mobile and tablet devices.
   public init(
     ref: React.MutableRefObject<HTMLDivElement | null>,
     css: paramsType
@@ -34,6 +33,7 @@ class _Animation extends _gsapAnimation {
   }
 
   public updateVal(params: paramsType) {
+    console.log("Before", this.cardWidth);
     this.sliderWidth = params.sliderWidth * 16;
     this.cardWidth = params.cardWidth * 16;
 
@@ -44,6 +44,7 @@ class _Animation extends _gsapAnimation {
       // width: this.cardWidth,
       x: (i) => i * (this.cardWidth + 80) - offset,
     });
+    console.log(this.cardWidth);
   }
 
   public sliderSection(

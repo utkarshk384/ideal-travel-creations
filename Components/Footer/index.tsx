@@ -1,6 +1,6 @@
 ///<----Global Imports--->
 import _ from "lodash";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 
 ///<----Local Imports--->
@@ -8,7 +8,7 @@ import Link from "next/link";
 import { FourDots } from "../SVGS/Spinners";
 
 //Styles
-import styles from "styles/components/footer.module.scss";
+import styles from "styles/layout/footer.module.scss";
 
 //Graphql
 import { getAboutBhtPaths } from "@/api/helperFunc";
@@ -17,27 +17,32 @@ import { IAboutBhutanPaths } from "@/src/types/apiResponse";
 
 type pathType = Pick<IAboutBhutanPaths, "_id" | "navURL" | "url">;
 
-const Footer = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string[]>([]);
-  let paths = useRef<pathType[]>([]);
+const getPaths = (
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  let paths: pathType[] = [];
+  let error: string = "";
 
   getAboutBhtPaths().then((payload) => {
-    if (payload.error.length > 0) {
-      let errs: string[] = [];
-      payload.error.forEach((err) => errs.push(err));
-      setError(errs);
-    } else {
+    if (payload.error) error = payload.error;
+    else
       payload.data.map((item) =>
-        paths.current.push({
+        paths.push({
           _id: item._id,
           url: item.url,
           navURL: item.navURL,
         })
       );
-    }
+
     setLoading(false);
   });
+
+  return { paths, error };
+};
+
+const Footer = () => {
+  const [loading, setLoading] = useState(true);
+  const { error, paths } = useMemo(() => getPaths(setLoading), []);
 
   return (
     <div className={styles["footer"]}>
@@ -50,15 +55,15 @@ const Footer = () => {
             {loading ? (
               <FourDots height={80} />
             ) : (
-              paths.current.map((path) => (
+              paths.map((path) => (
                 <RenderLink key={path._id} path={path} error={error} />
               ))
             )}
           </div>
           <div className={`${styles["footer-wrapper"]} ${styles["email-us"]}`}>
             <h3>Contact Us</h3>
-            <a href="mailto:idealtravelcreations@gmail.com">
-              idealtravelcreations@gmail.com
+            <a href="mailto:neptuneholidaysbhutan@gmail.com">
+              neptuneholidaysbhutan@gmail.com
             </a>
             <a href="tel:+975-2-324987">+975-2-324987</a>
             <a href="tel:+975-2-341089">+975-2-341089</a>
@@ -131,11 +136,11 @@ const Footer = () => {
   );
 };
 
-const RenderLink: React.FC<{ path: pathType; error: string[] }> = ({
+const RenderLink: React.FC<{ path: pathType; error: string }> = ({
   path,
   error,
 }) => {
-  if (error.length > 0) return <p>{error}</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <>

@@ -1,0 +1,127 @@
+@use "../abstracts";
+@use "../vendors/include-media" as bp;
+@use "../components/button";
+@use "./sliderControls.scss" as *;
+
+@mixin homeSlider() {
+  /*Card Section*/
+
+  .sc-wrapper {
+    @include abstracts.Container(30rem);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    @include bp.media(">xl") {
+      width: 70rem;
+    }
+  }
+
+  .sc-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    @include bp.media(">xl") {
+      justify-content: flex-start;
+    }
+  }
+
+  .sc {
+    @include abstracts.setPosition();
+    width: 15rem;
+    min-height: 24rem;
+    height: 28rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: abstracts.$secondary;
+    top: 0rem;
+    border: 1px solid abstracts.$secondary;
+    transition: top ease-in-out 150ms;
+
+    @media (hover: hover) {
+      &:hover {
+        top: -0.5rem;
+        box-shadow: 0px 7px 5px -2px abstracts.inner-map-item(abstracts.$colors, secondary, 200);
+      }
+    }
+
+    &-img-wrapper {
+      @include abstracts.aspect-ratio(16, 9);
+      width: 100%;
+      position: relative;
+    }
+
+    /*Card Content*/
+    &-content {
+      height: 70%;
+      display: flex;
+      align-items: space-evenly;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    &-heading {
+      margin-bottom: 1.5rem;
+    }
+    &-body {
+      height: 100%;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+  }
+
+  .view-package {
+    @include abstracts.font(abstracts.$font-bold, abstracts.$font-sans);
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    border: 2px solid abstracts.$accent;
+    padding: 1rem 2rem;
+    color: abstracts.$accent;
+  }
+
+  &-controls {
+    overflow: hidden;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    button {
+      margin-right: 1rem;
+    }
+
+    button::before {
+      font-family: "Font Awesome 5 Free";
+      color: abstracts.$accent;
+      font-size: abstracts.$font-icons;
+      font-weight: 900;
+    }
+
+    button.disabled-btn::before {
+      color: abstracts.$grey;
+    }
+
+    @media (hover: hover) {
+      button:hover::before {
+        color: rgba(abstracts.$accent, 0.75);
+      }
+    }
+  }
+
+  /*Class to be applied to the active card*/
+  .sc-active {
+    position: relative;
+  }
+
+  @include bp.media(">xs") {
+    .sc {
+      width: 20rem;
+      height: 33rem;
+      left: auto;
+    }
+  }
+}

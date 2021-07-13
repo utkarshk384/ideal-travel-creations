@@ -8,10 +8,7 @@
       "use": "@now/next"
     }
   ],
-  "engines": {
-    "node": ">=14.6.1"
-  },
-  "engineStrict": true,
+
   "scripts": {
     "make-config": "node ./build-scripts/development-script.js",
     "make-dev-config": "node ./build-scripts/development-script.js run-server",

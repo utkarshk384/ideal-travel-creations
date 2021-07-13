@@ -1,11 +1,11 @@
 @use "../main" as  *;
 @use "../vendors/include-media" as breakpoint;
 
-@use "../layout/pagination" as *;
+@use "../components/pagination" as *;
 
 .dync-name {
   @include Container(95%) {
-    box-shadow: $shadow-1;
+    box-shadow: $container-shadow;
   }
   background-color: $white;
 }
@@ -30,7 +30,7 @@
   ) {
   }
   &-img-container {
-    max-height: 50rem;
+    @include aspect-ratio(16, 9);
     overflow: hidden;
     width: 100%;
     position: relative;
@@ -61,7 +61,6 @@
     10em,
     (
       background-color: $accent,
-      border-radius: 0.5em,
     ),
     "\f3d1",
     "Ionicons",
@@ -69,6 +68,8 @@
   );
   @include font($font-bold, $font-sans);
   color: $white;
+  box-shadow: $button-shadow;
+  margin-top: 2rem;
 }
 
 .pagination {

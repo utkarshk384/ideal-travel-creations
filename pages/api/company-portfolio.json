@@ -1,7 +1,33 @@
 {
-    "Certifications": ["<p>Ideal Travel Creations is certified and registered as a Bhutan tour operator by the <a href=\"https:\/\/www.tourism.gov.bt\/tour-operators\/ideal-travel-creations-1028859\" target=\"_blank\" rel=\"noreferrer\"> Tourism Council of Bhutan. <\/a><\/p>", "<p>We are Licensed for organizing tours and treks in Bhutan by the <a href=\"https:\/\/www.moea.gov.bt\/\" target=\"_blank\" rel=\"noreferrer\">Ministry of Economic Affairs<\/a>, Royal Government of Bhutan under license no 1028859<\/p>", "<li><p><a href=\"\/images\/travel-packages\/Happiness-Travel.jpg\" target=\"_blank\">Click here to view the approval letter from the Tourism Council of Bhutan.<\/a><\/p><\/li>", "<li><p><a href=\"\/images\/travel-packages\/Happiness-Travel.jpg\" target=\"_blank\"> Click here to view the Bhutan tour operator view<\/a><\/p><\/li>"],
+  "Certifications": [
+    "<p>Neptune Holidays is certified and registered as a Bhutan tour operator by the <a href=\"https://www.tourism.gov.bt/tour-operators/ideal-travel-creations-1028859\" target=\"_blank\" rel=\"noreferrer\"> Tourism Council of Bhutan. </a></p>",
+    "<p>We are Licensed for organizing tours and treks in Bhutan by the <a href=\"https://www.moea.gov.bt/\" target=\"_blank\" rel=\"noreferrer\">Ministry of Economic Affairs</a>, Royal Government of Bhutan under license no 1028859</p>",
+    "<li><p><a href=\"/images/travel-packages/Happiness-Travel.jpg\" target=\"_blank\">Click here to view the approval letter from the Tourism Council of Bhutan.</a></p></li>",
+    "<li><p><a href=\"/images/travel-packages/Happiness-Travel.jpg\" target=\"_blank\"> Click here to view the Bhutan tour operator view</a></p></li>"
+  ],
 
-    "objective": ["To provide the most comprehensive Bhutan travel services & gladly host & share the exquisite beauty of our country.", "Ensure the benefit to the local communities, society and country at large.", "Ensure sustainable and responsible travel to Bhutan.", "Promote and conserve our unique culture and traditions.", "Ensure the ultimate satisfaction and happiness of our clients. We pledge more than just travel."],
+  "objective": [
+    "To provide the most comprehensive Bhutan travel services & gladly host & share the exquisite beauty of our country.",
+    "Ensure the benefit to the local communities, society and country at large.",
+    "Ensure sustainable and responsible travel to Bhutan.",
+    "Promote and conserve our unique culture and traditions.",
+    "Ensure the ultimate satisfaction and happiness of our clients. We pledge more than just travel."
+  ],
 
-    "specialization": ["Bespoke Bhutan Tours and Treks.", "Tailor-made Luxury Journeys in Bhutan.", "Bhutan Cultural Tours.", "Trekking in Bhutan.", "Women Exclusive Travel to Bhutan.", "Bhutan Photography Tour.", "Bhutanese Festival Tours.", "Buddhist Pilgrimage & Meditation Travel to Bhutan.", "Biking and Cycling Tours in Bhutan.", "Student and Educational travel to Bhutan.", "Bhutanese Textile Tours.", "Bhutan Bird Watching Tours.", "Fishing Trips to Bhutan", "LGBT Travel in Bhutan and many more."]
+  "specialization": [
+    "Bespoke Bhutan Tours and Treks.",
+    "Tailor-made Luxury Journeys in Bhutan.",
+    "Bhutan Cultural Tours.",
+    "Trekking in Bhutan.",
+    "Women Exclusive Travel to Bhutan.",
+    "Bhutan Photography Tour.",
+    "Bhutanese Festival Tours.",
+    "Buddhist Pilgrimage & Meditation Travel to Bhutan.",
+    "Biking and Cycling Tours in Bhutan.",
+    "Student and Educational travel to Bhutan.",
+    "Bhutanese Textile Tours.",
+    "Bhutan Bird Watching Tours.",
+    "Fishing Trips to Bhutan",
+    "LGBT Travel in Bhutan and many more."
+  ]
 }

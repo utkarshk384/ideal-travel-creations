@@ -26,7 +26,7 @@ const WhyUs: React.FC<{ data: homeData[] }> = ({ data }) => {
   }, []);
   return (
     <div
-      className={`${styles.cards} ${styles["home-container"]}`}
+      className={`${styles["cards-wrapper"]} ${styles["home-container"]}`}
       ref={cardContainerRef}
     >
       <div className={styles["cards-heading"]}>
@@ -41,7 +41,7 @@ const WhyUs: React.FC<{ data: homeData[] }> = ({ data }) => {
           />
         ))}
       </div>
-      <div className={styles["cards-cta"]}>
+      <div className={styles["cta"]}>
         <Link href="/contact">
           <a href="/contact" className={styles["cta-btn"]}>
             Contact Us
@@ -64,13 +64,11 @@ const Card = React.forwardRef<HTMLDivElement, { data: homeData }>(
     return (
       <div
         key={`${data.heading.length * 45}`}
-        className={styles["cards-card"]}
+        className={styles["card-wrapper"]}
         ref={ref}
       >
-        <div>
-          <h2>{data.heading}</h2>
-        </div>
-        <div>
+        <h2>{data.heading}</h2>
+        <div className={styles["card-content"]}>
           <p
             dangerouslySetInnerHTML={{
               __html: cleanRef.current?.innerHTML as string,

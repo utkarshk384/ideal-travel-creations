@@ -15,10 +15,10 @@ import * as data from "../api/company-portfolio.json";
 import styles from "styles/pages/company-portfolio.module.scss";
 
 const seoConfig = SEOConfig({
-  title: "Company's Profile | Ideal Travel Creation",
+  title: "Company's Profile | Neptune Holidays",
   description:
     "Our Office is open from 9 am to 5 pm, Monday through Friday and 9 am to 2 pm on Saturdays.Approval, Certification, Licence and Affiliations",
-  canonical: `https://www.idealtravelcreations.bt/about/company-portfolio`,
+  canonical: `https://www.neptuneholidays.bt/about/company-portfolio`,
 });
 
 const CompanyPortfolio = () => {
@@ -75,8 +75,8 @@ const CompanyPortfolio = () => {
                 <a href="tel:+97517668047">17668047</a>,{" "}
                 <a href="tel:+9752324987">+975 2 324987</a>/{" "}
                 <a href="tel:+9752341089">341089</a> or{" "}
-                <a href="mailto:idealtravelcreations@gmail.com">
-                  idealtravelcreations@gmail.com
+                <a href="mailto:neptuneholidaysbhutan@gmail.com">
+                  neptuneholidaysbhutan@gmail.com
                 </a>
               </p>
 

@@ -1,0 +1,13 @@
+@use "./abstracts/variables";
+
+:export {
+  @each $color, $val in variables.$colors {
+    @if type-of($val) == "color" {
+      #{unquote($color)}: #{$val};
+    } @else {
+      @each $shade, $value in $val {
+        #{unquote($shade)}: $value;
+      }
+    }
+  }
+}

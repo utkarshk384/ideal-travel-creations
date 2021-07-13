@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import variables from "styles/export.module.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,7 +16,7 @@ class gsapAnimation {
   ) {
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
     tl.to(targetRef.current, {
-      background: "#506629",
+      background: variables["secondary-800"],
       boxShadow: "0px 1px 2px 1px #000000",
       duration: 0.5,
     });

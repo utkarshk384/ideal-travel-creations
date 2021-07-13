@@ -1,5 +1,5 @@
 @use "../abstracts/variables";
-@use "../vendors/include-media";
+@use "../vendors/include-media" as bp;
 
 @mixin burger-icon {
   z-index: variables.$z-3;
@@ -9,7 +9,7 @@
   overflow: hidden;
   transition: all 0.5s ease-in-out;
 
-  @include include-media.media(">lg") {
+  @include bp.media(">lg") {
     visibility: hidden;
     display: none;
   }

@@ -27,7 +27,7 @@ export interface ISliderData {
   images: imageType[];
 }
 
-export interface DataWithError<T, K = string[]> {
+export interface DataWithError<T, K = string | undefined> {
   data: T;
   error: K;
 }

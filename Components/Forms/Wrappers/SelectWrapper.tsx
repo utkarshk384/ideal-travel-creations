@@ -9,7 +9,7 @@ import { HelperText, TitleText } from "./SharedComponents";
 import { DetailsType, FieldPropsType, selectType } from "./types";
 
 //Styles
-import styles from "styles/components/form.module.scss";
+import styles from "styles/layout/form.module.scss";
 
 interface IFieldProps extends FieldPropsType {
   multiple?: boolean;

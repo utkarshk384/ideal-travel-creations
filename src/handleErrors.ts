@@ -1,4 +1,5 @@
 import { ApolloError, ServerParseError } from "@apollo/client";
+import _ from "lodash";
 import { ApolloErrorType } from "./types/helperTypes";
 
 let errorTypes = [
@@ -43,14 +44,14 @@ export function handleError(error: ApolloError): ApolloErrorType {
 }
 
 export function handleErrorResp(statusCode: number, stackTrace?: any) {
-  let errors: string[] = [];
+  let error: string = "Unknown Error.";
 
   errorTypes.forEach((err) => {
-    if (statusCode === err.code) errors.push(err.message);
-    else errors.push("Unknown Error.");
+    if (statusCode === err.code) error = err.message;
   });
 
-  if (typeof stackTrace !== "undefined") errors.push(stackTrace);
+  if (typeof stackTrace !== "undefined")
+    error += `. StackTrace - ${stackTrace}`;
 
-  return errors;
+  return error;
 }

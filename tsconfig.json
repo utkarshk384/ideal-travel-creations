@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "typeRoots": ["node_modules/@types", "types"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -27,11 +23,11 @@
       "@/components/*": ["./Components/*"],
       "@/apolloClient": ["./src/lib/apolloClient.ts"],
       "@/apolloQuery": ["./src/lib/apolloQuery.ts"],
-      "@/styles/*": ["./styles/pages/*"],
+      "@/styles/*": ["./styles/*"],
       "@/src/*": ["./src/*"],
       "@/api/*": ["./pages/api/*"],
       "@/pages/*": ["./pages/*"],
-      "react-multiline-clamp": ["src/types/react-multiline-clamp"],
+      "react-multiline-clamp": ["src/types/react-multiline-clamp"]
     }
   },
   "include": [
@@ -39,10 +35,8 @@
     "html.d.ts",
     "graphql.d.ts",
     "**/*.ts",
-    "**/*.tsx", "sts.config.js", 
-    ],
-  "exclude": [
-    "node_modules", "types/**/*"
-  ]
-  
+    "**/*.tsx",
+    "sts.config.js"
+  ],
+  "exclude": ["node_modules", "types/**/*"]
 }

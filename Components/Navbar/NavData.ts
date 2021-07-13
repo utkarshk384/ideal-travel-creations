@@ -14,7 +14,7 @@ bhtPaths.push({
 
 getAboutBhtPaths().then((payload) => {
   //TODO: Add proper error handling
-  if (payload.error.length > 0) {
+  if (payload.error) {
     throw new Error(JSON.stringify(payload.error));
   }
   payload.data.map((path) => {

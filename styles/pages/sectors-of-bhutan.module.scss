@@ -24,7 +24,7 @@
   width: 100%;
   height: 25rem;
   border: 2px solid $secondary;
-  box-shadow: $shadow-1;
+  box-shadow: $container-shadow;
   cursor: pointer;
 
   &::focus,

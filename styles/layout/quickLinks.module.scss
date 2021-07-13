@@ -6,7 +6,7 @@
     @include flex-Margin(2rem);
     padding: 0rem 1rem 2rem 1rem;
     background-color: $white;
-    box-shadow: $shadow-1;
+    box-shadow: $container-shadow;
   }
 
   &-heading {

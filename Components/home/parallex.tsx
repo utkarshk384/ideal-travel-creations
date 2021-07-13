@@ -50,14 +50,14 @@ const Parallex: React.FC = () => {
     <div className={styles.parallex} ref={ContainerRef}>
       <div className={styles["parallex-image-container"]}>
         <Image
-          src="/images/home/Mask Dance.jpg"
+          src="https://res.cloudinary.com/ideal-travel-creations/image/upload/v1619065955/large_Mask_dancer_1024x576_694bade69f.jpg"
           layout="fill"
           className={styles["parallex-image"]}
           priority
         />
         <div className={styles["parallex-text"]}>
           <span>
-            “Travel Bhutan with Ideal Travel Creations and enjoy a life time’s
+            “Travel Bhutan with Neptune Holidays and enjoy a life time’s
             experience. Feel the tranquility, freedom and pamper yourself
             amongst the best Bhutanese Hospitality.”
           </span>

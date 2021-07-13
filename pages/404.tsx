@@ -11,16 +11,15 @@ import withSEO from "@/components/withSEO";
 import styles from "styles/pages/errors.module.scss";
 
 interface IProps {
-  statusCode: number;
-  message: string;
+  seoData?: any;
 }
 
 const SEO_URL = "/404";
 
-const NotFound: NextPage<IProps> = () => {
+const NotFound: NextPage<IProps> = ({ seoData }) => {
   return (
-    <div className={styles["not-found"]}>
-      <div className={styles.container}>
+    <div className={styles["error-wrapper"]}>
+      <div className={styles["error-container"]}>
         <h2 className={styles["error-code"]}>404</h2>
         <h1>Opps! Not Found!</h1>
         <hr />
@@ -38,7 +37,7 @@ const NotFound: NextPage<IProps> = () => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data, error } = await getSEOConfig(SEO_URL);
-  if (error.length > 0) return { props: { error } };
+  if (error) return { props: { error } };
 
   return { props: { data } };
 };

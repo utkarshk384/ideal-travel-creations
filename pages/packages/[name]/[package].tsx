@@ -67,6 +67,7 @@ const Package: React.FC<{ data?: IQuery }> = ({ data }) => {
             </div>
             <div className={styles["l-img-container"]}>
               <Image
+                className="content"
                 src={data!.packages![0]?.images![0]?.url as string}
                 layout="intrinsic"
                 height={data!.packages![0]?.images![0]?.height as number}
@@ -118,9 +119,7 @@ const Package: React.FC<{ data?: IQuery }> = ({ data }) => {
 
             <div className={styles["r-item"]}>
               <div className={styles["cta-btn"]}>
-                <button onClick={() => setOverlay!(!overlay)}>
-                  Book This Tour
-                </button>
+                <button onClick={() => setOverlay!(!overlay)}>Book Tour</button>
               </div>
             </div>
           </div>
@@ -245,7 +244,7 @@ const DrivingIcon: React.FC<{ className: string }> = (props) => {
       >
         <path d="M0 172V0h172v172z"></path>
         <path
-          fill="#fff"
+          fill="#393743"
           d="M86 6.88C42.37 6.88 6.88 42.374 6.88 86c0 43.626 35.49 79.12 79.12 79.12s79.12-35.494 79.12-79.12c0-43.626-35.49-79.12-79.12-79.12zm0 20.64c32.319 0 58.48 26.161 58.48 58.48 0 32.319-26.161 58.48-58.48 58.48-32.319 0-58.48-26.161-58.48-58.48 0-32.319 26.161-58.48 58.48-58.48zm0 30.96c-21.469 0-25.44 15.36-50.525 17.032A51.651 51.651 0 0034.4 86c0 4.771.704 9.37 1.922 13.76H55.04c9.976 0 17.2 7.568 17.2 17.2v18.718c4.39 1.218 8.989 1.922 13.76 1.922 4.771 0 9.37-.704 13.76-1.922V116.96c0-9.288 7.912-17.2 17.2-17.2h18.718c1.218-4.39 1.922-8.989 1.922-13.76 0-3.598-.377-7.11-1.082-10.501C112.923 73.74 107.397 58.48 86 58.48zm0 13.76c7.599 0 13.76 6.161 13.76 13.76S93.599 99.76 86 99.76 72.24 93.599 72.24 86 78.401 72.24 86 72.24z"
         ></path>
       </g>
@@ -270,7 +269,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   //TODO: Make SEO available on backend GUI
   const seoConfig: NextSeoProps = {
-    title: `${_.startCase(seo.title)} | Ideal Travel Creations`,
+    title: `${_.startCase(seo.title)} | Neptune Holidays`,
     description: seo.description,
     openGraph: {
       images: [

@@ -8,7 +8,6 @@ import {
 } from "../../src/types/apiResponse";
 import { handleErrorResp } from "../../src/handleErrors";
 import { DataWithError } from "../../src/types/helperTypes";
-import { configOptions } from "final-form";
 
 //Types
 
@@ -18,34 +17,28 @@ export interface IpkgType {
 }
 
 export const getPackagesPaths = async () => {
-  let error: string[] = [];
   return new Promise<DataWithError<string[]>>(async (resolve) => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/packages/types`
       );
       if (res.status >= 400) {
-        let err = handleErrorResp(res.status);
-        if (err.length > 0) {
-          err.forEach((err) => error.push(err));
-          resolve({ data: [], error });
-        }
+        let error = handleErrorResp(res.status);
+        resolve({ data: [], error });
       }
 
       const data: IPackageType[] = await res.json();
 
       const kebab = data.map((url) => _.kebabCase(url.name));
-      resolve({ data: kebab, error });
+      resolve({ data: kebab, error: undefined });
     } catch (err) {
-      error.push(`Error: ${err}`);
+      let error: string = err;
       resolve({ data: [], error });
     }
   });
 };
 
 export const getAboutBhtPaths = async () => {
-  let error: string[] = [];
-
   return new Promise<DataWithError<AboutBhtPathsType[]>>(async (resolve) => {
     try {
       const paths: AboutBhtPathsType[] = [];
@@ -57,13 +50,11 @@ export const getAboutBhtPaths = async () => {
           method: "GET",
         }
       );
-      if (res.status >= 400) {
-        let err = handleErrorResp(res.status);
-        if (err.length > 0) {
-          err.forEach((err) => error.push(err));
-          resolve({ data: [], error });
-        }
-      }
+      if (res.status >= 400)
+        resolve({
+          data: [],
+          error: handleErrorResp(res.status, res.statusText),
+        });
 
       const data: IAboutBhutanPaths[] = await res.json();
 
@@ -71,10 +62,9 @@ export const getAboutBhtPaths = async () => {
         paths.push({ _id: item._id, navURL: item.navURL, url: item.url })
       );
 
-      resolve({ data: paths, error });
+      resolve({ data: paths, error: undefined });
     } catch (err) {
-      error.push(`Error: ${err}`);
-      resolve({ data: [], error });
+      resolve({ data: [], error: handleErrorResp(20, err) }); // Custom Error Code Since it's not a HTTP related Error
     }
   });
 };
@@ -82,30 +72,26 @@ export const getAboutBhtPaths = async () => {
 export const getSEOConfig = async (url: string, extraData?: NextSeoProps) => {
   return new Promise<DataWithError<NextSeoProps | undefined>>(
     async (resolve) => {
-      let error: string[] = [];
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/seo-of-pages?pageURL=${url}`
       );
 
-      if (res.status >= 400) {
-        let err = handleErrorResp(res.status);
-        if (err.length > 0) {
-          err.forEach((err) => error.push(err));
-          resolve({ data: undefined, error });
-        }
-      }
+      if (res.status >= 400)
+        resolve({
+          data: undefined,
+          error: handleErrorResp(res.status, res.statusText),
+        });
+
       const data: ISeoOfPageArray = await res.json();
 
       if (Object.keys(data).length === 0) {
-        error.push("Error: Data not found");
-        resolve({ data: undefined, error });
+        resolve({ data: undefined, error: handleErrorResp(404) });
       }
 
       const seoConfig = mapSEOConfig(data, extraData);
 
-      if (seoConfig.error) error.push(seoConfig.error);
-
-      resolve({ data: seoConfig.data, error });
+      if (seoConfig.error) resolve({ data: undefined, error: seoConfig.error });
+      resolve({ data: seoConfig.data, error: undefined });
     }
   );
 };

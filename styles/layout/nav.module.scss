@@ -1,38 +1,37 @@
-@use "../abstracts/mixins";
-@use "../abstracts/variables";
-@use "../vendors/include-media";
-@use "../layout/burger";
+@use "../abstracts";
+@use "../vendors/include-media" as bp;
+@use "../components/burger";
 
 //Navigation Section
 @mixin Navbar($container-width: 100%) {
   nav {
-    @include mixins.Container(80%);
+    @include abstracts.Container(80%);
   }
-  @include mixins.font(variables.$font-sm, variables.$font-sans);
+  @include abstracts.font(abstracts.$font-sm, abstracts.$font-sans);
 
-  z-index: variables.$z-5;
+  z-index: abstracts.$z-5;
   position: sticky;
   top: 0;
   width: 100%;
 
   .nav-container {
-    @include mixins.Container(#{$container-width}, true);
+    @include abstracts.Container(#{$container-width}, true);
 
-    @include mixins.flex() {
+    @include abstracts.flex() {
       flex-direction: row;
       justify-content: space-between;
     }
   }
 
   .nav-ul {
-    @include mixins.flex() {
+    @include abstracts.flex() {
       align-items: center;
     }
     list-style-type: none;
-    font-size: variables.$font-xs;
+    font-size: abstracts.$font-xs;
 
     //Responsiveness
-    @include include-media.media("<=lg") {
+    @include bp.media("<=lg") {
       visibility: hidden;
       opacity: 0;
       position: absolute;
@@ -41,7 +40,7 @@
   }
 
   .nav-links {
-    @include mixins.flex() {
+    @include abstracts.flex() {
       align-items: center;
     }
     height: 6rem;
@@ -54,26 +53,23 @@
 
     &:hover {
       .nav-span::after {
-        width: 100%;
+        transform: scaleX(1);
       }
     }
   }
 
   .nav-span {
-    z-index: variables.$z-6;
+    z-index: abstracts.$z-6;
   }
 
-  .nav-span {
-    &::after {
-      content: "";
-      display: inline;
-      @include navAnimations(variables.$primary, 0);
-      transition: all 0.5s ease;
-    }
+  .nav-span::after {
+    @include navAnimations(abstracts.$primary, 0);
+    content: "";
+    display: inline;
   }
 
   button {
-    color: variables.$white;
+    color: abstracts.$white;
   }
   .nav-burger-icon {
     @include burger.burger-icon;
@@ -82,28 +78,28 @@
   //Mobile navbar and Burger Icon
 
   .mobile-menu {
-    @include mixins.flex($isEqual: false) {
+    @include abstracts.flex($isEqual: false) {
       justify-content: flex-start;
       align-items: center;
     }
     overflow-y: scroll;
-    z-index: variables.$z-2;
+    z-index: abstracts.$z-2;
     width: 100%;
     height: 100vh;
     position: absolute;
     right: 0;
-    background: rgba(variables.$accent, 0.98);
+    background: rgba(abstracts.$accent, 0.98);
     list-style-type: none;
 
     .nav__links {
-      @include mixins.flex-Margin(1.5rem, vertical);
-      @include mixins.font(variables.$font-sm, variables.$font-sans);
+      @include abstracts.flex-Margin(1.5rem, vertical);
+      @include abstracts.font(abstracts.$font-sm, abstracts.$font-sans);
       margin-top: 1rem;
       width: 75%;
       text-align: center;
       position: relative;
-      color: variables.$white;
-      font-size: variables.$font-sm;
+      color: abstracts.$white;
+      font-size: abstracts.$font-sm;
     }
 
     .nav__links:first-child {
@@ -111,15 +107,27 @@
     }
   }
 
-  .with-children::after {
-    @include mixins.setPosition(0%, 20%);
+  .with-children.active {
+    &::before {
+      transform: rotate(180deg);
+    }
+
+    & > div {
+      max-height: 30rem;
+    }
+  }
+
+  .with-children::before {
+    @include abstracts.setPosition(0%, 20%);
     content: "\f107";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
+    z-index: abstracts.$z-3;
+    transition: transform 0.5s ease-in-out;
   }
 
   .mobile-children-container {
-    @include mixins.flex(
+    @include abstracts.flex(
       $breakpoint-css: (
         flex-direction: column,
       )
@@ -131,16 +139,12 @@
     transition: max-height 500ms ease-out;
 
     a {
-      color: variables.$grey;
+      color: abstracts.$grey;
 
       &:first-child {
         margin-top: 1rem;
       }
     }
-  }
-
-  .mobile-children-container.active {
-    max-height: 30rem;
   }
 
   //Navigation active Class
@@ -150,16 +154,16 @@
       @include navAnimations();
     }
 
-    color: variables.$primary;
+    color: abstracts.$primary;
   }
 
   .nav-active-mobile {
     & > a {
-      color: variables.$primary;
+      color: abstracts.$primary;
     }
     &::after {
       content: "";
-      @include navAnimations(variables.$primary);
+      @include navAnimations(abstracts.$primary);
       top: 1.75rem;
       width: 50%;
       left: 25%;
@@ -167,10 +171,12 @@
   }
 }
 
-@mixin navAnimations($border-color: variables.$primary, $width: 100%) {
-  @include mixins.setPosition(3.75rem, auto, auto, 0);
-  width: $width;
-
+@mixin navAnimations($border-color: abstracts.$primary, $scale: 1) {
+  @include abstracts.setPosition(3.75rem, auto, auto, 0);
+  width: 100%;
+  transform: scaleX(#{$scale});
+  transition: transform 0.45s ease-in-out;
+  transform-origin: center;
   border-radius: 2px;
   border-bottom: 3px solid $border-color;
 }
@@ -181,26 +187,22 @@
 }
 
 .nav-bg {
-  background-color: variables.$secondary;
+  background-color: abstracts.$secondary;
 }
 
-@include include-media.media(">=lg") {
+@include bp.media(">=lg") {
   .nav__Links {
     &::before {
       content: "";
-      @include navAnimations(variables.$white, 0);
-      transition: all 0.5s ease;
-    }
-    &:hover::before {
-      width: 100%;
+      @include navAnimations(abstracts.$white, 0);
     }
   }
 }
 
 //Hover Menu
 .nav-hover-menu {
-  @include mixins.setPosition(0rem);
-  z-index: variables.$z-5;
+  @include abstracts.setPosition(0rem);
+  z-index: abstracts.$z-5;
   width: 10rem;
   overflow-x: visible;
 
@@ -217,16 +219,16 @@
   }
 
   .content {
-    background-color: variables.$secondary;
+    background-color: abstracts.$secondary;
     padding: 0.1rem 1rem;
     width: 15rem;
   }
 
   a {
-    @include mixins.flex-Margin(1.25rem, vertical);
-    @include mixins.font(variables.$font-sm, variables.$font-sans);
+    @include abstracts.flex-Margin(1.25rem, vertical);
+    @include abstracts.font(abstracts.$font-sm, abstracts.$font-sans);
     display: flex;
     cursor: pointer;
-    color: variables.$white;
+    color: abstracts.$white;
   }
 }

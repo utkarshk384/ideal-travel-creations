@@ -1,4 +1,4 @@
-@use "../vendors/include-media";
+@use "../vendors/include-media" as bp;
 @use "variables";
 @use "sass:map";
 @use "sass:meta";
@@ -42,7 +42,7 @@
   @content;
 
   @if $responsive-xxs {
-    @include include-media.media("<325px") {
+    @include bp.media("<325px") {
       @if (#{$width} == "100%") {
         width: $width;
       } @else {
@@ -51,13 +51,13 @@
     }
   }
   @if $padding {
-    @include include-media.media(">=lg") {
+    @include bp.media(">=lg") {
       width: calc(#{$width} * 1.01);
       padding: $cust-padding;
     }
   }
 
-  @include include-media.media(">3000px") {
+  @include bp.media(">3000px") {
     width: 96rem;
   }
 }
@@ -103,7 +103,7 @@ $flex-config: (
 
   @content;
 
-  @include include-media.media("#{$sign}#{$breakpoint}") {
+  @include bp.media("#{$sign}#{$breakpoint}") {
     @if not map.has-key($breakpoint-css, flex-direction) {
       flex-direction: row;
     }
@@ -132,13 +132,13 @@ $flex-config: (
   }
 
   @if ($axis == horizontal) {
-    margin-top: $margin-vertical;
-    margin-bottom: $margin-vertical;
-    margin-right: calc(#{$margin-horizontal} * 0.1);
+    margin-top: $margin-horizontal;
+    margin-bottom: $margin-horizontal;
 
     @content;
-    @include include-media.media(">=#{$breakpoint}") {
-      margin: calc(#{$margin-vertical} * 0.2) $margin-horizontal;
+    @include bp.media(">=#{$breakpoint}") {
+      margin-left: $margin-horizontal;
+      margin-right: $margin-horizontal;
     }
   } @else if($axis == vertical) {
     margin-bottom: $margin-vertical;
@@ -160,12 +160,12 @@ $flex-config: (
   }
 
   @if (type-of($noItems) == "list" and list.length($noItems) == 3) {
-    @include include-media.media(">=#{$breakpoint}") {
+    @include bp.media(">=#{$breakpoint}") {
       width: calc(100% / #{list.nth($noItems, 2)});
     }
   }
 
-  @include include-media.media(">=lg") {
+  @include bp.media(">=lg") {
     @if (type-of($noItems) == "list") {
       width: calc(100% / #{list.nth($noItems, 1)});
     } @else {
@@ -222,6 +222,28 @@ $flex-config: (
   @if (#{$hovEffect}) {
     .darken-img:hover {
       background-color: rgba((variables.$black), $hovAmount);
+    }
+  }
+}
+
+@mixin aspect-ratio($width, $height) {
+  @supports (aspect-ratio: #{$width} / #{$height}) {
+    aspect-ratio: #{$width} / #{$height};
+  }
+  @supports not (aspect-ratio: #{$width} / #{$height}) {
+    position: relative;
+    &:before {
+      display: block;
+      content: "";
+      width: 100%;
+      padding-top: ($height / $width) * 100%;
+    }
+    > .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
   }
 }

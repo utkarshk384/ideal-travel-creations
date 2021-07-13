@@ -5,7 +5,7 @@ import Link from "next/link";
 
 ///<----Local Imports--->
 //Styles
-import styles from "styles/components/breadcrumbs.module.scss";
+import styles from "styles/layout/breadcrumbs.module.scss";
 import Utilities from "@/src/utils";
 
 interface IPathnames {

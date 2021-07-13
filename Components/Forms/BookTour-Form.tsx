@@ -10,7 +10,7 @@ import SubmitToast from "./SubmitToast";
 import valFunc from "./ValidateFuncs";
 
 //Styles
-import styles from "styles/components/tour-dialog.module.scss";
+import styles from "styles/layout/tour-dialog.module.scss";
 
 const BookTourForm: React.FC<FormRenderProps> = (props) => {
   //Router

@@ -31,7 +31,7 @@
 .card {
   width: clamp(17.5rem, 20rem, 22.5rem);
   background-color: $white;
-  box-shadow: $shadow-1;
+  box-shadow: $container-shadow;
 
   &-img-container {
     position: relative;

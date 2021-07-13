@@ -22,7 +22,7 @@
     @include flex-Margin(1rem, vertical);
     padding: 1em;
     background-color: $white;
-    box-shadow: $shadow-1;
+    box-shadow: $container-shadow;
   }
 
   &-left {
@@ -46,7 +46,8 @@
 
 .l {
   &-title-wrapper {
-    margin: 1rem auto;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
     h1 {
       color: $secondary;
       letter-spacing: 1.5px;
@@ -54,6 +55,7 @@
   }
 
   &-img-container {
+    @include aspect-ratio(16, 9);
     @include Container(85%, true, 2em);
     position: relative;
     margin-bottom: 2rem;
@@ -97,6 +99,7 @@
 
   p {
     color: $secondary;
+    text-align: center;
   }
   margin-bottom: 1.5rem;
 }
@@ -128,7 +131,7 @@
     @include font($font-bold, $font-sans);
     font-size: $font-sm;
     color: $white;
-    box-shadow: $shadow-1;
+    box-shadow: $button-shadow;
   }
 }
 
@@ -144,8 +147,7 @@
 .itinerary {
   overflow: hidden;
   margin: 1rem 0rem;
-  background-color: $accent;
-  border-radius: 5px;
+  border: 1px solid $accent;
 }
 
 .iti {
@@ -155,14 +157,14 @@
       content: "\f123";
       font-family: "Ionicons";
       font-size: $font-md;
-      color: $primary;
+      color: $accent;
     }
   }
 
   &-heading {
     overflow: hidden;
     h3 {
-      color: $primary;
+      color: $accent;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -212,13 +214,13 @@
       }
       @include font($font-normal, $font-sans);
       font-size: $font-xs;
-      color: $white;
+      color: $black;
     }
 
     p {
       @include font($font-bold, $font-sans);
       font-size: $font-sm;
-      color: $primary;
+      color: $black;
       padding-left: 1.5rem;
     }
   }
@@ -230,7 +232,7 @@
       margin-left: 1.5rem;
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
-      color: $white;
+      color: $black;
       font-size: 30px;
       min-width: 50px;
     }
@@ -265,7 +267,7 @@
 .iti-c-container {
   padding: 1.5rem 1rem;
   p {
-    color: $white;
+    color: $secondary;
     margin-bottom: 1.5rem;
 
     strong {

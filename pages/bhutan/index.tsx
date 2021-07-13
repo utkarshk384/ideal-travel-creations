@@ -98,7 +98,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const { data, error: queryError } = await getAboutBhtPaths();
 
-  if (queryError.length > 0 || data.length === 0) return { notFound: true };
+  if (queryError || data.length === 0) return { notFound: true };
 
   data.forEach((url) =>
     urls.push({
@@ -115,7 +115,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
-  if (error.length > 0) return { props: { error } };
+  if (error) return { props: { error } };
 
   return { props: { seoConfig, data: urls } };
 };

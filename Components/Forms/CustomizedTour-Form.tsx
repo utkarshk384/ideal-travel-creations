@@ -13,7 +13,7 @@ import valFunc from "./ValidateFuncs";
 import * as data from "../../pages/api/tour-form.json";
 
 //Styles
-import styles from "styles/components/tour-dialog.module.scss";
+import styles from "styles/layout/tour-dialog.module.scss";
 
 const BookTourForm: React.FC<FormRenderProps> = (props) => {
   const prevSubmitStateRef = useRef<boolean | null>(null);

@@ -8,13 +8,16 @@ import { ApolloProvider } from "@apollo/client";
 import { LoaderOverlay } from "@/components/Spinners-and-Loaders/NextNProgress";
 import Nav from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import BreadCrumbs from "@/components/home/breadcrumbs";
+import BreadCrumbs from "@/components/breadcrumbs";
 
 //contexts
 import OverlayProvider from "@/src/Contexts/overlayContext";
 
 //Styles
-import "styles/global.scss";
+import "styles/base/_fonts.scss";
+import "styles/base/_base.scss";
+import "styles/base/_helpers.scss";
+import "styles/vendors/_normalize.scss";
 
 //Graphql
 import { useApollo } from "@/apolloClient";

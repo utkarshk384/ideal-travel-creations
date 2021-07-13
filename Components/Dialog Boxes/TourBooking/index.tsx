@@ -10,7 +10,7 @@ import { setBooleanState } from "@/src/types/helperTypes";
 import Anim from "@/animations/TourBookingAnimation";
 
 //Styles
-import styles from "styles/components/tour-dialog.module.scss";
+import styles from "styles/layout/tour-dialog.module.scss";
 
 const mapItems = [
   { name: "Book this Tour", active: { first: true, second: false } },

@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import gsap from "gsap";
+
 import { Transition } from "react-transition-group";
 
 ///<----Local Imports--->
@@ -15,7 +16,7 @@ import type { setBooleanState, urlType } from "@/src/types/helperTypes";
 import navLinks from "./NavData";
 
 //Styles
-import styles from "../../styles/components/nav.module.scss";
+import styles from "../../styles/layout/nav.module.scss";
 
 interface Istates {
   menu: boolean;
@@ -31,15 +32,17 @@ const Menu = React.forwardRef<HTMLUListElement, { states: Istates }>(
     const { menu, setAnimation, setMenu } = props.states;
 
     const endListener = (node: HTMLElement, done: () => void): void => {
-      if (menu)
+      const NextEl = document.querySelector("#__next") as HTMLDivElement;
+      if (menu) {
+        gsap.set(NextEl, { overflow: "hidden" });
         gsap.from(node, {
           x: "100%",
           onComplete: done,
         });
-      else
+      } else
         gsap.to(node, {
           x: "100%",
-          onComplete: done,
+          onComplete: () => gsap.set(NextEl, { overflow: "visible" }) && done(),
         });
     };
 
@@ -48,7 +51,13 @@ const Menu = React.forwardRef<HTMLUListElement, { states: Istates }>(
       childrenCount: number
     ) => {
       if (childrenCount > 0) {
-        e.currentTarget.children[0].classList.toggle("active");
+        const el = e.currentTarget;
+
+        el.classList.toggle("active");
+
+        if (el.classList.contains("active")) {
+          gsap.to(el, {});
+        }
       } else setMenu(false);
     };
 

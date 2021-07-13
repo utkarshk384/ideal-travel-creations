@@ -44,12 +44,12 @@ const Affiliations: React.FC<{ data: homeAffilationData[] }> = ({ data }) => {
       <div className={styles["aff-h-wrapper"]}>
         <h1>Affiliations</h1>
       </div>
-      <div className={styles["aff-logo-container"]}>
+      <div className={styles["aff-logo-wrapper"]}>
         {data.map((logo) => (
           <a
             href={logo.url}
             key={logo.id}
-            className={styles["aff-logo-wrapper"]}
+            className={styles["aff-logo-container"]}
             ref={(el) => logoRefs.current.push(el)}
           >
             <Image
@@ -66,7 +66,7 @@ const Affiliations: React.FC<{ data: homeAffilationData[] }> = ({ data }) => {
       </div>
       <div className={styles["aff-body-wrapper"]}>
         <p>
-          Ideal Travel Creations unveils a whole new spectacular world to the
+          Neptune Holidays unveils a whole new spectacular world to the
           travelers visiting Bhutan. We provide varied selection of tours and
           treks showcasing the very best aspect of this enchanting Himalayan
           Kingdom of Bhutan.

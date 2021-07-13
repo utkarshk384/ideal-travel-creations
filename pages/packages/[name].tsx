@@ -25,6 +25,7 @@ import {
   FilteredPkgCountQueryVariables as ICountVars,
 } from "@/src/types/generated/graphql-frontend";
 import { getPackagesPaths, getSEOConfig } from "@/api/helperFunc";
+import { handleErrorResp } from "@/src/handleErrors";
 
 type PkgCountType = { href: string; page: number };
 
@@ -65,10 +66,11 @@ const PackagePage: React.FC<IProps> = (props) => {
       );
     }
   };
+
   return (
     <div className={styles["dync-name"]}>
       <div className={styles.items}>
-        {props.data!.packages!.map((item, index) => (
+        {props.data?.packages?.map((item, index) => (
           <React.Fragment key={`name-1-${index * 573}`}>
             <div className={styles.item}>
               <div
@@ -185,7 +187,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const dataOffset = PAGE === 1 ? 0 : ITEM_PER_PAGE * PAGE - ITEM_PER_PAGE;
   const paths = await getPackagesPaths();
 
-  if (paths.error.length > 0) return { props: { error: paths.error } };
+  if (paths.error) return { props: { error: paths.error } };
 
   const urlExists = { exists: false };
 
@@ -204,7 +206,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   // This is the main data for the page
-  const query = await apolloQuery<IFilteredQuery, IFilteredvars>({
+  const { data, error } = await apolloQuery<IFilteredQuery, IFilteredvars>({
     query: filteredPackageQuery,
     variables: {
       packageType: formattedUrl,
@@ -213,34 +215,47 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   });
 
-  const countQuery = await apolloQuery<ICountQuery, ICountVars>({
+  const { data: countData, error: countError } = await apolloQuery<
+    ICountQuery,
+    ICountVars
+  >({
     query: PkgCountQuery,
     variables: { packageType: url },
   });
 
-  if (countQuery.error || query.error) return { props: { error: query.error } };
-  else if (query.data?.packages!.length === 0) return { notFound: true };
+  /* 
+    Error Checking
+  */
+  if (countError?.statusCode)
+    return {
+      props: {
+        error: handleErrorResp(countError!.statusCode, countError?.message),
+      },
+    };
+  else if (error?.statusCode)
+    return {
+      props: { error: handleErrorResp(error!.statusCode, error?.message) },
+    };
+  else if (data?.packages!.length === 0) return { notFound: true };
 
-  const NO_OF_PAGES = Math.ceil(
-    countQuery.data?.packagesCount! / ITEM_PER_PAGE
-  );
+  const NO_OF_PAGES = Math.ceil(countData?.packagesCount! / ITEM_PER_PAGE);
 
   for (let i = 1; i <= NO_OF_PAGES; i++) {
     pages.push({ href: `/packages/${url}`, page: i });
   }
 
-  const { data: seoConfig, error } = await getSEOConfig(
+  const { data: seoConfig, error: seoError } = await getSEOConfig(
     `${SEO_URL_BASE}/${ctx.params!.name}`
   );
 
   if (seoConfig && Object.keys(seoConfig).length == 0)
     return { notFound: true };
-  if (error.length > 0) return { props: { error } };
+  if (seoError) return { props: { seoError } };
 
   return {
     props: {
       seoConfig,
-      data: query.data,
+      data: data,
       pages,
       url,
     },

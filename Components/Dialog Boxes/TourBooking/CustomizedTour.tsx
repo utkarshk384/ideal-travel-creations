@@ -14,7 +14,7 @@ import { scrollToInvalidField } from "./helperFunction";
 import { IErrors } from "@/src/types/helperTypes";
 
 //Styles
-import styles from "styles/components/tour-dialog.module.scss";
+import styles from "styles/layout/tour-dialog.module.scss";
 
 const CustomizedTour: React.FC = () => {
   const onSubmit = async (values: object, form: FormApi) => {

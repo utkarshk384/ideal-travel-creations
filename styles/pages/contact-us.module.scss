@@ -14,7 +14,7 @@
   &-address {
     @include Container(100%) {
       background-color: $white;
-      box-shadow: $shadow-1;
+      box-shadow: $container-shadow;
       padding: 3rem 2rem;
     }
     overflow: hidden;
@@ -89,6 +89,7 @@
 
   span {
     @include font($font-normal, $font-sans);
+    color: $alert;
   }
 
   button {
@@ -100,6 +101,7 @@
     background-color: $accent;
     color: $white;
     margin-right: 2vw;
+    box-shadow: $button-shadow;
   }
 }
 

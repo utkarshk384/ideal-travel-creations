@@ -2,7 +2,6 @@
 import React, { useState, useRef, useEffect, useReducer } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Image from "next/image";
 import gsap from "gsap";
 import _ from "lodash";
 import { Transition } from "react-transition-group";
@@ -16,7 +15,7 @@ import Menu from "./MobileMenu";
 import navLinks from "./NavData";
 
 //Custom hooks
-import useWindowSize from "../../src/Hooks/useWindow";
+import useWindowSize, { breakpoints } from "../../src/Hooks/useWindow";
 import useHideNav from "../../src/Hooks/useHideNav";
 
 //Animations
@@ -26,7 +25,7 @@ import gsapAnimation from "../../src/Animations/navAnimation";
 import hoverReducer from "../../src/reducers/hoverReducer";
 
 //Styles
-import styles from "styles/components/nav.module.scss";
+import styles from "styles/layout/nav.module.scss";
 
 //Imported Types
 import type {
@@ -36,6 +35,7 @@ import type {
 } from "../../src/reducers/hoverReducer";
 import type { urlType } from "@/src/types/helperTypes";
 import useOverlay from "@/src/Hooks/useOverlay";
+import NeptuneLogo from "../SVGS/Logo";
 
 interface IProps {
   className?: string;
@@ -83,6 +83,11 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
   };
 
   ///<----Use Effects--->
+
+  useEffect(() => {
+    setMenu(false);
+  }, [size.width]);
+
   useEffect(() => {
     if (!visible) {
       hovDispatch({ type: "both-aboutBhutan" });
@@ -123,19 +128,9 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
           <div className={styles["nav-burger__btn"]} ref={burgerIconRef} />
         </button>
         <div style={{ cursor: "pointer" }}>
-          <Link href="/">
+          <Link passHref href="/">
             <a href="/">
-              {/* PROD: Change Image URL */}
-              <Image
-                src={
-                  process.env.NODE_ENV === "production"
-                    ? "https://res.cloudinary.com/djujm0tsp/image/upload/v1617247763/ideal_logo_white_b68b04b7ec.png"
-                    : "/ideal-logo-white.png"
-                }
-                width={215}
-                height={85}
-                layout="fixed"
-              />
+              <NeptuneLogo height={100} width={240} />
             </a>
           </Link>
         </div>

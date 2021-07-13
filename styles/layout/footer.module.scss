@@ -1,4 +1,5 @@
 @use "../abstracts/mixins";
+@use "../abstracts/functions";
 @use "../abstracts/variables";
 @use "../vendors/include-media";
 
@@ -38,7 +39,7 @@
 .footer {
   @include mixins.Container(100%);
   padding: 1rem 1.5rem;
-  background-color: variables.$secondary;
+  background-color: functions.inner-map-item(variables.$colors, secondary, 800);
   margin-top: 5rem;
 
   &-container {

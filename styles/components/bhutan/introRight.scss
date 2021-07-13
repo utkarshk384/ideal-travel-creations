@@ -1,10 +1,10 @@
 @use "../../main" as  *;
-@use "../../vendors/include-media" as breakpoint;
+@use "../../vendors/include-media" as bp;
 
 .r-intro {
   background-color: $white;
   margin-bottom: 5rem;
-  box-shadow: $shadow-1;
+  box-shadow: $container-shadow;
   padding: 2rem;
 
   h2 {
@@ -42,7 +42,7 @@
   }
 }
 
-@include breakpoint.media(">=lg") {
+@include bp.media(">=lg") {
   .r-intro {
     width: 30%;
   }

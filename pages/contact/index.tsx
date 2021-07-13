@@ -90,7 +90,7 @@ const ContactPage = () => {
             <h2>Contact Address</h2>
           </div>
           <div className={styles["adr-content"]}>
-            <p>IDEAL TRAVEL CREATIONS</p>
+            <p>Neptune Holidays</p>
             <p>Thimphu: Bhutan</p>
             <p>
               ​Babesa-Thimphu Expressway, Olakha, Opposite to Central Plaza,
@@ -99,8 +99,7 @@ const ContactPage = () => {
             <p>Mobile: +975 17668047/ 17124946</p>
             <p>Telephone: +975 2 324987/ 341089</p>
             <p>
-              Email: idealtravelcreations@gmail.com/
-              info@idealtravelcreations.com
+              Email: neptuneholidaysbhutan@gmail.com/ info@neptuneholidays.com
             </p>
           </div>
           <Map
@@ -146,7 +145,7 @@ const onsubmitErrors = (form: FormApi) => {
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
-  if (error.length > 0) return { props: { error } };
+  if (error) return { props: { error } };
 
   return { props: { seoConfig } };
 };

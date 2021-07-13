@@ -96,9 +96,9 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     return { notFound: true };
 
   seoData = {
-    title: `${data.dataForDzongkhags![0]!.title} | Ideal Travel Creations`,
+    title: `${data.dataForDzongkhags![0]!.title} | Neptune Holidays`,
     description: data.dataForDzongkhags![0]!.description,
-    canonical: `https://www.idealtravelcreations.bt/bhutan`,
+    canonical: `https://www.neptuneholidays.bt/bhutan`,
     openGraph: {
       images: [
         {
@@ -112,7 +112,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   };
 
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL_BASE, seoData);
-  if (error.length > 0) return { props: { error } };
+  if (error) return { props: { error } };
 
   return {
     props: { seoConfig, data },

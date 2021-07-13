@@ -1,5 +1,5 @@
 @use "../main" as  *;
-@use "../vendors/include-media" as breakpoint;
+@use "../vendors/include-media" as bp;
 
 @mixin paginationMenu {
   margin-top: 5rem;
@@ -32,7 +32,7 @@
     position: absolute;
     opacity: 0;
 
-    @include breakpoint.media(">lg") {
+    @include bp.media(">lg") {
       visibility: visible;
       position: relative;
       opacity: 1;
@@ -41,7 +41,7 @@
 
   .btn-active {
     background-color: $accent;
-    color: $primary;
+    color: $white;
     @media (hover: hover) {
       &:hover {
         color: $primary;

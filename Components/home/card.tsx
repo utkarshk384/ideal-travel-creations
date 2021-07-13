@@ -39,7 +39,7 @@ const Card: React.FC<{ data: homeData<string[]>[] }> = ({ data }) => {
 
   return (
     <div
-      className={`${styles.cards} ${styles["home-container"]}`}
+      className={`${styles["cards-wrapper"]} ${styles["home-container"]}`}
       ref={cardContainerRef}
     >
       <div className={styles["cards-heading"]}>
@@ -48,18 +48,23 @@ const Card: React.FC<{ data: homeData<string[]>[] }> = ({ data }) => {
       <div className={styles["cards-container"]}>
         {data.map((card, index) => (
           <div
-            className={styles["cards-card"]}
+            className={styles["card-wrapper"]}
             key={`card-1-${index * 344}`}
             ref={(el) => cardRefs.current.push(el)}
           >
             <h2>{card.heading}</h2>
             {card.body.map((cardBody, i) => (
-              <p key={`card-2-${i * 5968}`}>{cardBody}</p>
+              <div
+                key={`card-2-${i * 5968}`}
+                className={styles["card-content"]}
+              >
+                <p>{cardBody}</p>
+              </div>
             ))}
           </div>
         ))}
       </div>
-      <div className={styles["cards-cta"]}>
+      <div className={styles["cta"]}>
         <Link href="/bhutan" passHref>
           <a href="/bhutan" className={styles["cta-btn"]}>
             Explore More

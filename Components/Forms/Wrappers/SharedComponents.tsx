@@ -2,7 +2,7 @@ import React from "react";
 
 import type { metaType, DetailsType } from "./types";
 
-import styles from "styles/components/form.module.scss";
+import styles from "styles/layout/form.module.scss";
 
 type HelperTextPropsType = {
   meta: metaType;

@@ -28,14 +28,14 @@ const Testimonials: React.FC<{ data: IQuery }> = ({ data }) => {
   return (
     <div className={`${styles["home-container"]}`}>
       <div className={styles["tstmials-heading"]}>
-        <h1>Testimonials</h1>
+        <h1>Testimonial</h1>
       </div>
       <div className={styles["tstmials-wrapper"]}>
         {data?.testimonials!.map((card) => (
           <TestimonialsCard data={card as IData} key={card!._id} />
         ))}
       </div>
-      <div className={`${styles["slider-cta"]} ${styles["tstmials-cta"]}`}>
+      <div className={styles["cta"]}>
         <Link href="/testimonials">
           <a href="/testimonials" className={styles["cta-btn"]}>
             See More

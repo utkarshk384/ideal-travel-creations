@@ -96,7 +96,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const { data: seoConfig, error } = await getSEOConfig(
     `${SEO_URL_BASE}/${url}`
   );
-  if (error.length > 0) return { props: { error } };
+  if (error) return { props: { error } };
 
   return {
     props: { seoConfig, mainData: data },
@@ -107,7 +107,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths: Ipaths[] = [];
   const payload = await getAboutBhtPaths();
 
-  if (payload.error.length > 0) return { paths: [], fallback: false };
+  if (payload.error) return { paths: [], fallback: false };
 
   payload.data.map((item) => paths.push({ params: { bhutan: item.url } }));
   return {

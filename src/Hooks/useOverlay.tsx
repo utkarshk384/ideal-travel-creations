@@ -24,7 +24,7 @@ const useOverlay = () => {
 
   useLayoutEffect(() => {
     if (overlay) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "auto";
+    else document.body.style.overflow = "visible";
   }, [overlay]);
 
   useEffect(() => {

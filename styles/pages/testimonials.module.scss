@@ -1,7 +1,7 @@
 @use "../main" as  *;
 @use "../vendors/include-media" as breakpoint;
 
-@use "../layout/pagination" as *;
+@use "../components/pagination" as *;
 
 //Local Variables
 $card-height: 30rem;

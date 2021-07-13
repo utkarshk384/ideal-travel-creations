@@ -14,14 +14,14 @@ const CustomErrorPage: NextPage<IProps> = ({ statusCode, message }) => {
   const statusMessage = handleErrorResp(statusCode);
 
   return (
-    <div className={styles["not-found"]}>
-      <div className={styles.container}>
+    <div className={styles["error-wrapper"]}>
+      <div className={styles["error-container"]}>
         <h2 className={styles["error-code"]}>{statusCode}</h2>
         <h1>Opps! {statusMessage}</h1>
         <hr />
         <p dangerouslySetInnerHTML={{ __html: message }} />
-        <Link href="/">
-          <a href="/">Back Home?</a>
+        <Link passHref href="/">
+          <a href="/test">Back Home?</a>
         </Link>
       </div>
     </div>

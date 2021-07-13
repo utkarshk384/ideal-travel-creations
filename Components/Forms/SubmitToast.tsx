@@ -8,7 +8,7 @@ import TimesIcon from "@/components/SVGS/Times";
 import { FourDots } from "@/components/SVGS/Spinners";
 
 //Styles
-import styles from "styles/components/tour-dialog.module.scss";
+import styles from "styles/layout/tour-dialog.module.scss";
 
 type submitStatesType = {
   submitting: boolean;

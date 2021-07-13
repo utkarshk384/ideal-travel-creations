@@ -25,7 +25,7 @@
 
 .title-bar {
   position: relative;
-  box-shadow: $shadow-1;
+  box-shadow: $container-shadow;
   width: 100%;
   min-height: 2rem;
 }
@@ -79,7 +79,7 @@
   button {
     &::before {
       content: "\f00d";
-      font-size: $font-xl;
+      font-size: $font-lg;
       font-weight: 900;
       color: $accent;
       font-family: "Font Awesome 5 Free";

@@ -1,9 +1,10 @@
 ///<----Global Imports--->
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import "mapbox-gl/";
 
 //Mapbox Token
-mapboxgl.accessToken = process.env.MAPBOX_API as string;
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API as string;
 
 const Map: React.FC<{
   lat: number;

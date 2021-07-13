@@ -1,6 +1,5 @@
-@use "../abstracts/mixins";
-@use "../vendors/include-media";
-
+@use "../abstracts";
+@use "../vendors/include-media" as bp;
 @use "sass:list";
 
 //Default config for a button component
@@ -14,7 +13,7 @@ $default-btn: (
 /// @param {map} $properties - Any css property value pair for the button style.
 
 @mixin btn-basic($width, $properties: $default-btn) {
-  @include mixins.flex($center: true);
+  @include abstracts.flex($center: true);
   width: calc(#{$width} * 0.8);
   cursor: pointer;
   padding: calc(#{$width} * 0.075) calc(#{$width} * 0.025);
@@ -24,7 +23,7 @@ $default-btn: (
   }
   @content;
   //Responsiveness
-  @include include-media.media(">=md") {
+  @include bp.media(">=md") {
     width: $width;
   }
 }
@@ -50,7 +49,7 @@ $default-btn: (
 
   &::before {
     content: "";
-    @include mixins.setPosition(0, 0, auto, 0);
+    @include abstracts.setPosition(0, 0, auto, 0);
     transition: all 0.2s linear 0s;
     display: block;
     width: 100%;
@@ -75,7 +74,7 @@ $default-btn: (
 
     @content;
     //Responsiveness
-    @include include-media.media(">=md") {
+    @include bp.media(">=md") {
       right: 0rem;
     }
   }
@@ -85,7 +84,7 @@ $default-btn: (
       padding-right: calc(#{$width} * 0.05);
 
       //Responsiveness
-      @include include-media.media(">=md") {
+      @include bp.media(">=md") {
         padding-left: calc(#{$width} * -0.1);
         padding-right: calc(#{$width} * 0.1);
       }
@@ -100,7 +99,7 @@ $default-btn: (
         opacity: 1;
 
         //Responsiveness
-        @include include-media.media(">=md") {
+        @include bp.media(">=md") {
           right: calc(#{$width} * 0.15);
         }
       }
@@ -178,7 +177,7 @@ $default-btn: (
 
   @content;
   &::before {
-    @include mixins.setPosition(50%, 50%, 0, 0);
+    @include abstracts.setPosition(50%, 50%, 0, 0);
     content: "";
     transform: translate(40%, -45%);
     background: transparent;
@@ -198,4 +197,23 @@ $default-btn: (
       background: $bg-color;
     }
   }
+}
+
+//Project Buttons
+
+@mixin defaultButton() {
+  @include Button-anim-icon(
+    15rem,
+    (
+      background-color: abstracts.$accent,
+    ),
+    "\f3d1",
+    "Ionicons",
+    abstracts.$primary
+  );
+  @include abstracts.font(abstracts.$font-bold, abstracts.$font-sans);
+  box-shadow: abstracts.$button-shadow;
+  font-size: abstracts.$font-sm;
+  color: abstracts.$white;
+  cursor: pointer;
 }

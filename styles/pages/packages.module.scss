@@ -3,7 +3,7 @@
 
 .packages {
   @include Container(80%) {
-    box-shadow: $shadow-1;
+    box-shadow: $container-shadow;
   }
   background-color: $white;
   margin-bottom: 5rem;
