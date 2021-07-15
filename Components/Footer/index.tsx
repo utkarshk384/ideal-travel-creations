@@ -1,6 +1,5 @@
 ///<----Global Imports--->
-import _ from "lodash";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 
 ///<----Local Imports--->

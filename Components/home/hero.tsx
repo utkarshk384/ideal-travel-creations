@@ -1,5 +1,5 @@
 /// <---Global Imports--->
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 /// <---Local Imports--->
 import Image from "@/components/ImageWrapper";
@@ -39,6 +39,7 @@ const Hero: React.FC = () => {
         className={styles["hero-bg"]}
         loading="eager"
         placeholder="blur"
+        blurDataURL="https://res.cloudinary.com/djujm0tsp/image/upload/e_blur:1000/v1617247554/Hero_5f80e23af2.jpg"
       />
       <div className={styles["hero-container"]} id="home-page">
         <div className={styles["hero-center-text"]}>

@@ -10,7 +10,7 @@ import SubmitToast from "./SubmitToast";
 import valFunc from "./ValidateFuncs";
 
 //Data
-import * as data from "../../pages/api/tour-form.json";
+import data from "../../pages/api/tour-form.json";
 
 //Styles
 import styles from "styles/layout/tour-dialog.module.scss";

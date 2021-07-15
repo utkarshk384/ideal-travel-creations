@@ -38,7 +38,7 @@ const Testimonials: React.FC<{ data: IQuery }> = ({ data }) => {
       <div className={styles["cta"]}>
         <Link href="/testimonials">
           <a href="/testimonials" className={styles["cta-btn"]}>
-            See More
+            More testimonials
           </a>
         </Link>
       </div>
@@ -49,8 +49,9 @@ const Testimonials: React.FC<{ data: IQuery }> = ({ data }) => {
 const TestimonialsCard: React.FC<{ data?: IData }> = ({ data }) => {
   return (
     <div className={styles["tstmials-card"]}>
-      <div className={styles["tc-img-container"]}>
+      <div className={styles["tc-img-wrapper"]}>
         <Image
+          containerClass={styles["tc-img-container"]}
           src={data!.image.url}
           width={data!.image.width}
           height={data!.image.height}

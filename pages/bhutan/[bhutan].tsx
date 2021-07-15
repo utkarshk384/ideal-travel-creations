@@ -1,5 +1,6 @@
 ///<----Global Imports--->
 import React from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
 import ReactMarkdown from "react-markdown/with-html";
@@ -9,7 +10,6 @@ import gfm from "remark-gfm";
 import withSEO from "@/components/withSEO";
 import Image from "@/components/ImageWrapper";
 
-import Map from "@/components/Map";
 import QuickLinks from "@/components/quickLinks";
 
 //Styles
@@ -24,18 +24,24 @@ import {
 } from "@/src/types/generated/graphql-frontend";
 import { getAboutBhtPaths, getSEOConfig } from "@/api/helperFunc";
 import Utilities from "@/src/utils";
+import { FourDots } from "@/components/SVGS/Spinners";
 
 interface Ipaths {
   params: {
     bhutan: string;
   };
 }
+const Map = dynamic(() => import("@/components/Map"), {
+  loading: () => <FourDots />,
+  ssr: false,
+});
 
 //This is the base of the SEO URL that will used in the getStaticProps via the getStaticPaths method of next js
 const SEO_URL_BASE = "/bhutan";
 
 const SsgBhutan: React.FC<{
   mainData: IQuery;
+  accessToken: string;
 }> = (props) => {
   ///Router
   const router = useRouter();
@@ -64,6 +70,7 @@ const SsgBhutan: React.FC<{
               </div>
               {router.asPath === "/bhutan/location-and-geography" && (
                 <Map
+                  accessToken={props.accessToken}
                   lat={27.5002}
                   lng={90.5081}
                   zoom={7}
@@ -99,7 +106,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   if (error) return { props: { error } };
 
   return {
-    props: { seoConfig, mainData: data },
+    props: { seoConfig, mainData: data, accessToken: process.env.MAPBOX_API },
   };
 };
 

@@ -24,7 +24,6 @@ import { getSEOConfig } from "@/api/helperFunc";
 
 type DzongkhagType = {
   title: string;
-  description: string;
   coverImage: imageType;
   sectors: string;
 };
@@ -103,11 +102,6 @@ const Card: React.FC<{ card: DzongkhagType }> = ({ card }) => {
             <Image src={card.coverImage.url} layout="fill" />
           </div>
         </div>
-        <div className={styles["card-description"]}>
-          <Clamp lines={7}>
-            <p>{Utilities.sanitizeMarkdown(card.description)}</p>
-          </Clamp>
-        </div>
       </a>
     </Link>
   );
@@ -120,7 +114,6 @@ export const getStaticProps: GetStaticProps = async () => {
     query dzongkhagData {
       dataForDzongkhags {
         title
-        description
         sectors
         coverImage {
           width

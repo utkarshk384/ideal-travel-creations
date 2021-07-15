@@ -26,8 +26,9 @@ getAboutBhtPaths().then((payload) => {
         href: "/bhutan/[bhutan]",
         as: `/bhutan/${path.url}`,
       });
+    return "";
   });
-  bhtPaths.push({
+  return bhtPaths.push({
     name: "Sectors of Bhutan",
     href: "/bhutan/sectors-of-bhutan",
     as: "/bhutan/sectors-of-bhutan",

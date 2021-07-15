@@ -14,7 +14,7 @@ import WhyUs from "../Components/home/why-us";
 import withSEO from "@/components/withSEO";
 
 //Data
-import * as homeData from "./api/home.json";
+import homeData from "./api/home.json";
 
 //Styles
 import styles from "../styles/pages/home.module.scss";

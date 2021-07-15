@@ -44,7 +44,9 @@
 .hero-bg {
   object-fit: cover;
   object-position: center;
-  filter: brightness(40%); //Darken Background Image used in the Hero Seciton
+  filter: brightness(
+    40%
+  ) !important; //Darken Background Image used in the Hero Seciton
 }
 
 .hero-container {
@@ -218,7 +220,7 @@
 }
 
 .tstmials-card {
-  @include flex("md") {
+  @include flex("lg") {
     align-items: center;
   }
   border: 1px solid $secondary;
@@ -236,11 +238,16 @@
 }
 
 .tc {
-  &-img-container {
+  &-img-wrapper {
     @include aspect-ratio(16, 9);
     position: relative;
     display: flex;
     width: 100%;
+  }
+
+  &-img-container {
+    display: flex;
+    justify-content: flex-start;
   }
 
   &-content {
@@ -282,7 +289,7 @@
   &-h-wrapper {
     margin: 1.5rem auto;
   }
-  &-logo-wrapper {
+  &-logos {
     @include flex() {
       align-items: center;
     }
@@ -291,6 +298,11 @@
   }
 
   &-logo-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-logo-wrapper {
     @include flex-Margin(1em);
     @include flex($center: true);
     @include setPosition(0, 0, 0, 0, relative);
@@ -334,13 +346,13 @@
     &-container {
       min-width: 60%;
     }
-    &-img-container {
+    &-img-wrapper {
       min-width: 40%;
     }
   }
 }
 
-@include breakpoint.media(">=xs", "<=md") {
+@include breakpoint.media(">=xs", "<=lg") {
   .tstmials-card {
     width: 70%;
   }

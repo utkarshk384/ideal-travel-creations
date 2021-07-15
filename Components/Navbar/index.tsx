@@ -15,7 +15,7 @@ import Menu from "./MobileMenu";
 import navLinks from "./NavData";
 
 //Custom hooks
-import useWindowSize, { breakpoints } from "../../src/Hooks/useWindow";
+import useWindowSize from "../../src/Hooks/useWindow";
 import useHideNav from "../../src/Hooks/useHideNav";
 
 //Animations
@@ -114,7 +114,10 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
     <nav
       className={`${styles.nav} ${props.className || ""} `}
       ref={navWrapperRef}
-      style={{ top: visible ? "0" : "-100px" }}
+      style={{
+        top: visible ? "0" : "-100px",
+        position: menu ? "fixed" : "sticky",
+      }}
     >
       <div className={styles["nav-container"]}>
         <button

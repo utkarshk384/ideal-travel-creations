@@ -7,7 +7,6 @@ import { Form } from "react-final-form";
 
 ///<----Local Imports--->
 import FormContent from "@/components/Forms/ContactUs-Form";
-import Map from "@/components/Map";
 import { scrollToInvalidField } from "@/components/Dialog Boxes/TourBooking/helperFunction";
 import { getSEOConfig } from "@/api/helperFunc";
 import withSEO from "@/components/withSEO";
@@ -21,6 +20,8 @@ import { IErrors } from "@/src/types/helperTypes";
 //Styles
 import styles from "styles/pages/contact-us.module.scss";
 import { GetStaticProps } from "next";
+import dynamic from "next/dynamic";
+import { FourDots } from "@/components/SVGS/Spinners";
 
 interface Idata {
   firstname?: string;
@@ -31,8 +32,12 @@ interface Idata {
 }
 
 const SEO_URL = "/contact";
+const Map = dynamic(() => import("@/components/Map"), {
+  loading: () => <FourDots />,
+  ssr: false,
+});
 
-const ContactPage = () => {
+const ContactPage: React.FC<{ accessToken: string }> = (props) => {
   ///<----Custom Hook--->
   const { overlay, setOverlay } = useOverlay();
 
@@ -68,6 +73,7 @@ const ContactPage = () => {
       {overlay && (
         <div className={styles["expanded-map"]}>
           <Map
+            accessToken={props.accessToken}
             lat={27.4482}
             lng={89.6583}
             zoom={17.0}
@@ -103,6 +109,7 @@ const ContactPage = () => {
             </p>
           </div>
           <Map
+            accessToken={props.accessToken}
             lat={27.4482}
             lng={89.6583}
             zoom={17.0}
@@ -147,6 +154,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
   if (error) return { props: { error } };
 
-  return { props: { seoConfig } };
+  return { props: { seoConfig, accessToken: process.env.MAPBOX_API } };
 };
 export default withSEO(ContactPage);

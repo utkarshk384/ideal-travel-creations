@@ -33,50 +33,48 @@ const BhutanPage: React.FC<{ data: urlType[] }> = ({ data }) => {
   const windowSize = useWindowSize(); // Used to get the browser window size
 
   return (
-    <>
-      <div className={styles.bht}>
-        <div className={styles.intro}>
-          <div className={`${styles["l-intro"]} ${styles["intro-item"]}`}>
-            <div className={`${styles["l-item"]}`}>
-              <div className={styles["l-img-container"]}>
-                <div className={styles["img-heading"]}>
-                  <h1>About Bhutan</h1>
-                </div>
-                <Image
-                  src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
-                  layout="fill"
-                />
+    <div className={styles.bht}>
+      <div className={styles.intro}>
+        <div className={`${styles["l-intro"]} ${styles["intro-item"]}`}>
+          <div className={`${styles["l-item"]}`}>
+            <div className={styles["l-img-container"]}>
+              <div className={styles["img-heading"]}>
+                <h1>About Bhutan</h1>
               </div>
-              <div className={styles["l-container-bht"]}>
-                {introData.leftData.map((item, index) => (
-                  <p key={`intro-left-data${index * 234}`}>{item}</p>
-                ))}
-              </div>
+              <Image
+                src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
+                layout="fill"
+              />
             </div>
-            {windowSize.width! <= breakpoints.lg && (
-              <div className={styles["b-nav"]}>
-                <h3>Navigation Links</h3>
-                {data?.map((url, index) => (
-                  <Link
-                    key={`secotr-of-bhutan-2-${index * 555}`}
-                    href={url.href}
-                    as={url.as}
-                  >
-                    {url.name.replace("And", "and").replace("In", "in")}
-                  </Link>
-                ))}
-              </div>
-            )}
+            <div className={styles["l-container-bht"]}>
+              {introData.leftData.map((item, index) => (
+                <p key={`intro-left-data${index * 234}`}>{item}</p>
+              ))}
+            </div>
           </div>
-          <div className={`${styles["r-intro"]} ${styles["intro-item"]}`}>
-            <h2>Country Facts</h2>
-            {introData.rightData.map((item, index) => {
-              return <IntroRight key={`btn-intro${index}`} data={item} />;
-            })}
-          </div>
+          {windowSize.width! <= breakpoints.lg && (
+            <div className={styles["b-nav"]}>
+              <h3>Navigation Links</h3>
+              {data?.map((url, index) => (
+                <Link
+                  key={`secotr-of-bhutan-2-${index * 555}`}
+                  href={url.href}
+                  as={url.as}
+                >
+                  {url.name.replace("And", "and").replace("In", "in")}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className={`${styles["r-intro"]} ${styles["intro-item"]}`}>
+          <h2>Country Facts</h2>
+          {introData.rightData.map((item, index) => {
+            return <IntroRight key={`btn-intro${index}`} data={item} />;
+          })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -110,8 +108,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   urls.push({
     name: "Sectors of Bhutan",
-    href: "/bhutan/parts-of-bhutan",
-    as: "/bhutan/parts-of-bhutan",
+    href: "/bhutan/sectors-of-bhutan",
+    as: "/bhutan/sectors-of-bhutan",
   });
 
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL);

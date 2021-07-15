@@ -9,7 +9,7 @@ import Image from "@/components/ImageWrapper";
 import QuickLinks from "@/components/quickLinks";
 
 //Data
-import * as data from "../api/company-portfolio.json";
+import data from "../api/company-portfolio.json";
 
 //Styles
 import styles from "styles/pages/company-portfolio.module.scss";
@@ -34,7 +34,6 @@ const CompanyPortfolio = () => {
               <div
                 className={`${styles["content-img-container"]} ${styles["left"]}`}
               >
-                {/* PROD: Change Image */}
                 <Image
                   src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
                   layout="fill"

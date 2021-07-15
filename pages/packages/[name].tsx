@@ -248,7 +248,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     `${SEO_URL_BASE}/${ctx.params!.name}`
   );
 
-  if (seoConfig && Object.keys(seoConfig).length == 0)
+  if (seoConfig && Object.keys(seoConfig).length === 0)
     return { notFound: true };
   if (seoError) return { props: { seoError } };
 

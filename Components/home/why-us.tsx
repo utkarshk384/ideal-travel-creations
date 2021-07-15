@@ -43,9 +43,7 @@ const WhyUs: React.FC<{ data: homeData[] }> = ({ data }) => {
       </div>
       <div className={styles["cta"]}>
         <Link href="/contact">
-          <a href="/contact" className={styles["cta-btn"]}>
-            Contact Us
-          </a>
+          <button className={styles["cta-btn"]}>Contact Us</button>
         </Link>
       </div>
     </div>

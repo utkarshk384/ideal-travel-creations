@@ -3,18 +3,22 @@ import NextImage, { ImageProps } from "next/image";
 
 type IProps<T = {}> = T & ImageProps;
 
-const Image: React.FC<IProps<{ overideImage?: boolean }>> = ({
-  src,
-  overideImage,
-  ...rest
-}) => {
+const Image: React.FC<
+  IProps<{ overideImage?: boolean; containerClass?: string }>
+> = ({ src, containerClass, overideImage, ...rest }) => {
   if (process.env.NODE_ENV === "production" || overideImage)
-    return <NextImage src={src} {...rest} />;
+    return (
+      <div className={containerClass}>
+        <NextImage src={src} {...rest} />
+      </div>
+    );
 
   const { height, width, layout, ...others } = { ...rest };
 
   return (
-    <NextImage layout="fill" {...others} src="/images/Happiness-Travel.jpg" />
+    <div>
+      <NextImage layout="fill" {...others} src="/images/Happiness-Travel.jpg" />
+    </div>
   );
 };
 

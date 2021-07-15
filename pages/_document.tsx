@@ -9,6 +9,10 @@ class MyDocument extends Document {
           <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="shortcut icon" href="/favicon/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         </Head>
         <body>
           <Main />

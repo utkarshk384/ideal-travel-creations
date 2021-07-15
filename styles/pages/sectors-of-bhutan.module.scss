@@ -9,7 +9,8 @@
 }
 
 .main-heading {
-  margin: 3vh 0;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
   color: $secondary;
 }
 
@@ -22,7 +23,7 @@
 .card {
   overflow: hidden;
   width: 100%;
-  height: 25rem;
+  height: 10rem;
   border: 2px solid $secondary;
   box-shadow: $container-shadow;
   cursor: pointer;
@@ -36,7 +37,7 @@
 
   &-cover {
     position: relative;
-    height: 50%;
+    height: 100%;
     width: 100%;
 
     &-heading {
@@ -56,23 +57,11 @@
       object-position: center;
     }
   }
-
-  &-description {
-    @include flex($center: true);
-    padding: 1rem 2rem;
-    width: 100%;
-    height: 50%;
-    p {
-      color: $secondary;
-      text-align: left;
-    }
-  }
 }
 
 @include breakpoint.media(">=sm") {
   .card {
     width: 17rem;
-    height: 24rem;
   }
 }
 @include breakpoint.media(">=lg") {

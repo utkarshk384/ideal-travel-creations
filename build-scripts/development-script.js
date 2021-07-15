@@ -43,27 +43,27 @@ const config = `{
       },
     ];
   },
-  webpack: (config, options) => {
+  webpack(config, { buildId, dev, isServer, defaultLoaders, webpack }) {
     config.module.rules.push({
-      test: /\.(graphql|gql)$/,
+      test: /.(graphql|gql)$/,
       exclude: /node_modules/,
       loader: "graphql-tag/loader",
     });
-    config.module.rules[1].oneOf.forEach((moduleLoader, i) => {
+    config.module.rules[2].oneOf.forEach((moduleLoader, i) => {
       Array.isArray(moduleLoader.use) &&
         moduleLoader.use.forEach((l) => {
           if (
-            l.loader.includes("css-loader") &&
-            !l.loader.includes("postcss-loader")
+            l.loader.includes('\\css-loader') &&
+            !l.loader.includes('postcss-loader')
           ) {
-            delete l.options.modules.getLocalIdent;
-            l.options.modules = {
-              ...l.options.modules,
-              // Your custom css-modules options below.
-              localIdentName:
-                config.mode === "development"
-                  ? "[local]"
-                  : "css__[hash:base64:5]",
+            const { getLocalIdent, ...others } = l.options.modules;
+
+            l.options = {
+              ...l.options,
+              modules: {
+                ...others,
+                localIdentName: '[local]',
+              },
             };
           }
         });
@@ -72,7 +72,7 @@ const config = `{
   },
 }
 `;
-
+//[hash:base64:6]
 const makeConfig = (config) => {
   fs.writeFileSync(
     `${__dirname}/../next.config.js`,
@@ -84,7 +84,7 @@ const makeConfig = (config) => {
       if (err) {
         return console.log(chalk.red(err));
       }
-      console.log(chalk.green("ready - ") + val);
+      console.log(chalk.green("ready"));
     }
   );
 };

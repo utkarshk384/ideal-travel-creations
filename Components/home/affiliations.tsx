@@ -44,15 +44,16 @@ const Affiliations: React.FC<{ data: homeAffilationData[] }> = ({ data }) => {
       <div className={styles["aff-h-wrapper"]}>
         <h1>Affiliations</h1>
       </div>
-      <div className={styles["aff-logo-wrapper"]}>
+      <div className={styles["aff-logos"]}>
         {data.map((logo) => (
           <a
+            className={styles["aff-logo-wrapper"]}
             href={logo.url}
             key={logo.id}
-            className={styles["aff-logo-container"]}
             ref={(el) => logoRefs.current.push(el)}
           >
             <Image
+              containerClass={styles["aff-logo-container"]}
               layout="intrinsic"
               height={250}
               width={200}

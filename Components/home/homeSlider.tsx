@@ -27,7 +27,6 @@ const Slider: React.FC<{ data: ISliderData[] }> = ({ data }) => {
   const { width } = useWindowSize();
 
   /// <---Refs--->
-  const activeCardRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const carouselRef = useRef<HTMLDivElement | null>(null);
   /// <---Use Effects--->
   useEffect(() => {
@@ -93,7 +92,6 @@ const Slider: React.FC<{ data: ISliderData[] }> = ({ data }) => {
           {data?.map((card, index) => (
             <Card
               key={`sc-${index * 9586}`}
-              activeCardRef={activeCardRef}
               activeCard={activeCard}
               index={index}
               card={card}
@@ -106,16 +104,18 @@ const Slider: React.FC<{ data: ISliderData[] }> = ({ data }) => {
           className={`${styles["slider-l-arrow"]}`}
           onClick={(e) => handleClick(e)}
           disabled={animating}
+          aria-label="Previous Card"
         />
         <button
           className={`${styles["slider-r-arrow"]} `}
           onClick={(e) => handleClick(e)}
           disabled={animating}
+          aria-label="Next Card"
         />
       </div>
       <div className={styles["cta"]}>
         <Link href="/packages">
-          <a className={styles["cta-btn"]}>More Packages</a>
+          <button className={styles["cta-btn"]}>More Packages</button>
         </Link>
       </div>
     </div>
@@ -126,15 +126,15 @@ type CardPropType = {
   card: any;
   index: number;
   activeCard: number;
-  activeCardRef: React.MutableRefObject<(HTMLAnchorElement | null)[]>;
 };
 
 const Card: React.FC<CardPropType> = (props) => {
-  const { card, index, activeCard, activeCardRef } = props;
+  const { card, index, activeCard } = props;
 
   return (
-    <a
-      ref={(el) => activeCardRef.current.push(el)}
+    <div
+      role="button"
+      tabIndex={0}
       key={`sc-${index}`}
       className={`${styles["sc"]} ${
         card.index === activeCard ? styles["sc-active"] : ""
@@ -160,11 +160,11 @@ const Card: React.FC<CardPropType> = (props) => {
         </div>
         <div className={styles["view-package"]}>
           <Link href="/packages/[name]/[packages]" as={card.url}>
-            <a>View Package</a>
+            <button>View Package</button>
           </Link>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 

@@ -33,7 +33,6 @@ class _Animation extends _gsapAnimation {
   }
 
   public updateVal(params: paramsType) {
-    console.log("Before", this.cardWidth);
     this.sliderWidth = params.sliderWidth * 16;
     this.cardWidth = params.cardWidth * 16;
 
@@ -44,7 +43,6 @@ class _Animation extends _gsapAnimation {
       // width: this.cardWidth,
       x: (i) => i * (this.cardWidth + 80) - offset,
     });
-    console.log(this.cardWidth);
   }
 
   public sliderSection(
