@@ -53,9 +53,9 @@ const Menu = React.forwardRef<HTMLUListElement, { states: Istates }>(
       if (childrenCount > 0) {
         const el = e.currentTarget;
 
-        el.classList.toggle("active");
+        el.classList.toggle(styles.active);
 
-        if (el.classList.contains("active")) {
+        if (el.classList.contains(styles.active)) {
           gsap.to(el, {});
         }
       } else setMenu(false);

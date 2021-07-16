@@ -107,16 +107,6 @@
     }
   }
 
-  .with-children.active {
-    &::before {
-      transform: rotate(180deg);
-    }
-
-    & > div {
-      max-height: 30rem;
-    }
-  }
-
   .with-children::before {
     @include abstracts.setPosition(0%, 20%);
     content: "\f107";
@@ -139,7 +129,7 @@
     transition: max-height 500ms ease-out;
 
     a {
-      color: abstracts.$grey;
+      color: rgba(abstracts.$white, 0.65);
 
       &:first-child {
         margin-top: 1rem;
@@ -148,6 +138,17 @@
   }
 
   //Navigation active Class
+
+  .with-children.active {
+    &::before {
+      transform: rotate(180deg);
+    }
+
+    & > div {
+      max-height: 30rem;
+    }
+  }
+
   .nav-active {
     &::before {
       content: "";
