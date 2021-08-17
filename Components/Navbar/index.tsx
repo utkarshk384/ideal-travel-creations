@@ -10,6 +10,8 @@ import { Transition } from "react-transition-group";
 
 import { routerIndex } from "./helperFuncs";
 
+import Image from "next/image";
+
 //Data
 import Menu from "./MobileMenu";
 import navLinks from "./NavData";
@@ -35,7 +37,6 @@ import type {
 } from "../../src/reducers/hoverReducer";
 import type { urlType } from "@/src/types/helperTypes";
 import useOverlay from "@/src/Hooks/useOverlay";
-import NeptuneLogo from "../SVGS/Logo";
 
 interface IProps {
   className?: string;
@@ -130,10 +131,14 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
         >
           <div className={styles["nav-burger__btn"]} ref={burgerIconRef} />
         </button>
-        <div style={{ cursor: "pointer" }}>
+        <div style={{ cursor: "pointer", width: "525px" }}>
           <Link passHref href="/">
             <a href="/">
-              <NeptuneLogo height={100} width={240} />
+              <Image
+                src="https://res.cloudinary.com/ideal-travel-creations/image/upload/v1629189611/ideal-logo-white_a26brg.png"
+                width={300}
+                height={127}
+              />
             </a>
           </Link>
         </div>

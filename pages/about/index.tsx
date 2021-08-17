@@ -12,7 +12,7 @@ import QuickLinks from "@/components/quickLinks";
 import styles from "styles/pages/about.module.scss";
 
 const seoConfig = SEOConfig({
-  title: "About Us | Neptune Holidays",
+  title: "About Us | Ideal Travel Creations",
   description:
     "deal Travel Creations is a family business managed and owned by Husband and wife, Bikee and Trishna.Mr. Bikee has been in the Bhutan Tourism industry since the year 2006. After his studies, he started his career in the Bhutan Tourism industry and hworked with many Travel Companies in Bhutan. He has traveled extensively in Bhutan and knows each and every corner of Bhutan. He can plan holidays wiperfection. His work has impressed many travelers and agents abroad. Question him and he has an answer; ask him and it is arranged. Besides managemeand finaance, he specializes in organizing and creating creative and unique tours, treks, and holidays in Bhutan and is the key person behind IdeTravel creations. He is known for his creativity and is also passionate about different kinds of music.Ms. Trishna Rasaily comes from Educational Background. She worked in various schools in Bhutan and India before the establishment of IdealCreations. Working in different places has given her a good knowledge of the places and also got ample opportunity to travel around these two countrieShe was the head of department when is school and is a very good administrator and has very good Public relations.",
   canonical: `https://www.neptuneholidays.bt/about`,
@@ -38,8 +38,8 @@ const AboutPage: React.FC = () => {
           <div className={styles["l-content"]}>
             <h2>Our Team</h2>
             <p>
-              Neptune Holidays is a family business managed and owned by Husband
-              and wife, Bikee and Trishna.
+              Ideal Travel Creations is a family business managed and owned by
+              Husband and wife, Bikee and Trishna.
             </p>
             <p>
               Mr. Bikee has been in the Bhutan Tourism industry since the year
@@ -51,17 +51,17 @@ const AboutPage: React.FC = () => {
               and he has an answer; ask him and it is arranged. Besides
               management and finaance, he specializes in organizing and creating
               creative and unique tours, treks, and holidays in Bhutan and is
-              the key person behind Neptune Holidays. He is known for his
+              the key person behind Ideal Travel Creations. He is known for his
               creativity and is also passionate about different kinds of music.
             </p>
             <p>
               Ms. Trishna Rasaily comes from Educational Background. She worked
               in various schools in Bhutan and India before the establishment of
-              Neptune Holidays. Working in different places has given her a good
-              knowledge of the places and also got ample opportunity to travel
-              around these two countries. She was the head of department when is
-              school and is a very good administrator and has very good Public
-              relations.
+              Ideal Travel Creations. Working in different places has given her
+              a good knowledge of the places and also got ample opportunity to
+              travel around these two countries. She was the head of department
+              when is school and is a very good administrator and has very good
+              Public relations.
             </p>
 
             <p>
@@ -84,7 +84,7 @@ const AboutPage: React.FC = () => {
               herself, she knows the inclusions in a women travel and creates
               such tours that would come in line with the requirements of a
               woman. Ms. Trishna Rasaily accompanies some of the Women Tours
-              organized by Neptune Holidays.
+              organized by Ideal Travel Creations.
             </p>
 
             {/* INFO: To be implemented once `the-team` page is ready */}
@@ -95,16 +95,16 @@ const AboutPage: React.FC = () => {
             </div> */}
             <h2>The Company</h2>
             <p>
-              Neptune Holidays has been in the Bhutan travel industry since
-              2012. It was established with a broader objective to provide
+              Ideal Travel Creations has been in the Bhutan travel industry
+              since 2012. It was established with a broader objective to provide
               travelers around the world with the most ideal holidays in Bhutan.
-              Since its establishment in the year 2012, Neptune Holidays is a
-              small but one of the fastest growing tour operators in Bhutan. We
-              are growing fast because we create unique tours and every tour is
-              crafted as per the personal interests or requirements of the
-              traveler and we execute every tours exceptionally with
-              personalized attention. We make travel to Bhutan easy for every
-              different individual.
+              Since its establishment in the year 2012, Ideal Travel Creations
+              is a small but one of the fastest growing tour operators in
+              Bhutan. We are growing fast because we create unique tours and
+              every tour is crafted as per the personal interests or
+              requirements of the traveler and we execute every tours
+              exceptionally with personalized attention. We make travel to
+              Bhutan easy for every different individual.
             </p>
             <div className={styles.cta}>
               <Link href="/about/company-portfolio">

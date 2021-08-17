@@ -96,7 +96,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     return { notFound: true };
 
   seoData = {
-    title: `${data.dataForDzongkhags![0]!.title} | Neptune Holidays`,
+    title: `${data.dataForDzongkhags![0]!.title} | Ideal Travel Creations`,
     description: data.dataForDzongkhags![0]!.description,
     canonical: `https://www.neptuneholidays.bt/bhutan`,
     openGraph: {

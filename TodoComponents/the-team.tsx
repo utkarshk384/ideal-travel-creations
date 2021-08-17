@@ -30,7 +30,7 @@ interface IData {
 }
 
 const seoConfig = SEOConfig({
-  title: "The Team | Neptune Holidays",
+  title: "The Team | Ideal Travel Creations",
   description: "The team of Ideal Travel Creaitons.",
   canonical: `https://www.neptuneholidays.bt/the-team`,
 });

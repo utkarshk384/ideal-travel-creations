@@ -61,8 +61,8 @@ const Footer = () => {
           </div>
           <div className={`${styles["footer-wrapper"]} ${styles["email-us"]}`}>
             <h3>Contact Us</h3>
-            <a href="mailto:neptuneholidaysbhutan@gmail.com">
-              neptuneholidaysbhutan@gmail.com
+            <a href="mailto:idealtravelcreations@gmail.com">
+              idealtravelcreations@gmail.com
             </a>
             <a href="tel:+975-2-324987">+975-2-324987</a>
             <a href="tel:+975-2-341089">+975-2-341089</a>

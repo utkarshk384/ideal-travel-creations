@@ -57,7 +57,7 @@ const Parallex: React.FC = () => {
         />
         <div className={styles["parallex-text"]}>
           <span>
-            “Travel Bhutan with Neptune Holidays and enjoy a life time’s
+            “Travel Bhutan with Ideal Travel Creations and enjoy a life time’s
             experience. Feel the tranquility, freedom and pamper yourself
             amongst the best Bhutanese Hospitality.”
           </span>

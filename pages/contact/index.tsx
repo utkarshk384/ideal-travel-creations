@@ -96,7 +96,7 @@ const ContactPage: React.FC<{ accessToken: string }> = (props) => {
             <h2>Contact Address</h2>
           </div>
           <div className={styles["adr-content"]}>
-            <p>Neptune Holidays</p>
+            <p>Ideal Travel Creations</p>
             <p>Thimphu: Bhutan</p>
             <p>
               ​Babesa-Thimphu Expressway, Olakha, Opposite to Central Plaza,
@@ -105,7 +105,7 @@ const ContactPage: React.FC<{ accessToken: string }> = (props) => {
             <p>Mobile: +975 17668047/ 17124946</p>
             <p>Telephone: +975 2 324987/ 341089</p>
             <p>
-              Email: neptuneholidaysbhutan@gmail.com/ info@neptuneholidays.com
+              Email: idealtravelcreations@gmail.com/ info@neptuneholidays.com
             </p>
           </div>
           <Map

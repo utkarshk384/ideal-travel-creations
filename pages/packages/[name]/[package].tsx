@@ -269,7 +269,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   //TODO: Make SEO available on backend GUI
   const seoConfig: NextSeoProps = {
-    title: `${_.startCase(seo.title)} | Neptune Holidays`,
+    title: `${_.startCase(seo.title)} | Ideal Travel Creations`,
     description: seo.description,
     openGraph: {
       images: [
