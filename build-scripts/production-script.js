@@ -1,6 +1,8 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
+const IGNORE = (process.env.IGNORE === "true" && true) || false;
+
 try {
   fs.unlinkSync(`${__dirname}/../next.config.js`);
 } catch (e) {}
@@ -24,6 +26,10 @@ const config = `{
       },
     ];
   },
+  typescript: {
+    ignoreBuildErrors: ${IGNORE},
+  },
+
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(graphql|gql)$/,
