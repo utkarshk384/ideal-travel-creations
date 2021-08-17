@@ -131,13 +131,14 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
         >
           <div className={styles["nav-burger__btn"]} ref={burgerIconRef} />
         </button>
-        <div style={{ cursor: "pointer", width: "525px" }}>
+        <div style={{ cursor: "pointer" }}>
           <Link passHref href="/">
             <a href="/">
               <Image
                 src="https://res.cloudinary.com/ideal-travel-creations/image/upload/v1629189611/ideal-logo-white_a26brg.png"
-                width={300}
-                height={127}
+                width={225}
+                height={95}
+                layout="fixed"
               />
             </a>
           </Link>
