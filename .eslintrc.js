@@ -7,6 +7,7 @@ module.exports = {
       files: ["*.ts", "*.tsx"], // Your TypeScript files extension
       parserOptions: {
         project: ["./tsconfig.eslint.json"], // Specify it only for TypeScript files
+        tsconfigRootDir: __dirname,
       },
       rules: {
         "jsx-a11y/label-has-for": 0,

@@ -34,6 +34,7 @@ const valNumber = (value: string, __: any, meta?: FieldState<number>) => {
 const valEmail = (value: string) => {
   if (value === "" || typeof value === "undefined")
     return "Email field can't be left empty";
+  // eslint-disable-next-line no-useless-escape
   else if (!value?.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g))
     return "Please enter a valid email";
   return false;

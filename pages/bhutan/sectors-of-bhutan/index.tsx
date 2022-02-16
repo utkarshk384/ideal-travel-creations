@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 import _ from "lodash";
-import Clamp from "react-multiline-clamp";
 
 ///<----Local Imports--->
 import Image from "@/components/ImageWrapper";

@@ -19,7 +19,7 @@
     ];
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
 
   webpack: (config, options) => {

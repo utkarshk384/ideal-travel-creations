@@ -13,7 +13,7 @@ const Image: React.FC<
       </div>
     );
 
-  const { height, width, layout, ...others } = { ...rest };
+  const { ...others } = { ...rest };
 
   return (
     <div>

@@ -16,8 +16,8 @@ const Map: React.FC<{
       ReactMapGL({
         accessToken: props.accessToken,
         attributionControl: false,
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 

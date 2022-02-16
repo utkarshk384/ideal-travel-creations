@@ -1,7 +1,6 @@
 ///<----Global Imports--->
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import _ from "lodash";
 
 ///<----Local Imports--->
 import utils from "@/src/utils";
