@@ -1,6 +1,6 @@
 /// <---Global Imports--->
 import React, { useEffect, useRef } from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 import DOMPurify from "dompurify";
 
 /// <---Local Imports--->

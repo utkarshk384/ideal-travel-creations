@@ -1,7 +1,7 @@
 ///<----Global Imports--->
 import React from "react";
 import { NextRouter, useRouter } from "next/router";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 ///<----Local Imports--->
 //Styles
@@ -29,6 +29,7 @@ const BreadCrumbs = () => {
           key={`Link-Breadcrumb-${index * 98}`}
           href={path.href}
           as={path.as}
+          passHref
         >
           <li className={styles["bc-li"]}>{path.name}</li>
         </Link>

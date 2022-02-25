@@ -1,6 +1,6 @@
 ///<----Global Imports--->
 import React from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 ///<----Local Imports--->
 import SEOWrapper, { SEOConfig } from "@/components/SEOWrapper";

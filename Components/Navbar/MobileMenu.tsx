@@ -1,6 +1,7 @@
 ///<----Global Imports--->
 import React from "react";
-import Link from "next/link";
+import NextLink from "next/link";
+import Link from "@/components/Link";
 import { useRouter } from "next/router";
 import gsap from "gsap";
 
@@ -42,7 +43,10 @@ const Menu = React.forwardRef<HTMLUListElement, { states: Istates }>(
       } else
         gsap.to(node, {
           x: "100%",
-          onComplete: () => gsap.set(NextEl, { overflow: "visible" }) && done(),
+          onComplete: () => {
+            gsap.set(NextEl, { overflow: "visible" });
+            done();
+          },
         });
     };
 
@@ -88,7 +92,7 @@ const Menu = React.forwardRef<HTMLUListElement, { states: Istates }>(
                   <ChildLinks data={link.children} />
                 </>
               ) : (
-                <Link href={link.href}>{link.name}</Link>
+                <NextLink href={link.href}>{link.name}</NextLink>
               )}
             </button>
           ))}
@@ -106,10 +110,9 @@ const ChildLinks: React.FC<{ data?: urlType[] }> = ({ data }) => {
           key={`mobile-nav-link-1-${index * 2354}`}
           href={url?.href}
           as={url?.as}
+          className={styles["mobile-children-links"]}
         >
-          <a href={url?.href} className={styles["mobile-children-links"]}>
-            {url?.name}
-          </a>
+          {url?.name}
         </Link>
       ))}
     </div>

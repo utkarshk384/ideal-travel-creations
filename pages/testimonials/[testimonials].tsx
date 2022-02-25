@@ -1,8 +1,9 @@
 ///<----Global Imports--->
 import React from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import { GetServerSideProps } from "next";
+import Link from "@/components/Link";
+import axios, { AxiosRequestConfig } from "axios";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { gql } from "@apollo/client";
 
 ///<----Local Imports--->
@@ -33,14 +34,57 @@ interface IData {
 
 const SEO_URL = "/testimonials";
 
-const Testimonials: React.FC<{ data?: IQuery; pages?: string[] }> = ({
-  data,
-  pages,
-}) => {
-  //Router
+type StaticPathsProps = { testimonials: string };
 
+type Props = {
+  data?: IQuery;
+  pages?: string[];
+  itemCount?: number;
+  revalidateKey?: string;
+};
+type StaticProps = GetStaticProps<Props, StaticPathsProps>;
+
+const Testimonials: React.FC<Props> = (props) => {
+  const { data, pages, itemCount, revalidateKey } = props;
+
+  /* Check if page needs to be revalidateda */
+  const checkNewContent = async () => {
+    /* Gets current testimonials count */
+    const newItemCount = await getPages();
+
+    if (newItemCount === itemCount) return;
+
+    /* remove the loop and data attributes when unstable_revalidate supports dynamic page revalidation */
+    pages?.forEach(async (item) => {
+      const config: AxiosRequestConfig = {
+        method: "post",
+        url: "/api/revalidate",
+        headers: {
+          "Content-Type": "application/json",
+          "revalidate-token": revalidateKey,
+        },
+        data: { pageNo: item.replace("/testimonials/", "") },
+      };
+
+      const response = await axios.request(config);
+
+      if (response.status !== 200)
+        console.warn({
+          message: "Error in revalidating the page",
+          status: response.status,
+        });
+    });
+  };
+
+  React.useEffect(() => {
+    checkNewContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  //Router
   const router = useRouter();
 
+  // Current Page Number
   let query: number = 0;
 
   try {
@@ -143,14 +187,16 @@ const Card: React.FC<{ data?: IData; flip?: boolean }> = ({ data, flip }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticProps: StaticProps = async (ctx) => {
   //This constant holds the value of how many items can be rendered on the page. The way it works is that with the help of this number apollo fetches only a limited amount of data which will be rendered by the render method in react.
   const ITEM_PER_PAGE = 4;
 
-  //This constant holds the current page that the user is on.
-  const PAGE = parseInt(ctx.resolvedUrl.split("/")[2]);
+  const { testimonials: pageNo } = ctx.params as StaticPathsProps;
 
-  if (isNaN(PAGE)) {
+  //This constant holds the current page that the user is on.
+  const PAGE: number = ctx.params ? parseInt(pageNo) : -1;
+
+  if (PAGE === -1) {
     return {
       notFound: true,
     };
@@ -171,9 +217,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       notFound: true,
     };
 
-  const testimonailsCount = await getPages();
-
-  const pageCount = Math.ceil(testimonailsCount / ITEM_PER_PAGE);
+  const testimonialsCount = await getPages();
+  const pageCount = Math.ceil(testimonialsCount / ITEM_PER_PAGE);
 
   const urls: string[] = [];
 
@@ -187,7 +232,25 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       seoConfig,
       data,
       pages: urls,
+      itemCount: testimonialsCount,
+      revalidateKey: process.env.REVALIDATE_TOKEN as string,
     },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const testimonialsCount = await getPages();
+  const paths = [];
+
+  if (testimonialsCount)
+    for (let i = testimonialsCount; i > 0; i--)
+      paths.push({
+        params: { testimonials: `${i}` },
+      });
+
+  return {
+    fallback: false,
+    paths,
   };
 };
 

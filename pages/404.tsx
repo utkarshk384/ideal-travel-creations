@@ -1,6 +1,6 @@
 ///<----Global Imports--->>
 import React from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { GetStaticProps, NextPage } from "next";
 
 ///<----Local Imports--->>
@@ -27,9 +27,7 @@ const NotFound: NextPage<IProps> = ({ seoData }) => {
           <b>Sorry, </b>
           Couldn't find the page that your looking for.
         </p>
-        <Link href="/">
-          <a href="/">Back Home?</a>
-        </Link>
+        <Link href="/">Back Home?</Link>
       </div>
     </div>
   );

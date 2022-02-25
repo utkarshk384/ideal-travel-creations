@@ -3,9 +3,7 @@ const withSourceMaps = require("@zeit/next-source-maps");
 const { NODE_ENV, LOCAL_DB, IGNORE_BUILD_ERRORS } = process.env;
 
 const DB_URL =
-  LOCAL_DB === true
-    ? "http://localhost:1337"
-    : "https://itc-backend-server.herokuapp.com";
+  LOCAL_DB === true ? "http://localhost:1337" : process.env.BACKEND_URL;
 
 const config = {
   env: {
@@ -33,7 +31,8 @@ const config = {
     ignoreBuildErrors: IGNORE_BUILD_ERRORS === "true" ? true : false,
   },
   compiler: {
-    removeConsole: NODE_ENV === "production" ? true : false,
+    removeConsole:
+      NODE_ENV === "production" ? { exclude: ["warn", "error"] } : false,
   },
   swcMinify: NODE_ENV === "production" ? true : false,
 

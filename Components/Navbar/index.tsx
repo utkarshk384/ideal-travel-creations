@@ -1,7 +1,7 @@
 ///<----Global Imports--->
 import React, { useState, useRef, useEffect, useReducer } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import Link from "@/components/Link";
 import gsap from "gsap";
 import _ from "lodash";
 import { Transition } from "react-transition-group";
@@ -132,15 +132,13 @@ const Nav = React.forwardRef<HTMLDivElement, IProps>((props, ref) => {
           <div className={styles["nav-burger__btn"]} ref={burgerIconRef} />
         </button>
         <div style={{ cursor: "pointer" }}>
-          <Link passHref href="/">
-            <a href="/">
-              <Image
-                src="https://res.cloudinary.com/ideal-travel-creations/image/upload/v1629189611/ideal-logo-white_a26brg.png"
-                width={225}
-                height={95}
-                layout="fixed"
-              />
-            </a>
+          <Link href="/">
+            <Image
+              src="https://res.cloudinary.com/ideal-travel-creations/image/upload/v1629189611/ideal-logo-white_a26brg.png"
+              width={225}
+              height={95}
+              layout="fixed"
+            />
           </Link>
         </div>
 

@@ -10,6 +10,7 @@ class MyDocument extends Document {
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="shortcut icon" href="/favicon/favicon.ico" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
+          {/*   eslint-disable-next-line @next/next/google-font-preconnect */}
           <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="dns-prefetch" href="https://fonts.googleapis.com" />

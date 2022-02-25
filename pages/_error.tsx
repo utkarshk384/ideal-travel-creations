@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 import styles from "styles/pages/errors.module.scss";
 import { NextPage } from "next";
@@ -20,9 +20,7 @@ const CustomErrorPage: NextPage<IProps> = ({ statusCode, message }) => {
         <h1>Opps! {statusMessage}</h1>
         <hr />
         <p dangerouslySetInnerHTML={{ __html: message }} />
-        <Link passHref href="/">
-          <a href="/test">Back Home?</a>
-        </Link>
+        <Link href="/">Back Home?</Link>
       </div>
     </div>
   );

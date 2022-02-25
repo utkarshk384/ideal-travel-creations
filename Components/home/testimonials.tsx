@@ -1,6 +1,6 @@
 //<---Global Import--->
 import React from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 //<---Local Import--->
 import Image from "@/components/ImageWrapper";
@@ -36,10 +36,8 @@ const Testimonials: React.FC<{ data: IQuery }> = ({ data }) => {
         ))}
       </div>
       <div className={styles["cta"]}>
-        <Link href="/testimonials">
-          <a href="/testimonials" className={styles["cta-btn"]}>
-            More testimonials
-          </a>
+        <Link href="/testimonials" className={styles["cta-btn"]}>
+          More testimonials
         </Link>
       </div>
     </div>

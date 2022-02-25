@@ -1,5 +1,5 @@
 import { ApolloError, ServerParseError } from "@apollo/client";
-import _ from "lodash";
+
 import { ApolloErrorType } from "./types/helperTypes";
 
 let errorTypes = [

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /// <---Global Imports--->
 import React, { useRef, useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 import Clamp from "react-multiline-clamp";
 
 /// <---Local Imports--->
@@ -158,11 +158,11 @@ const Card: React.FC<CardPropType> = (props) => {
             <p>{card.description}</p>
           </Clamp>
         </div>
-        <div className={styles["view-package"]}>
-          <Link href="/packages/[name]/[packages]" as={card.url}>
+        <Link href="/packages/[name]/[packages]" as={card.url}>
+          <div className={styles["view-package"]}>
             <button>View Package</button>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ const BhutanPage: React.FC<{ data: urlType[] }> = ({ data }) => {
               <h3>Navigation Links</h3>
               {data?.map((url, index) => (
                 <Link
-                  key={`secotr-of-bhutan-2-${index * 555}`}
+                  key={`sector-of-bhutan-2-${index * 555}`}
                   href={url.href}
                   as={url.as}
                 >

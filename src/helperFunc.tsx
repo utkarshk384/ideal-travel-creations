@@ -20,7 +20,9 @@ export const getPackagesPaths = async () => {
   let error: string = "";
   return new Promise<DataWithError<string[]>>(async (resolve) => {
     try {
-      const res = await fetch(`${process.env.BACKEND_ENDPOINT}/packages/types`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/packages/types`
+      );
       if (res.status >= 400)
         resolve({ data: [], error: handleErrorResp(res.status) });
 
@@ -29,7 +31,7 @@ export const getPackagesPaths = async () => {
       const kebab = data.map((url) => _.kebabCase(url.name));
       resolve({ data: kebab, error });
     } catch (err) {
-      resolve({ data: [], error: err });
+      resolve({ data: [], error: err as string });
     }
   });
 };
@@ -40,7 +42,7 @@ export const getAboutBhtPaths = async () => {
     try {
       const paths: AboutBhtPathsType[] = [];
       const res = await fetch(
-        `${process.env.BACKEND_ENDPOINT}/about-bhutan-sections`
+        `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/about-bhutan-sections`
       );
       if (res.status >= 400)
         resolve({ data: [], error: handleErrorResp(res.status) });
@@ -53,7 +55,7 @@ export const getAboutBhtPaths = async () => {
 
       resolve({ data: paths, error });
     } catch (err) {
-      resolve({ data: [], error: err });
+      resolve({ data: [], error: err as string });
     }
   });
 };
@@ -63,7 +65,7 @@ export const getSEOConfig = async (url: string, extraData?: NextSeoProps) => {
     async (resolve) => {
       let error: string = "";
       const res = await fetch(
-        `${process.env.BACKEND_ENDPOINT}/seo-of-pages?pageURL=${url}`
+        `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/seo-of-pages?pageURL=${url}`
       );
 
       if (res.status >= 400)
@@ -123,6 +125,6 @@ const mapSEOConfig = (
 
     return { data: seoConfig, error };
   } catch (err) {
-    return { data: {}, error: err };
+    return { data: {}, error: err as string };
   }
 };

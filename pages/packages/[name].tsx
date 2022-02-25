@@ -1,7 +1,7 @@
 ///<----Global Imports--->
 import React, { useRef } from "react";
 import { GetServerSideProps } from "next";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useRouter } from "next/router";
 import _ from "lodash";
 

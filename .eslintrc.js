@@ -1,6 +1,6 @@
 module.exports = {
   plugins: ["prettier", "@typescript-eslint", "jsx-a11y"],
-  extends: ["react-app", "prettier", "plugin:jsx-a11y/strict"],
+  extends: ["react-app", "prettier", "plugin:@next/next/recommended"],
   parser: "@typescript-eslint/parser",
   overrides: [
     {

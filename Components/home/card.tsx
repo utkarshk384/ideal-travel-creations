@@ -1,6 +1,6 @@
 /// <---Global Imports--->
 import React, { useEffect, useRef } from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 /// <---Local Imports--->
 import useWindowSize, { breakpoints } from "@/src/Hooks/useWindow";
@@ -65,10 +65,8 @@ const Card: React.FC<{ data: homeData<string[]>[] }> = ({ data }) => {
         ))}
       </div>
       <div className={styles["cta"]}>
-        <Link href="/bhutan" passHref>
-          <a href="/bhutan" className={styles["cta-btn"]}>
-            Explore More
-          </a>
+        <Link href="/bhutan" className={styles["cta-btn"]}>
+          Explore More
         </Link>
       </div>
     </div>
