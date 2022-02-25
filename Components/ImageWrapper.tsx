@@ -13,11 +13,12 @@ const Image: React.FC<
       </div>
     );
 
-  const { ...others } = { ...rest };
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+  const { height, width, ...others } = { ...rest };
 
   return (
     <div>
-      <NextImage layout="fill" {...others} src="/images/Happiness-Travel.jpg" />
+      <NextImage {...others} layout="fill" src="/images/Happiness-Travel.jpg" />
     </div>
   );
 };

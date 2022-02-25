@@ -104,9 +104,7 @@ const ContactPage: React.FC<{ accessToken: string }> = (props) => {
             <p>Block No. 3, Plot No. 48, Namsang Building, Flat No 102,</p>
             <p>Mobile: +975 17668047/ 17124946</p>
             <p>Telephone: +975 2 324987/ 341089</p>
-            <p>
-              Email: idealtravelcreations@gmail.com/ info@neptuneholidays.com
-            </p>
+            <p>Email: idealtravelcreations@gmail.com</p>
           </div>
           <Map
             accessToken={props.accessToken}

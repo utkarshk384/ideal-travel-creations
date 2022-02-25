@@ -23,7 +23,6 @@ export const SEOConfig = (_config: NextSeoProps) => {
     additionalLinkTags: [
       {
         rel: "apple-touch-icon",
-        //PROD: Change this Logo
         href:
           "https://res.cloudinary.com/ideal-travel-creations/image/upload/v1620365649/logo_icon_da8dddbab4.png",
         sizes: "76x76",

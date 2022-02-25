@@ -49,9 +49,10 @@ const Dzongkhag: React.FC<{
               src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
               layout="fill"
               //TODO: Activate once data is added.
-              // alt={
-              //   data.dataForDzongkhags![0]?.coverImage?.alternativeText || ""
-              // }
+              alt={
+                data.dataForDzongkhags![0]?.coverImage?.alternativeText ||
+                "An image"
+              }
             />
           </div>
           <div className={styles["l-content"]}>
@@ -98,7 +99,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   seoData = {
     title: `${data.dataForDzongkhags![0]!.title} | Ideal Travel Creations`,
     description: data.dataForDzongkhags![0]!.description,
-    canonical: `https://www.neptuneholidays.bt/bhutan`,
+    canonical: `https://www.idealtravelcreations.bt/bhutan`,
     openGraph: {
       images: [
         {

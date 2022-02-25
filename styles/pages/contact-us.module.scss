@@ -72,6 +72,10 @@
       margin-top: 1rem;
     }
 
+    span {
+      color: $secondary;
+    }
+
     @include flex(
       $breakpoint-css: (
         flex-direction: row,

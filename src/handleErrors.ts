@@ -26,7 +26,6 @@ let errorTypes = [
 ];
 
 export function handleError(error: ApolloError): ApolloErrorType {
-  console.log(error);
   if (error.graphQLErrors.length >= 1) {
     return {
       statusCode: 400,

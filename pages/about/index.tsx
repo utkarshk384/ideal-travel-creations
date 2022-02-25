@@ -15,7 +15,7 @@ const seoConfig = SEOConfig({
   title: "About Us | Ideal Travel Creations",
   description:
     "deal Travel Creations is a family business managed and owned by Husband and wife, Bikee and Trishna.Mr. Bikee has been in the Bhutan Tourism industry since the year 2006. After his studies, he started his career in the Bhutan Tourism industry and hworked with many Travel Companies in Bhutan. He has traveled extensively in Bhutan and knows each and every corner of Bhutan. He can plan holidays wiperfection. His work has impressed many travelers and agents abroad. Question him and he has an answer; ask him and it is arranged. Besides managemeand finaance, he specializes in organizing and creating creative and unique tours, treks, and holidays in Bhutan and is the key person behind IdeTravel creations. He is known for his creativity and is also passionate about different kinds of music.Ms. Trishna Rasaily comes from Educational Background. She worked in various schools in Bhutan and India before the establishment of IdealCreations. Working in different places has given her a good knowledge of the places and also got ample opportunity to travel around these two countrieShe was the head of department when is school and is a very good administrator and has very good Public relations.",
-  canonical: `https://www.neptuneholidays.bt/about`,
+  canonical: `https://www.idealtravelcreations.bt/about`,
 });
 
 const AboutPage: React.FC = () => {
@@ -28,8 +28,6 @@ const AboutPage: React.FC = () => {
             <div className={styles["l-heading"]}>
               <h1>About Us</h1>
             </div>
-            {/* PROD: Change Image */}
-
             <Image
               src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
               layout="fill"
@@ -87,12 +85,11 @@ const AboutPage: React.FC = () => {
               organized by Ideal Travel Creations.
             </p>
 
-            {/* INFO: To be implemented once `the-team` page is ready */}
-            {/* <div className={styles.cta}>
+            <div className={styles.cta}>
               <Link href="/about/the-team">
                 <button>Team Members</button>
               </Link>
-            </div> */}
+            </div>
             <h2>The Company</h2>
             <p>
               Ideal Travel Creations has been in the Bhutan travel industry

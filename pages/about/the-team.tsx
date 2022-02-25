@@ -32,7 +32,7 @@ interface IData {
 const seoConfig = SEOConfig({
   title: "The Team | Ideal Travel Creations",
   description: "The team of Ideal Travel Creaitons.",
-  canonical: `https://www.neptuneholidays.bt/the-team`,
+  canonical: `https://www.idealtravelcreations.bt/the-team`,
 });
 
 const TeamPage: React.FC<{ data?: IQuery }> = ({ data }) => {

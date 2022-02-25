@@ -10,11 +10,11 @@ type bookTourType = {
 };
 
 type contactUsType = {
-  first_name: string;
-  last_name: string;
+  firstname: string;
+  lastname: string;
   message: string;
   subject: string;
-  to_email: string;
+  email: string;
 };
 
 type customizedTourType = {
@@ -62,11 +62,10 @@ const contact: NextApiHandler = async (req, res) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     requireTLS: true,
-
     port: 465,
     secure: true,
     auth: {
-      user: process.env.USER,
+      user: process.env.USERNAME,
       pass: process.env.PASSWORD,
     },
   });
@@ -90,13 +89,14 @@ const contact: NextApiHandler = async (req, res) => {
 };
 
 const dataContactUs = (data: contactUsType) => ({
-  from: data.to_email,
-  to: `${process.env.USER}`,
+  from: data.email,
+  to: process.env.USERNAME,
   subject:
     data.subject ||
-    `E-mail from ${data.first_name} ${data.last_name} for booking a tour`,
+    `E-mail from ${data.firstname} ${data.lastname} for booking a tour`,
   html: `<p>A guest has submitted an query related via the contact us form</p><br>
-			    <p><strong>Name: </strong> ${data.first_name} ${data.last_name} </p><br>
+			    <p><strong>From: </strong> ${data.email} </p>
+			    <p><strong>Name: </strong> ${data.firstname} ${data.lastname} </p>
 			    <p><strong>Message: </strong> ${data.message} </p><br>
 			    `,
 });
@@ -104,7 +104,7 @@ const dataContactUs = (data: contactUsType) => ({
 const dataBookTour = (data: bookTourType) => {
   return {
     from: data.email,
-    to: `${process.env.USER}`,
+    to: `${process.env.USERNAME}`,
     subject: data.subject || `E-mail from ${data.name} for booking a tour`,
     html: `<p>A guest has submitted an tour package</p><br>
 			    <p><strong>Name: </strong> ${data.name} </p><br>
@@ -117,7 +117,7 @@ const dataBookTour = (data: bookTourType) => {
 const dataCustomizedTour = (data: customizedTourType) => {
   return {
     from: data.email,
-    to: `${process.env.USER}`,
+    to: `${process.env.USERNAME}`,
     subject: `Custom trip form submission from ${data.name} for booking a tour`,
     html: `<p>A guest has submitted an tour package</p>
         <p><strong>Name: </strong> ${data.name} </p>

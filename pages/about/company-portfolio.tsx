@@ -18,7 +18,7 @@ const seoConfig = SEOConfig({
   title: "Company's Profile | Ideal Travel Creations",
   description:
     "Our Office is open from 9 am to 5 pm, Monday through Friday and 9 am to 2 pm on Saturdays.Approval, Certification, Licence and Affiliations",
-  canonical: `https://www.neptuneholidays.bt/about/company-portfolio`,
+  canonical: `https://www.idealtravelcreations.bt/about/company-portfolio`,
 });
 
 const CompanyPortfolio = () => {

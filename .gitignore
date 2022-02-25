@@ -46,3 +46,10 @@ dummyimg.tsx
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+
+# Ignore Build Scripts
+./build-scripts
+
+# Ignore development ImageProps
+./public/images
