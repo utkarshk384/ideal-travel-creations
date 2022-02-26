@@ -49,7 +49,7 @@ dummyimg.tsx
 
 
 # Ignore Build Scripts
-./build-scripts
+./build-scripts/**/*
 
 # Ignore development ImageProps
 ./public/images
