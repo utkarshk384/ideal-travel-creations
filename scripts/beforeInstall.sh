@@ -21,6 +21,7 @@ if [ -d "$DIR" ]; then
     echo "${DIR} is already present"
 else
     echo "Creating new directory at ${DIR}"
+    mkdir /home/ubuntu/ideal-travel-creations
 fi
 cd /home/ubuntu/ideal-travel-creations
 
