@@ -23,3 +23,17 @@ This packages that are used to power this website are as follows:
 `yarn ngrok` - starts ngrok and forwards the port 1337(backend port) to ngrok https servers and creates a new next.config.js file each time it is called.
 `yarn generate` - Runs codegen. Codegen is a graphql scheme types generator for typescript.
 `yarn start` - Starts the production build.
+
+## Code for installing codedeploy agent in ec2
+
+`sudo apt-get update`
+
+`sudo apt install -y ruby-full`
+
+`sudo apt install -y wget`
+
+`wget https://aws-codedeploy-us-east-1.s3.amazonaws.com/latest/install`
+
+`sudo chmod +x ./install`
+
+`sudo ./install auto`

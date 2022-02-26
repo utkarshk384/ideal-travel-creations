@@ -6,6 +6,9 @@ const DB_URL =
   LOCAL_DB === true ? "http://localhost:1337" : process.env.BACKEND_URL;
 
 const config = {
+  experimental: {
+    outputStandalone: true,
+  },
   env: {
     NEXT_PUBLIC_BACKEND_ENDPOINT: DB_URL,
   },

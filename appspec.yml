@@ -1,0 +1,25 @@
+version: 0.0
+os: ubuntu
+files:
+  - source: /
+    destination: /home/ubuntu/ideal-travel-creations
+hooks:
+  ApplicationStop:
+    - location: scripts/applicationStop.sh # Run pm2 stop website
+      timeout: 1000
+      runas: ubuntu
+
+  BeforeInstall:
+    - location: scripts/beforeInstall.sh # Copy .env to destination directory
+      timeout: 1000
+      runas: root
+
+  AfterInstall:
+    - location: scripts/afterInstall.sh # Run yarn build
+      timeout: 1000
+      runas: root
+
+  ApplicationStart:
+    - location: scripts/applicationStart.sh # Run pm2 start website
+      timeout: 1000
+      runas: root
