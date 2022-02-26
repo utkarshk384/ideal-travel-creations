@@ -20,15 +20,10 @@ import homeData from "./api/home.json";
 import styles from "../styles/pages/home.module.scss";
 
 //Graphql
-import { initializeApollo } from "@/apolloClient";
-import {
-  PackageDetailsQuery as IQuery,
-  PackageDetailsQueryVariables as Ivar,
-  HomeTestimonialsQuery as ITestimonialsQuery,
-  HomeTestimonialsQueryVariables as ITestimonialVars,
-} from "@/src/types/generated/graphql-frontend";
+import { apolloQuery } from "@/apolloClient";
+import * as gqlTYPES from "@/src/types/generated/graphql-frontend";
 import packageQuery from "@/graphql/packageQuery.graphql";
-import homeTestimonialsQuery from "@/graphql/HomeTestimonials.graphql";
+import testimonialsQuery from "@/graphql/HomeTestimonials.graphql";
 
 //Types
 import { ISliderData } from "@/src/types/helperTypes";
@@ -37,9 +32,14 @@ import { getSEOConfig } from "@/api/helperFunc";
 //This is the url that is passed to the SEO function of the current page
 const SEO_URL = "/";
 
+type IQ = gqlTYPES.PackageDetailsQuery;
+type IV = gqlTYPES.PackageDetailsQueryVariables;
+type ITQ = gqlTYPES.HomeTestimonialsQuery;
+type ITV = gqlTYPES.HomeTestimonialsQueryVariables;
+
 const Home: NextPage<{
   sliderData: ISliderData[];
-  testimonialsData: ITestimonialsQuery;
+  testimonialsData: ITQ;
 }> = (props) => {
   ///<----Refs--->
   const homeRef = useRef<HTMLDivElement>(null);
@@ -59,14 +59,18 @@ const Home: NextPage<{
 
 export const getStaticProps: GetStaticProps = async () => {
   const _ = require("lodash");
-  const client = initializeApollo();
 
-  const slider = await client.query<IQuery, Ivar>({
+  const { data: sData, error: errr } = await apolloQuery<IQ, IV>({
     query: packageQuery,
     variables: { limit: 5 },
   });
 
-  const sliderData = slider?.data.packages!.map((card, index) => {
+  if (errr) {
+    console.error(errr);
+    return { notFound: true };
+  } else if (!sData) return { notFound: true };
+
+  const sliderData = sData.packages!.map((card, index) => {
     const pkgType = _.kebabCase(card?.packageType);
 
     const url = `/packages/${pkgType}/${card?.title}`;
@@ -77,12 +81,18 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   });
 
-  const { data } = await client.query<ITestimonialsQuery, ITestimonialVars>({
-    query: homeTestimonialsQuery,
+  const { data: tData, error: err } = await apolloQuery<ITQ, ITV>({
+    query: testimonialsQuery,
     variables: { limit: 1 },
   });
 
-  if (data.testimonials && data.testimonials?.length === 0)
+  if (err) {
+    console.error({
+      errorCode: err.statusCode,
+      message: err.message,
+    });
+    return { notFound: true };
+  } else if (!tData || tData.testimonials?.length === 0)
     return { notFound: true };
 
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
@@ -92,7 +102,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       seoConfig,
       sliderData,
-      testimonialsData: data,
+      testimonialsData: tData,
     },
   };
 };

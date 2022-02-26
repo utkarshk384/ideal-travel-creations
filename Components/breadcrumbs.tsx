@@ -21,8 +21,8 @@ const BreadCrumbs = () => {
 
   return (
     <div className={styles.breadcrumbs}>
-      <Link href="/">
-        <li>Home</li>
+      <Link href="/" className={styles["list-item"]} passHref>
+        Home
       </Link>
       {pathName.map((path, index) => (
         <Link
@@ -30,8 +30,9 @@ const BreadCrumbs = () => {
           href={path.href}
           as={path.as}
           passHref
+          className={styles["list-item"]}
         >
-          <li className={styles["bc-li"]}>{path.name}</li>
+          {path.name}
         </Link>
       ))}
     </div>

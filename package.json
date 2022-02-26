@@ -9,10 +9,10 @@
     }
   ],
   "scripts": {
-    "dev-local": "LOCAL_DB=true next dev -- -H 192.168.0.47",
+    "dev-local": "LOCAL_DB=true next dev -- -H `ipconfig getifaddr en0`",
     "dev": "next dev -- -H `ipconfig getifaddr en0`",
-    "development": "IGNORE_BUILD_ERRORS=true next build",
-    "build": "next build",
+    "build-local": "next build",
+    "build": "IGNORE_BUILD_ERRORS=true next build",
     "start": "next start  -- -p $PORT",
     "generate": "graphql-codegen --config codegen.yml",
     "test": "jest",

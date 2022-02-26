@@ -105,6 +105,11 @@
     .nav__links:first-child {
       margin-top: 7vh;
     }
+
+    .nav-content {
+      display: block;
+      width: 100%;
+    }
   }
 
   .with-children::before {

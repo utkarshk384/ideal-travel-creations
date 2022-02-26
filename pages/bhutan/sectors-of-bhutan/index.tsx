@@ -14,7 +14,7 @@ import withSEO from "@/components/withSEO";
 import { imageType } from "@/src/types/helperTypes";
 
 //Graphql
-import { initializeApollo } from "@/apolloClient";
+import { apolloQuery } from "@/apolloClient";
 import { gql } from "@apollo/client";
 
 //Styles
@@ -107,8 +107,6 @@ const Card: React.FC<{ card: DzongkhagType }> = ({ card }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const client = initializeApollo();
-
   const query = gql`
     query dzongkhagData {
       dataForDzongkhags {
@@ -123,9 +121,16 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   `;
 
-  const { data } = await client.query<{ dataForDzongkhags: DzongkhagType[] }>({
+  const { data, error: err } = await apolloQuery<{
+    dataForDzongkhags: DzongkhagType[];
+  }>({
     query,
   });
+
+  if (err) {
+    console.error(err);
+    return { notFound: true };
+  } else if (!data) return { notFound: true };
 
   const { data: seoConfig, error } = await getSEOConfig(SEO_URL);
   if (error) return { props: { error } };

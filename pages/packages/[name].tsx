@@ -15,7 +15,7 @@ import Utilities from "@/src/utils";
 import styles from "styles/pages/dync-Name.module.scss";
 
 //Graphql
-import { apolloQuery } from "@/apolloQuery";
+import { apolloQuery } from "@/apolloClient";
 import filteredPackageQuery from "@/graphql/packageQuery_WithFilter.graphql";
 import PkgCountQuery from "@/graphql/filterPkgCont.graphql";
 import {

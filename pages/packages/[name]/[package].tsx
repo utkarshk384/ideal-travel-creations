@@ -23,7 +23,7 @@ import BookingTour from "@/components/Dialog Boxes/TourBooking";
 import styles from "styles/pages/dync-package.module.scss";
 
 //Graphql
-import { apolloQuery } from "@/apolloQuery";
+import { apolloQuery } from "@/apolloClient";
 import type {
   FullPkgQuery as IQuery,
   FullPkgQueryVariables as IVars,

@@ -13,48 +13,51 @@
   padding: 1rem 2rem;
   margin: 3rem auto;
 
-  li {
-    @include mixins.font(variables.$font-bold, variables.$font-sans);
-    @include mixins.flex-Margin(1rem) {
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    @include mixins.flex {
-      align-items: center;
-    }
-    color: variables.$accent;
-    list-style-type: none;
-    cursor: pointer;
+  & .list-item:last-child {
+    color: variables.$secondary !important;
 
     @media (hover: hover) {
-      &:hover {
+      &:hover::after {
         color: variables.$secondary;
       }
     }
+  }
+}
 
-    &::after {
-      content: "\f078";
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      font-size: variables.$font-sm;
-    }
-    @media (hover: hover) {
-      &:hover::after {
-        color: variables.$accent;
-      }
+.list-item {
+  @include mixins.font(variables.$font-bold, variables.$font-sans);
+  @include mixins.flex-Margin(1rem) {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  @include mixins.flex {
+    align-items: center;
+  }
+  color: variables.$accent;
+  list-style-type: none;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      color: variables.$secondary;
     }
   }
 
-  .bc-li:last-child {
-    color: variables.$secondary;
-    &::after {
-      content: "";
+  &::after {
+    content: "\f078";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: variables.$font-sm;
+  }
+  @media (hover: hover) {
+    &:hover::after {
+      color: variables.$accent;
     }
   }
 }
 
 @include include-media.media(">=lg") {
-  .breadcrumbs li::after {
+  .breadcrumbs .list-item::after {
     content: "\f054";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;

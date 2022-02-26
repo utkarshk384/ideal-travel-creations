@@ -13,12 +13,12 @@ import type { imageType } from "@/src/types/helperTypes";
 import styles from "styles/pages/team.module.scss";
 
 //Graphql
-import { initializeApollo } from "@/apolloClient";
+import { apolloQuery } from "@/apolloClient";
 import EmployeesQuery from "@/graphql/EmployessQuery.graphql";
-import {
-  GetEmployeesQuery as IQuery,
-  GetEmployeesQueryVariables as IVars,
-} from "@/src/types/generated/graphql-frontend";
+import * as GQLTypes from "@/src/types/generated/graphql-frontend";
+
+type IQ = GQLTypes.GetEmployeesQuery;
+type IV = GQLTypes.GetEmployeesQueryVariables;
 
 interface IData {
   __typename: string;
@@ -35,7 +35,7 @@ const seoConfig = SEOConfig({
   canonical: `https://www.idealtravelcreations.bt/the-team`,
 });
 
-const TeamPage: React.FC<{ data?: IQuery }> = ({ data }) => {
+const TeamPage: React.FC<{ data?: IQ }> = ({ data }) => {
   return (
     <>
       <SEOWrapper config={seoConfig} />
@@ -67,12 +67,15 @@ const Card: React.FC<{ data: IData }> = ({ data }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const client = initializeApollo();
-
-  const { data } = await client.query<IQuery, IVars>({
+  const { data, error: err } = await apolloQuery<IQ, IV>({
     query: EmployeesQuery,
     variables: {},
   });
+
+  if (err) {
+    console.error(err);
+    return { notFound: true };
+  } else if (!data) return { notFound: true };
 
   if (data.employees && data.employees.length === 0) return { notFound: true };
 

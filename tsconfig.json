@@ -22,7 +22,6 @@
       "@/animations/*": ["./src/Animations/*"],
       "@/components/*": ["./Components/*"],
       "@/apolloClient": ["./src/lib/apolloClient.ts"],
-      "@/apolloQuery": ["./src/lib/apolloQuery.ts"],
       "@/styles/*": ["./styles/*"],
       "@/src/*": ["./src/*"],
       "@/api/*": ["./pages/api/*"],

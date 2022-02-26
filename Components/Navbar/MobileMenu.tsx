@@ -1,6 +1,6 @@
 ///<----Global Imports--->
 import React from "react";
-import NextLink from "next/link";
+
 import Link from "@/components/Link";
 import { useRouter } from "next/router";
 import gsap from "gsap";
@@ -89,10 +89,12 @@ const Menu = React.forwardRef<HTMLUListElement, { states: Istates }>(
               {link.children.length > 0 ? (
                 <>
                   {link.name}
-                  <ChildLinks data={link.children} />
+                  <ChildLinks data={link.children} setMenu={setMenu} />
                 </>
               ) : (
-                <NextLink href={link.href}>{link.name}</NextLink>
+                <Link className={styles["nav-content"]} href={link.href}>
+                  {link.name}
+                </Link>
               )}
             </button>
           ))}
@@ -102,7 +104,10 @@ const Menu = React.forwardRef<HTMLUListElement, { states: Istates }>(
   }
 );
 
-const ChildLinks: React.FC<{ data?: urlType[] }> = ({ data }) => {
+type ChildLinkProps = { data?: urlType[]; setMenu: setBooleanState };
+
+const ChildLinks: React.FC<ChildLinkProps> = (props) => {
+  const { setMenu, data } = props;
   return (
     <div className={styles["mobile-children-container"]}>
       {data?.map((url, index) => (
@@ -112,7 +117,9 @@ const ChildLinks: React.FC<{ data?: urlType[] }> = ({ data }) => {
           as={url?.as}
           className={styles["mobile-children-links"]}
         >
-          {url?.name}
+          <button style={{ width: "100%" }} onClick={() => setMenu(false)}>
+            {url?.name}
+          </button>
         </Link>
       ))}
     </div>

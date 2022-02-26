@@ -18,13 +18,13 @@ import { imageType } from "@/src/types/helperTypes";
 import styles from "styles/pages/testimonials.module.scss";
 
 //Graphql
-import { initializeApollo } from "@/apolloClient";
+import { apolloQuery } from "@/apolloClient";
 import testimonailsQuery from "@/graphql/testimonialsQuery.graphql";
-import type {
-  GetTestimonialsQuery as IQuery,
-  GetTestimonialsQueryVariables as IVars,
-} from "@/src/types/generated/graphql-frontend";
+import type * as GQLTypes from "@/src/types/generated/graphql-frontend";
+import useWindowSize, { breakpoints as bp } from "@/src/Hooks/useWindow";
 
+type IQ = GQLTypes.GetTestimonialsQuery;
+type IV = GQLTypes.GetTestimonialsQueryVariables;
 interface IData {
   __typename?: string;
   guestName: string;
@@ -37,7 +37,7 @@ const SEO_URL = "/testimonials";
 type StaticPathsProps = { testimonials: string };
 
 type Props = {
-  data?: IQuery;
+  data?: IQ;
   pages?: string[];
   itemCount?: number;
   revalidateKey?: string;
@@ -46,6 +46,8 @@ type StaticProps = GetStaticProps<Props, StaticPathsProps>;
 
 const Testimonials: React.FC<Props> = (props) => {
   const { data, pages, itemCount, revalidateKey } = props;
+
+  const { width } = useWindowSize();
 
   /* Check if page needs to be revalidateda */
   const checkNewContent = async () => {
@@ -114,18 +116,23 @@ const Testimonials: React.FC<Props> = (props) => {
           </button>
         </Link>
         {pages?.map((url, index) => (
-          <Link
-            href="/testimonials/[testimonials]"
-            as={`${url}`}
+          <div
             key={`testimonials-nav-btn-${index * 5668}`}
+            className={
+              width! < bp.sm && index + 1 !== query
+                ? styles["display-none"]
+                : "block"
+            }
           >
-            <button
-              className={query === index + 1 ? styles["btn-active"] : ""}
-              disabled={query === index + 1}
-            >
-              {index + 1}
-            </button>
-          </Link>
+            <Link href="/testimonials/[testimonials]" as={`${url}`}>
+              <button
+                className={query === index + 1 ? styles["btn-active"] : ""}
+                disabled={query === index + 1}
+              >
+                {index + 1}
+              </button>
+            </Link>
+          </div>
         ))}
         <Link
           href="/testimonials/[testimonials]"
@@ -146,15 +153,6 @@ const Testimonials: React.FC<Props> = (props) => {
 };
 
 const Card: React.FC<{ data?: IData; flip?: boolean }> = ({ data, flip }) => {
-  const CardImage = () => (
-    <div className={`${styles["card-img-container"]}`}>
-      <Image
-        layout="fill"
-        src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
-      />
-    </div>
-  );
-
   const CardContent = () => (
     <div className={styles["card-content"]}>
       <div className={styles["card-title"]}>
@@ -167,22 +165,21 @@ const Card: React.FC<{ data?: IData; flip?: boolean }> = ({ data, flip }) => {
   );
 
   return (
-    <div className={`${styles.card} ${flip ? styles["card-flip"] : ""}`}>
-      {flip ? (
-        <>
-          <div className={`${styles["flip"]} ${styles["flip-img"]}`}>
-            <CardImage />
-          </div>
-          <div className={`${styles["flip"]} ${styles["flip-content"]}`}>
-            <CardContent />
-          </div>
-        </>
-      ) : (
-        <>
-          <CardImage />
-          <CardContent />
-        </>
-      )}
+    <div className={`${styles.card}`}>
+      <div
+        className={`${styles["image-wrapper"]} ${
+          flip ? styles["flip-image"] : ""
+        }`}
+      >
+        <Image layout="fill" src={data?.image.url as string} />
+      </div>
+      <div
+        className={`${styles["content-wrapper"]} ${
+          flip ? styles["flip-content"] : ""
+        }`}
+      >
+        <CardContent />
+      </div>
     </div>
   );
 };
@@ -205,12 +202,15 @@ export const getStaticProps: StaticProps = async (ctx) => {
   // //The value of this variable is the value that is passed to the `start` offset in the query.
   const offset = PAGE === 1 ? 0 : ITEM_PER_PAGE * PAGE - ITEM_PER_PAGE;
 
-  const client = initializeApollo();
-
-  const { data } = await client.query<IQuery, IVars>({
+  const { data, error: err } = await apolloQuery<IQ, IV>({
     query: testimonailsQuery,
     variables: { offset, limit: ITEM_PER_PAGE },
   });
+
+  if (err) {
+    console.error(err);
+    return { notFound: true };
+  } else if (!data) return { notFound: true };
 
   if (data.testimonials?.length === 0)
     return {
@@ -256,17 +256,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 const getPages = async () => {
   return new Promise<number>(async (resolve, reject) => {
-    const client = initializeApollo();
-
     const query = gql`
       query GetTestimonialsCount {
         testimonialsCount
       }
     `;
+
+    type queryType = { testimonialsCount: number };
+
     try {
-      const { data } = await client.query<{ testimonialsCount: number }>({
+      const { data, error: err } = await apolloQuery<queryType>({
         query,
       });
+
+      if (err) {
+        throw new Error(
+          `${err.statusCode}: Unable to get Testimonials count.${err.message}`
+        );
+      } else if (!data) throw new Error(`Unable to get Testimonials count.`);
+
       resolve(data.testimonialsCount);
     } catch (err) {
       reject(err);

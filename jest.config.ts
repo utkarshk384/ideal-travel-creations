@@ -19,7 +19,6 @@ const config: Config.InitialOptions = {
     "^@/animations(.*)$": "<rootDir>/src/Animations$1",
     "^@/components(.*)$": "<rootDir>/Components$1",
     "^@/apolloClient(.*)$": "<rootDir>/src/lib/apolloClient",
-    "^@/apolloQuery(.*)$": "<rootDir>/src/lib/apolloQuery",
     "^@/styles(.*)$": "<rootDir>/styles/pages$1",
     "^@/src(.*)$": "<rootDir>/src$1",
     "^@/api/(.*)$": "<rootDir>/pages/api$1",

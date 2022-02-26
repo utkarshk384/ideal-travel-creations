@@ -32,19 +32,6 @@ $page-nav-border: 2px solid $accent;
   margin: 2rem 0;
   background-color: $white;
 
-  &-img-container {
-    height: 15rem;
-    width: 15rem;
-    position: relative;
-    overflow: hidden;
-    margin-top: 3rem;
-    border-radius: 100%;
-
-    img {
-      object-fit: cover;
-    }
-  }
-
   &-content {
     @include flex(
       $breakpoint-css: (
@@ -89,6 +76,19 @@ $page-nav-border: 2px solid $accent;
   }
 }
 
+.image-wrapper {
+  height: 15rem;
+  width: 15rem;
+  position: relative;
+  overflow: hidden;
+  margin-top: 3rem;
+  border-radius: 100%;
+
+  img {
+    object-fit: cover;
+  }
+}
+
 .tst-nav {
   @include paginationMenu;
   color: $accent;
@@ -101,16 +101,10 @@ $page-nav-border: 2px solid $accent;
 
 @include breakpoint.media(">=lg") {
   .card {
-    &-img-container {
-      height: $card-height;
-      width: $card-height;
-      overflow: hidden;
-      margin: 0;
-      border-radius: 0;
-    }
+    width: 100%;
+    position: relative;
 
     &-content {
-      width: 60%;
       height: $card-height;
       overflow-y: visible;
       margin: 0;
@@ -130,15 +124,25 @@ $page-nav-border: 2px solid $accent;
     }
   }
 
-  //Flip Content
-  .card.card-flip {
-    position: relative;
-    width: 100%;
+  .content-wrapper {
+    width: 65%;
   }
 
-  .flip {
-    @include setPosition();
-    background-color: $white;
+  .image-wrapper {
+    width: 45%;
+    height: $card-height;
+    width: 45%;
+    overflow: hidden;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .flip-content {
+    order: 1;
+  }
+
+  .flip-image {
+    order: 2;
 
     &-img {
       right: 0;
@@ -148,18 +152,17 @@ $page-nav-border: 2px solid $accent;
   }
 }
 
+.display-none {
+  display: none;
+}
+
 @include breakpoint.media("<=87.375rem", ">=lg") {
-  .flip {
-    &.flip-img {
-      width: 40%;
-
-      .card-img-container {
-        width: 100%;
-      }
-    }
-
-    &.flip-content {
-      width: 100%;
-    }
+  .image-wrapper {
+    width: 45%;
+    height: $card-height;
+    width: 45%;
+    overflow: hidden;
+    margin: 0;
+    border-radius: 0;
   }
 }

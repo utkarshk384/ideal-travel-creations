@@ -13,15 +13,15 @@ import Utilities from "@/src/utils";
 import styles from "styles/pages/dync-dzongkhag.module.scss";
 
 //Graphql
-import { initializeApollo } from "@/apolloClient";
+import { apolloQuery } from "@/apolloClient";
 import { gql } from "@apollo/client";
 import { getSEOConfig } from "@/api/helperFunc";
 import dzongkhagQuery from "@/graphql/dzongkhagQuery.graphql";
-import type {
-  DzongkhagQuery as IQuery,
-  DzongkhagQueryVariables as IVars,
-} from "@/src/types/generated/graphql-frontend";
+import type * as GQLTypes from "@/src/types/generated/graphql-frontend";
 import withSEO from "@/components/withSEO";
+
+type IQ = GQLTypes.DzongkhagQuery;
+type IV = GQLTypes.DzongkhagQueryVariables;
 
 type pathType = { params: { dzongkhag: string } };
 
@@ -31,7 +31,7 @@ const SEO_URL_BASE = "/bhutan/sectors-of-bhutan/[dzongkhag]";
 let seoData = {};
 
 const Dzongkhag: React.FC<{
-  data: IQuery;
+  data: IQ;
 }> = ({ data }) => {
   return (
     <div className={styles["ssg-dzongkhags"]}>
@@ -48,7 +48,6 @@ const Dzongkhag: React.FC<{
             <Image
               src="https://res.cloudinary.com/djujm0tsp/image/upload/v1617247534/Happiness_Travel_be433cc261.jpg"
               layout="fill"
-              //TODO: Activate once data is added.
               alt={
                 data.dataForDzongkhags![0]?.coverImage?.alternativeText ||
                 "An image"
@@ -86,12 +85,15 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const url = ctx.params?.dzongkhag;
   if (typeof url !== "string") return { notFound: true };
 
-  const client = initializeApollo();
-
-  const { data } = await client.query<IQuery, IVars>({
+  const { data, error: err } = await apolloQuery<IQ, IV>({
     query: dzongkhagQuery,
     variables: { title: Utilities.startCase(url as string) },
   });
+
+  if (err) {
+    console.error(err);
+    return { notFound: true };
+  } else if (!data) return { notFound: true };
 
   if (data.dataForDzongkhags && data.dataForDzongkhags.length === 0)
     return { notFound: true };
@@ -122,7 +124,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths: pathType[] = [];
-  const client = initializeApollo();
+
   const query = gql`
     query dzongkhags {
       dataForDzongkhags {
@@ -132,12 +134,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   `;
 
   type queryType = {
-    title: string;
+    dataForDzongkhags: {
+      title: string;
+    }[];
   };
 
-  const { data } = await client.query<{ dataForDzongkhags: queryType[] }>({
-    query,
-  });
+  const { data, error: err } = await apolloQuery<queryType>({ query });
+
+  if (err) throw new Error(`${err.statusCode}: ${err.message}`);
 
   if (data) {
     data.dataForDzongkhags.map((url) => {

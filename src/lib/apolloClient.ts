@@ -7,6 +7,10 @@ import {
 } from "@apollo/client";
 import fetch from "cross-fetch";
 
+import { QueryOptions } from "@apollo/client";
+import { handleError } from "@/src/handleErrors";
+import { ApolloErrorType } from "../types/helperTypes";
+
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 export const createApolloClient = () => {
   const URI = `${process.env.NEXT_PUBLIC_BACKEND_ENDPOINT}/graphql`;
@@ -20,7 +24,7 @@ export const createApolloClient = () => {
   });
 };
 
-export function initializeApollo(initialState: object | null = null) {
+function initializeApollo(initialState: object | null = null) {
   const _apolloClient = apolloClient ?? createApolloClient();
 
   // If your page has Next.js data fetching methods that use Apollo Client,
@@ -48,3 +52,33 @@ export function useApollo(initialState: object) {
 
   return store;
 }
+
+type queryVars = Record<string, any> | undefined;
+
+type ReturnType<TData> = {
+  data: TData | null;
+  error: ApolloErrorType | undefined;
+};
+
+const apolloQuery = async <
+  TData extends any,
+  TVars extends queryVars = undefined
+>(
+  queryOptions: QueryOptions<TVars, TData>
+) => {
+  return new Promise<ReturnType<TData>>(async (resolve, reject) => {
+    const client = initializeApollo();
+
+    await client
+      .query<TData, TVars>({ ...queryOptions })
+      .then((res) => {
+        resolve({ data: res.data, error: undefined });
+      })
+      .catch((err) => {
+        const error = handleError(err);
+        resolve({ data: null, error });
+      });
+  });
+};
+
+export { apolloQuery };
