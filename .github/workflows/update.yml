@@ -32,12 +32,12 @@ jobs:
           file_name: .env.production
           fail_on_empty: false
 
-      - name: Build Code
-        run: yarn
+      - name: Run `yarn build` to buidl the code
+      - run: yarn
       - run: yarn build
 
       - name: Build Zip file
-        run: sudo rm -rf node_modules
+      - run: sudo rm -rf node_modules
       - run: zip -r ./output.zip ./
       - run: mkdir ../code
       - run: mv ./output.zip ../code
