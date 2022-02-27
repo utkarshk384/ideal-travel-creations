@@ -80,3 +80,4 @@ jobs:
             curl --silent https://gist.githubusercontent.com/utkarshk384/7ef53cba4cf342bb90e439895318f3d3/raw/c3fa1c9a2529354c209e2c5f5e0f743c3d3cda36/update.sh > update.sh
             sudo chmod +x ./update.sh
             ./update.sh ideal-travel-creations ideal-travel-creations-bucket 
+            rm ./update.sh
