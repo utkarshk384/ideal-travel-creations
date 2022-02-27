@@ -40,7 +40,7 @@ jobs:
       - name: Install yarn packages
         run: yarn
   
-      - name: Run `yarn build` to buidl the code
+      - name: Run `yarn build` to build the code
         run: yarn build
 
       - name: Remove root node_modules
@@ -77,7 +77,7 @@ jobs:
           envs: AWS_S3_BUCKET
           script: |
             cd /home/ubuntu/
-            curl --silent https://gist.githubusercontent.com/utkarshk384/7ef53cba4cf342bb90e439895318f3d3/raw/c3fa1c9a2529354c209e2c5f5e0f743c3d3cda36/update.sh > update.sh
+            curl --silent https://gist.githubusercontent.com/utkarshk384/7ef53cba4cf342bb90e439895318f3d3/raw/6dddcbc0d67da0184bf07a02af489fce4fc83a87/update.sh > update.sh
             sudo chmod +x ./update.sh
             ./update.sh ideal-travel-creations ideal-travel-creations-bucket 
             rm ./update.sh
