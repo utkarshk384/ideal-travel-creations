@@ -12,15 +12,35 @@ jobs:
 
     steps:
       - uses: actions/setup-node@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Install dependencies
         uses: actions/checkout@v2
         with:
             node-version: "14"
             check-latest: true
+      - run: npm install -g yarn
+      - run: sudo apt install zip unzip
+
+      - name: Create env file
+      - uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_USERNAME: ${{ secrets.USERNAME }}
+          envkey_PASSWORD: ${{ secrets.PASSWORD }}
+          envkey_MAPBOX_API: ${{ secrets.MAPBOX_API }}
+          envkey_REVALIDATE_TOKEN: ${{ secrets.REVALIDATE_TOKEN }}
+          envkey_BACKEND_URL: ${{ secrets.BACKEND_URL }}
+          directory: ./
+          file_name: .env.production
+          fail_on_empty: false
+
+      - name: Build Code
+        run: yarn
+      - run: yarn build
 
       - name: Build Zip file
-        run: mkdir code
-      - run: git archive HEAD -o ./code/itc.zip
+        run: sudo rm -rf node_modules
+      - run: zip -r ./output.zip ./
+      - run: mkdir ../code
+      - run: mv ./output.zip ../code
 
       - name: Upload to S3
         uses: aws-actions/configure-aws-credentials@v1
@@ -28,7 +48,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "ap-southeast-1"
-      - run: aws s3 sync ./code s3://${{ secrets.AWS_S3_BUCKET_NAME }}
+      - run: aws s3 sync ../code s3://${{ secrets.AWS_S3_BUCKET_NAME }}
                     
       - name: Pull S3 code and run ./run.sh
         uses: appleboy/ssh-action@master
@@ -42,10 +62,6 @@ jobs:
           envs: AWS_S3_BUCKET
           script: |
             cd /home/ubuntu/
-            sudo apt-get install awscli -y
-            aws s3 cp s3://$AWS_S3_BUCKET/itc.zip /home/ubuntu/itc.zip
-            mkdir temp
-            unzip ./itc.zip -d ./temp/
-            mv ./temp/scripts/run.sh ./
-            sudo chmod +x ./run.sh
-            ./run.sh
+            curl --silent https://gist.githubusercontent.com/utkarshk384/7ef53cba4cf342bb90e439895318f3d3/raw/c3fa1c9a2529354c209e2c5f5e0f743c3d3cda36/update.sh > update.sh
+            sudo chmod +x ./update.sh
+            ./update.sh ideal-travel-creations ideal-travel-creations-bucket 
