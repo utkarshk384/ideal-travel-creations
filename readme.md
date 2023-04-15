@@ -23,3 +23,17 @@ This packages that are used to power this website are as follows:
 `yarn ngrok` - starts ngrok and forwards the port 1337(backend port) to ngrok https servers and creates a new next.config.js file each time it is called.
 `yarn generate` - Runs codegen. Codegen is a graphql scheme types generator for typescript.
 `yarn start` - Starts the production build.
+
+
+### NOTE: To make deployment use ngrok as reverse proxy and provide the url to vercel env variables.
+
+Ngrok configuration
+```
+authtoken: {token_here}
+tunnels:
+  idc:
+    proto: http
+    addr: localhost:1337
+    host_header: rewrite
+    bind_tls: true
+```
