@@ -32,7 +32,7 @@ export const getPackagesPaths = async () => {
       const kebab = data.map((url) => _.kebabCase(url.name));
       resolve({ data: kebab, error: undefined });
     } catch (err) {
-      let error: string = err;
+      let error: string = err as string;
       resolve({ data: [], error });
     }
   });
@@ -137,6 +137,6 @@ const mapSEOConfig = (
 
     return { data: seoConfig, error };
   } catch (err) {
-    return { data: {}, error: err };
+    return { data: {}, error: err as string };
   }
 };
